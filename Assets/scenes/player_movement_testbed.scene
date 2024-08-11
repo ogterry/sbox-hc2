@@ -1,5 +1,5 @@
 {
-  "__guid": "325a4042-0696-43dd-a79d-dcc314299ba3",
+  "__guid": "68c15283-a02b-48fe-b681-b87ce5bd5f7a",
   "GameObjects": [
     {
       "__guid": "a29dbec0-5232-455d-ac98-2f51e1b4bb48",
@@ -491,6 +491,14 @@
           "SizeZ": 32
         }
       ]
+    },
+    {
+      "__guid": "92da79b0-b2a8-443b-b29f-8f5757b3cd7f",
+      "Flags": 0,
+      "Name": "HUD",
+      "Enabled": true,
+      "__Prefab": "prefabs/hud.prefab",
+      "__PrefabVariables": {}
     }
   ],
   "SceneProperties": {

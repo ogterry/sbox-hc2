@@ -1,0 +1,28 @@
+{
+  "RootObject": {
+    "__guid": "92da79b0-b2a8-443b-b29f-8f5757b3cd7f",
+    "Flags": 0,
+    "Name": "HUD",
+    "Enabled": true,
+    "Components": [
+      {
+        "__type": "Sandbox.ScreenPanel",
+        "__guid": "b0153f37-4881-4e4c-8739-02eb538b562f",
+        "AutoScreenScale": true,
+        "Opacity": 1,
+        "Scale": 1,
+        "ZIndex": 100
+      },
+      {
+        "__type": "Hud",
+        "__guid": "da052e11-6dfd-462d-8d03-a7590897635f"
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

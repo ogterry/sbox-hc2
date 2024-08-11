@@ -1,0 +1,94 @@
+﻿﻿@using Sandbox
+@using Sandbox.UI
+
+@inherits Panel
+@attribute [StyleSheet]
+
+<root>
+    <div class="output">
+        @foreach ( var entry in Entries )
+        {
+            <div class="entry">
+                @if ( entry.steamid > 0 )
+                {
+                    <div class="avatar" style="background-image: url( avatar:@entry.steamid )"></div>
+                }
+                <div class="author">@entry.author</div>
+                <div class="message">@entry.message</div>
+            </div>
+        }
+    </div>
+
+    <div class="input">
+	    <TextEntry @ref="InputBox" onsubmit="@ChatFinished" />
+    </div>
+</root>
+
+@code
+{
+    static Chat Instance { get; set; }
+    TextEntry InputBox { get; set; }
+
+    public Chat()
+    {
+        Instance = this;
+    }
+
+    public record Entry( ulong steamid, string author, string message, RealTimeSince timeSinceAdded );
+
+    List<Entry> Entries = new();
+
+    public override void Tick()
+    {
+        if ( !InputBox.IsValid() )
+            return;
+
+        AcceptsFocus = false;
+
+        if ( Input.Pressed( "chat" ) )
+            InputBox.Focus();
+
+        if ( Entries.RemoveAll( x => x.timeSinceAdded > 20.0f ) > 0 )
+            StateHasChanged();
+
+        SetClass( "open", InputBox.HasFocus );
+    }
+
+    void ChatFinished()
+    {
+        var text = InputBox.Text;
+        InputBox.Text = "";
+
+        if ( string.IsNullOrWhiteSpace( text ) )
+            return;
+
+        AddText( text );
+    }
+
+    [Broadcast]
+    public static void AddText( string message )
+    {
+        message = message.Truncate( 300 );
+
+        if ( string.IsNullOrWhiteSpace( message ) )
+            return;
+
+        var author = Rpc.Caller.DisplayName;
+        var steamid = Rpc.Caller.SteamId;
+
+        Instance.Entries.Add( new Entry( steamid, author, message, 0.0f ) );
+		Instance.StateHasChanged();
+	}
+
+    [Broadcast( NetPermission.HostOnly )]
+    public static void AddSystemText( string message )
+    {
+        message = message.Truncate( 300 );
+
+        if ( string.IsNullOrWhiteSpace( message ) )
+            return;
+
+        Instance.Entries.Add( new Entry( 0, "ℹ️", message, 0.0f ) );
+        Instance.StateHasChanged();
+    }
+}
