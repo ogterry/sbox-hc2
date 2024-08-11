@@ -41,11 +41,10 @@ VS
 
 	PixelInput MainVs( VertexInput i )
 	{
-		float3 position = float3( float( i.vData & ( 63 ) ), float( ( i.vData >> 6 ) & ( 63 ) ), float( ( i.vData >> 12 ) & ( 63 ) ) ) * g_flVoxelSize;
-		int texindex = int( ( i.vData >> 18 ) & ( 31 ) );
-		float brightness = ( float( ( i.vData >> 23 ) & ( 15 ) ) + 2 ) / 16.0;
-		int normal = int( ( i.vData >> 27 ) & ( 7 ) );
-		brightness = clamp( brightness, 0, 1 );
+		float3 position = float3(float(i.vData & 63), float((i.vData >> 6) & 63), float((i.vData >> 12) & 63)) * g_flVoxelSize;
+		int texindex = int((i.vData >> 24) & 255);
+		int normal = int((i.vData >> 21) & 7); 
+		float brightness = float((i.vData >> 18) & 7) / 7.0;
 
 		float3 color = float3( 0.75, 0.25, 0.25 );
 		if ( texindex == 1 ) color = float3( 0.25, 0.75, 0.25 );
@@ -76,7 +75,7 @@ VS
 		o.vNormalWs = vNormalOs;
 		o.vTangentUWs = vBinormalOs;
 		o.vTangentVWs = vTangentOs;
-		o.vVertexColor = float4( color.rgb, 1.0 );
+		o.vVertexColor = float4( color.rgb * brightness, 1.0 );
 		return FinalizeVertex( o );
 	}
 }

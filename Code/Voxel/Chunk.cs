@@ -180,7 +180,7 @@ public class Chunk
 	{
 		byte textureId = (byte)(blockType - 1);
 		byte normal = (byte)face;
-		uint faceData = (uint)((textureId & 31) << 18 | brightness | (normal & 7) << 27);
+		uint faceData = (uint)((textureId & 255) << 24 | (normal & 7) << 21 | (brightness & 7) << 18);
 
 		for ( int i = 0; i < 6; ++i )
 		{
@@ -376,12 +376,10 @@ public class Chunk
 					blockPosition[uAxis] = i;
 					blockPosition[vAxis] = j;
 
-					var brightness = (15 & 15) << 23;
-
 					AddQuad( slice,
 						blockPosition.x, blockPosition.y, blockPosition.z,
 						faceWidth, faceHeight, uAxis, vAxis,
-						BlockFaceMask[n].side, BlockFaceMask[n].type, brightness );
+						BlockFaceMask[n].side, BlockFaceMask[n].type, 7 );
 
 					vertexOffset += 6;
 				}
@@ -527,12 +525,10 @@ public class Chunk
 							blockPosition[uAxis] = i;
 							blockPosition[vAxis] = j;
 
-							var brightness = (15 & 15) << 23;
-
 							AddQuad( slice,
 								blockPosition.x, blockPosition.y, blockPosition.z,
 								faceWidth, faceHeight, uAxis, vAxis,
-								BlockFaceMask[n].side, BlockFaceMask[n].type, brightness );
+								BlockFaceMask[n].side, BlockFaceMask[n].type, 7 );
 						}
 
 						for ( int l = 0; l < faceHeight; ++l )

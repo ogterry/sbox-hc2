@@ -9,7 +9,7 @@ public readonly struct BlockVertex
 
 	public BlockVertex( uint x, uint y, uint z, uint faceData )
 	{
-		data = faceData | (x & 63) | (y & 63) << 6 | (z & 63) << 12;
+		data = faceData | (z & 63) << 12 | (y & 63) << 6 | (x & 63);
 	}
 
 	public static readonly VertexAttribute[] Layout =

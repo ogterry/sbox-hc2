@@ -219,17 +219,14 @@ public sealed class Player : Component
 		ApplyHalfGravity();
 
 		var voxel = Scene.GetAllComponents<VoxelComponent>().FirstOrDefault();
-
 		if ( voxel.IsValid() )
 		{
 			var face = voxel.GetBlockInDirection( Scene.Camera.Transform.Position * ( 1.0f / Chunk.VoxelSize ), Scene.Camera.Transform.Rotation.Forward, 1000, out var p, out var distance );
-
 			if ( face != VoxelComponent.BlockFace.Invalid )
 			{
 				if ( Input.Down( "attack1" ) )
 				{
-					Log.Info( face );
-					var b = Game.Random.Int( 1, 4 );
+					var b = Game.Random.Int( 1, 5 );
 					voxel.SetBlockAndUpdate( VoxelComponent.GetAdjacentBlockPosition( p, (int)face ), (byte)b );
 				}
 			}
