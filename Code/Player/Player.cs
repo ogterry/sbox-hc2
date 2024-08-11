@@ -1,0 +1,250 @@
+using Sandbox.Citizen;
+
+public sealed class Player : Component
+{
+	/// <summary>
+	/// The player's character controller, handles movement
+	/// </summary>
+	[RequireComponent]
+	public CharacterController Character { get; set; }
+
+	/// <summary>
+	/// Lil' helper for the citizen animations
+	/// </summary>
+	[Property, Group( "Components" )]
+	public CitizenAnimationHelper AnimationHelper { get; set; }
+
+	/// <summary>
+	/// Our skinned model renderer
+	/// </summary>
+	[Property, Group( "Components" )]
+	public SkinnedModelRenderer ModelRenderer { get; set; }
+
+	/// <summary>
+	/// The camera controller which controls the camera
+	/// </summary>
+	[Property, Group( "Components" )]
+	public CameraController CameraController { get; set; }
+
+	/// <summary>
+	/// Base jump power, can possibly change
+	/// </summary>
+	[Property, Group( "Movement Config" )]
+	public float JumpPower { get; set; } = 1024f;
+
+	/// <summary>
+	/// Base movement speed, can possibly change
+	/// </summary>
+	[Property, Group( "Movement Config" )]
+	public float MovementSpeed { get; set; } = 256f;
+
+	/// <summary>
+	/// The base acceleration in the air
+	/// </summary>
+	[Property, Group( "Movement Config" )]
+	private float AirAcceleration { get; set; } = 5f;
+
+	/// <summary>
+	/// The base acceleration on foot
+	/// </summary>
+	[Property, Group( "Movement Config" )]
+	private float Acceleration { get; set; } = 10f;
+
+	/// <summary>
+	/// The fastest acceleration you can move while in the air
+	/// </summary>
+	[Property, Group( "Movement Config" )]
+	private float MaxAirAcceleration { get; set; } = 125f;
+
+	/// <summary>
+	/// The fastest acceleration you can move on foot
+	/// </summary>
+	[Property, Group( "Movement Config" )]
+	private float MaxAcceleration { get; set; } = 500f;
+
+	/// <summary>
+	/// Which way are we looking?
+	/// </summary>
+	[Sync] 
+	public Angles EyeAngles { get; set; }
+
+	/// <summary>
+	/// What's our target speed?
+	/// </summary>
+	[Sync] 
+	private Vector3 WishVelocity { get; set; }
+	
+	/// <summary>
+	/// How much do we wish to move by? (Normal)
+	/// </summary>
+	[Sync]
+	private Vector3 WishMove { get; set; }
+
+	/// <summary>
+	/// How sticky are we to the ground?
+	/// </summary>
+	private float Friction { get; set; } = 10;
+
+	/// <summary>
+	/// What's our friction
+	/// </summary>
+	/// <returns></returns>
+	private float GetFriction()
+	{
+		if ( Character.IsOnGround ) 
+			return Friction;
+
+		// Base air friction, not gonna bother having it customizable
+		return 0.2f;
+	}
+
+	/// <summary>
+	/// How fast can we move?
+	/// I've made this a method as I assume we'll want to adjust this with levels, skills, armors, etc.
+	/// </summary>
+	/// <returns></returns>
+	private Vector3 GetWishSpeed()
+	{
+		return MovementSpeed;
+	}
+
+	/// <summary>
+	/// What's our jump strength?
+	/// I've made this a method as I assume we'll want to adjust this with levels, skills, armors, etc.
+	/// </summary>
+	/// <returns></returns>
+	private float GetJumpPower()
+	{
+		return JumpPower;
+	}
+
+	/// <summary>
+	/// Build how quick we wanna move
+	/// </summary>
+	private void BuildWishVelocity()
+	{
+		WishVelocity = 0f;
+		WishMove = Input.AnalogMove;
+
+		var rot = EyeAngles.WithPitch( 0f ).ToRotation();
+
+		var wishDirection = WishMove.Normal * rot;
+		wishDirection = wishDirection.WithZ( 0 );
+		WishVelocity = wishDirection * GetWishSpeed();
+		WishVelocity = WishVelocity.WithZ( 0 );
+	}
+
+	private void ApplyHalfGravity()
+	{
+		var halfGravity = Scene.PhysicsWorld.Gravity * Time.Delta * 0.5f;
+
+		if ( !Character.IsOnGround )
+		{
+			Character.Velocity += halfGravity;
+		}
+		else
+		{
+			Character.Velocity = Character.Velocity.WithZ( 0 );
+		}
+	}
+
+	private float GetAcceleration()
+	{
+		if ( !Character.IsOnGround ) return AirAcceleration;
+
+		return Acceleration;
+	}
+
+	private void ApplyAcceleration()
+	{
+		Character.Acceleration = GetAcceleration();
+	}
+
+	/// <summary>
+	/// Handles jump movement
+	/// </summary>
+	private void ApplyJump()
+	{
+		if ( Character.IsOnGround && Input.Pressed( "Jump" ) )
+		{
+			Character.Punch( Vector3.Up * GetJumpPower() );
+			BroadcastJump();
+		}
+	}
+
+	/// <summary>
+	/// Broadcasts a jump event to everyone in the game.
+	/// </summary>
+	[Broadcast]
+	private void BroadcastJump()
+	{
+		if ( AnimationHelper.IsValid() )
+		{
+			AnimationHelper.TriggerJump();
+		}
+	}
+
+	private float GetMaxAcceleration()
+	{
+		if ( !Character.IsOnGround ) return MaxAirAcceleration;
+		return MaxAcceleration;
+	}
+
+	protected override void OnFixedUpdate()
+	{
+		if ( IsProxy )
+			return;
+
+		BuildWishVelocity();
+		ApplyAcceleration();
+		ApplyJump();
+
+		Character.ApplyFriction( GetFriction() );
+
+		if ( Character.IsOnGround )
+		{
+			Character.Velocity = Character.Velocity.WithZ( 0 );
+		}
+		else
+		{
+			// Apply half of the gravity
+			ApplyHalfGravity();
+		}
+
+		Character.Accelerate( WishVelocity.ClampLength( GetMaxAcceleration() ) );
+
+		Character.Move();
+		// Apply the second half
+		ApplyHalfGravity();
+	}
+
+	private void ApplyAnimation()
+	{
+		if ( AnimationHelper.IsValid() )
+		{
+			AnimationHelper.WithVelocity( Character.Velocity );
+			AnimationHelper.WithWishVelocity( WishVelocity );
+			AnimationHelper.IsGrounded = Character.IsOnGround;
+			AnimationHelper.WithLook( EyeAngles.Forward, 0.1f, 0.1f, 0.1f );
+			AnimationHelper.DuckLevel = 0;
+			AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.None;
+			AnimationHelper.AimBodyWeight = 0.1f;
+		}
+	}
+
+	protected override void OnUpdate()
+	{
+		// Only rotate the model if we're in motion
+		if ( ModelRenderer.IsValid() && WishMove.Length > 0f )
+		{
+			ModelRenderer.Transform.Rotation = Rotation.FromYaw( EyeAngles.yaw );
+		}
+
+		ApplyAnimation();
+
+		if ( IsProxy )
+			return;
+
+		CameraController.UpdateFromPlayer();
+	}
+}
