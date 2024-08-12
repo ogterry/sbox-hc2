@@ -1,11 +1,27 @@
 ﻿
+using System;
+
 namespace HC2.Mobs;
+
+#nullable enable
 
 [Icon( "transfer_within_a_station" )]
 public sealed class GroundMover : Component
 {
 	[Property, Range( 50f, 500f )]
 	public float MaxSpeed { get; set; } = 150f;
+
+	/// <summary>
+	/// When moving, turn to look in move dir this many degrees per second.
+	/// </summary>
+	[Property, Range( 0f, 360f )]
+	public float MaxTurnSpeed { get; set; } = 180f;
+
+	/// <summary>
+	/// When moving, can move up to this many degrees away from forward vector.
+	/// </summary>
+	[Property, Range( 0f, 180f )]
+	public float MaxMoveAngle { get; set; } = 45f;
 
 	[RequireComponent]
 	public Mob Mob { get; private set; }
@@ -21,10 +37,33 @@ public sealed class GroundMover : Component
 	{
 		if ( IsProxy ) return;
 
+		LookTowardsTarget();
+
 		var wishVel = GetWishVelocity();
 
 		CharacterController.Accelerate( wishVel - CharacterController.Velocity);
 		CharacterController.Move();
+	}
+
+	private void LookTowardsTarget()
+	{
+		if ( Mob.MoveTarget is not { } target )
+		{
+			return;
+		}
+
+		var diff = (target - Transform.Position).WithZ( 0f );
+
+		if ( diff.LengthSquared < 16f )
+		{
+			// Too close!
+			return;
+		}
+
+		var wishDir = diff.Normal;
+		var wishRot = Rotation.LookAt( wishDir, Vector3.Up );
+
+		Transform.Rotation = Rotation.Lerp( Transform.Rotation, wishRot, 0.2f );
 	}
 
 	private Vector3 GetWishVelocity()
@@ -37,7 +76,7 @@ public sealed class GroundMover : Component
 		var diff = target - Transform.Position;
 		var approachDist = MaxSpeed / 2f;
 		var approachDistSq = approachDist * approachDist;
-		var stopDistSq = approachDistSq * 16f;
+		var stopDistSq = approachDistSq / 16f;
 
 		if ( diff.LengthSquared < stopDistSq )
 		{
@@ -49,7 +88,9 @@ public sealed class GroundMover : Component
 			? diff / approachDist
 			: diff.Normal;
 
-		return wishDir * MaxSpeed;
+		var forwardness = MathF.Max( 0f, Vector3.Dot( wishDir, Transform.Rotation.Forward ) );
+
+		return forwardness * wishDir * MaxSpeed;
 	}
 }
 

@@ -27,113 +27,45 @@
         "Serialized": {
           "States": [
             {
-              "Name": "Start",
-              "UserData": {
-                "Position": "-320,-384"
-              }
-            },
-            {
               "Id": 1,
               "Name": "Idle",
-              "UserData": {
-                "Position": "64,-448"
-              }
-            },
-            {
-              "Id": 3,
-              "Name": "Wander",
-              "UserData": {
-                "Position": "-160,-704"
-              }
-            },
-            {
-              "Id": 6,
-              "Name": "At Destination",
-              "UserData": {
-                "Position": "320,-704"
-              }
-            }
-          ],
-          "Transitions": [
-            {
-              "Id": 2,
-              "TargetId": 1
-            },
-            {
-              "Id": 4,
-              "SourceId": 1,
-              "TargetId": 3,
-              "Delay": 2,
-              "OnTransition": {
+              "OnEnterState": {
                 "__version": 7,
-                "__guid": "2ea5007f-4238-4eb3-898a-2f2399f1027c",
+                "__guid": "be09ce56-39ce-432a-9d61-59b4e9b37da3",
                 "UserData": {
-                  "Title": "Choose destination",
-                  "ReferencedComponentTypes": [
-                    "HC2.Mobs.Mob"
-                  ]
+                  "Title": "Action",
+                  "ReferencedComponentTypes": []
                 },
                 "Variables": [],
                 "Nodes": [
                   {
                     "Id": 0,
-                    "Type": "input"
-                  },
-                  {
-                    "Id": 3,
-                    "Type": "call",
-                    "Properties": {
-                      "_name": "SetMoveTarget",
-                      "_isStatic": false,
-                      "_type": "HC2.Mobs.Mob"
-                    },
+                    "Type": "input",
                     "UserData": {
-                      "Position": "272,0"
-                    }
-                  },
-                  {
-                    "Id": 5,
-                    "Type": "hc2.mob.getnearby",
-                    "UserData": {
-                      "Position": "-0,96"
+                      "Position": "96,144"
                     }
                   },
                   {
                     "Id": 7,
-                    "Type": "scene.get",
+                    "Type": "property",
                     "Properties": {
-                      "T": "HC2.Mobs.Mob"
+                      "_type": "Sandbox.TextRenderer",
+                      "_name": "Text"
                     },
                     "UserData": {
-                      "Position": "-64,-144",
-                      "Labels": {
-                        "_result": "mob"
-                      }
+                      "Position": "288,144"
                     }
                   },
                   {
                     "Id": 8,
-                    "Type": "property",
+                    "Type": "scene.ref",
                     "ParentId": 7,
                     "Properties": {
-                      "_name": "SpawnTransform",
-                      "_type": "HC2.Mobs.Mob"
-                    },
-                    "UserData": {
-                      "Visible": false
-                    }
-                  },
-                  {
-                    "Id": 9,
-                    "Type": "property",
-                    "ParentId": 8,
-                    "Properties": {
-                      "_name": "Position",
-                      "_type": "Transform"
-                    },
-                    "UserData": {
-                      "Labels": {
-                        "_result": "spawn pos"
+                      "component": {
+                        "_type": "component",
+                        "component_id": "80c32109-0f5a-4ac3-a53c-b6f1eec8ff8f",
+                        "go": "9137113a-7bf9-4a60-87d5-8f31c49ba025",
+                        "component_type": "TextRenderer"
                       }
                     }
                   }
@@ -142,72 +74,42 @@
                   {
                     "SrcId": 0,
                     "SrcName": "_signal",
-                    "DstId": 3,
-                    "DstName": "_signal"
-                  },
-                  {
-                    "SrcId": 7,
-                    "SrcName": "_result",
-                    "DstId": 3,
-                    "DstName": "_target"
-                  },
-                  {
-                    "SrcId": 5,
-                    "SrcName": "_result",
-                    "DstId": 3,
-                    "DstName": "position"
-                  },
-                  {
-                    "Value": 64,
-                    "DstId": 5,
-                    "DstName": "maxHeight"
-                  },
-                  {
-                    "Value": 256,
-                    "DstId": 5,
-                    "DstName": "maxRange"
-                  },
-                  {
-                    "Value": 128,
-                    "DstId": 5,
-                    "DstName": "minRange"
-                  },
-                  {
-                    "SrcId": 9,
-                    "SrcName": "_result",
-                    "DstId": 5,
-                    "DstName": "origin"
-                  },
-                  {
-                    "SrcId": 0,
-                    "SrcName": "_target",
                     "DstId": 7,
-                    "DstName": "_this"
-                  },
-                  {
-                    "SrcId": 7,
-                    "SrcName": "_result",
-                    "DstId": 8,
-                    "DstName": "_target"
+                    "DstName": "_signal"
                   },
                   {
                     "SrcId": 8,
                     "SrcName": "_result",
-                    "DstId": 9,
+                    "DstId": 7,
                     "DstName": "_target"
+                  },
+                  {
+                    "Value": "\uD83D\uDE34",
+                    "DstId": 7,
+                    "DstName": "_value"
                   }
-                ]
+                ],
+                "Defaults": {
+                  "$8.component": {
+                    "_type": "component",
+                    "component_id": "80c32109-0f5a-4ac3-a53c-b6f1eec8ff8f",
+                    "go": "9137113a-7bf9-4a60-87d5-8f31c49ba025",
+                    "component_type": "TextRenderer"
+                  }
+                }
+              },
+              "UserData": {
+                "Position": "64,-480"
               }
             },
             {
-              "Id": 5,
-              "SourceId": 3,
-              "TargetId": 1,
-              "Condition": {
+              "Id": 3,
+              "Name": "Wander",
+              "OnEnterState": {
                 "__version": 7,
-                "__guid": "40d3f988-0b90-4b2d-ae34-06954a32fc0e",
+                "__guid": "4e8e39ea-362f-4159-8257-9dab1e002f61",
                 "UserData": {
-                  "Title": "Reached destination",
+                  "Title": "Condition",
                   "ReferencedComponentTypes": []
                 },
                 "Variables": [],
@@ -218,13 +120,33 @@
                   },
                   {
                     "Id": 1,
-                    "Type": "output",
+                    "Type": "hc2.mob.getnearby",
                     "UserData": {
-                      "Position": "416,0"
+                      "Position": "32,128"
+                    }
+                  },
+                  {
+                    "Id": 2,
+                    "Type": "property",
+                    "Properties": {
+                      "_type": "Sandbox.GameObject",
+                      "_name": "Transform"
+                    },
+                    "UserData": {
+                      "Position": "-224,64"
                     }
                   },
                   {
                     "Id": 3,
+                    "Type": "property",
+                    "ParentId": 2,
+                    "Properties": {
+                      "_type": "Sandbox.GameTransform",
+                      "_name": "Position"
+                    }
+                  },
+                  {
+                    "Id": 16,
                     "Type": "scene.ref",
                     "Properties": {
                       "component": {
@@ -235,61 +157,218 @@
                       }
                     },
                     "UserData": {
-                      "Position": "-32,64"
+                      "Position": "48,48"
                     }
                   },
                   {
-                    "Id": 4,
-                    "Type": "property",
-                    "ParentId": 3,
+                    "Id": 17,
+                    "Type": "call",
                     "Properties": {
-                      "_name": "HasMoveTarget",
-                      "_type": "HC2.Mobs.Mob"
+                      "_type": "HC2.Mobs.Mob",
+                      "_name": "SetMoveTarget",
+                      "_isStatic": false
+                    },
+                    "UserData": {
+                      "Position": "400,160"
                     }
                   },
                   {
-                    "Id": 5,
-                    "Type": "op.not",
+                    "Id": 23,
+                    "Type": "property",
+                    "Properties": {
+                      "_type": "Sandbox.TextRenderer",
+                      "_name": "Text"
+                    },
                     "UserData": {
-                      "Position": "224,48"
+                      "Position": "624,160"
+                    }
+                  },
+                  {
+                    "Id": 24,
+                    "Type": "scene.ref",
+                    "ParentId": 23,
+                    "Properties": {
+                      "component": {
+                        "_type": "component",
+                        "component_id": "80c32109-0f5a-4ac3-a53c-b6f1eec8ff8f",
+                        "go": "9137113a-7bf9-4a60-87d5-8f31c49ba025",
+                        "component_type": "TextRenderer"
+                      }
                     }
                   }
                 ],
                 "Links": [
                   {
-                    "SrcId": 5,
-                    "SrcName": "_result",
+                    "Value": 32,
                     "DstId": 1,
-                    "DstName": "_result"
+                    "DstName": "maxHeight"
                   },
                   {
-                    "SrcId": 0,
-                    "SrcName": "_signal",
+                    "Value": 256,
                     "DstId": 1,
-                    "DstName": "_signal"
+                    "DstName": "maxRange"
+                  },
+                  {
+                    "Value": 192,
+                    "DstId": 1,
+                    "DstName": "minRange"
                   },
                   {
                     "SrcId": 3,
                     "SrcName": "_result",
-                    "DstId": 4,
+                    "DstId": 1,
+                    "DstName": "origin"
+                  },
+                  {
+                    "SrcId": 0,
+                    "SrcName": "_target",
+                    "DstId": 2,
                     "DstName": "_target"
                   },
                   {
-                    "SrcId": 4,
+                    "SrcId": 2,
                     "SrcName": "_result",
-                    "DstId": 5,
-                    "DstName": "a"
+                    "DstId": 3,
+                    "DstName": "_target"
+                  },
+                  {
+                    "SrcId": 0,
+                    "SrcName": "_signal",
+                    "DstId": 17,
+                    "DstName": "_signal"
+                  },
+                  {
+                    "SrcId": 16,
+                    "SrcName": "_result",
+                    "DstId": 17,
+                    "DstName": "_target"
+                  },
+                  {
+                    "SrcId": 1,
+                    "SrcName": "_result",
+                    "DstId": 17,
+                    "DstName": "position"
+                  },
+                  {
+                    "SrcId": 17,
+                    "SrcName": "_signal",
+                    "DstId": 23,
+                    "DstName": "_signal"
+                  },
+                  {
+                    "SrcId": 24,
+                    "SrcName": "_result",
+                    "DstId": 23,
+                    "DstName": "_target"
+                  },
+                  {
+                    "Value": "\uD83D\uDE21",
+                    "DstId": 23,
+                    "DstName": "_value"
                   }
                 ],
                 "Defaults": {
-                  "$3.component": {
+                  "$16.component": {
                     "_type": "component",
                     "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
                     "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
                     "component_type": "Mob"
+                  },
+                  "$24.component": {
+                    "_type": "component",
+                    "component_id": "80c32109-0f5a-4ac3-a53c-b6f1eec8ff8f",
+                    "go": "9137113a-7bf9-4a60-87d5-8f31c49ba025",
+                    "component_type": "TextRenderer"
                   }
                 }
+              },
+              "UserData": {
+                "Position": "-160,-704"
               }
+            },
+            {
+              "Id": 6,
+              "Name": "Short pause",
+              "OnEnterState": {
+                "__version": 7,
+                "__guid": "91f55d06-0c17-4b01-8770-2ffa32271beb",
+                "UserData": {
+                  "Title": "Condition",
+                  "ReferencedComponentTypes": []
+                },
+                "Variables": [],
+                "Nodes": [
+                  {
+                    "Id": 0,
+                    "Type": "input",
+                    "UserData": {
+                      "Position": "32,16"
+                    }
+                  },
+                  {
+                    "Id": 3,
+                    "Type": "property",
+                    "Properties": {
+                      "_type": "Sandbox.TextRenderer",
+                      "_name": "Text"
+                    },
+                    "UserData": {
+                      "Position": "256,16"
+                    }
+                  },
+                  {
+                    "Id": 4,
+                    "Type": "scene.ref",
+                    "ParentId": 3,
+                    "Properties": {
+                      "component": {
+                        "_type": "component",
+                        "component_id": "80c32109-0f5a-4ac3-a53c-b6f1eec8ff8f",
+                        "go": "9137113a-7bf9-4a60-87d5-8f31c49ba025",
+                        "component_type": "TextRenderer"
+                      }
+                    }
+                  }
+                ],
+                "Links": [
+                  {
+                    "SrcId": 0,
+                    "SrcName": "_signal",
+                    "DstId": 3,
+                    "DstName": "_signal"
+                  },
+                  {
+                    "SrcId": 4,
+                    "SrcName": "_result",
+                    "DstId": 3,
+                    "DstName": "_target"
+                  },
+                  {
+                    "Value": "\uD83E\uDD14",
+                    "DstId": 3,
+                    "DstName": "_value"
+                  }
+                ],
+                "Defaults": {
+                  "$4.component": {
+                    "_type": "component",
+                    "component_id": "80c32109-0f5a-4ac3-a53c-b6f1eec8ff8f",
+                    "go": "9137113a-7bf9-4a60-87d5-8f31c49ba025",
+                    "component_type": "TextRenderer"
+                  }
+                }
+              },
+              "UserData": {
+                "Position": "288,-704"
+              }
+            }
+          ],
+          "Transitions": [
+            {
+              "Id": 4,
+              "SourceId": 1,
+              "TargetId": 3,
+              "Delay": 2
             },
             {
               "Id": 7,
@@ -299,7 +378,7 @@
                 "__version": 7,
                 "__guid": "490acddc-928d-4e1f-80e3-92da035f8fa9",
                 "UserData": {
-                  "Title": "Almost at target",
+                  "Title": "At target",
                   "ReferencedComponentTypes": []
                 },
                 "Variables": [],
@@ -316,33 +395,40 @@
                     }
                   },
                   {
-                    "Id": 5,
+                    "Id": 9,
                     "Type": "scene.ref",
                     "Properties": {
                       "component": {
                         "_type": "component",
-                        "component_id": "355f4ad9-b6a5-4d57-bbfb-656f6f64850e",
+                        "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
                         "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
-                        "component_type": "GroundMover"
+                        "component_type": "Mob"
                       }
                     },
                     "UserData": {
-                      "Position": "-64,80"
+                      "Position": "-160,48"
                     }
                   },
                   {
-                    "Id": 6,
+                    "Id": 10,
                     "Type": "property",
-                    "ParentId": 5,
+                    "ParentId": 9,
                     "Properties": {
-                      "_name": "IsApproachingTarget",
-                      "_type": "HC2.Mobs.GroundMover"
+                      "_type": "HC2.Mobs.Mob",
+                      "_name": "HasMoveTarget"
+                    }
+                  },
+                  {
+                    "Id": 11,
+                    "Type": "op.not",
+                    "UserData": {
+                      "Position": "80,48"
                     }
                   }
                 ],
                 "Links": [
                   {
-                    "SrcId": 6,
+                    "SrcId": 11,
                     "SrcName": "_result",
                     "DstId": 1,
                     "DstName": "_result"
@@ -354,18 +440,24 @@
                     "DstName": "_signal"
                   },
                   {
-                    "SrcId": 5,
+                    "SrcId": 9,
                     "SrcName": "_result",
-                    "DstId": 6,
+                    "DstId": 10,
                     "DstName": "_target"
+                  },
+                  {
+                    "SrcId": 10,
+                    "SrcName": "_result",
+                    "DstId": 11,
+                    "DstName": "a"
                   }
                 ],
                 "Defaults": {
-                  "$5.component": {
+                  "$9.component": {
                     "_type": "component",
-                    "component_id": "355f4ad9-b6a5-4d57-bbfb-656f6f64850e",
+                    "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
                     "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
-                    "component_type": "GroundMover"
+                    "component_type": "Mob"
                   }
                 }
               }
@@ -374,6 +466,7 @@
               "Id": 8,
               "SourceId": 6,
               "TargetId": 1,
+              "Delay": 0.5,
               "Condition": {
                 "__version": 7,
                 "__guid": "51ac9c85-6323-492c-9014-5a3807c25a73",
@@ -425,236 +518,21 @@
               }
             },
             {
-              "Id": 9,
+              "Id": 10,
               "SourceId": 6,
               "TargetId": 3,
-              "OnTransition": {
-                "__version": 7,
-                "__guid": "0e6bc071-04fd-4485-86b7-33efe09aae2e",
-                "UserData": {
-                  "Title": "Keep going forwards",
-                  "ReferencedComponentTypes": []
-                },
-                "Variables": [],
-                "Nodes": [
-                  {
-                    "Id": 0,
-                    "Type": "input",
-                    "UserData": {
-                      "Position": "304,-0"
-                    }
-                  },
-                  {
-                    "Id": 1,
-                    "Type": "property",
-                    "Properties": {
-                      "_name": "Transform",
-                      "_type": "Sandbox.GameObject"
-                    },
-                    "UserData": {
-                      "Position": "-400,144"
-                    }
-                  },
-                  {
-                    "Id": 2,
-                    "Type": "property",
-                    "ParentId": 1,
-                    "Properties": {
-                      "_name": "Position",
-                      "_type": "Sandbox.GameTransform"
-                    }
-                  },
-                  {
-                    "Id": 3,
-                    "Type": "property",
-                    "ParentId": 1,
-                    "Properties": {
-                      "_name": "Rotation",
-                      "_type": "Sandbox.GameTransform"
-                    }
-                  },
-                  {
-                    "Id": 4,
-                    "Type": "property",
-                    "ParentId": 3,
-                    "Properties": {
-                      "_name": "Forward",
-                      "_type": "Rotation"
-                    }
-                  },
-                  {
-                    "Id": 6,
-                    "Type": "scene.ref",
-                    "Properties": {
-                      "component": {
-                        "_type": "component",
-                        "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
-                        "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
-                        "component_type": "Mob"
-                      }
-                    },
-                    "UserData": {
-                      "Position": "320,64"
-                    }
-                  },
-                  {
-                    "Id": 7,
-                    "Type": "call",
-                    "Properties": {
-                      "_name": "SetMoveTarget",
-                      "_isStatic": false,
-                      "_type": "HC2.Mobs.Mob"
-                    },
-                    "UserData": {
-                      "Position": "576,48"
-                    }
-                  },
-                  {
-                    "Id": 8,
-                    "Type": "op.add",
-                    "UserData": {
-                      "Position": "64,192"
-                    }
-                  },
-                  {
-                    "Id": 9,
-                    "Type": "op.multiply",
-                    "UserData": {
-                      "Position": "-144,256"
-                    }
-                  },
-                  {
-                    "Id": 10,
-                    "Type": "random.float",
-                    "UserData": {
-                      "Position": "-368,304"
-                    }
-                  },
-                  {
-                    "Id": 16,
-                    "Type": "hc2.mob.getnearby",
-                    "UserData": {
-                      "Position": "304,176"
-                    }
-                  }
-                ],
-                "Links": [
-                  {
-                    "SrcId": 0,
-                    "SrcName": "_target",
-                    "DstId": 1,
-                    "DstName": "_target"
-                  },
-                  {
-                    "SrcId": 1,
-                    "SrcName": "_result",
-                    "DstId": 2,
-                    "DstName": "_target"
-                  },
-                  {
-                    "SrcId": 1,
-                    "SrcName": "_result",
-                    "DstId": 3,
-                    "DstName": "_target"
-                  },
-                  {
-                    "SrcId": 3,
-                    "SrcName": "_result",
-                    "DstId": 4,
-                    "DstName": "_target"
-                  },
-                  {
-                    "SrcId": 0,
-                    "SrcName": "_signal",
-                    "DstId": 7,
-                    "DstName": "_signal"
-                  },
-                  {
-                    "SrcId": 6,
-                    "SrcName": "_result",
-                    "DstId": 7,
-                    "DstName": "_target"
-                  },
-                  {
-                    "SrcId": 16,
-                    "SrcName": "_result",
-                    "DstId": 7,
-                    "DstName": "position"
-                  },
-                  {
-                    "SrcId": 2,
-                    "SrcName": "_result",
-                    "DstId": 8,
-                    "DstName": "a"
-                  },
-                  {
-                    "SrcId": 9,
-                    "SrcName": "_result",
-                    "DstId": 8,
-                    "DstName": "b"
-                  },
-                  {
-                    "SrcId": 4,
-                    "SrcName": "_result",
-                    "DstId": 9,
-                    "DstName": "a"
-                  },
-                  {
-                    "SrcId": 10,
-                    "SrcName": "_result",
-                    "DstId": 9,
-                    "DstName": "b"
-                  },
-                  {
-                    "Value": 256,
-                    "DstId": 10,
-                    "DstName": "max"
-                  },
-                  {
-                    "Value": 128,
-                    "DstId": 10,
-                    "DstName": "min"
-                  },
-                  {
-                    "Value": 32,
-                    "DstId": 16,
-                    "DstName": "maxHeight"
-                  },
-                  {
-                    "Value": 128,
-                    "DstId": 16,
-                    "DstName": "maxRange"
-                  },
-                  {
-                    "Value": 0,
-                    "DstId": 16,
-                    "DstName": "minRange"
-                  },
-                  {
-                    "SrcId": 8,
-                    "SrcName": "_result",
-                    "DstId": 16,
-                    "DstName": "origin"
-                  }
-                ],
-                "Defaults": {
-                  "$6.component": {
-                    "_type": "component",
-                    "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
-                    "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
-                    "component_type": "Mob"
-                  }
-                }
-              }
+              "Delay": 0.5
             }
           ],
-          "InitialStateId": 0
+          "InitialStateId": 1
         }
       },
       {
         "__type": "HC2.Mobs.GroundMover",
         "__guid": "355f4ad9-b6a5-4d57-bbfb-656f6f64850e",
-        "MaxSpeed": 150
+        "MaxMoveAngle": 45,
+        "MaxSpeed": 150,
+        "MaxTurnSpeed": 180
       }
     ],
     "Children": [
@@ -682,6 +560,19 @@
         "Name": "Head",
         "Position": "0,0,48",
         "Enabled": true,
+        "Components": [
+          {
+            "__type": "JiggleBone",
+            "__guid": "2df7c321-f543-424a-b7c3-249d1680740e",
+            "EndPoint": "0,0,0",
+            "StartPoint": "0,0,-16",
+            "Damping": 1,
+            "Mass": 1,
+            "Radius": 40,
+            "Speed": 1,
+            "Stiffness": 1
+          }
+        ],
         "Children": [
           {
             "__guid": "593e8a0f-65ae-4820-814e-c3fe08482989",

@@ -16,12 +16,10 @@ public static class MobHelpers
 		for ( var i = 0; i < maxAttempts; i++ )
 		{
 			var angle = Random.Shared.Float( 0f, MathF.PI * 2f );
-			var range = MathF.Sqrt( Random.Shared.Float( minRange / maxRange, maxRange ) ) * maxRange;
+			var range = MathF.Sqrt( Random.Shared.Float( minRange / maxRange, 1f ) ) * maxRange;
 
 			var pos = origin + new Vector3( MathF.Cos( angle ), MathF.Sin( angle ), 0f ) * range;
 			var ray = new Ray( pos + Vector3.Up * maxHeight, Vector3.Down );
-
-			Log.Info( pos );
 
 			var trace = Game.ActiveScene.Trace
 				.Ray( ray, maxHeight * 2f )
