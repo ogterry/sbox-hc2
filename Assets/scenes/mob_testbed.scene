@@ -497,6 +497,14 @@
           "SpawnPeriod": "5.00,10.00,0"
         }
       ]
+    },
+    {
+      "__guid": "0b7bd5fa-2d0c-44c8-9bcc-97dc61a2adc2",
+      "Flags": 0,
+      "Name": "hud",
+      "Enabled": true,
+      "__Prefab": "prefabs/hud.prefab",
+      "__PrefabVariables": {}
     }
   ],
   "SceneProperties": {
