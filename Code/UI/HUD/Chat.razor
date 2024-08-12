@@ -8,7 +8,7 @@
     <div class="output">
         @foreach ( var entry in Entries )
         {
-            <div class="entry">
+            <div class="entry glass-panel">
                 @if ( entry.steamid > 0 )
                 {
                     <div class="avatar" style="background-image: url( avatar:@entry.steamid )"></div>
@@ -19,8 +19,8 @@
         }
     </div>
 
-    <div class="input">
-	    <TextEntry @ref="InputBox" onsubmit="@ChatFinished" />
+    <div class="input glass-panel">
+	    <TextEntry @ref="InputBox" onsubmit="@ChatFinished" placeholder=@("Press " + ChatKey() + " to chat") />
     </div>
 </root>
 
@@ -63,6 +63,11 @@
             return;
 
         AddText( text );
+    }
+
+    string ChatKey()
+    {
+        return Input.GetButtonOrigin("chat");
     }
 
     [Broadcast]

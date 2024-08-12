@@ -1,27 +1,30 @@
 @import "../Styles/_theme.scss";
 
+$item-height: 50px;
+$item-padding: 4px 16px;
+
 Chat {
     width: 450px;
-    align-items: center;
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: stretch;
     font-size: $text-md;
     font-family: $font;
     justify-content: flex-end;
     padding: 4px;
+    gap: 4px;
 
     .output {
         flex-grow: 1;
         flex-direction: column;
         justify-content: flex-end;
-        align-items: stretch;
         gap: 5px;
 
         .entry {
-            padding: 2px;
+            padding: $item-padding;
+            height: $item-height;
             gap: 8px;
-            text-shadow: 2px 2px 2px #000a;
             align-items: center;
+            flex-grow: 0;
 
             .avatar {
                 width: 32px;
@@ -46,15 +49,19 @@ Chat {
 
     .input {
         color: white;
-        height: 0px;
+        height: $item-height;
+        padding: $item-padding;
+        width: 100%;
+
+        .placeholder {
+            padding: 0;
+        }
+        .label {
+            padding: 0;
+        }
     }
 
     &.open {
         pointer-events: all;
-        background-image: linear-gradient( to right, rgba( black, 0.9 ), transparent );
-
-        .input {
-            height: 42px;
-        }
     }
 }

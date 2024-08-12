@@ -1,7 +1,26 @@
-$safe-zone-x: 50px;
-$safe-zone-y: 50px;
+$safe-zone-x: 25px;
+$safe-zone-y: 25px;
 
 $font: Glegoo;
-$primary: #2d95ce;
+$primary: #2B88FF;
+
+$blue: #2B88FF;
+$red: #FF2B00;
+$green: #44FF2B;
+$yellow: #FFB52B;
 
 $text-md: 16px;
+
+$background: rgba( black, 0.75 );
+$blur: blur( 50px );
+$rounding: 4px;
+$border: 0px solid rgba( black, 0.1 );
+$shadow: 0 5px 50px rgba( black, 0.25 );
+
+.glass-panel {
+    background-color: $background;
+    backdrop-filter: $blur;
+    border-radius: $rounding;
+    border: $border;
+    box-shadow: $shadow;
+}
