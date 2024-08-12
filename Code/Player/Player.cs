@@ -87,6 +87,11 @@ public sealed class Player : Component
 	private float Friction { get; set; } = 10;
 
 	/// <summary>
+	/// What's our holdtype?
+	/// </summary>
+	public CitizenAnimationHelper.HoldTypes HoldType { get; set; }
+
+	/// <summary>
 	/// What's our friction
 	/// </summary>
 	/// <returns></returns>
@@ -242,7 +247,8 @@ public sealed class Player : Component
 			AnimationHelper.IsGrounded = Character.IsOnGround;
 			AnimationHelper.WithLook( EyeAngles.Forward, 0.1f, 0.1f, 0.1f );
 			AnimationHelper.DuckLevel = 0;
-			AnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.None;
+			AnimationHelper.HoldType = HoldType;
+			AnimationHelper.Handedness = CitizenAnimationHelper.Hand.Right;
 			AnimationHelper.AimBodyWeight = 0.1f;
 		}
 	}

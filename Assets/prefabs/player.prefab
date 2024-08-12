@@ -9,6 +9,8 @@
       {
         "__type": "Player",
         "__guid": "1456c9e9-1a19-4961-a21c-99e56a8c8741",
+        "Acceleration": 10,
+        "AirAcceleration": 5,
         "AnimationHelper": {
           "_type": "component",
           "component_id": "4356fd35-577d-4e82-a224-12c488e91d14",
@@ -22,6 +24,8 @@
           "component_type": "CameraController"
         },
         "JumpPower": 512,
+        "MaxAcceleration": 500,
+        "MaxAirAcceleration": 125,
         "ModelRenderer": {
           "_type": "component",
           "component_id": "84111462-d9ad-40e3-8808-992c26f37bc5",
@@ -556,7 +560,35 @@
                                             "Name": "hold_R",
                                             "Position": "5.361085,0.621902,-3.394508",
                                             "Rotation": "-0.5764739,0.3928987,0.1704146,0.695893",
-                                            "Enabled": true
+                                            "Enabled": true,
+                                            "Children": [
+                                              {
+                                                "__guid": "52bf6129-6b5c-41ba-83d2-19cd9969a3f2",
+                                                "Flags": 0,
+                                                "Name": "Sword",
+                                                "Position": "-0.000007148182,0.00001070521,2.330258",
+                                                "Scale": "0.1,0.1,1",
+                                                "Enabled": true,
+                                                "Components": [
+                                                  {
+                                                    "__type": "Sandbox.ModelRenderer",
+                                                    "__guid": "40b0f98b-7d73-44e9-b3f0-538ff2c1b016",
+                                                    "BodyGroups": 18446744073709551615,
+                                                    "RenderType": "On",
+                                                    "Tint": "0.33488,0.49008,1,1"
+                                                  },
+                                                  {
+                                                    "__type": "MeleeWeapon",
+                                                    "__guid": "42ef9772-1109-4ed9-93e3-678d64ed85c9",
+                                                    "AttackDelay": 1,
+                                                    "AttackRange": 512,
+                                                    "Damage": 50,
+                                                    "HoldType": "HoldItem",
+                                                    "InputAction": "attack1"
+                                                  }
+                                                ]
+                                              }
+                                            ]
                                           },
                                           {
                                             "__guid": "3751858b-bf7d-4a96-bdc2-54c520a21209",
@@ -1195,6 +1227,14 @@
                 "Viewport": "0,0,1,1",
                 "ZFar": 10000,
                 "ZNear": 10
+              },
+              {
+                "__type": "Sandbox.AmbientOcclusion",
+                "__guid": "a2bb597d-5254-44a7-83d0-de0518632d52",
+                "FalloffDistance": 1,
+                "Intensity": 8,
+                "Quality": "High",
+                "Radius": 32
               }
             ]
           }

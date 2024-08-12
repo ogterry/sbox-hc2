@@ -27,6 +27,17 @@ public sealed class CameraController : Component
 	[Property, Group( "Config" )]
 	public Vector2 PitchLimits { get; set; } = new( -50, 50 );
 
+	/// <summary>
+	/// Constructs a ray using the camera's GameObject
+	/// </summary>
+	public Ray AimRay
+	{
+		get
+		{
+			return new( Transform.Position + Vector3.Up * 64f, Player.EyeAngles.ToRotation().Forward );
+		}
+	}
+
 	protected override void OnStart()
 	{
 		// Turn off the camera if we're not in charge of this player
