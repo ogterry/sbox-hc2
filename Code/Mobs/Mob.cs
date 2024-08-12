@@ -2,7 +2,8 @@
 
 #nullable enable
 
-public interface IMobTarget : IValid
+[Icon( "adjust" )]
+public sealed class MobTarget : Component
 {
 
 }
@@ -12,7 +13,7 @@ public sealed class Mob : Component
 {
 	public Transform SpawnTransform { get; private set; }
 
-	public IMobTarget? AimTarget { get; private set; }
+	public MobTarget? AimTarget { get; private set; }
 	public Vector3? MoveTarget { get; private set; }
 
 	public bool HasAimTarget => AimTarget.IsValid();
@@ -33,7 +34,7 @@ public sealed class Mob : Component
 		MoveTarget = null;
 	}
 
-	public void SetAimTarget( IMobTarget target )
+	public void SetAimTarget( MobTarget target )
 	{
 		AimTarget = target;
 	}

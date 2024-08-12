@@ -91,6 +91,10 @@
         "IsTrigger": false,
         "Scale": "25,25,67.99998",
         "Static": false
+      },
+      {
+        "__type": "HC2.Mobs.MobTarget",
+        "__guid": "8baec84e-18e2-41b4-80a1-ef3eecf69ef6"
       }
     ],
     "Children": [
