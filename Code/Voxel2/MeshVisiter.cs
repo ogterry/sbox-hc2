@@ -14,21 +14,21 @@ public class MeshVisiter
 
 	public MeshVisiter()
 	{
-		visitXN = new int[Constants.VOXELS_PER_CHUNK];
-		visitXP = new int[Constants.VOXELS_PER_CHUNK];
-		visitZN = new int[Constants.VOXELS_PER_CHUNK];
-		visitZP = new int[Constants.VOXELS_PER_CHUNK];
-		visitYN = new int[Constants.VOXELS_PER_CHUNK];
-		visitYP = new int[Constants.VOXELS_PER_CHUNK];
+		visitXN = new int[Constants.ChunkSizeCubed];
+		visitXP = new int[Constants.ChunkSizeCubed];
+		visitZN = new int[Constants.ChunkSizeCubed];
+		visitZP = new int[Constants.ChunkSizeCubed];
+		visitYN = new int[Constants.ChunkSizeCubed];
+		visitYP = new int[Constants.ChunkSizeCubed];
 	}
 
 	public void Reset()
 	{
-		Array.Clear( visitXN, 0, Constants.VOXELS_PER_CHUNK );
-		Array.Clear( visitXP, 0, Constants.VOXELS_PER_CHUNK );
-		Array.Clear( visitZN, 0, Constants.VOXELS_PER_CHUNK );
-		Array.Clear( visitZP, 0, Constants.VOXELS_PER_CHUNK );
-		Array.Clear( visitYN, 0, Constants.VOXELS_PER_CHUNK );
-		Array.Clear( visitYP, 0, Constants.VOXELS_PER_CHUNK );
+		Array.Clear( visitXN, 0, Constants.ChunkSizeCubed );
+		Array.Clear( visitXP, 0, Constants.ChunkSizeCubed );
+		Array.Clear( visitZN, 0, Constants.ChunkSizeCubed );
+		Array.Clear( visitZP, 0, Constants.ChunkSizeCubed );
+		Array.Clear( visitYN, 0, Constants.ChunkSizeCubed );
+		Array.Clear( visitYP, 0, Constants.ChunkSizeCubed );
 	}
 }

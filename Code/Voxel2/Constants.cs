@@ -15,9 +15,5 @@ public static class Constants
 	public const int ChunkMask = 0x1f;
 	public const int ChunkShift = 5;
 
-	public const int VOXELS_PER_CHUNK = ChunkSizeCubed;
-	public const int BYTES_PER_VOXEL = sizeof( byte );
-	public const int BYTES_PER_CHUNK = VOXELS_PER_CHUNK * BYTES_PER_VOXEL;
-
 	public static float VoxelSize => 16.0f;
 }

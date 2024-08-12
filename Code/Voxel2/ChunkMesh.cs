@@ -1,20 +1,19 @@
-﻿using Sandbox.Diagnostics;
-using System;
+﻿using System;
+using Sandbox.Diagnostics;
 
 namespace Voxel;
 
 public partial class ChunkMesh
 {
+	const int ChunkStepY = 1;
+	const int ChunkStepX = Constants.MaxChunkAmount;
+	const int ChunkStepZ = Constants.MaxChunkAmountSquared;
+
+	const int AccessStepY = 1;
+	const int AccessStepX = Constants.ChunkSize;
+	const int AccessStepZ = Constants.ChunkSizeSquared;
+
 	public VoxelModel Model;
-
-	const int CHUNK_STEP_Y = 1;
-	const int CHUNK_STEP_X = Constants.MaxChunkAmount;
-	const int CHUNK_STEP_Z = Constants.MaxChunkAmountSquared;
-
-	const int ACCESS_STEP_Y = 1;
-	const int ACCESS_STEP_X = Constants.ChunkSize;
-	const int ACCESS_STEP_Z = Constants.ChunkSizeSquared;
-
 	public Chunk Chunk;
 
 	Chunk ChunkXN;
@@ -24,18 +23,18 @@ public partial class ChunkMesh
 	Chunk ChunkZN;
 	Chunk ChunkZP;
 
-	int ChunkPosX => Chunk.chunkPosX;
-	int ChunkPosY => Chunk.chunkPosY;
-	int ChunkPosZ => Chunk.chunkPosZ;
+	int ChunkPosX => Chunk.ChunkPosX;
+	int ChunkPosY => Chunk.ChunkPosY;
+	int ChunkPosZ => Chunk.ChunkPosZ;
 
 	public Vector3 WorldPos;
+	public Transform Transform => new( new Vector3( WorldPos.z, WorldPos.x, WorldPos.y ) * Constants.VoxelSize );
 
 	static readonly uint[] Buffer = new uint[Constants.ChunkSizeCubed * 6 * 6];
+	static readonly MeshVisiter meshVisiter = new();
 	int BufferWrite = 0;
 
-	static readonly MeshVisiter meshVisiter = new();
-
-	private SceneObject SceneObject;
+	public SceneObject SceneObject { get; private set; }
 
 	private static readonly VertexAttribute[] Layout =
 	{
@@ -60,27 +59,26 @@ public partial class ChunkMesh
 		var chunkAccess = Model.GetAccessLocal( ChunkPosX, ChunkPosY, ChunkPosZ );
 		var exteriorChunk = Model.ShouldMeshExterior ? VoxelModel.EmptyChunk : VoxelModel.FullChunk;
 
-		ChunkXN = ChunkPosX > 0 ? Model.chunks[chunkAccess - CHUNK_STEP_X] : exteriorChunk;
-		ChunkXP = ChunkPosX < Model.ChunkAmountXM1 ? Model.chunks[chunkAccess + CHUNK_STEP_X] : exteriorChunk;
+		ChunkXN = ChunkPosX > 0 ? Model.Chunks[chunkAccess - ChunkStepX] : exteriorChunk;
+		ChunkXP = ChunkPosX < Model.ChunkAmountXM1 ? Model.Chunks[chunkAccess + ChunkStepX] : exteriorChunk;
 
-		ChunkYN = ChunkPosY > 0 ? Model.chunks[chunkAccess - CHUNK_STEP_Y] : exteriorChunk;
-		ChunkYP = ChunkPosY < Model.ChunkAmountYM1 ? Model.chunks[chunkAccess + CHUNK_STEP_Y] : exteriorChunk;
+		ChunkYN = ChunkPosY > 0 ? Model.Chunks[chunkAccess - ChunkStepY] : exteriorChunk;
+		ChunkYP = ChunkPosY < Model.ChunkAmountYM1 ? Model.Chunks[chunkAccess + ChunkStepY] : exteriorChunk;
 
-		ChunkZN = ChunkPosZ > 0 ? Model.chunks[chunkAccess - CHUNK_STEP_Z] : exteriorChunk;
-		ChunkZP = ChunkPosZ < Model.ChunkAmountZM1 ? Model.chunks[chunkAccess + CHUNK_STEP_Z] : exteriorChunk;
+		ChunkZN = ChunkPosZ > 0 ? Model.Chunks[chunkAccess - ChunkStepZ] : exteriorChunk;
+		ChunkZP = ChunkPosZ < Model.ChunkAmountZM1 ? Model.Chunks[chunkAccess + ChunkStepZ] : exteriorChunk;
 	}
 
 	public void PreMeshing()
 	{
-		Assert.True( Chunk.voxels != null );
-		Assert.True( Chunk.dirty );
+		Assert.True( Chunk.Voxels != null );
+		Assert.True( Chunk.Dirty );
 
 		Chunk.UnsetDirty();
 	}
 
-	public void PostMeshing( SceneWorld scene )
+	public void PostMeshing( SceneWorld scene, Transform transform )
 	{
-		// Create a buffer if we meshed any faces
 		var size = BufferWrite;
 		if ( size > 0 )
 		{
@@ -91,14 +89,14 @@ public partial class ChunkMesh
 				var mesh = new Mesh( material );
 
 				var boundsMin = Vector3.Zero;
-				var boundsMax = boundsMin + (Constants.ChunkSize * 16);
+				var boundsMax = boundsMin + (Constants.ChunkSize * Constants.VoxelSize);
 				mesh.Bounds = new BBox( boundsMin, boundsMax );
 
 				mesh.CreateVertexBuffer( size, Layout, Buffer.AsSpan() );
 				modelBuilder.AddMesh( mesh );
 				var model = modelBuilder.Create();
 
-				SceneObject = new SceneObject( scene, model, new Transform( new Vector3( WorldPos.z, WorldPos.x, WorldPos.y ) * Constants.VoxelSize ) );
+				SceneObject = new SceneObject( scene, model, transform.ToWorld( Transform ) );
 				SceneObject.Flags.CastShadows = true;
 				SceneObject.Flags.IsOpaque = true;
 				SceneObject.Flags.IsTranslucent = false;
@@ -126,46 +124,39 @@ public partial class ChunkMesh
 
 	public void GenerateMesh()
 	{
-		// Ensure this chunk exists
 		Assert.True( Chunk.Allocated );
-		Assert.True( !Chunk.fake );
+		Assert.True( !Chunk.Fake );
 
 		BufferWrite = 0;
 		meshVisiter.Reset();
 
-		// Precalculate Z voxel access
 		var zAccess = 0;
 		var maxYPointer = 0;
 		var minYPointer = 0;
 
 		for ( int k = 0; k < Constants.ChunkSize; k++ )
 		{
-			// Precalculate X voxel access
 			var xAccess = 0;
 
 			for ( int i = 0; i < Constants.ChunkSize; i++ )
 			{
-				// Get the min and max bounds for this column
-				int j = Chunk.minAltitude[minYPointer++];
-				int maxJ = Chunk.maxAltitude[maxYPointer++];
+				int j = Chunk.MinAltitude[minYPointer++];
+				int maxJ = Chunk.MaxAltitude[maxYPointer++];
 
-				// Precalculate voxel access
 				var access = zAccess + xAccess + j;
 				var voxel = access;
 
-				// Mesh from the bottom to the top of this column
 				for ( ; j <= maxJ; j++, access++, voxel++ )
 				{
-					var v = Chunk.voxels[voxel];
-					if ( v > 0 )
+					if ( Chunk.Voxels[voxel] > 0 )
+					{
 						CreateRuns( voxel, i, j, k, access, xAccess, zAccess );
+					}
 				}
 
-				// Update voxel access
 				xAccess += Constants.ChunkSize;
 			}
 
-			// Update voxel access
 			zAccess += Constants.ChunkSizeSquared;
 		}
 	}
@@ -193,7 +184,7 @@ public partial class ChunkMesh
 		var visitZP = access;
 
 		// Precalculate
-		var data = Chunk.voxels;
+		var data = Chunk.Voxels;
 		var index = data[voxel];
 		var comparison = meshVisiter.Comparison;
 		byte textureID = index;
@@ -212,14 +203,12 @@ public partial class ChunkMesh
 		{
 			var originalXN = visitXN;
 
-
 			// Remember we've meshed this face
 			meshVisiter.visitXN[visitXN] = comparison;
-			visitXN += ACCESS_STEP_Y;
-
+			visitXN += AccessStepY;
 
 			// Combine faces upwards along the Y axis
-			var voxelPointer = access + ACCESS_STEP_Y;
+			var voxelPointer = access + AccessStepY;
 			var yAccess = j1;
 
 			for ( end_a = j1; end_a < Constants.ChunkSize; end_a++ )
@@ -235,7 +224,7 @@ public partial class ChunkMesh
 
 				// Remember we've meshed this face
 				meshVisiter.visitXN[visitXN] = comparison;
-				visitXN += ACCESS_STEP_Y;
+				visitXN += AccessStepY;
 			}
 
 			// Calculate how many voxels we combined along the Y axis
@@ -251,7 +240,7 @@ public partial class ChunkMesh
 			{
 				// Go back to where we started, then move g units along the Z axis
 				voxelPointer = access;
-				voxelPointer += ACCESS_STEP_Z * g;
+				voxelPointer += AccessStepZ * g;
 				yAccess = j;
 
 				// Check if the entire row next to us is also the same index and not covered by another block
@@ -278,12 +267,12 @@ public partial class ChunkMesh
 
 				// Remember we've meshed these faces
 				var tempXN = originalXN;
-				tempXN += ACCESS_STEP_Z * g;
+				tempXN += AccessStepZ * g;
 
 				for ( int h = 0; h < length_a; h++ )
 				{
 					meshVisiter.visitXN[tempXN] = comparison;
-					tempXN += ACCESS_STEP_Y;
+					tempXN += AccessStepY;
 				}
 			}
 
@@ -303,10 +292,10 @@ public partial class ChunkMesh
 
 			// Remember we've meshed this face
 			meshVisiter.visitXP[visitXP] = comparison;
-			visitXP += ACCESS_STEP_Y;
+			visitXP += AccessStepY;
 
 			// Combine faces along the Y axis
-			var voxelPointer = access + ACCESS_STEP_Y;
+			var voxelPointer = access + AccessStepY;
 			var yAccess = j1;
 
 			for ( end_a = j1; end_a < Constants.ChunkSize; end_a++ )
@@ -319,7 +308,7 @@ public partial class ChunkMesh
 
 				// Remember we've meshed this face
 				meshVisiter.visitXP[visitXP] = comparison;
-				visitXP += ACCESS_STEP_Y;
+				visitXP += AccessStepY;
 			}
 
 			// Calculate how many voxels we combined along the Y axis
@@ -335,7 +324,7 @@ public partial class ChunkMesh
 			{
 				// Go back to where we started, then move g units on the Z axis
 				voxelPointer = access;
-				voxelPointer += ACCESS_STEP_Z * g;
+				voxelPointer += AccessStepZ * g;
 				yAccess = j;
 
 				// Check if the entire row next to us is also the same index and not covered by another block
@@ -362,12 +351,12 @@ public partial class ChunkMesh
 
 				// Remember we've meshed these faces
 				var tempXP = originalXP;
-				tempXP += ACCESS_STEP_Z * g;
+				tempXP += AccessStepZ * g;
 
 				for ( int h = 0; h < length_a; h++ )
 				{
 					meshVisiter.visitXP[tempXP] = comparison;
-					tempXP += ACCESS_STEP_Y;
+					tempXP += AccessStepY;
 				}
 			}
 
@@ -387,10 +376,10 @@ public partial class ChunkMesh
 
 			// Remember we've meshed this face
 			meshVisiter.visitZN[visitZN] = comparison;
-			visitZN += ACCESS_STEP_Y;
+			visitZN += AccessStepY;
 
 			// Combine faces along the Y axis
-			var voxelPointer = access + ACCESS_STEP_Y;
+			var voxelPointer = access + AccessStepY;
 			var yAccess = j1;
 
 			for ( end_a = j1; end_a < Constants.ChunkSize; end_a++ )
@@ -403,7 +392,7 @@ public partial class ChunkMesh
 
 				// Remember we've meshed this face
 				meshVisiter.visitZN[visitZN] = comparison;
-				visitZN += ACCESS_STEP_Y;
+				visitZN += AccessStepY;
 			}
 
 			// Calculate how many voxels we combined along the Y axis
@@ -419,7 +408,7 @@ public partial class ChunkMesh
 			{
 				// Go back to where we started, then move g units on the X axis
 				voxelPointer = access;
-				voxelPointer += ACCESS_STEP_X * g;
+				voxelPointer += AccessStepX * g;
 				yAccess = j;
 
 				// Check if the entire row next to us is also the same index and not covered by another block
@@ -446,12 +435,12 @@ public partial class ChunkMesh
 
 				// Remember we've meshed these faces
 				var tempZN = originalZN;
-				tempZN += ACCESS_STEP_X * g;
+				tempZN += AccessStepX * g;
 
 				for ( int h = 0; h < length_a; h++ )
 				{
 					meshVisiter.visitZN[tempZN] = comparison;
-					tempZN += ACCESS_STEP_Y;
+					tempZN += AccessStepY;
 				}
 			}
 
@@ -471,10 +460,10 @@ public partial class ChunkMesh
 
 			// Remember we've meshed this face
 			meshVisiter.visitZP[visitZP] = comparison;
-			visitZP += ACCESS_STEP_Y;
+			visitZP += AccessStepY;
 
 			// Combine faces along the Y axis
-			var voxelPointer = access + ACCESS_STEP_Y;
+			var voxelPointer = access + AccessStepY;
 			var yAccess = j1;
 
 			for ( end_a = j1; end_a < Constants.ChunkSize; end_a++ )
@@ -487,7 +476,7 @@ public partial class ChunkMesh
 
 				// Remember we've meshed this face
 				meshVisiter.visitZP[visitZP] = comparison;
-				visitZP += ACCESS_STEP_Y;
+				visitZP += AccessStepY;
 			}
 
 			// Calculate how many voxels we combined along the Y axis
@@ -503,7 +492,7 @@ public partial class ChunkMesh
 			{
 				// Go back to where we started, then move g units on the X axis
 				voxelPointer = access;
-				voxelPointer += ACCESS_STEP_X * g;
+				voxelPointer += AccessStepX * g;
 				yAccess = j;
 
 				// Check if the entire row next to us is also the same index and not covered by another block
@@ -530,12 +519,12 @@ public partial class ChunkMesh
 
 				// Remember we've meshed these faces
 				var tempZP = originalZP;
-				tempZP += ACCESS_STEP_X * g;
+				tempZP += AccessStepX * g;
 
 				for ( int h = 0; h < length_a; h++ )
 				{
 					meshVisiter.visitZP[tempZP] = comparison;
-					tempZP += ACCESS_STEP_Y;
+					tempZP += AccessStepY;
 				}
 			}
 
@@ -555,11 +544,11 @@ public partial class ChunkMesh
 
 			// Remember we've meshed this face
 			meshVisiter.visitYN[visitYN] = comparison;
-			visitYN += ACCESS_STEP_X;
+			visitYN += AccessStepX;
 
 			// Combine faces along the X axis
-			var voxelPointer = access + ACCESS_STEP_X;
-			var netXAccess = xAccess + ACCESS_STEP_X;
+			var voxelPointer = access + AccessStepX;
+			var netXAccess = xAccess + AccessStepX;
 
 			for ( end_a = i1; end_a < Constants.ChunkSize; end_a++ )
 			{
@@ -568,11 +557,11 @@ public partial class ChunkMesh
 
 				// Remember we've meshed this face
 				meshVisiter.visitYN[visitYN] = comparison;
-				visitYN += ACCESS_STEP_X;
+				visitYN += AccessStepX;
 
 				// Move 1 unit on the X axis
-				voxelPointer += ACCESS_STEP_X;
-				netXAccess += ACCESS_STEP_X;
+				voxelPointer += AccessStepX;
+				netXAccess += AccessStepX;
 			}
 
 			// Calculate how many voxels we combined along the X axis
@@ -587,7 +576,7 @@ public partial class ChunkMesh
 			{
 				// Go back to where we started, then move g units on the Z axis
 				voxelPointer = access;
-				voxelPointer += ACCESS_STEP_Z * g;
+				voxelPointer += AccessStepZ * g;
 				netXAccess = xAccess;
 
 				// Check if the entire row next to us is also the same index and not covered by another block
@@ -602,8 +591,8 @@ public partial class ChunkMesh
 						break;
 					}
 
-					voxelPointer += ACCESS_STEP_X;
-					netXAccess += ACCESS_STEP_X;
+					voxelPointer += AccessStepX;
+					netXAccess += AccessStepX;
 				}
 
 				if ( !adjacentRowIsIdentical )
@@ -614,12 +603,12 @@ public partial class ChunkMesh
 
 				// Remember we've meshed these faces
 				var tempYN = originalYN;
-				tempYN += ACCESS_STEP_Z * g;
+				tempYN += AccessStepZ * g;
 
 				for ( int h = 0; h < length_a; h++ )
 				{
 					meshVisiter.visitYN[tempYN] = comparison;
-					tempYN += ACCESS_STEP_X;
+					tempYN += AccessStepX;
 				}
 			}
 
@@ -639,11 +628,11 @@ public partial class ChunkMesh
 
 			// Remember we've meshed this face
 			meshVisiter.visitYP[visitYP] = comparison;
-			visitYP += ACCESS_STEP_X;
+			visitYP += AccessStepX;
 
 			// Combine faces along the X axis
-			var voxelPointer = access + ACCESS_STEP_X;
-			var netXAccess = xAccess + ACCESS_STEP_X;
+			var voxelPointer = access + AccessStepX;
+			var netXAccess = xAccess + AccessStepX;
 
 			for ( end_a = i1; end_a < Constants.ChunkSize; end_a++ )
 			{
@@ -652,11 +641,11 @@ public partial class ChunkMesh
 
 				// Remember we've meshed this face
 				meshVisiter.visitYP[visitYP] = comparison;
-				visitYP += ACCESS_STEP_X;
+				visitYP += AccessStepX;
 
 				// Move 1 unit on the X axis
-				voxelPointer += ACCESS_STEP_X;
-				netXAccess += ACCESS_STEP_X;
+				voxelPointer += AccessStepX;
+				netXAccess += AccessStepX;
 			}
 
 			// Calculate how many voxels we combined along the X axis
@@ -671,7 +660,7 @@ public partial class ChunkMesh
 			{
 				// Go back to where we started, then move g units on the Z axis
 				voxelPointer = access;
-				voxelPointer += ACCESS_STEP_Z * g;
+				voxelPointer += AccessStepZ * g;
 				netXAccess = xAccess;
 
 
@@ -687,8 +676,8 @@ public partial class ChunkMesh
 						break;
 					}
 
-					voxelPointer += ACCESS_STEP_X;
-					netXAccess += ACCESS_STEP_X;
+					voxelPointer += AccessStepX;
+					netXAccess += AccessStepX;
 				}
 
 				if ( !adjacentRowIsIdentical )
@@ -699,12 +688,12 @@ public partial class ChunkMesh
 
 				// Remember we've meshed these faces
 				var tempYP = originalYP;
-				tempYP += ACCESS_STEP_Z * g;
+				tempYP += AccessStepZ * g;
 
 				for ( int h = 0; h < length_a; h++ )
 				{
 					meshVisiter.visitYP[tempYP] = comparison;
-					tempYP += ACCESS_STEP_X;
+					tempYP += AccessStepX;
 				}
 			}
 
@@ -727,10 +716,10 @@ public partial class ChunkMesh
 			if ( !ChunkXN.Allocated )
 				return true;
 
-			return DrawFaceCommon( ChunkXN.voxels[(Constants.ChunkSize - 1) * Constants.ChunkSize + j + kCS2] );
+			return DrawFaceCommon( ChunkXN.Voxels[(Constants.ChunkSize - 1) * Constants.ChunkSize + j + kCS2] );
 		}
 
-		return DrawFaceCommon( Chunk.voxels[bPointer - Constants.ChunkSize] );
+		return DrawFaceCommon( Chunk.Voxels[bPointer - Constants.ChunkSize] );
 	}
 
 	protected bool DrawFaceXP( int j, int bPointer, bool max, int kCS2 )
@@ -740,10 +729,10 @@ public partial class ChunkMesh
 			if ( !ChunkXP.Allocated )
 				return true;
 
-			return DrawFaceCommon( ChunkXP.voxels[j + kCS2] );
+			return DrawFaceCommon( ChunkXP.Voxels[j + kCS2] );
 		}
 
-		return DrawFaceCommon( Chunk.voxels[bPointer + Constants.ChunkSize] );
+		return DrawFaceCommon( Chunk.Voxels[bPointer + Constants.ChunkSize] );
 	}
 
 	protected bool DrawFaceYN( int bPointer, bool min, int iCS, int kCS2 )
@@ -753,10 +742,10 @@ public partial class ChunkMesh
 			if ( !ChunkYN.Allocated )
 				return true;
 
-			return DrawFaceCommon( ChunkYN.voxels[iCS + (Constants.ChunkSize - 1) + kCS2] );
+			return DrawFaceCommon( ChunkYN.Voxels[iCS + (Constants.ChunkSize - 1) + kCS2] );
 		}
 
-		return DrawFaceCommon( Chunk.voxels[bPointer - ACCESS_STEP_Y] );
+		return DrawFaceCommon( Chunk.Voxels[bPointer - AccessStepY] );
 	}
 
 	protected bool DrawFaceYP( int voxelPointer, bool max, int xAccess, int zAccess )
@@ -766,10 +755,10 @@ public partial class ChunkMesh
 			if ( !ChunkYP.Allocated )
 				return true;
 
-			return DrawFaceCommon( ChunkYP.voxels[xAccess + zAccess] );
+			return DrawFaceCommon( ChunkYP.Voxels[xAccess + zAccess] );
 		}
 
-		return DrawFaceCommon( Chunk.voxels[voxelPointer + ACCESS_STEP_Y] );
+		return DrawFaceCommon( Chunk.Voxels[voxelPointer + AccessStepY] );
 	}
 
 	protected bool DrawFaceZN( int j, int bPointer, bool min, int iCS )
@@ -779,10 +768,10 @@ public partial class ChunkMesh
 			if ( !ChunkZN.Allocated )
 				return true;
 
-			return DrawFaceCommon( ChunkZN.voxels[iCS + j + (Constants.ChunkSize - 1) * Constants.ChunkSizeSquared] );
+			return DrawFaceCommon( ChunkZN.Voxels[iCS + j + (Constants.ChunkSize - 1) * Constants.ChunkSizeSquared] );
 		}
 
-		return DrawFaceCommon( Chunk.voxels[bPointer - Constants.ChunkSizeSquared] );
+		return DrawFaceCommon( Chunk.Voxels[bPointer - Constants.ChunkSizeSquared] );
 	}
 
 	protected bool DrawFaceZP( int j, int bPointer, bool max, int iCS )
@@ -792,9 +781,9 @@ public partial class ChunkMesh
 			if ( !ChunkZP.Allocated )
 				return true;
 
-			return DrawFaceCommon( ChunkZP.voxels[iCS + j] );
+			return DrawFaceCommon( ChunkZP.Voxels[iCS + j] );
 		}
 
-		return DrawFaceCommon( Chunk.voxels[bPointer + Constants.ChunkSizeSquared] );
+		return DrawFaceCommon( Chunk.Voxels[bPointer + Constants.ChunkSizeSquared] );
 	}
 }

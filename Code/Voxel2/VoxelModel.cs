@@ -1,18 +1,20 @@
 ﻿using System;
-using Sandbox.Diagnostics;
 using Sandbox.Utility;
+using Sandbox.Diagnostics;
 
 namespace Voxel;
 
 public class VoxelRenderer : Component, Component.ExecuteInEditor
 {
-	VoxelModel m;
+	VoxelModel Model;
 
 	protected override void OnEnabled()
 	{
 		base.OnEnabled();
 
-		m = new VoxelModel( 128, 64, 128 );
+		Transform.OnTransformChanged += OnLocalTransformChanged;
+
+		Model = new VoxelModel( 128, 64, 128 );
 
 		for ( int x = 0; x < 128; x++ )
 		{
@@ -37,15 +39,16 @@ public class VoxelRenderer : Component, Component.ExecuteInEditor
 
 				for ( int y = 0; y < height; y++ )
 				{
-					m.AddVoxel( z, y, x, blockType );
+					Model.AddVoxel( z, y, x, blockType );
 				}
 			}
 		}
 
+		var transform = Transform.World;
 
-		foreach ( var mesh in m.meshChunks )
+		foreach ( var mesh in Model.meshChunks )
 		{
-			MeshChunk( mesh );
+			MeshChunk( mesh, transform );
 		}
 	}
 
@@ -53,11 +56,30 @@ public class VoxelRenderer : Component, Component.ExecuteInEditor
 	{
 		base.OnDisabled();
 
-		m.Destroy();
-		m = null;
+		Transform.OnTransformChanged -= OnLocalTransformChanged;
+
+		Model.Destroy();
+		Model = null;
 	}
 
-	protected void MeshChunk( ChunkMesh c )
+	private void OnLocalTransformChanged()
+	{
+		var transform = Transform.World;
+
+		foreach ( var mesh in Model.meshChunks )
+		{
+			if ( mesh == null )
+				continue;
+
+			var so = mesh.SceneObject;
+			if ( !so.IsValid() )
+				continue;
+
+			so.Transform = transform.ToWorld( mesh.Transform );
+		}
+	}
+
+	protected void MeshChunk( ChunkMesh c, Transform transform )
 	{
 		if ( c == null )
 			return;
@@ -65,11 +87,11 @@ public class VoxelRenderer : Component, Component.ExecuteInEditor
 		if ( !c.Chunk.IsDirty() )
 			return;
 
-		Assert.True( !c.Chunk.fake );
+		Assert.True( !c.Chunk.Fake );
 
 		c.PreMeshing();
 		c.GenerateMesh();
-		c.PostMeshing( Scene.SceneWorld );
+		c.PostMeshing( Scene.SceneWorld, transform );
 	}
 }
 
@@ -77,13 +99,10 @@ public partial class VoxelModel
 {
 	public ChunkMesh[] meshChunks = new ChunkMesh[Constants.MaxChunkAmountCubed];
 
-	public long meshingTime;
-	public int meshSize;
-	public int meshedChunkCount;
-
 	public int SizeX;
 	public int SizeY;
 	public int SizeZ;
+
 	public int ChunkAmountX;
 	public int ChunkAmountY;
 	public int ChunkAmountZ;
@@ -92,7 +111,7 @@ public partial class VoxelModel
 	public int ChunkAmountYM1;
 	public int ChunkAmountZM1;
 
-	public Chunk[] chunks;
+	public Chunk[] Chunks;
 
 	public bool ShouldMeshExterior = true;
 
@@ -101,23 +120,21 @@ public partial class VoxelModel
 
 	static VoxelModel()
 	{
-		// Allocate an empty and a full chunk
 		EmptyChunk = new Chunk();
 		EmptyChunk.Reset( 0, 0, 0, true );
 
 		FullChunk = new Chunk();
 		FullChunk.Reset( 0, 0, 0, true );
 
-		Array.Fill( FullChunk.voxels, (byte)1 );
+		Array.Fill( FullChunk.Voxels, (byte)1 );
 	}
 
 	public VoxelModel( int mx, int my, int mz )
 	{
-		// Always allocate 32x32x32 chunks, even though we don't use them all
-		chunks = new Chunk[Constants.MaxChunkAmountCubed];
-		for ( int i = 0; i < chunks.Length; i++ )
+		Chunks = new Chunk[Constants.MaxChunkAmountCubed];
+		for ( int i = 0; i < Chunks.Length; i++ )
 		{
-			chunks[i] = new Chunk();
+			Chunks[i] = new Chunk();
 		}
 
 		Assert.True( mx % Constants.ChunkSize == 0 );
@@ -148,7 +165,6 @@ public partial class VoxelModel
 	}
 
 	public bool OutOfBounds( int x, int y, int z ) => (uint)x >= SizeX || (uint)y >= SizeY || (uint)z >= SizeZ;
-
 	public int GetAccess( int x, int y, int z ) => GetAccessLocal( x >> Constants.ChunkShift, y >> Constants.ChunkShift, z >> Constants.ChunkShift );
 	public int GetAccessLocal( int f, int g, int h )
 	{
@@ -169,45 +185,34 @@ public partial class VoxelModel
 		if ( OutOfBounds( x, y, z ) )
 			return;
 
-		// Get and initialise (if null) the chunk
-		var c = InitChunk( x, y, z );
-
-		// Add a voxel to the chunk
-		c.SetVoxel( x, y, z, index );
+		var chunk = InitChunk( x, y, z );
+		chunk.SetVoxel( x, y, z, index );
 	}
 
 	public Chunk InitChunk( int x, int y, int z )
 	{
-		// i, j, k are voxel positions within a chunk
-		// f, g, h are chunk positions
-		// x, y, z are global voxel positions
 		var f = x >> Constants.ChunkShift;
 		var g = y >> Constants.ChunkShift;
 		var h = z >> Constants.ChunkShift;
 
-		// Precalculate
 		var chunkAccess = GetAccessLocal( f, g, h );
-		var c = chunks[chunkAccess];
+		var chunk = Chunks[chunkAccess];
 
-		// If already initialised, return it
-		if ( c.Allocated )
+		if ( chunk.Allocated )
 		{
 			Assert.True( meshChunks[chunkAccess] != null );
-			return c;
+			return chunk;
 		}
 
-		// Ensure we're not trying to initialise the empty or full chunk
-		Assert.True( !c.fake );
+		Assert.True( !chunk.Fake );
 
-		// Initialise it and return it
-		c.Reset( f, g, h, false );
-		Assert.True( c.Allocated );
+		chunk.Reset( f, g, h, false );
+		Assert.True( chunk.Allocated );
 
-		// Create a meshing wrapper for this chunk
-		meshChunks[chunkAccess] = new ChunkMesh( this, c );
+		meshChunks[chunkAccess] = new ChunkMesh( this, chunk );
 
-		Assert.True( c.voxels != null );
+		Assert.True( chunk.Voxels != null );
 
-		return c;
+		return chunk;
 	}
 }
