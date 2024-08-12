@@ -151,7 +151,7 @@
                     }
                   },
                   "UserData": {
-                    "Position": "-256,-640"
+                    "Position": "-960,-800"
                   }
                 },
                 {
@@ -385,7 +385,7 @@
                     }
                   },
                   "UserData": {
-                    "Position": "-32,-1088"
+                    "Position": "-128,-800"
                   }
                 },
                 {
@@ -464,7 +464,7 @@
                     }
                   },
                   "UserData": {
-                    "Position": "-448,-992"
+                    "Position": "-544,-800"
                   }
                 },
                 {
@@ -790,7 +790,7 @@
                     }
                   },
                   "UserData": {
-                    "Position": "-928,-896"
+                    "Position": "-544,-416"
                   }
                 },
                 {
@@ -902,7 +902,7 @@
                         "DstName": "_target"
                       },
                       {
-                        "Value": 300,
+                        "Value": 500,
                         "DstId": 3,
                         "DstName": "_value"
                       },
@@ -1156,7 +1156,7 @@
                     }
                   },
                   "UserData": {
-                    "Position": "-576,-512"
+                    "Position": "-960,-416"
                   }
                 },
                 {
@@ -1456,7 +1456,7 @@
                     }
                   },
                   "UserData": {
-                    "Position": "-608,-1312"
+                    "Position": "-128,-416"
                   }
                 },
                 {
@@ -1651,17 +1651,11 @@
                     }
                   },
                   "UserData": {
-                    "Position": "-576,-768"
+                    "Position": "-768,-608"
                   }
                 }
               ],
               "Transitions": [
-                {
-                  "Id": 4,
-                  "SourceId": 1,
-                  "TargetId": 3,
-                  "Delay": 2
-                },
                 {
                   "Id": 7,
                   "SourceId": 3,
@@ -1758,7 +1752,7 @@
                   "Id": 8,
                   "SourceId": 6,
                   "TargetId": 1,
-                  "Delay": 0.5,
+                  "Delay": 1,
                   "Condition": {
                     "__version": 7,
                     "__guid": "51ac9c85-6323-492c-9014-5a3807c25a73",
@@ -1813,7 +1807,7 @@
                   "Id": 10,
                   "SourceId": 6,
                   "TargetId": 3,
-                  "Delay": 0.5
+                  "Delay": 1
                 },
                 {
                   "Id": 14,
@@ -2310,6 +2304,12 @@
                   "SourceId": 15,
                   "TargetId": 1,
                   "Delay": 5
+                },
+                {
+                  "Id": 31,
+                  "SourceId": 1,
+                  "TargetId": 6,
+                  "Delay": 1
                 }
               ],
               "InitialStateId": 1
