@@ -11,6 +11,7 @@
         "__type": "HC2.Mobs.Mob",
         "__guid": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
         "DamageScale": 1,
+        "ExperienceYield": 6,
         "FaceText": {
           "_type": "component",
           "component_id": "80c32109-0f5a-4ac3-a53c-b6f1eec8ff8f",
@@ -2321,15 +2322,15 @@
         "__guid": "e5fff93b-14e0-4d75-b7ec-6a423a64da68",
         "Flags": 0,
         "Name": "Sphere",
-        "Position": "0,0,16",
-        "Scale": "0.5,0.5,0.5",
+        "Position": "0,0,11.9796",
+        "Scale": "0.163401,0.163401,0.163401",
         "Enabled": true,
         "Components": [
           {
             "__type": "Sandbox.ModelRenderer",
             "__guid": "69ca473a-0802-4b5d-9a4e-d9634f088201",
             "BodyGroups": 18446744073709551615,
-            "Model": "models/dev/sphere.vmdl",
+            "Model": "models/mobs/roller/roller_ball.vmdl",
             "RenderType": "On",
             "Tint": "1,1,1,1"
           }
@@ -2365,15 +2366,15 @@
             "__guid": "593e8a0f-65ae-4820-814e-c3fe08482989",
             "Flags": 0,
             "Name": "Cube",
-            "Position": "0,0,0",
-            "Scale": "0.5,0.5,0.5",
+            "Position": "1.57333,0,-24.15794",
+            "Scale": "0.309483,0.309483,0.309483",
             "Enabled": true,
             "Components": [
               {
                 "__type": "Sandbox.ModelRenderer",
                 "__guid": "42784a1e-b509-41bc-92c0-bd9f7e43626f",
                 "BodyGroups": 18446744073709551615,
-                "Model": "models/dev/box.vmdl",
+                "Model": "models/mobs/roller/roller_head.vmdl",
                 "RenderType": "On",
                 "Tint": "1,1,1,1"
               }
@@ -2384,7 +2385,6 @@
                 "Flags": 0,
                 "Name": "Face",
                 "Position": "28,0,0",
-                "Enabled": true,
                 "Components": [
                   {
                     "__type": "Sandbox.TextRenderer",
