@@ -17,6 +17,13 @@ public partial class Mannequin : Component, Component.IDamageable
 	void IDamageable.OnDamage( in DamageInfo damage )
 	{
 		BroadcastAttack( ( damage.Attacker.Transform.Position - Transform.Position ).Normal ) ;
+
+		//Should be more generic
+		var dmgEffect = Components.Get<DamageEffect>();
+		if ( dmgEffect != null )
+		{
+			dmgEffect.OnDamage( damage );
+		}
 	}
 
 	[Broadcast]
