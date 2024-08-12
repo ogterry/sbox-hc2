@@ -18,7 +18,23 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 			}
 		}
 	}
-	
+
+	/// <summary>
+	/// A reference to the local player. Returns null if one does not exist (headless server or something)
+	/// </summary>
+	public static Player Local
+	{
+		get
+		{
+			if ( !_local.IsValid() )
+			{
+				_local = Game.ActiveScene.GetAllComponents<Player>().FirstOrDefault( x => x.Network.IsOwner );
+			}
+			return _local;
+		}
+	}
+	private static Player _local;
+
 	/// <summary>
 	/// The player's character controller, handles movement
 	/// </summary>
@@ -90,21 +106,21 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 	/// </summary>
 	[Property, Group( "Movement Config" )]
 	private float MaxAcceleration { get; set; } = 500f;
-	
+
 	[Sync] public Inventory Inventory { get; set; }
 
 	/// <summary>
 	/// Which way are we looking?
 	/// </summary>
-	[Sync] 
+	[Sync]
 	public Angles EyeAngles { get; set; }
 
 	/// <summary>
 	/// What's our target speed?
 	/// </summary>
-	[Sync] 
+	[Sync]
 	private Vector3 WishVelocity { get; set; }
-	
+
 	/// <summary>
 	/// How much do we wish to move by? (Normal)
 	/// </summary>
@@ -127,7 +143,7 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 	/// <returns></returns>
 	private float GetFriction()
 	{
-		if ( Character.IsOnGround ) 
+		if ( Character.IsOnGround )
 			return Friction;
 
 		// Base air friction, not gonna bother having it customizable
@@ -141,7 +157,7 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 	/// <returns></returns>
 	private Vector3 GetWishSpeed()
 	{
-		if( Input.Down( "run" ) )
+		if ( Input.Down( "run" ) )
 			return RunMovementSpeed;
 		return MovementSpeed;
 	}
@@ -258,7 +274,7 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 		var voxel = Scene.GetAllComponents<VoxelComponent>().FirstOrDefault();
 		if ( voxel.IsValid() )
 		{
-			var face = voxel.GetBlockInDirection( Scene.Camera.Transform.Position * ( 1.0f / Chunk.VoxelSize ), Scene.Camera.Transform.Rotation.Forward, 1000, out var p, out var distance );
+			var face = voxel.GetBlockInDirection( Scene.Camera.Transform.Position * (1.0f / Chunk.VoxelSize), Scene.Camera.Transform.Rotation.Forward, 1000, out var p, out var distance );
 			if ( face != VoxelComponent.BlockFace.Invalid )
 			{
 				if ( Input.Down( "attack1" ) )

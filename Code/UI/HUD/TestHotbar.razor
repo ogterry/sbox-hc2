@@ -3,23 +3,19 @@
 @inherits PanelComponent
 
 @{
-	var player = LocalPlayer;
-	if ( !player.IsValid() ) return;
-
-	var inventory = player.Inventory;
-	if ( !inventory.IsValid() ) return;
+	if ( !Inventory.IsValid() ) return;
 }
 
 <root>
 	<div class="container">
-		@for ( var i = 0; i < inventory.Slots.Count; i++ )
+		@for ( var i = 0; i < Inventory.Slots.Count; i++ )
 		{
-			var item = inventory.GetItemInSlot( i );
+			var item = Inventory.GetItemInSlot( i );
 			<div class="slot">
-				@if ( item.IsValid() )
+				@if (item.IsValid())
 				{
 					<div class="item" style="background-image: url(@item.Resource.Icon);">
-						
+
 					</div>
 				}
 			</div>
@@ -29,25 +25,22 @@
 
 @code
 {
-	public Player LocalPlayer => Scene.GetAllComponents<Player>().FirstOrDefault( p => !p.Network.IsProxy );
-	public Inventory Inventory => LocalPlayer?.Inventory;
-	
+	public Inventory Inventory => Player.Local?.Inventory;
+
 	protected override int BuildHash()
 	{
 		var hc = new HashCode();
 		var inventory = Inventory;
-		
-		hc.Add( inventory );
-		
-		if ( inventory.IsValid() )
+
+		hc.Add(inventory);
+
+		if (inventory.IsValid())
 		{
-			foreach ( var item in inventory.GetAllItems() )
+			foreach (var item in inventory.GetAllItems())
 			{
-				hc.Add( item );
+				hc.Add(item);
 			}
 		}
-
-		hc.Add( LocalPlayer );
 
 		return hc.ToHashCode();
 	}
