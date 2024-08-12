@@ -9,7 +9,13 @@
     "Components": [
       {
         "__type": "HC2.Mobs.Mob",
-        "__guid": "aded3d0b-89a1-4728-a60a-0e11f2abea59"
+        "__guid": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
+        "FaceText": {
+          "_type": "component",
+          "component_id": "80c32109-0f5a-4ac3-a53c-b6f1eec8ff8f",
+          "go": "9137113a-7bf9-4a60-87d5-8f31c49ba025",
+          "component_type": "TextRenderer"
+        }
       },
       {
         "__type": "Sandbox.CharacterController",
@@ -82,27 +88,30 @@
                         }
                       },
                       {
-                        "Id": 12,
-                        "Type": "property",
-                        "Properties": {
-                          "_type": "Sandbox.TextRenderer",
-                          "_name": "Text"
-                        },
-                        "UserData": {
-                          "Position": "272,144"
-                        }
-                      },
-                      {
-                        "Id": 13,
+                        "Id": 15,
                         "Type": "scene.ref",
-                        "ParentId": 12,
                         "Properties": {
                           "component": {
                             "_type": "component",
-                            "component_id": "80c32109-0f5a-4ac3-a53c-b6f1eec8ff8f",
-                            "go": "9137113a-7bf9-4a60-87d5-8f31c49ba025",
-                            "component_type": "TextRenderer"
+                            "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
+                            "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                            "component_type": "Mob"
                           }
+                        },
+                        "UserData": {
+                          "Position": "80,192"
+                        }
+                      },
+                      {
+                        "Id": 16,
+                        "Type": "call",
+                        "Properties": {
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "SetFace",
+                          "_isStatic": false
+                        },
+                        "UserData": {
+                          "Position": "304,144"
                         }
                       }
                     ],
@@ -110,27 +119,27 @@
                       {
                         "SrcId": 0,
                         "SrcName": "_signal",
-                        "DstId": 12,
+                        "DstId": 16,
                         "DstName": "_signal"
                       },
                       {
-                        "SrcId": 13,
+                        "SrcId": 15,
                         "SrcName": "_result",
-                        "DstId": 12,
+                        "DstId": 16,
                         "DstName": "_target"
                       },
                       {
                         "Value": "\uD83E\uDD71",
-                        "DstId": 12,
-                        "DstName": "_value"
+                        "DstId": 16,
+                        "DstName": "value"
                       }
                     ],
                     "Defaults": {
-                      "$13.component": {
+                      "$15.component": {
                         "_type": "component",
-                        "component_id": "80c32109-0f5a-4ac3-a53c-b6f1eec8ff8f",
-                        "go": "9137113a-7bf9-4a60-87d5-8f31c49ba025",
-                        "component_type": "TextRenderer"
+                        "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
+                        "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                        "component_type": "Mob"
                       }
                     }
                   },
@@ -209,30 +218,6 @@
                         }
                       },
                       {
-                        "Id": 33,
-                        "Type": "property",
-                        "Properties": {
-                          "_type": "Sandbox.TextRenderer",
-                          "_name": "Text"
-                        },
-                        "UserData": {
-                          "Position": "624,160"
-                        }
-                      },
-                      {
-                        "Id": 34,
-                        "Type": "scene.ref",
-                        "ParentId": 33,
-                        "Properties": {
-                          "component": {
-                            "_type": "component",
-                            "component_id": "80c32109-0f5a-4ac3-a53c-b6f1eec8ff8f",
-                            "go": "9137113a-7bf9-4a60-87d5-8f31c49ba025",
-                            "component_type": "TextRenderer"
-                          }
-                        }
-                      },
-                      {
                         "Id": 38,
                         "Type": "property",
                         "Properties": {
@@ -254,6 +239,33 @@
                             "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
                             "component_type": "GroundMover"
                           }
+                        }
+                      },
+                      {
+                        "Id": 45,
+                        "Type": "scene.ref",
+                        "Properties": {
+                          "component": {
+                            "_type": "component",
+                            "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
+                            "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                            "component_type": "Mob"
+                          }
+                        },
+                        "UserData": {
+                          "Position": "416,256"
+                        }
+                      },
+                      {
+                        "Id": 46,
+                        "Type": "call",
+                        "Properties": {
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "SetFace",
+                          "_isStatic": false
+                        },
+                        "UserData": {
+                          "Position": "688,160"
                         }
                       }
                     ],
@@ -310,24 +322,7 @@
                         "DstName": "position"
                       },
                       {
-                        "SrcId": 17,
-                        "SrcName": "_signal",
-                        "DstId": 33,
-                        "DstName": "_signal"
-                      },
-                      {
-                        "SrcId": 34,
-                        "SrcName": "_result",
-                        "DstId": 33,
-                        "DstName": "_target"
-                      },
-                      {
-                        "Value": "\uD83D\uDE0A",
-                        "DstId": 33,
-                        "DstName": "_value"
-                      },
-                      {
-                        "SrcId": 33,
+                        "SrcId": 46,
                         "SrcName": "_signal",
                         "DstId": 38,
                         "DstName": "_signal"
@@ -342,26 +337,43 @@
                         "Value": 150,
                         "DstId": 38,
                         "DstName": "_value"
+                      },
+                      {
+                        "SrcId": 17,
+                        "SrcName": "_signal",
+                        "DstId": 46,
+                        "DstName": "_signal"
+                      },
+                      {
+                        "SrcId": 45,
+                        "SrcName": "_result",
+                        "DstId": 46,
+                        "DstName": "_target"
+                      },
+                      {
+                        "Value": "\uD83D\uDE0A",
+                        "DstId": 46,
+                        "DstName": "value"
                       }
                     ],
                     "Defaults": {
-                      "$39.component": {
-                        "_type": "component",
-                        "component_id": "355f4ad9-b6a5-4d57-bbfb-656f6f64850e",
-                        "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
-                        "component_type": "GroundMover"
-                      },
                       "$30.component": {
                         "_type": "component",
                         "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
                         "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
                         "component_type": "Mob"
                       },
-                      "$34.component": {
+                      "$39.component": {
                         "_type": "component",
-                        "component_id": "80c32109-0f5a-4ac3-a53c-b6f1eec8ff8f",
-                        "go": "9137113a-7bf9-4a60-87d5-8f31c49ba025",
-                        "component_type": "TextRenderer"
+                        "component_id": "355f4ad9-b6a5-4d57-bbfb-656f6f64850e",
+                        "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                        "component_type": "GroundMover"
+                      },
+                      "$45.component": {
+                        "_type": "component",
+                        "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
+                        "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                        "component_type": "Mob"
                       }
                     }
                   },
@@ -389,27 +401,30 @@
                         }
                       },
                       {
-                        "Id": 8,
-                        "Type": "property",
-                        "Properties": {
-                          "_type": "Sandbox.TextRenderer",
-                          "_name": "Text"
-                        },
-                        "UserData": {
-                          "Position": "240,16"
-                        }
-                      },
-                      {
-                        "Id": 9,
+                        "Id": 11,
                         "Type": "scene.ref",
-                        "ParentId": 8,
                         "Properties": {
                           "component": {
                             "_type": "component",
-                            "component_id": "80c32109-0f5a-4ac3-a53c-b6f1eec8ff8f",
-                            "go": "9137113a-7bf9-4a60-87d5-8f31c49ba025",
-                            "component_type": "TextRenderer"
+                            "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
+                            "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                            "component_type": "Mob"
                           }
+                        },
+                        "UserData": {
+                          "Position": "32,64"
+                        }
+                      },
+                      {
+                        "Id": 12,
+                        "Type": "call",
+                        "Properties": {
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "SetFace",
+                          "_isStatic": false
+                        },
+                        "UserData": {
+                          "Position": "272,16"
                         }
                       }
                     ],
@@ -417,27 +432,27 @@
                       {
                         "SrcId": 0,
                         "SrcName": "_signal",
-                        "DstId": 8,
+                        "DstId": 12,
                         "DstName": "_signal"
                       },
                       {
-                        "SrcId": 9,
+                        "SrcId": 11,
                         "SrcName": "_result",
-                        "DstId": 8,
+                        "DstId": 12,
                         "DstName": "_target"
                       },
                       {
                         "Value": "\uD83E\uDD14",
-                        "DstId": 8,
-                        "DstName": "_value"
+                        "DstId": 12,
+                        "DstName": "value"
                       }
                     ],
                     "Defaults": {
-                      "$9.component": {
+                      "$11.component": {
                         "_type": "component",
-                        "component_id": "80c32109-0f5a-4ac3-a53c-b6f1eec8ff8f",
-                        "go": "9137113a-7bf9-4a60-87d5-8f31c49ba025",
-                        "component_type": "TextRenderer"
+                        "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
+                        "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                        "component_type": "Mob"
                       }
                     }
                   },
@@ -460,30 +475,6 @@
                       {
                         "Id": 0,
                         "Type": "input"
-                      },
-                      {
-                        "Id": 8,
-                        "Type": "property",
-                        "Properties": {
-                          "_type": "Sandbox.TextRenderer",
-                          "_name": "Text"
-                        },
-                        "UserData": {
-                          "Position": "240,-0"
-                        }
-                      },
-                      {
-                        "Id": 9,
-                        "Type": "scene.ref",
-                        "ParentId": 8,
-                        "Properties": {
-                          "component": {
-                            "_type": "component",
-                            "component_id": "80c32109-0f5a-4ac3-a53c-b6f1eec8ff8f",
-                            "go": "9137113a-7bf9-4a60-87d5-8f31c49ba025",
-                            "component_type": "TextRenderer"
-                          }
-                        }
                       },
                       {
                         "Id": 12,
@@ -510,28 +501,38 @@
                         "UserData": {
                           "Position": "544,0"
                         }
+                      },
+                      {
+                        "Id": 17,
+                        "Type": "scene.ref",
+                        "Properties": {
+                          "component": {
+                            "_type": "component",
+                            "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
+                            "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                            "component_type": "Mob"
+                          }
+                        },
+                        "UserData": {
+                          "Position": "0,64"
+                        }
+                      },
+                      {
+                        "Id": 18,
+                        "Type": "call",
+                        "Properties": {
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "SetFace",
+                          "_isStatic": false
+                        },
+                        "UserData": {
+                          "Position": "256,-16"
+                        }
                       }
                     ],
                     "Links": [
                       {
-                        "SrcId": 0,
-                        "SrcName": "_signal",
-                        "DstId": 8,
-                        "DstName": "_signal"
-                      },
-                      {
-                        "SrcId": 9,
-                        "SrcName": "_result",
-                        "DstId": 8,
-                        "DstName": "_target"
-                      },
-                      {
-                        "Value": "\uD83D\uDE21",
-                        "DstId": 8,
-                        "DstName": "_value"
-                      },
-                      {
-                        "SrcId": 8,
+                        "SrcId": 18,
                         "SrcName": "_signal",
                         "DstId": 14,
                         "DstName": "_signal"
@@ -546,6 +547,23 @@
                         "Value": 0,
                         "DstId": 14,
                         "DstName": "_value"
+                      },
+                      {
+                        "SrcId": 0,
+                        "SrcName": "_signal",
+                        "DstId": 18,
+                        "DstName": "_signal"
+                      },
+                      {
+                        "SrcId": 17,
+                        "SrcName": "_result",
+                        "DstId": 18,
+                        "DstName": "_target"
+                      },
+                      {
+                        "Value": "\uD83D\uDE21",
+                        "DstId": 18,
+                        "DstName": "value"
                       }
                     ],
                     "Defaults": {
@@ -555,11 +573,11 @@
                         "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
                         "component_type": "GroundMover"
                       },
-                      "$9.component": {
+                      "$17.component": {
                         "_type": "component",
-                        "component_id": "80c32109-0f5a-4ac3-a53c-b6f1eec8ff8f",
-                        "go": "9137113a-7bf9-4a60-87d5-8f31c49ba025",
-                        "component_type": "TextRenderer"
+                        "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
+                        "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                        "component_type": "Mob"
                       }
                     }
                   },
@@ -890,30 +908,9 @@
                     "Nodes": [
                       {
                         "Id": 0,
-                        "Type": "input"
-                      },
-                      {
-                        "Id": 3,
-                        "Type": "property",
-                        "Properties": {
-                          "_type": "Sandbox.TextRenderer",
-                          "_name": "Text"
-                        },
+                        "Type": "input",
                         "UserData": {
-                          "Position": "240,0"
-                        }
-                      },
-                      {
-                        "Id": 4,
-                        "Type": "scene.ref",
-                        "ParentId": 3,
-                        "Properties": {
-                          "component": {
-                            "_type": "component",
-                            "component_id": "80c32109-0f5a-4ac3-a53c-b6f1eec8ff8f",
-                            "go": "9137113a-7bf9-4a60-87d5-8f31c49ba025",
-                            "component_type": "TextRenderer"
-                          }
+                          "Position": "-0,-32"
                         }
                       },
                       {
@@ -1035,26 +1032,36 @@
                             "component_type": "GroundMover"
                           }
                         }
+                      },
+                      {
+                        "Id": 27,
+                        "Type": "scene.ref",
+                        "Properties": {
+                          "component": {
+                            "_type": "component",
+                            "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
+                            "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                            "component_type": "Mob"
+                          }
+                        },
+                        "UserData": {
+                          "Position": "0,16"
+                        }
+                      },
+                      {
+                        "Id": 28,
+                        "Type": "call",
+                        "Properties": {
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "SetFace",
+                          "_isStatic": false
+                        },
+                        "UserData": {
+                          "Position": "288,-32"
+                        }
                       }
                     ],
                     "Links": [
-                      {
-                        "SrcId": 0,
-                        "SrcName": "_signal",
-                        "DstId": 3,
-                        "DstName": "_signal"
-                      },
-                      {
-                        "SrcId": 4,
-                        "SrcName": "_result",
-                        "DstId": 3,
-                        "DstName": "_target"
-                      },
-                      {
-                        "Value": "\uD83E\uDD15",
-                        "DstId": 3,
-                        "DstName": "_value"
-                      },
                       {
                         "SrcId": 11,
                         "SrcName": "_result",
@@ -1068,7 +1075,7 @@
                         "DstName": "input"
                       },
                       {
-                        "SrcId": 3,
+                        "SrcId": 28,
                         "SrcName": "_signal",
                         "DstId": 14,
                         "DstName": "_signal"
@@ -1143,15 +1150,26 @@
                         "Value": 0,
                         "DstId": 22,
                         "DstName": "_value"
+                      },
+                      {
+                        "SrcId": 0,
+                        "SrcName": "_signal",
+                        "DstId": 28,
+                        "DstName": "_signal"
+                      },
+                      {
+                        "SrcId": 27,
+                        "SrcName": "_result",
+                        "DstId": 28,
+                        "DstName": "_target"
+                      },
+                      {
+                        "Value": "\uD83E\uDD15",
+                        "DstId": 28,
+                        "DstName": "value"
                       }
                     ],
                     "Defaults": {
-                      "$4.component": {
-                        "_type": "component",
-                        "component_id": "80c32109-0f5a-4ac3-a53c-b6f1eec8ff8f",
-                        "go": "9137113a-7bf9-4a60-87d5-8f31c49ba025",
-                        "component_type": "TextRenderer"
-                      },
                       "$11.component": {
                         "_type": "component",
                         "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
@@ -1163,6 +1181,12 @@
                         "component_id": "355f4ad9-b6a5-4d57-bbfb-656f6f64850e",
                         "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
                         "component_type": "GroundMover"
+                      },
+                      "$27.component": {
+                        "_type": "component",
+                        "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
+                        "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                        "component_type": "Mob"
                       }
                     }
                   },
@@ -1185,30 +1209,6 @@
                       {
                         "Id": 0,
                         "Type": "input"
-                      },
-                      {
-                        "Id": 3,
-                        "Type": "property",
-                        "Properties": {
-                          "_type": "Sandbox.TextRenderer",
-                          "_name": "Text"
-                        },
-                        "UserData": {
-                          "Position": "192,-0"
-                        }
-                      },
-                      {
-                        "Id": 4,
-                        "Type": "scene.ref",
-                        "ParentId": 3,
-                        "Properties": {
-                          "component": {
-                            "_type": "component",
-                            "component_id": "80c32109-0f5a-4ac3-a53c-b6f1eec8ff8f",
-                            "go": "9137113a-7bf9-4a60-87d5-8f31c49ba025",
-                            "component_type": "TextRenderer"
-                          }
-                        }
                       },
                       {
                         "Id": 7,
@@ -1248,28 +1248,38 @@
                         "UserData": {
                           "Position": "784,96"
                         }
+                      },
+                      {
+                        "Id": 11,
+                        "Type": "scene.ref",
+                        "Properties": {
+                          "component": {
+                            "_type": "component",
+                            "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
+                            "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                            "component_type": "Mob"
+                          }
+                        },
+                        "UserData": {
+                          "Position": "-0,48"
+                        }
+                      },
+                      {
+                        "Id": 12,
+                        "Type": "call",
+                        "Properties": {
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "SetFace",
+                          "_isStatic": false
+                        },
+                        "UserData": {
+                          "Position": "272,-0"
+                        }
                       }
                     ],
                     "Links": [
                       {
-                        "SrcId": 0,
-                        "SrcName": "_signal",
-                        "DstId": 3,
-                        "DstName": "_signal"
-                      },
-                      {
-                        "SrcId": 4,
-                        "SrcName": "_result",
-                        "DstId": 3,
-                        "DstName": "_target"
-                      },
-                      {
-                        "Value": "\uD83E\uDD74",
-                        "DstId": 3,
-                        "DstName": "_value"
-                      },
-                      {
-                        "SrcId": 3,
+                        "SrcId": 12,
                         "SrcName": "_signal",
                         "DstId": 8,
                         "DstName": "_signal"
@@ -1291,16 +1301,33 @@
                         "SrcName": "_result",
                         "DstId": 9,
                         "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 0,
+                        "SrcName": "_signal",
+                        "DstId": 12,
+                        "DstName": "_signal"
+                      },
+                      {
+                        "SrcId": 11,
+                        "SrcName": "_result",
+                        "DstId": 12,
+                        "DstName": "_target"
+                      },
+                      {
+                        "Value": "\uD83E\uDD74",
+                        "DstId": 12,
+                        "DstName": "value"
                       }
                     ],
                     "Defaults": {
-                      "$4.component": {
-                        "_type": "component",
-                        "component_id": "80c32109-0f5a-4ac3-a53c-b6f1eec8ff8f",
-                        "go": "9137113a-7bf9-4a60-87d5-8f31c49ba025",
-                        "component_type": "TextRenderer"
-                      },
                       "$7.component": {
+                        "_type": "component",
+                        "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
+                        "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                        "component_type": "Mob"
+                      },
+                      "$11.component": {
                         "_type": "component",
                         "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
                         "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",

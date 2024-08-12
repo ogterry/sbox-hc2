@@ -24,6 +24,9 @@ public sealed class Mob : Component,
 	public bool HasAimTarget => AimTarget.IsValid();
 	public bool HasMoveTarget => MoveTarget is not null;
 
+	[Property]
+	public TextRenderer? FaceText { get; set; }
+
 	[Property, KeyProperty]
 	public event Action<DamageTakenEvent>? DamageTaken;
 
@@ -61,9 +64,13 @@ public sealed class Mob : Component,
 		AimTarget = null;
 	}
 
-	protected override void OnFixedUpdate()
+	[Broadcast( NetPermission.HostOnly )]
+	public void SetFace( string value )
 	{
-
+		if ( FaceText is not null )
+		{
+			FaceText.Text = value;
+		}
 	}
 
 	void IGameEventHandler<DamageTakenEvent>.OnGameEvent( DamageTakenEvent eventArgs )
