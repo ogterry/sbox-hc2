@@ -21,7 +21,7 @@
 						}
 					}
 				</div>
-				<div class="button" onclick=@CreateNewCharacter>+ Create New</div>
+				<div class="button @((CharacterSave.Current is null) ? "active" : "")" onclick=@CreateCharacterButton>+ Create New</div>
                 <a class="button" href="/">Return</a>
             </div>
         </div>
@@ -30,6 +30,23 @@
 			{
 				<CharacterPanel Character="@CharacterSave.Current" />
 			}
+			else
+			{
+				<div class="character-creator column">
+					<label class="header">Create a new character:</label>
+					<div class="column center">
+						<div class="row">
+							Name:
+							<TextEntry Value:bind=@NewCharacterName />
+						</div>
+						<div class="row">
+							Class:
+							<DropDown BuildOptions=@GetClassOptions Value:bind=@NewCharacterType />
+						</div>
+						<div class="button" onclick="@CreateNewCharacter">Create Character</div>
+					</div>
+				</div>
+			}
 		</div>
     </div>
 </root>
@@ -37,6 +54,9 @@
 @code
 {
 	List<CharacterSave> Characters = new();
+
+	string NewCharacterName { get; set; }
+	CharacterType NewCharacterType { get; set;  }
 
 	void SelectCharacter(CharacterSave character)
 	{
@@ -51,15 +71,38 @@
 		if(chars.Count != Characters.Count)
 		{
 			Characters = chars;
+			if (firstTime)
+				CharacterSave.Current = null;
+			else if(CharacterSave.Current is null)
+				CharacterSave.Current = Characters.FirstOrDefault();
 		}
+	}
+
+	void CreateCharacterButton()
+	{
+		CharacterSave.Current = null;
+		NewCharacterName = "New Character";
 	}
 
 	void CreateNewCharacter()
 	{
-		var character = new CharacterSave(){ Name = "New Character" };
+		var character = new CharacterSave();
+		character.Name = NewCharacterName;
+		character.CharacterType = NewCharacterType;
 		character.Save();
-		Characters.Add(character);
-		CharacterSave.Current = character;
+	
+	}
+
+	List<Option> GetClassOptions ()
+	{
+		var names = System.Enum.GetNames( typeof( CharacterType ) );
+		var options = new List<Option>();
+
+		foreach ( var name in names )
+		{
+			options.Add( new Option( name, name ) );
+		}
+		return options;
 	}
 
 	protected override int BuildHash ()

@@ -12,11 +12,11 @@
 	<div class="column">
 		<div class="row">
 			Name:
-			<TextEntry Value:bind=@Character.Name />
+			@Character.Name
 		</div>
 		<div class="row">
 			Class:
-			<DropDown BuildOptions=@GetClassOptions Value:bind=@Character.CharacterType />
+			@Character.CharacterType.ToString()
 		</div>
 		<div class="character-inventory">
 			<label>Character Inventory Here?</label>
@@ -54,18 +54,6 @@
 			Character = null;
 			CharacterSave.Current = null;
 		}
-	}
-
-	List<Option> GetClassOptions()
-	{
-		var names = System.Enum.GetNames(typeof(CharacterType));
-		var options = new List<Option>();
-
-		foreach ( var name in names )
-		{
-			options.Add( new Option(name, name) );
-		}
-		return options;
 	}
 
 	protected override int BuildHash ()
