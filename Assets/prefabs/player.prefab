@@ -54,7 +54,8 @@
           "go": "55553c7c-a8e3-4e22-a0fd-9b43af4c4d40",
           "component_type": "CameraComponent"
         },
-        "PitchLimits": "-50,50"
+        "PitchLimits": "-50,50",
+        "VelocityFOVScale": 50
       },
       {
         "__type": "Sandbox.CharacterController",
@@ -116,6 +117,10 @@
           "go": "b26515b5-0677-43ab-952f-c78b9007bada",
           "component_type": "SkinnedModelRenderer"
         }
+      },
+      {
+        "__type": "PlayerExperience",
+        "__guid": "53f468ab-46c0-40ec-8fe2-180995612278"
       }
     ],
     "Children": [
@@ -657,6 +662,7 @@
                                                           "go": "265a4a01-5376-4f07-939a-448412e34e5a",
                                                           "component_type": "SphereCollider"
                                                         },
+                                                        "LifeTime": 5,
                                                         "PrefabToSpawn": {
                                                           "_type": "gameobject",
                                                           "prefab": "prefabs/particles/footstep/footstepeffect.prefab"
