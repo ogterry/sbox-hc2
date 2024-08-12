@@ -59,6 +59,12 @@ public sealed class Player : Component, IDamage, IGameEventHandler<KilledEvent>,
 	public float MovementSpeed { get; set; } = 256f;
 
 	/// <summary>
+	/// Base Run speed, can possibly change
+	/// </summary>
+	[Property, Group( "Movement Config" )]
+	public float RunMovementSpeed { get; set; } = 360f;
+
+	/// <summary>
 	/// The base acceleration in the air
 	/// </summary>
 	[Property, Group( "Movement Config" )]
@@ -132,6 +138,8 @@ public sealed class Player : Component, IDamage, IGameEventHandler<KilledEvent>,
 	/// <returns></returns>
 	private Vector3 GetWishSpeed()
 	{
+		if( Input.Down( "run" ) )
+			return RunMovementSpeed;
 		return MovementSpeed;
 	}
 
