@@ -598,10 +598,10 @@
                                                   {
                                                     "__type": "ProjectileWeapon",
                                                     "__guid": "9099219a-cde4-473b-89d4-84c6fef4eef4",
-                                                    "AttackDelay": 0.2,
-                                                    "Damage": 25,
-                                                    "DamageType": "Poison",
-                                                    "EjectSpeed": 1024000,
+                                                    "AttackDelay": 0.125,
+                                                    "Damage": 12,
+                                                    "DamageType": "Sharp",
+                                                    "EjectSpeed": 32000,
                                                     "HoldType": "Rifle",
                                                     "InputAction": "Attack1",
                                                     "Muzzle": {
