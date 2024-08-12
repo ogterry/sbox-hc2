@@ -1,32 +1,29 @@
-Chat
-{
+@import "../Styles/_theme.scss";
+
+Chat {
     width: 450px;
     align-items: center;
-    font-weight: bold;
     flex-direction: column;
     align-items: stretch;
-    font-size: 17px;
-    font-family: Glegoo;
-    gap: 8px;
+    font-size: $text-md;
+    font-family: $font;
     justify-content: flex-end;
+    padding: 4px;
 
-    .output
-    {
+    .output {
         flex-grow: 1;
         flex-direction: column;
         justify-content: flex-end;
         align-items: stretch;
         gap: 5px;
 
-        .entry
-        {
+        .entry {
             padding: 2px;
             gap: 8px;
             text-shadow: 2px 2px 2px #000a;
             align-items: center;
 
-            .avatar
-            {
+            .avatar {
                 width: 32px;
                 height: 32px;
                 background-position: center;
@@ -34,34 +31,30 @@ Chat
                 border-radius: 100px;
             }
 
-            .author
-            {
-                color: #2d95ce;
+            .author {
+                color: $primary;
                 white-space: nowrap;
                 flex-shrink: 0;
+                font-weight: bold;
             }
 
-            .message
-            {
+            .message {
                 color: #fff;
             }
         }
     }
 
-    .input
-    {
+    .input {
         color: white;
         height: 0px;
     }
 
-    &.open
-    {
+    &.open {
         pointer-events: all;
+        background-image: linear-gradient( to right, rgba( black, 0.9 ), transparent );
 
-        .input
-        {
+        .input {
             height: 42px;
-            background-image: linear-gradient( to right, rgba( black, 0.9 ), transparent );
         }
     }
 }
