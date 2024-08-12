@@ -580,12 +580,127 @@
                                             "Enabled": true,
                                             "Children": [
                                               {
+                                                "__guid": "4e07684a-e466-458b-af5f-289d8b020dc1",
+                                                "Flags": 0,
+                                                "Name": "SMG",
+                                                "Position": "-0.000008602085,0.000007232561,-4.653377",
+                                                "Rotation": "0.0000000000002813607,0.7071068,-0.0000000000002813607,0.7071068",
+                                                "Scale": "0.1,0.1,0.6",
+                                                "Enabled": true,
+                                                "Components": [
+                                                  {
+                                                    "__type": "Sandbox.ModelRenderer",
+                                                    "__guid": "753440af-56e1-4f3f-9b25-e3e17980f301",
+                                                    "BodyGroups": 18446744073709551615,
+                                                    "RenderType": "On",
+                                                    "Tint": "1,0.33488,0.33488,1"
+                                                  },
+                                                  {
+                                                    "__type": "ProjectileWeapon",
+                                                    "__guid": "9099219a-cde4-473b-89d4-84c6fef4eef4",
+                                                    "AttackDelay": 0.2,
+                                                    "Damage": 25,
+                                                    "DamageType": "Poison",
+                                                    "EjectSpeed": 1024000,
+                                                    "HoldType": "Rifle",
+                                                    "InputAction": "Attack1",
+                                                    "Muzzle": {
+                                                      "_type": "gameobject",
+                                                      "go": "1205fe6f-d6bc-478c-aa33-ca74ebaff0c6"
+                                                    },
+                                                    "ProjectilePrefab": {
+                                                      "_type": "gameobject",
+                                                      "go": "265a4a01-5376-4f07-939a-448412e34e5a"
+                                                    }
+                                                  }
+                                                ],
+                                                "Children": [
+                                                  {
+                                                    "__guid": "265a4a01-5376-4f07-939a-448412e34e5a",
+                                                    "Flags": 0,
+                                                    "Name": "SMG Projectile",
+                                                    "Position": "0,0,0",
+                                                    "Components": [
+                                                      {
+                                                        "__type": "Projectile",
+                                                        "__guid": "8e65a5b2-22dd-460b-b017-6ed00cd6006e",
+                                                        "Collider": {
+                                                          "_type": "component",
+                                                          "component_id": "413c262e-7307-4278-bd1f-c11df8b44802",
+                                                          "go": "265a4a01-5376-4f07-939a-448412e34e5a",
+                                                          "component_type": "SphereCollider"
+                                                        },
+                                                        "PrefabToSpawn": {
+                                                          "_type": "gameobject",
+                                                          "prefab": "prefabs/particles/footstep/footstepeffect.prefab"
+                                                        },
+                                                        "Renderer": {
+                                                          "_type": "component",
+                                                          "component_id": "9449d461-6715-491c-970a-271bd4b2d872",
+                                                          "go": "7d83fd76-285d-4206-ab42-b67257dcf539",
+                                                          "component_type": "ModelRenderer"
+                                                        }
+                                                      },
+                                                      {
+                                                        "__type": "Sandbox.Rigidbody",
+                                                        "__guid": "9162e725-f83c-476e-a75b-efd1a17e21aa",
+                                                        "AngularDamping": 0,
+                                                        "Gravity": false,
+                                                        "LinearDamping": 0,
+                                                        "Locking": {},
+                                                        "MassCenterOverride": "0,0,0",
+                                                        "MassOverride": 0,
+                                                        "MotionEnabled": true,
+                                                        "OverrideMassCenter": false,
+                                                        "RigidbodyFlags": 0,
+                                                        "StartAsleep": false
+                                                      },
+                                                      {
+                                                        "__type": "Sandbox.SphereCollider",
+                                                        "__guid": "413c262e-7307-4278-bd1f-c11df8b44802",
+                                                        "Center": "0,0,0",
+                                                        "IsTrigger": false,
+                                                        "Radius": 1,
+                                                        "Static": false
+                                                      }
+                                                    ],
+                                                    "Children": [
+                                                      {
+                                                        "__guid": "7d83fd76-285d-4206-ab42-b67257dcf539",
+                                                        "Flags": 0,
+                                                        "Name": "Sphere",
+                                                        "Position": "0,0,0",
+                                                        "Scale": "0.1,0.1,0.1",
+                                                        "Enabled": true,
+                                                        "Components": [
+                                                          {
+                                                            "__type": "Sandbox.ModelRenderer",
+                                                            "__guid": "9449d461-6715-491c-970a-271bd4b2d872",
+                                                            "BodyGroups": 18446744073709551615,
+                                                            "Model": "models/dev/sphere.vmdl",
+                                                            "RenderType": "On",
+                                                            "Tint": "1,1,1,1"
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "__guid": "1205fe6f-d6bc-478c-aa33-ca74ebaff0c6",
+                                                    "Flags": 0,
+                                                    "Name": "Muzzle",
+                                                    "Position": "-0.00000005302354,0.000005844449,26.23827",
+                                                    "Rotation": "-0.0000000000001136868,-0.7071067,0.00000000000005684342,0.7071068",
+                                                    "Enabled": true
+                                                  }
+                                                ]
+                                              },
+                                              {
                                                 "__guid": "52bf6129-6b5c-41ba-83d2-19cd9969a3f2",
                                                 "Flags": 0,
                                                 "Name": "Sword",
                                                 "Position": "-0.000007148182,0.00001070521,2.330258",
                                                 "Scale": "0.1,0.1,1",
-                                                "Enabled": true,
                                                 "Components": [
                                                   {
                                                     "__type": "Sandbox.ModelRenderer",
