@@ -44,7 +44,7 @@
           "_type": "gameobject",
           "prefab": "prefabs/damage/dmgnumber.prefab"
         },
-        "MaxHealth": 50
+        "MaxHealth": 100
       },
       {
         "__type": "Sandbox.CapsuleCollider",
@@ -54,6 +54,12 @@
         "Radius": 16,
         "Start": "0,0,16",
         "Static": false
+      },
+      {
+        "__type": "HC2.Mobs.DamageKnockback",
+        "__guid": "025a6a57-1ee2-46ce-8627-e6362c3be947",
+        "Mass": 10,
+        "Scale": 1
       }
     ],
     "Children": [
@@ -379,7 +385,7 @@
                     }
                   },
                   "UserData": {
-                    "Position": "-32,-928"
+                    "Position": "-32,-1088"
                   }
                 },
                 {
@@ -458,7 +464,7 @@
                     }
                   },
                   "UserData": {
-                    "Position": "-448,-928"
+                    "Position": "-448,-992"
                   }
                 },
                 {
@@ -489,7 +495,7 @@
                           }
                         },
                         "UserData": {
-                          "Position": "256,80"
+                          "Position": "-80,96"
                         }
                       },
                       {
@@ -500,7 +506,7 @@
                           "_name": "MaxSpeed"
                         },
                         "UserData": {
-                          "Position": "544,0"
+                          "Position": "256,96"
                         }
                       },
                       {
@@ -515,7 +521,10 @@
                           }
                         },
                         "UserData": {
-                          "Position": "0,64"
+                          "Position": "-48,208",
+                          "Labels": {
+                            "_result": "mob"
+                          }
                         }
                       },
                       {
@@ -529,11 +538,48 @@
                         "UserData": {
                           "Position": "256,-16"
                         }
+                      },
+                      {
+                        "Id": 21,
+                        "Type": "property",
+                        "Properties": {
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "DamageScale"
+                        },
+                        "UserData": {
+                          "Position": "256,208"
+                        }
+                      },
+                      {
+                        "Id": 22,
+                        "Type": "scene.ref",
+                        "Properties": {
+                          "component": {
+                            "_type": "component",
+                            "component_id": "025a6a57-1ee2-46ce-8627-e6362c3be947",
+                            "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                            "component_type": "DamageKnockback"
+                          }
+                        },
+                        "UserData": {
+                          "Position": "-112,304"
+                        }
+                      },
+                      {
+                        "Id": 23,
+                        "Type": "property",
+                        "Properties": {
+                          "_type": "HC2.Mobs.DamageKnockback",
+                          "_name": "Scale"
+                        },
+                        "UserData": {
+                          "Position": "256,304"
+                        }
                       }
                     ],
                     "Links": [
                       {
-                        "SrcId": 18,
+                        "SrcId": 0,
                         "SrcName": "_signal",
                         "DstId": 14,
                         "DstName": "_signal"
@@ -565,6 +611,40 @@
                         "Value": "\uD83D\uDE21",
                         "DstId": 18,
                         "DstName": "value"
+                      },
+                      {
+                        "SrcId": 0,
+                        "SrcName": "_signal",
+                        "DstId": 21,
+                        "DstName": "_signal"
+                      },
+                      {
+                        "SrcId": 17,
+                        "SrcName": "_result",
+                        "DstId": 21,
+                        "DstName": "_target"
+                      },
+                      {
+                        "Value": 4,
+                        "DstId": 21,
+                        "DstName": "_value"
+                      },
+                      {
+                        "SrcId": 0,
+                        "SrcName": "_signal",
+                        "DstId": 23,
+                        "DstName": "_signal"
+                      },
+                      {
+                        "SrcId": 22,
+                        "SrcName": "_result",
+                        "DstId": 23,
+                        "DstName": "_target"
+                      },
+                      {
+                        "Value": 4,
+                        "DstId": 23,
+                        "DstName": "_value"
                       }
                     ],
                     "Defaults": {
@@ -579,6 +659,12 @@
                         "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
                         "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
                         "component_type": "Mob"
+                      },
+                      "$22.component": {
+                        "_type": "component",
+                        "component_id": "025a6a57-1ee2-46ce-8627-e6362c3be947",
+                        "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                        "component_type": "DamageKnockback"
                       }
                     }
                   },
@@ -704,7 +790,7 @@
                     }
                   },
                   "UserData": {
-                    "Position": "-800,-736"
+                    "Position": "-928,-896"
                   }
                 },
                 {
@@ -774,6 +860,32 @@
                         "UserData": {
                           "Position": "304,144"
                         }
+                      },
+                      {
+                        "Id": 11,
+                        "Type": "scene.ref",
+                        "Properties": {
+                          "component": {
+                            "_type": "component",
+                            "component_id": "025a6a57-1ee2-46ce-8627-e6362c3be947",
+                            "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                            "component_type": "DamageKnockback"
+                          }
+                        },
+                        "UserData": {
+                          "Position": "-48,256"
+                        }
+                      },
+                      {
+                        "Id": 12,
+                        "Type": "property",
+                        "Properties": {
+                          "_type": "HC2.Mobs.DamageKnockback",
+                          "_name": "Scale"
+                        },
+                        "UserData": {
+                          "Position": "304,256"
+                        }
                       }
                     ],
                     "Links": [
@@ -810,6 +922,23 @@
                         "Value": 0.25,
                         "DstId": 7,
                         "DstName": "_value"
+                      },
+                      {
+                        "SrcId": 0,
+                        "SrcName": "_signal",
+                        "DstId": 12,
+                        "DstName": "_signal"
+                      },
+                      {
+                        "SrcId": 11,
+                        "SrcName": "_result",
+                        "DstId": 12,
+                        "DstName": "_target"
+                      },
+                      {
+                        "Value": 0.1,
+                        "DstId": 12,
+                        "DstName": "_value"
                       }
                     ],
                     "Defaults": {
@@ -824,6 +953,12 @@
                         "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
                         "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
                         "component_type": "Mob"
+                      },
+                      "$11.component": {
+                        "_type": "component",
+                        "component_id": "025a6a57-1ee2-46ce-8627-e6362c3be947",
+                        "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                        "component_type": "DamageKnockback"
                       }
                     }
                   },
@@ -906,6 +1041,32 @@
                         "UserData": {
                           "Position": "256,-64"
                         }
+                      },
+                      {
+                        "Id": 15,
+                        "Type": "scene.ref",
+                        "Properties": {
+                          "component": {
+                            "_type": "component",
+                            "component_id": "025a6a57-1ee2-46ce-8627-e6362c3be947",
+                            "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                            "component_type": "DamageKnockback"
+                          }
+                        },
+                        "UserData": {
+                          "Position": "-64,240"
+                        }
+                      },
+                      {
+                        "Id": 16,
+                        "Type": "property",
+                        "Properties": {
+                          "_type": "HC2.Mobs.DamageKnockback",
+                          "_name": "Scale"
+                        },
+                        "UserData": {
+                          "Position": "256,240"
+                        }
                       }
                     ],
                     "Links": [
@@ -954,6 +1115,23 @@
                         "Value": 1,
                         "DstId": 11,
                         "DstName": "_value"
+                      },
+                      {
+                        "SrcId": 0,
+                        "SrcName": "_signal",
+                        "DstId": 16,
+                        "DstName": "_signal"
+                      },
+                      {
+                        "SrcId": 15,
+                        "SrcName": "_result",
+                        "DstId": 16,
+                        "DstName": "_target"
+                      },
+                      {
+                        "Value": 1,
+                        "DstId": 16,
+                        "DstName": "_value"
                       }
                     ],
                     "Defaults": {
@@ -968,11 +1146,17 @@
                         "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
                         "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
                         "component_type": "Mob"
+                      },
+                      "$15.component": {
+                        "_type": "component",
+                        "component_id": "025a6a57-1ee2-46ce-8627-e6362c3be947",
+                        "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                        "component_type": "DamageKnockback"
                       }
                     }
                   },
                   "UserData": {
-                    "Position": "-576,-448"
+                    "Position": "-576,-512"
                   }
                 },
                 {
@@ -1272,7 +1456,7 @@
                     }
                   },
                   "UserData": {
-                    "Position": "-544,-1248"
+                    "Position": "-608,-1312"
                   }
                 },
                 {
@@ -1344,17 +1528,6 @@
                         "UserData": {
                           "Position": "320,-112"
                         }
-                      },
-                      {
-                        "Id": 17,
-                        "Type": "property",
-                        "Properties": {
-                          "_type": "HC2.Mobs.Mob",
-                          "_name": "DamageScale"
-                        },
-                        "UserData": {
-                          "Position": "304,192"
-                        }
                       }
                     ],
                     "Links": [
@@ -1398,23 +1571,6 @@
                         "Value": "\uD83E\uDD74",
                         "DstId": 12,
                         "DstName": "value"
-                      },
-                      {
-                        "SrcId": 0,
-                        "SrcName": "_signal",
-                        "DstId": 17,
-                        "DstName": "_signal"
-                      },
-                      {
-                        "SrcId": 7,
-                        "SrcName": "_result",
-                        "DstId": 17,
-                        "DstName": "_target"
-                      },
-                      {
-                        "Value": 4,
-                        "DstId": 17,
-                        "DstName": "_value"
                       }
                     ],
                     "Defaults": {
@@ -1495,7 +1651,7 @@
                     }
                   },
                   "UserData": {
-                    "Position": "-960,-1024"
+                    "Position": "-576,-768"
                   }
                 }
               ],
@@ -1801,98 +1957,6 @@
                   "SourceId": 11,
                   "TargetId": 15,
                   "Delay": 1
-                },
-                {
-                  "Id": 18,
-                  "SourceId": 11,
-                  "TargetId": 6,
-                  "Condition": {
-                    "__version": 7,
-                    "__guid": "19454aa7-d634-449e-b208-9bdaf2904e22",
-                    "UserData": {
-                      "Title": "Lost target",
-                      "ReferencedComponentTypes": []
-                    },
-                    "Variables": [],
-                    "Nodes": [
-                      {
-                        "Id": 0,
-                        "Type": "input"
-                      },
-                      {
-                        "Id": 1,
-                        "Type": "output",
-                        "UserData": {
-                          "Position": "592,48"
-                        }
-                      },
-                      {
-                        "Id": 3,
-                        "Type": "scene.ref",
-                        "Properties": {
-                          "component": {
-                            "_type": "component",
-                            "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
-                            "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
-                            "component_type": "Mob"
-                          }
-                        },
-                        "UserData": {
-                          "Position": "0,96"
-                        }
-                      },
-                      {
-                        "Id": 4,
-                        "Type": "property",
-                        "ParentId": 3,
-                        "Properties": {
-                          "_type": "HC2.Mobs.Mob",
-                          "_name": "HasAimTarget"
-                        }
-                      },
-                      {
-                        "Id": 5,
-                        "Type": "op.not",
-                        "UserData": {
-                          "Position": "336,192"
-                        }
-                      }
-                    ],
-                    "Links": [
-                      {
-                        "SrcId": 5,
-                        "SrcName": "_result",
-                        "DstId": 1,
-                        "DstName": "_result"
-                      },
-                      {
-                        "SrcId": 0,
-                        "SrcName": "_signal",
-                        "DstId": 1,
-                        "DstName": "_signal"
-                      },
-                      {
-                        "SrcId": 3,
-                        "SrcName": "_result",
-                        "DstId": 4,
-                        "DstName": "_target"
-                      },
-                      {
-                        "SrcId": 4,
-                        "SrcName": "_result",
-                        "DstId": 5,
-                        "DstName": "a"
-                      }
-                    ],
-                    "Defaults": {
-                      "$3.component": {
-                        "_type": "component",
-                        "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
-                        "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
-                        "component_type": "Mob"
-                      }
-                    }
-                  }
                 },
                 {
                   "Id": 19,
@@ -2240,6 +2304,12 @@
                       }
                     }
                   }
+                },
+                {
+                  "Id": 30,
+                  "SourceId": 15,
+                  "TargetId": 1,
+                  "Delay": 5
                 }
               ],
               "InitialStateId": 1

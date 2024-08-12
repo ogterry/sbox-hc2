@@ -41,6 +41,11 @@ public sealed class GroundMover : Component
 
 		var wishVel = GetWishVelocity();
 
+		if ( !CharacterController.IsOnGround )
+		{
+			CharacterController.Accelerate( Vector3.Down * 300f );
+		}
+
 		CharacterController.Accelerate( wishVel - CharacterController.Velocity);
 		CharacterController.Move();
 	}
