@@ -2,7 +2,7 @@
 
 namespace Voxel;
 
-public class MeshVisiter : IDisposable
+public class MeshVisiter
 {
 	public int Comparison = 1;
 	public int[] visitXN;
@@ -22,27 +22,13 @@ public class MeshVisiter : IDisposable
 		visitYP = new int[Constants.VOXELS_PER_CHUNK];
 	}
 
-	public void Dispose()
+	public void Reset()
 	{
-		Dispose( true );
-		GC.SuppressFinalize( this );
-	}
-
-	protected virtual void Dispose( bool disposing )
-	{
-		if ( disposing )
-		{
-			visitXN = null;
-			visitXP = null;
-			visitZN = null;
-			visitZP = null;
-			visitYN = null;
-			visitYP = null;
-		}
-	}
-
-	~MeshVisiter()
-	{
-		Dispose( false );
+		Array.Clear( visitXN, 0, Constants.VOXELS_PER_CHUNK );
+		Array.Clear( visitXP, 0, Constants.VOXELS_PER_CHUNK );
+		Array.Clear( visitZN, 0, Constants.VOXELS_PER_CHUNK );
+		Array.Clear( visitZP, 0, Constants.VOXELS_PER_CHUNK );
+		Array.Clear( visitYN, 0, Constants.VOXELS_PER_CHUNK );
+		Array.Clear( visitYP, 0, Constants.VOXELS_PER_CHUNK );
 	}
 }

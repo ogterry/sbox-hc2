@@ -1,30 +1,47 @@
 ﻿using System;
 using Sandbox.Diagnostics;
+using Sandbox.Utility;
 
 namespace Voxel;
 
 public class VoxelRenderer : Component, Component.ExecuteInEditor
 {
-	Map m;
+	VoxelModel m;
 
 	protected override void OnEnabled()
 	{
 		base.OnEnabled();
 
-		m = new Map( 64, 32, 64 );
+		m = new VoxelModel( 128, 64, 128 );
 
-		for ( int x = 0; x < 64; x++ )
+		for ( int x = 0; x < 128; x++ )
 		{
-			for ( int z = 0; z < 64; z++ )
+			for ( int z = 0; z < 128; z++ )
 			{
-				var height = 1 + (int)((MathF.Sin( x / 4.0f ) + 1) * 8) + (int)((MathF.Sin( z / 4.0f ) + 1) * 8);
+				float noiseValue = Noise.Perlin( x * 1.0f, z * 1.0f );
+				int height = (int)(noiseValue * 64);
+
+				byte blockType;
+				if ( noiseValue < 0.3f )
+				{
+					blockType = 1;
+				}
+				else if ( noiseValue < 0.6f )
+				{
+					blockType = 2;
+				}
+				else
+				{
+					blockType = 3;
+				}
 
 				for ( int y = 0; y < height; y++ )
 				{
-					m.AddVoxel( z, y, x, (byte)Game.Random.Int( 1, 5 ) );
+					m.AddVoxel( z, y, x, blockType );
 				}
 			}
 		}
+
 
 		foreach ( var mesh in m.meshChunks )
 		{
@@ -45,10 +62,10 @@ public class VoxelRenderer : Component, Component.ExecuteInEditor
 		if ( c == null )
 			return;
 
-		if ( !c.chunk.IsDirty() )
+		if ( !c.Chunk.IsDirty() )
 			return;
 
-		Assert.True( !c.chunk.fake );
+		Assert.True( !c.Chunk.fake );
 
 		c.PreMeshing();
 		c.GenerateMesh();
@@ -56,36 +73,45 @@ public class VoxelRenderer : Component, Component.ExecuteInEditor
 	}
 }
 
-public partial class Map
+public partial class VoxelModel
 {
-	// Meshing data
 	public ChunkMesh[] meshChunks = new ChunkMesh[Constants.MaxChunkAmountCubed];
 
 	public long meshingTime;
 	public int meshSize;
 	public int meshedChunkCount;
 
-	// Map dimensions
-	public int MapSizeX;
-	public int MapSizeY;
-	public int MapSizeZ;
+	public int SizeX;
+	public int SizeY;
+	public int SizeZ;
 	public int ChunkAmountX;
 	public int ChunkAmountY;
 	public int ChunkAmountZ;
 
-	// Precalculated values. M1 = 'Minus One'
 	public int ChunkAmountXM1;
 	public int ChunkAmountYM1;
 	public int ChunkAmountZM1;
 
-	// Chunk data
 	public Chunk[] chunks;
 
-	// Meshing settings
 	public bool ShouldMeshExterior = true;
-	public bool ShouldMeshBetweenChunks;
 
-	public Map( int mx, int my, int mz )
+	public static readonly Chunk EmptyChunk;
+	public static readonly Chunk FullChunk;
+
+	static VoxelModel()
+	{
+		// Allocate an empty and a full chunk
+		EmptyChunk = new Chunk();
+		EmptyChunk.Reset( 0, 0, 0, true );
+
+		FullChunk = new Chunk();
+		FullChunk.Reset( 0, 0, 0, true );
+
+		Array.Fill( FullChunk.voxels, (byte)1 );
+	}
+
+	public VoxelModel( int mx, int my, int mz )
 	{
 		// Always allocate 32x32x32 chunks, even though we don't use them all
 		chunks = new Chunk[Constants.MaxChunkAmountCubed];
@@ -94,18 +120,17 @@ public partial class Map
 			chunks[i] = new Chunk();
 		}
 
-		// Ensure map size is divisible by 32
 		Assert.True( mx % Constants.ChunkSize == 0 );
 		Assert.True( my % Constants.ChunkSize == 0 );
 		Assert.True( mz % Constants.ChunkSize == 0 );
 
-		MapSizeX = mx;
-		MapSizeY = my;
-		MapSizeZ = mz;
+		SizeX = mx;
+		SizeY = my;
+		SizeZ = mz;
 
-		ChunkAmountX = MapSizeX / Constants.ChunkSize;
-		ChunkAmountY = MapSizeY / Constants.ChunkSize;
-		ChunkAmountZ = MapSizeZ / Constants.ChunkSize;
+		ChunkAmountX = SizeX / Constants.ChunkSize;
+		ChunkAmountY = SizeY / Constants.ChunkSize;
+		ChunkAmountZ = SizeZ / Constants.ChunkSize;
 		ChunkAmountXM1 = ChunkAmountX - 1;
 		ChunkAmountYM1 = ChunkAmountY - 1;
 		ChunkAmountZM1 = ChunkAmountZ - 1;
@@ -122,7 +147,7 @@ public partial class Map
 		}
 	}
 
-	public bool OutOfBounds( int x, int y, int z ) => (uint)x >= MapSizeX || (uint)y >= MapSizeY || (uint)z >= MapSizeZ;
+	public bool OutOfBounds( int x, int y, int z ) => (uint)x >= SizeX || (uint)y >= SizeY || (uint)z >= SizeZ;
 
 	public int GetAccess( int x, int y, int z ) => GetAccessLocal( x >> Constants.ChunkShift, y >> Constants.ChunkShift, z >> Constants.ChunkShift );
 	public int GetAccessLocal( int f, int g, int h )
