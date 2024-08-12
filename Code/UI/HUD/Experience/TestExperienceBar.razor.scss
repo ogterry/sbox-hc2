@@ -44,8 +44,47 @@ TestExperienceBar {
 
 	.xp-content {
 		width: 100%;
-		justify-content: flex-start;
+		justify-content: center;
 		position: relative;
+
+		.current-level {
+			position: absolute;
+			left: 0px;
+			top: 0px;
+		}
+
+		.level-up-toast {
+			width: 80%;
+			height: auto;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: center;
+			opacity: 0;
+			transition: all 0.4s;
+			font-size: 18px;
+			gap: 0px;
+
+			.upgrades {
+				font-size: 18px;
+				transition: all 0.4s;
+			}
+
+			&.visible {
+				opacity: 1;
+			}
+
+			&.large {
+				.upgrades {
+					font-size: 24px;
+				}
+
+				.prompt {
+					font-size: 18px;
+				}
+
+				height: 200px;
+			}
+		}
 
 		.history-list {
 			position: absolute;

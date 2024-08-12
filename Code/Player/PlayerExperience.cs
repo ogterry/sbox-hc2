@@ -6,6 +6,7 @@ public sealed class PlayerExperience : Component, ISaveData
 {
 	[Sync] public int Level { get; private set; } = 1;
 	[Sync] public int Points { get; private set; } = 0;
+	public int UnspentUpgrades { get; private set; } = 0;
 	[Property] public Curve XpCurve { get; set; }
 	[Property] public int MaxLevel { get; set; } = 40;
 
@@ -37,6 +38,7 @@ public sealed class PlayerExperience : Component, ISaveData
 	public void GiveLevel( int amount )
 	{
 		Level += amount;
+		UnspentUpgrades += amount;
 		OnGiveLevels?.Invoke( amount );
 	}
 
@@ -47,15 +49,16 @@ public sealed class PlayerExperience : Component, ISaveData
 
 	public string Save()
 	{
-		return $"{Level}:{Points}";
+		return $"{Level}:{Points}:{UnspentUpgrades}";
 	}
 
 	public void Load( string data )
 	{
 		var parts = data.Split( ':' );
-		if ( parts.Length != 2 )
+		if ( parts.Length != 3 )
 			Log.Error( "Invalid save data found in PlayerExperience." );
 		Level = int.Parse( parts[0] );
 		Points = int.Parse( parts[1] );
+		UnspentUpgrades = int.Parse( parts[2] );
 	}
 }

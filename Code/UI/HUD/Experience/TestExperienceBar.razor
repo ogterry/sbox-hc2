@@ -18,6 +18,10 @@
 	</div>
 	<div class="xp-content">
 		<label class="current-level">Level @(experience.Level)</label>
+		<div class="level-up-toast @ToastClasses()">
+			<label class="upgrades">You have @(experience.UnspentUpgrades) Stat Upgrades Available</label>
+			<label class="prompt">Press TAB to open the Stats Menu</label>
+		</div>
 		<div @ref="HistoryList" class="history-list">
 			
 		</div>
@@ -28,6 +32,7 @@
 {
 	protected float CurrentFill = 0f;
 	bool hasInitialized = false;
+	RealTimeSince timeSinceLevelUp = 0;
 
 	Panel HistoryList { get; set; }
 
@@ -68,7 +73,7 @@
 	{
 		if(!HistoryList.IsValid())
 			return;
-			
+
 		var entry = new ExperienceHistoryEntry();
 		entry.Points = points;
 		HistoryList.AddChild(entry);
@@ -76,8 +81,18 @@
 
 	void OnLevelsGained(int levels)
 	{
-		
+		timeSinceLevelUp = 0;
 	}
 
-	protected override int BuildHash() => System.HashCode.Combine(CurrentFill, Player.Local?.Experience);
+	string ToastClasses()
+	{
+		var classes = "";
+		if (Player.Local?.Experience.UnspentUpgrades != 0)
+			classes += "visible ";
+		if (timeSinceLevelUp < 5)
+			classes += "large ";
+		return classes;
+	}
+
+	protected override int BuildHash() => System.HashCode.Combine(CurrentFill, Player.Local?.Experience, ToastClasses());
 }
