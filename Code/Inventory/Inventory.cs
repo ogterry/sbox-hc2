@@ -17,7 +17,7 @@ public class Inventory : Component
 	/// Create a new networked inventory.
 	/// </summary>
 	/// <returns></returns>
-	public static Inventory Create( int slots )
+	public static Inventory Create( int slots, Connection owner = null )
 	{
 		Assert.True( Sandbox.Networking.IsHost );
 		
@@ -30,9 +30,8 @@ public class Inventory : Component
 			slotGo.Components.Create<InventorySlot>();
 			slotGo.Parent = go;
 		}
-
-		go.Network.SetOrphanedMode( NetworkOrphaned.Host );
-		go.NetworkSpawn();
+		
+		go.NetworkSpawn( owner );
 		
 		return inventory;
 	}
@@ -87,7 +86,8 @@ public class Inventory : Component
 	[Broadcast]
 	public void MoveItem( Item item, int slotIndex )
 	{
-		if ( IsProxy ) return;
+		if ( !Sandbox.Networking.IsHost )
+			return;
 
 		var oldInventory = item.Container;
 		var oldSlot = item.Slot;
@@ -122,7 +122,8 @@ public class Inventory : Component
 	[Broadcast]
 	public void GiveItem( Item item )
 	{
-		if ( IsProxy ) return;
+		if ( !Sandbox.Networking.IsHost )
+			return;
 		
 		var slot = GetFreeSlot();
 

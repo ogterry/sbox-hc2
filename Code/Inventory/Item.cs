@@ -64,7 +64,7 @@ public class Item : Component
 	[Broadcast]
 	public void Remove()
 	{
-		if ( IsProxy )
+		if ( !Sandbox.Networking.IsHost )
 			return;
 		
 		Destroy();
