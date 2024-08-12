@@ -1,3 +1,4 @@
+using HC2;
 using Sandbox.Citizen;
 
 public abstract class WeaponComponent : Component
@@ -101,7 +102,13 @@ public abstract class WeaponComponent : Component
 	/// <returns></returns>
 	protected float GetDamage()
 	{
-		return Damage;
+		float damage = Damage;
+		if ( GameObject.Root.Components.TryGet<StatModifier>( out var modifier ) )
+		{
+			damage += modifier.DamageIncrease;
+			damage *= modifier.DamageMultiplier;
+		}
+		return damage;
 	}
 
 	/// <summary>

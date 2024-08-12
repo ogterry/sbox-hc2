@@ -1,4 +1,5 @@
-﻿using Sandbox.Events;
+﻿using HC2;
+using Sandbox.Events;
 using System.Text.Json.Serialization;
 
 public record DamageTakenEvent( DamageInstance Instance ) : IGameEvent;
@@ -76,7 +77,7 @@ public sealed class HealthComponent : Component
 			Flags = flags,
 			Type = type,
 			Position = position,
-			Attacker = attacker, 
+			Attacker = attacker,
 		};
 
 		GameObject.Dispatch( new DamageTakenEvent( instance ) );
@@ -101,10 +102,10 @@ public sealed class HealthComponent : Component
 			color = Color.White.Darken( 0.25f );
 		}
 
-		if ( !DamageEffectPrefab.IsValid() ) 
-			return;	
+		if ( !DamageEffectPrefab.IsValid() )
+			return;
 
-		var particle = DamageEffectPrefab.Clone( position: instance.Position, rotation: new Angles(-90f, 0f, 0f) );
+		var particle = DamageEffectPrefab.Clone( position: instance.Position, rotation: new Angles( -90f, 0f, 0f ) );
 
 		var textRenderer = particle.Components.Get<ParticleTextRenderer>();
 		if ( textRenderer != null )
@@ -124,6 +125,11 @@ public sealed class HealthComponent : Component
 		{
 			DamageInstance = instance
 		};
+
+		if ( GameObject.Root.Components.TryGet<StatModifier>( out var modifier ) )
+		{
+			modifyEvent.ScaleDamage( 1f - modifier.DamageMultiplier );
+		}
 
 		GameObject.Dispatch( modifyEvent );
 
