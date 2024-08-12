@@ -13,6 +13,7 @@ public sealed class MobTarget : Component
 
 [Icon( "mood_bad" )]
 public sealed class Mob : Component,
+	IGameEventHandler<ModifyDamageEvent>,
 	IGameEventHandler<DamageTakenEvent>,
 	IGameEventHandler<KilledEvent>
 {
@@ -26,6 +27,8 @@ public sealed class Mob : Component,
 
 	[Property]
 	public TextRenderer? FaceText { get; set; }
+
+	[Property, Range( 0f, 4f )] public float DamageScale { get; set; } = 1f;
 
 	[Property, KeyProperty]
 	public event Action<DamageTakenEvent>? DamageTaken;
@@ -71,6 +74,11 @@ public sealed class Mob : Component,
 		{
 			FaceText.Text = value;
 		}
+	}
+
+	void IGameEventHandler<ModifyDamageEvent>.OnGameEvent( ModifyDamageEvent eventArgs )
+	{
+		eventArgs.DamageInstance.Damage *= DamageScale;
 	}
 
 	void IGameEventHandler<DamageTakenEvent>.OnGameEvent( DamageTakenEvent eventArgs )
