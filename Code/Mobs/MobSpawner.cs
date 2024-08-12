@@ -65,6 +65,8 @@ public sealed class MobSpawner : Component
 		var inst = Prefab.Clone( pos, Rotation.FromYaw( Random.Shared.Float( 0f, 360f ) ) );
 
 		_spawned.Add( inst );
+
+		inst.NetworkSpawn();
 	}
 
 	protected override void DrawGizmos()
