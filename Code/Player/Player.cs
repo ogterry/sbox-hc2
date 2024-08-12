@@ -2,7 +2,7 @@ using HC2;
 using Sandbox.Citizen;
 using Sandbox.Events;
 
-public sealed class Player : Component, IDamage, IGameEventHandler<KilledEvent>
+public sealed class Player : Component, IDamage, IGameEventHandler<KilledEvent>, IGameEventHandler<ModifyDamageEvent>
 {
 	/// <summary>
 	/// The player's character controller, handles movement
@@ -306,5 +306,14 @@ public sealed class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 	void IGameEventHandler<KilledEvent>.OnGameEvent( KilledEvent eventArgs )
 	{
 		Respawn();
+	}
+
+	void IGameEventHandler<ModifyDamageEvent>.OnGameEvent( ModifyDamageEvent eventArgs )
+	{
+		if ( eventArgs.DamageInstance.Attacker is Player player )
+		{
+			// If we're being attacked by a player, scale the damage down to 0, as this game does not support friendly fire
+			eventArgs.ScaleDamage( 0f );
+		}
 	}
 }

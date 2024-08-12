@@ -91,7 +91,12 @@ public sealed class HealthComponent : Component
 
 	private void CreateDamageEffect( DamageInstance instance )
 	{
-		if ( DamageEffectPrefab == null ) return;
+		// No effects if the damage was nullified or didn't exist in the first place
+		if ( instance.Damage <= 0 )
+			return;
+
+		if ( !DamageEffectPrefab.IsValid() ) 
+			return;
 
 		var particle = DamageEffectPrefab.Clone();
 		particle.Transform.Position = instance.Position;
