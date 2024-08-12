@@ -478,21 +478,6 @@
       ]
     },
     {
-      "__guid": "d0e87df8-cce7-4efa-9ae0-8ad4698cb601",
-      "Flags": 0,
-      "Name": "Object",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "HC2.VoxelComponent",
-          "__guid": "bdadf258-2ffd-4a00-93a9-174d20c5fb84",
-          "SizeX": 32,
-          "SizeY": 32,
-          "SizeZ": 32
-        }
-      ]
-    },
-    {
       "__guid": "92da79b0-b2a8-443b-b29f-8f5757b3cd7f",
       "Flags": 0,
       "Name": "HUD",

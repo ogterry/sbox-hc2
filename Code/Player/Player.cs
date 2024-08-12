@@ -277,20 +277,6 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 		// Apply the second half
 		ApplyHalfGravity();
 
-		var voxel = Scene.GetAllComponents<VoxelComponent>().FirstOrDefault();
-		if ( voxel.IsValid() )
-		{
-			var face = voxel.GetBlockInDirection( Scene.Camera.Transform.Position * (1.0f / Chunk.VoxelSize), Scene.Camera.Transform.Rotation.Forward, 1000, out var p, out var distance );
-			if ( face != VoxelComponent.BlockFace.Invalid )
-			{
-				if ( Input.Down( "attack1" ) )
-				{
-					var b = Game.Random.Int( 1, 5 );
-					voxel.SetBlockAndUpdate( VoxelComponent.GetAdjacentBlockPosition( p, (int)face ), (byte)b );
-				}
-			}
-		}
-
 		if ( Input.Released( "attack2" ) )
 		{
 			GiveRandomItemOnHost();
