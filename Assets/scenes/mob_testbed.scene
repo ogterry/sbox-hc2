@@ -483,6 +483,7 @@
       "Name": "Spawner",
       "Position": "-253.9928,-351.841,0.0001428719",
       "Enabled": true,
+      "NetworkMode": 1,
       "Components": [
         {
           "__type": "HC2.Mobs.MobSpawner",
