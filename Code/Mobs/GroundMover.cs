@@ -3,8 +3,6 @@ using System;
 
 namespace HC2.Mobs;
 
-#nullable enable
-
 [Icon( "transfer_within_a_station" )]
 public sealed class GroundMover : Component
 {
@@ -46,7 +44,7 @@ public sealed class GroundMover : Component
 			CharacterController.Accelerate( Vector3.Down * 300f );
 		}
 
-		CharacterController.Accelerate( wishVel - CharacterController.Velocity);
+		CharacterController.Accelerate( wishVel - CharacterController.Velocity );
 		CharacterController.Move();
 	}
 
