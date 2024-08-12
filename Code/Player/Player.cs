@@ -4,6 +4,21 @@ using Sandbox.Events;
 
 public sealed class Player : Component, IDamage, IGameEventHandler<KilledEvent>, IGameEventHandler<ModifyDamageEvent>
 {
+	[ConCmd( "hc2_listitems" )]
+	public static void ListPlayersAndItems()
+	{
+		var players = Game.ActiveScene.GetAllComponents<Player>();
+
+		foreach ( var p in players )
+		{
+			Log.Info( "==" + p.Network.OwnerConnection.DisplayName );
+			foreach ( var item in p.Inventory.GetAllItems() )
+			{
+				Log.Info( item.Resource.Name + " / " + item.Slot.SlotIndex );
+			}
+		}
+	}
+	
 	/// <summary>
 	/// The player's character controller, handles movement
 	/// </summary>
@@ -66,6 +81,8 @@ public sealed class Player : Component, IDamage, IGameEventHandler<KilledEvent>,
 	/// </summary>
 	[Property, Group( "Movement Config" )]
 	private float MaxAcceleration { get; set; } = 500f;
+	
+	[Sync] public Inventory Inventory { get; set; }
 
 	/// <summary>
 	/// Which way are we looking?
@@ -240,6 +257,20 @@ public sealed class Player : Component, IDamage, IGameEventHandler<KilledEvent>,
 				}
 			}
 		}
+
+		if ( Input.Released( "attack2" ) )
+		{
+			GiveRandomItemOnHost();
+		}
+	}
+
+	[Broadcast]
+	private void GiveRandomItemOnHost()
+	{
+		if ( !Sandbox.Networking.IsHost ) return;
+		var itemType = Game.Random.Float() > 0.5f ? "gem" : "test";
+		var item = Item.Create( itemType );
+		Inventory.GiveItem( item );
 	}
 
 	private void ApplyAnimation()
