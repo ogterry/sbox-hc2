@@ -1,4 +1,7 @@
-﻿namespace HC2.Mobs;
+﻿using System;
+using Sandbox.Events;
+
+namespace HC2.Mobs;
 
 #nullable enable
 
@@ -9,7 +12,9 @@ public sealed class MobTarget : Component
 }
 
 [Icon( "mood_bad" )]
-public sealed class Mob : Component
+public sealed class Mob : Component,
+	IGameEventHandler<DamageTakenEvent>,
+	IGameEventHandler<KilledEvent>
 {
 	public Transform SpawnTransform { get; private set; }
 
@@ -18,6 +23,17 @@ public sealed class Mob : Component
 
 	public bool HasAimTarget => AimTarget.IsValid();
 	public bool HasMoveTarget => MoveTarget is not null;
+
+	[Property, KeyProperty]
+	public event Action<DamageTakenEvent>? DamageTaken;
+
+	[Property, KeyProperty]
+	public event Action<KilledEvent>? Killed;
+
+	private DamageTakenEvent? _lastDamageEvent;
+
+	public bool HasTakenDamage => _lastDamageEvent is not null;
+	public MobTarget? LastAttacker => _lastDamageEvent?.Instance.Attacker?.Components.GetInAncestorsOrSelf<MobTarget>();
 
 	protected override void OnStart()
 	{
@@ -42,5 +58,24 @@ public sealed class Mob : Component
 	public void ClearAimTarget()
 	{
 		AimTarget = null;
+	}
+
+	protected override void OnFixedUpdate()
+	{
+		_lastDamageEvent = null;
+	}
+
+	void IGameEventHandler<DamageTakenEvent>.OnGameEvent( DamageTakenEvent eventArgs )
+	{
+		DamageTaken?.Invoke( eventArgs );
+
+		_lastDamageEvent = eventArgs;
+	}
+
+	void IGameEventHandler<KilledEvent>.OnGameEvent( KilledEvent eventArgs )
+	{
+		Killed?.Invoke( eventArgs );
+
+		GameObject.Destroy();
 	}
 }
