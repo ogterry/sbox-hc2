@@ -32,7 +32,8 @@
           "go": "b26515b5-0677-43ab-952f-c78b9007bada",
           "component_type": "SkinnedModelRenderer"
         },
-        "MovementSpeed": 256
+        "MovementSpeed": 256,
+        "RunMovementSpeed": 420
       },
       {
         "__type": "CameraController",

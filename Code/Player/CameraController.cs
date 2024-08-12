@@ -53,5 +53,8 @@ public sealed class CameraController : Component
 		Player.EyeAngles = Player.EyeAngles.WithPitch( Player.EyeAngles.pitch.Clamp( PitchLimits.x, PitchLimits.y ) );
 
 		Boom.Transform.Rotation = Player.EyeAngles.ToRotation();
+
+		//change fov based on player's movement speed
+		Camera.FieldOfView = Camera.FieldOfView.LerpTo( 90 + Player.Character.Velocity.Length / 50, Time.Delta * 10 );
 	}
 }
