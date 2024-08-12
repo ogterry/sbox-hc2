@@ -2,13 +2,14 @@ namespace HC2;
 
 public sealed class PlayerExperience : Component, ISaveData
 {
-	public int Level { get; private set; } = 1;
-	public int Points { get; private set; } = 0;
+	[Sync] public int Level { get; private set; } = 1;
+	[Sync] public int Points { get; private set; } = 0;
 	[Property] public Curve XpCurve { get; set; }
 	[Property] public int MaxLevel { get; set; } = 40;
 
 	public int MaxPoints => GetPointsForLevel( Level );
 
+	[Authority]
 	public void GivePoints( int amount )
 	{
 		Points += amount;
@@ -20,6 +21,7 @@ public sealed class PlayerExperience : Component, ISaveData
 		}
 	}
 
+	[Authority]
 	public void GiveLevel( int amount )
 	{
 		Level += amount;

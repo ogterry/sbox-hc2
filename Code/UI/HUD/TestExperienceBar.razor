@@ -26,8 +26,11 @@
 	{
 		var experience = Player.Local?.Experience;
 		if(!experience.IsValid()) return;
+		var previousValue = CurrentFill;
 		var targetFill = (float)experience.Points / experience.MaxPoints;
 		CurrentFill = CurrentFill.LerpTo( targetFill, Time.Delta * 10f );
+		if ( CurrentFill < previousValue )
+			CurrentFill = 0;
 	}
 
 	protected override int BuildHash() => System.HashCode.Combine(CurrentFill, Player.Local?.Experience);

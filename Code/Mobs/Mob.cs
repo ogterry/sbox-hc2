@@ -1,5 +1,5 @@
-﻿using System;
-using Sandbox.Events;
+﻿using Sandbox.Events;
+using System;
 
 namespace HC2.Mobs;
 
@@ -29,6 +29,8 @@ public sealed class Mob : Component,
 	public TextRenderer? FaceText { get; set; }
 
 	[Property, Range( 0f, 4f )] public float DamageScale { get; set; } = 1f;
+
+	[Property] public int ExperienceYield { get; set; } = 1;
 
 	[Property, KeyProperty]
 	public event Action<DamageTakenEvent>? DamageTaken;
@@ -67,6 +69,18 @@ public sealed class Mob : Component,
 		AimTarget = null;
 	}
 
+	void GiveNearbyPlayersExperience()
+	{
+		if ( !Sandbox.Networking.IsHost ) return;
+
+		// TODO: Determine if we want larger enemies (bosses) to have a larger yield range
+		var players = Scene.GetAllComponents<PlayerExperience>().Where( x => x.Transform.Position.Distance( Transform.Position ) < 2500f );
+		foreach ( var player in players )
+		{
+			player.GivePoints( ExperienceYield );
+		}
+	}
+
 	[Broadcast( NetPermission.HostOnly )]
 	public void SetFace( string value )
 	{
@@ -91,6 +105,7 @@ public sealed class Mob : Component,
 
 	void IGameEventHandler<KilledEvent>.OnGameEvent( KilledEvent eventArgs )
 	{
+		GiveNearbyPlayersExperience();
 		Killed?.Invoke( eventArgs );
 
 		GameObject.Destroy();
