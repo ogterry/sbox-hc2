@@ -27,6 +27,8 @@ public sealed class CameraController : Component
 	[Property, Group( "Config" )]
 	public Vector2 PitchLimits { get; set; } = new( -50, 50 );
 
+	bool IsAiming => Input.Down( "attack2" );
+
 	/// <summary>
 	/// Constructs a ray using the camera's GameObject
 	/// </summary>
@@ -49,12 +51,17 @@ public sealed class CameraController : Component
 	/// </summary>
 	public void UpdateFromPlayer()
 	{
-		Player.EyeAngles += Input.AnalogLook;
+		// Have an option for this later to scale?
+		Player.EyeAngles += IsAiming ? Input.AnalogLook * 0.45f : Input.AnalogLook;
 		Player.EyeAngles = Player.EyeAngles.WithPitch( Player.EyeAngles.pitch.Clamp( PitchLimits.x, PitchLimits.y ) );
 
 		Boom.Transform.Rotation = Player.EyeAngles.ToRotation();
 
-		//change fov based on player's movement speed
 		Camera.FieldOfView = Camera.FieldOfView.LerpTo( 90 + Player.Character.Velocity.Length / 50, Time.Delta * 10 );
+
+		if( IsAiming )
+		{
+			Camera.FieldOfView = Camera.FieldOfView.LerpTo( 20, Time.Delta * 10 );
+		}
 	}
 }
