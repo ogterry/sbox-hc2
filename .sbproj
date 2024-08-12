@@ -21,8 +21,8 @@
     "PerMapRanking": false,
     "LeaderboardType": "None",
     "CsProjName": "",
-    "StartupScene": "scenes/mob_testbed.scene",
-    "MapStartupScene": "scenes/mob_testbed.scene",
+    "StartupScene": "scenes/menu.scene",
+    "MapStartupScene": "scenes/menu.scene",
     "LaunchMode": "QuickPlay",
     "Compiler": {
       "RootNamespace": "HC2",

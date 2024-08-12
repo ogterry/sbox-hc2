@@ -1,0 +1,124 @@
+MainMenu
+{
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: all;
+}
+
+MenuRoot
+{
+    pointer-events: none;
+    opacity: 0;
+    display: none;
+
+    &.open
+    {
+        pointer-events: all;
+        display: flex;
+        opacity: 1;
+    }
+}
+
+MenuRoot
+{
+    opacity: 1;
+    flex-direction: column;
+    font-size: 25px;
+    color: white;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+
+    > .background
+    {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #222;
+    }
+
+    > .navigator-canvas
+    {
+        flex-direction: column;
+        height: 100%;
+        flex-grow: 1;
+        z-index: 100;
+    }
+
+    .navigator-body
+    {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        display: flex;
+
+        &.hidden
+        {
+            display: none;
+        }
+    }
+}
+
+// Any game page will have these CSS classes
+.navigator-body
+{
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    justify-content: center;
+    font-family: Glegoo;
+
+    .canvas
+    {
+        margin: 32px;
+    }
+
+    .gap
+    {
+        gap: 8px;
+    }
+
+    .column
+    {
+        flex-direction: column;
+    }
+
+    .title
+    {
+        font-size: 64px;
+    }
+
+    .grow
+    {
+        flex-grow: 1;
+    }
+
+    .center
+    {
+        justify-content: center;
+        align-items: center;
+    }
+
+    .button
+    {
+        padding-left: 16px;
+        border-left: 2px solid white;
+        cursor: pointer;
+        background-color: rgba( black, 0.3 );
+        border-radius: 0px 2px 2px 0px;
+
+        &:hover
+        {
+            background-color: rgba( black, 0.5 );
+        }
+    }
+}

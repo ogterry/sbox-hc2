@@ -1,0 +1,20 @@
+@using Sandbox.Menu
+@using Sandbox.UI;
+
+@inherits Sandbox.UI.NavHostPanel
+@namespace HC2
+
+<root>
+    <div class="background" />
+    <div class="navigator-canvas" slot="navigator-canvas" />
+</root>
+
+@code
+{
+    public MenuRoot()
+    {
+        DefaultUrl = "/";
+        AddDestination( "/", typeof( LandingPage ) );
+        AddDestination( "/characters", typeof( CharactersPage ) );
+    }
+}

@@ -65,4 +65,28 @@ public sealed class Networking : Component, Component.INetworkListener
 		//
 		return Transform.World;
 	}
+
+	/// <summary>
+	/// Try to join any lobby for this game
+	/// </summary>
+	public static async Task<bool> TryJoinLobby()
+	{
+		var lobbies = await Sandbox.Networking.QueryLobbies();
+
+		var orderedLobbies = lobbies.OrderByDescending( lobby => lobby.Members );
+
+		foreach ( var lobby in orderedLobbies )
+		{
+			if ( lobby.IsFull ) continue;
+
+			Log.Info( $"Joining lobby {lobby.LobbyId}" );
+
+			// Try to join this one
+			if ( await GameNetworkSystem.TryConnectSteamId( lobby.LobbyId ) )
+				return true;
+		}
+
+		Log.Info( $"Couldn't join a lobby - making a game" );
+		return false;
+	}
 }
