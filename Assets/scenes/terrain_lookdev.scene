@@ -1,0 +1,745 @@
+{
+  "__guid": "b4baa764-65d8-4c30-8c87-5882c0daaec0",
+  "GameObjects": [
+    {
+      "__guid": "cdf372d5-85cb-444d-987d-4acace977b21",
+      "Flags": 0,
+      "Name": "terrain_test",
+      "Position": "0,48,0",
+      "Scale": "20,20,20",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "5900952c-8346-4f78-b639-2ade53f0830c",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/terrain_test/terrain_test.vmdl",
+          "RenderType": "On",
+          "Tint": "0.3987,0.42231,0.45116,1"
+        }
+      ]
+    },
+    {
+      "__guid": "aaebb1d2-20eb-45ee-8e65-c3c74afb35b9",
+      "Flags": 0,
+      "Name": "terrain_test (1)",
+      "Position": "-2080,-728,-176",
+      "Rotation": "0,0,0.7071067,0.7071068",
+      "Scale": "20,20,20",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "14fcefb7-954e-424a-8d91-3dad4809fc73",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/terrain_test/terrain_test.vmdl",
+          "RenderType": "On",
+          "Tint": "0.4,0.42353,0.45098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "c824f540-5d91-4597-abd8-5806244e1648",
+      "Flags": 0,
+      "Name": "Sun",
+      "Position": "1361.37,-1042.314,630.3895",
+      "Rotation": "0.3535533,0.6123724,0.3535534,0.6123725",
+      "Tags": "light_directional,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DirectionalLight",
+          "__guid": "43571877-d4c4-4aa0-8e61-13b97cc9f0c0",
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.84733,0.915,0.94884,1",
+          "Shadows": true,
+          "SkyColor": "11.68738,13.98156,15.51102,0"
+        }
+      ]
+    },
+    {
+      "__guid": "8931ffe7-0a52-4a8f-8716-7b24d2056f5c",
+      "Flags": 0,
+      "Name": "Sun (1)",
+      "Position": "1361.37,-1088,630.3893",
+      "Rotation": "-0.00000004351884,0.7071066,0.00000005960464,0.7071069",
+      "Tags": "light_directional,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DirectionalLight",
+          "__guid": "ebb1b8d0-e1f1-4ce1-84ab-f60553d0c56e",
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.12093,0.12093,0.12093,1",
+          "Shadows": true,
+          "SkyColor": "11.68738,13.98156,15.51102,0"
+        }
+      ]
+    },
+    {
+      "__guid": "66bf49a2-d042-44cd-b1e8-c1ba2c7749fd",
+      "Flags": 0,
+      "Name": "Envmap Probe",
+      "Position": "1358.047,-1047.05,624.2552",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.EnvmapProbe",
+          "__guid": "2e61c695-7eb4-4a72-832f-c0ba198f1ccb",
+          "Texture": "textures/cubemaps/default2.vtex",
+          "Bounds": {
+            "Mins": "-3773.9,-1689,-1414.4",
+            "Maxs": "1271.8,3875.902,1128.88"
+          },
+          "DelayBetweenUpdates": 0.1,
+          "Feathering": 0.02,
+          "FrameInterval": 5,
+          "MaxDistance": 512,
+          "Projection": "Box",
+          "RenderDynamically": true,
+          "TintColor": "1,1,1,1",
+          "UpdateStrategy": "OnEnabled",
+          "ZFar": 4096,
+          "ZNear": 16
+        }
+      ]
+    },
+    {
+      "__guid": "9e3498f2-0fd4-44bc-afb9-752ad2a29e82",
+      "Flags": 0,
+      "Name": "2D Skybox",
+      "Position": "1397.252,-1412.911,929.1708",
+      "Rotation": "0,-0,-0.8508112,0.5254715",
+      "Tags": "skybox",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SkyBox2D",
+          "__guid": "d7ba8847-1f6a-411e-b721-f702710faa6a",
+          "SkyMaterial": "materials/skybox/skybox_overcast_02.vmat",
+          "Tint": "0.27353,0.35913,0.50698,1"
+        }
+      ]
+    },
+    {
+      "__guid": "5b5c9ba1-3034-4394-8910-df27496b4aef",
+      "Flags": 0,
+      "Name": "Gradient Fog",
+      "Position": "1583.432,-1400.329,594.924",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.GradientFog",
+          "__guid": "efdd4ffb-4c7e-458e-9acc-e3bfe7f13c80",
+          "Color": "0.15576,0.20714,0.27907,1",
+          "EndDistance": 4096,
+          "FalloffExponent": 1.5,
+          "Height": 2000,
+          "StartDistance": 342,
+          "VerticalFalloffExponent": 2
+        }
+      ]
+    },
+    {
+      "__guid": "fae55a36-bb58-420f-8f71-e4dce38dede3",
+      "Flags": 0,
+      "Name": "Camera",
+      "Position": "1101.221,-618.6972,415.1272",
+      "Rotation": "0,0.7071067,0,0.7071068",
+      "Tags": "maincamera",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.CameraComponent",
+          "__guid": "3fdb3fc5-e0f4-484e-b56a-0e8a3cd17b23",
+          "BackgroundColor": "0.33333,0.46275,0.52157,1",
+          "ClearFlags": "All",
+          "FieldOfView": 60,
+          "IsMainCamera": true,
+          "Orthographic": false,
+          "OrthographicHeight": 1204,
+          "Priority": 1,
+          "RenderExcludeTags": "",
+          "RenderTags": "",
+          "TargetEye": "None",
+          "Viewport": "0,0,1,1",
+          "ZFar": 10000,
+          "ZNear": 10
+        },
+        {
+          "__type": "Sandbox.AmbientOcclusion",
+          "__guid": "985592b0-2b15-46e5-a941-ac210a56db41",
+          "FalloffDistance": 1,
+          "Intensity": 12.3,
+          "Quality": "High",
+          "Radius": 32
+        },
+        {
+          "__type": "Sandbox.Bloom",
+          "__guid": "03332b01-eedb-4e0d-882d-809a48c4657c",
+          "BloomColor": {
+            "color": [
+              {
+                "t": 0.008547009,
+                "c": "1,1,1,1"
+              },
+              {
+                "t": 1,
+                "c": "1,1,1,1"
+              }
+            ],
+            "alpha": []
+          },
+          "BloomCurve": [
+            {
+              "y": 0.5
+            },
+            {
+              "x": 1,
+              "y": 1
+            }
+          ],
+          "Mode": "Additive",
+          "Strength": 0.79,
+          "Threshold": 0.11,
+          "ThresholdWidth": 0.69
+        },
+        {
+          "__type": "Sandbox.Tonemapping",
+          "__guid": "57ec706a-7371-456e-88c1-70df483d4920",
+          "__version": 1,
+          "ExposureBias": 2,
+          "ExposureCompensation": 0,
+          "ExposureMethod": "RGB",
+          "MaximumExposure": 2,
+          "MinimumExposure": 1,
+          "Mode": "ACES",
+          "Rate": 1
+        },
+        {
+          "__type": "Sandbox.ColorAdjustments",
+          "__guid": "d70c1b89-cd37-485b-a933-6e0ca8ec9452",
+          "Brightness": 1,
+          "Contrast": 1,
+          "HueRotate": 0,
+          "Saturation": 1.17
+        },
+        {
+          "__type": "Sandbox.Sharpen",
+          "__guid": "8c39a2cb-9edf-428b-b6c9-4334b77a88ac",
+          "__enabled": false,
+          "Scale": 0.06
+        },
+        {
+          "__type": "Sandbox.Vignette",
+          "__guid": "86e7b564-772d-47f1-a295-f7b6f624255c",
+          "Center": "0.5,0.5",
+          "Color": "0,0,0,1",
+          "Intensity": 0.55,
+          "Roundness": 1,
+          "Smoothness": 0.9
+        }
+      ]
+    },
+    {
+      "__guid": "db1acf78-954f-4260-96d3-b679b1b42f47",
+      "Flags": 0,
+      "Name": "Volumetric Fog",
+      "Position": "792,415.3784,288",
+      "Rotation": "-0.01210736,0,0,0.9999267",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.VolumetricFogVolume",
+          "__guid": "0d49b37d-571b-4376-9488-e616b963a3c1",
+          "Bounds": {
+            "Mins": "-1500,-1500,-307.0998",
+            "Maxs": "1500,1500,51.70005"
+          },
+          "FalloffExponent": 1,
+          "Strength": 1
+        }
+      ]
+    },
+    {
+      "__guid": "af177afc-4b60-419c-baa2-8c38d972c44d",
+      "Flags": 0,
+      "Name": "Volumetric Fog (1)",
+      "Position": "-1552,-320,504",
+      "Rotation": "-0.02305578,0.1205502,0.1137443,0.9858997",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.VolumetricFogVolume",
+          "__guid": "2bc598f4-9451-4848-8d5c-ea1daafcd298",
+          "Bounds": {
+            "Mins": "-2613.501,-1500,-307.0998",
+            "Maxs": "1549.3,1484.499,51.70005"
+          },
+          "FalloffExponent": 1,
+          "Strength": 0.16
+        }
+      ]
+    },
+    {
+      "__guid": "810afb75-a9a4-448f-899f-0a362ba76188",
+      "Flags": 0,
+      "Name": "cliff_arch_01",
+      "Position": "1056,1040,292.1782",
+      "Rotation": "0,0,0.7071067,0.7071068",
+      "Scale": "20,20,20",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "a4e3980a-2dd7-40ca-8850-dfb615841b8c",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/terrain_test/cliff_arch_01.vmdl",
+          "RenderType": "On",
+          "Tint": "0.4,0.42353,0.45098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "cd25ce70-1b4f-46ee-81b0-0d6a42c5360d",
+      "Flags": 0,
+      "Name": "cliff_arch_01 (4)",
+      "Position": "-96,896,272",
+      "Scale": "20,20,20",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "c8129c3d-1402-4f28-a201-bb506432ea7b",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/terrain_test/cliff_arch_01.vmdl",
+          "RenderType": "On",
+          "Tint": "0.4,0.42353,0.45098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "ae277b1e-58a7-487c-98ca-427b279080aa",
+      "Flags": 0,
+      "Name": "cliff_arch_01 (5)",
+      "Position": "-1064,552,264",
+      "Scale": "20,20,20",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "069f6bbb-ecd1-421c-9f12-57d398ce114d",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/terrain_test/cliff_arch_01.vmdl",
+          "RenderType": "On",
+          "Tint": "0.4,0.42353,0.45098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "a582e728-0cc3-47fb-83be-0a06831ca771",
+      "Flags": 0,
+      "Name": "cliff_arch_01 (3)",
+      "Position": "1600,920,408",
+      "Rotation": "0,0,-1,0.0000001937151",
+      "Scale": "20,20,20",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "984b99a3-5117-40a8-9b6e-88389170d145",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/terrain_test/cliff_arch_01.vmdl",
+          "RenderType": "On",
+          "Tint": "0.4,0.42353,0.45098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "f54ceb42-4f94-40d1-8199-387fdf31a11d",
+      "Flags": 0,
+      "Name": "cliff_arch_01 (2)",
+      "Position": "1599.93,-56,440",
+      "Rotation": "0,0,1,-0.00000004371139",
+      "Scale": "20,20,20",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "c0fc02e2-c3eb-49a3-b45b-fd8167d66829",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/terrain_test/cliff_arch_01.vmdl",
+          "RenderType": "On",
+          "Tint": "0.4,0.42353,0.45098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "2d46ecc4-c43e-42f2-823c-9ef6f88821b0",
+      "Flags": 0,
+      "Name": "cliff_arch_01 (6)",
+      "Position": "1599.93,272,-288",
+      "Rotation": "0,0,1,-0.00000004371139",
+      "Scale": "20,20,20",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "e0e83fde-c4b2-42f2-839e-d276c5e1b11a",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/terrain_test/cliff_arch_01.vmdl",
+          "RenderType": "On",
+          "Tint": "0.4,0.42353,0.45098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "505bfa00-5205-4638-bf5d-1a18ff2706a4",
+      "Flags": 0,
+      "Name": "cliff_arch_01 (1)",
+      "Position": "-323.3089,1008,255.7919",
+      "Rotation": "0,0,0.7071068,0.7071068",
+      "Scale": "20,20,20",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "25f0af51-94d7-48c8-b58c-2340590eaddc",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/terrain_test/cliff_arch_01.vmdl",
+          "RenderType": "On",
+          "Tint": "0.4,0.42353,0.45098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "14776b55-7b8e-44fb-852a-3d8852ba621d",
+      "Flags": 0,
+      "Name": "rock_sharp_01 (5)",
+      "Position": "-1228.686,1021.088,1152",
+      "Rotation": "0,0,-0.9238795,0.3826834",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "e3c39824-c217-4d69-8ebb-61cc7278cce0",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/rock_sharp_01.vmdl",
+          "RenderType": "On",
+          "Tint": "0.4,0.42353,0.45098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "4ce1ba4d-c269-4c05-986c-d1ddc71c4bee",
+      "Flags": 0,
+      "Name": "rock_sharp_01 (11)",
+      "Position": "-128,752,152.0001",
+      "Rotation": "0,0,-0.9238795,0.3826834",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "a02acd12-1e74-4285-848a-10caf7b4506e",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/rock_sharp_01.vmdl",
+          "RenderType": "On",
+          "Tint": "0.4,0.42353,0.45098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "e2bfb2b2-82e1-4870-a5cf-13837bedb252",
+      "Flags": 0,
+      "Name": "rock_sharp_01 (12)",
+      "Position": "1448,744,248",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "ea548c84-385b-4c71-9e6b-8fc46335b915",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/rock_sharp_01.vmdl",
+          "RenderType": "On",
+          "Tint": "0.4,0.42353,0.45098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "9fd6bed4-bd36-4538-b602-d05ce8f76e77",
+      "Flags": 0,
+      "Name": "rock_sharp_01 (2)",
+      "Position": "-3568,-1984,1376",
+      "Rotation": "0,0,-0.9238795,0.3826834",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "e0f6fc62-eff8-429e-b4d6-b5574dafbc24",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/rock_sharp_01.vmdl",
+          "RenderType": "On",
+          "Tint": "0.4,0.42353,0.45098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "53040d6e-3931-41a0-951d-4fd270dd98b2",
+      "Flags": 0,
+      "Name": "rock_sharp_01 (3)",
+      "Position": "-3456,-1872,1176",
+      "Rotation": "0,0,0.7071068,0.7071068",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "420eb71b-9698-4a04-b49d-a456a1642ad8",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/rock_sharp_01.vmdl",
+          "RenderType": "On",
+          "Tint": "0.4,0.42353,0.45098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "a3879511-6f2f-4453-bce2-ca03ac31c135",
+      "Flags": 0,
+      "Name": "rock_sharp_01 (10)",
+      "Position": "-3224,-1952,1152",
+      "Rotation": "0,0,0.7071068,0.7071068",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "41483421-60c1-4411-892f-784ccc2f0164",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/rock_sharp_01.vmdl",
+          "RenderType": "On",
+          "Tint": "0.4,0.42353,0.45098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "ecd25501-c67c-4371-8855-ab217d27645c",
+      "Flags": 0,
+      "Name": "rock_sharp_01 (13)",
+      "Position": "-2776,-1952,832",
+      "Rotation": "0,0,0.7071068,0.7071068",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "bc0cb722-4d6d-4635-b2bb-2ec3b7f6de49",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/rock_sharp_01.vmdl",
+          "RenderType": "On",
+          "Tint": "0.4,0.42353,0.45098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "b7f16fc2-9ad8-4a08-9955-ced3f140a0be",
+      "Flags": 0,
+      "Name": "rock_sharp_01 (6)",
+      "Position": "-1172.118,964.5198,912",
+      "Rotation": "0,0,-0.9238795,0.3826834",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "b9de0c59-c3ec-46a5-b81a-0a35694c59c4",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/rock_sharp_01.vmdl",
+          "RenderType": "On",
+          "Tint": "0.4,0.42353,0.45098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "c015de8e-aaf3-4a8e-9c32-5c8c03701d58",
+      "Flags": 0,
+      "Name": "rock_sharp_01 (4)",
+      "Position": "-1307.882,1104,1280",
+      "Rotation": "0,0,-0.9238795,0.3826834",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "79b032b8-8ca1-4881-9701-11d907b24322",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/rock_sharp_01.vmdl",
+          "RenderType": "On",
+          "Tint": "0.4,0.42353,0.45098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "daad6420-00fe-445f-bdb5-b78e2b9a2195",
+      "Flags": 0,
+      "Name": "rock_sharp_01 (7)",
+      "Position": "-1307.882,1352,1488",
+      "Rotation": "0,0,0.7071068,0.7071068",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "110318d7-86f3-4067-a197-f42776ca46d4",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/rock_sharp_01.vmdl",
+          "RenderType": "On",
+          "Tint": "0.4,0.42353,0.45098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "63674556-5b58-47b5-996b-241aff07753d",
+      "Flags": 0,
+      "Name": "rock_sharp_01 (8)",
+      "Position": "-1200,1272,1232",
+      "Rotation": "0,0,0.7071068,0.7071068",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "eeba8a41-76c9-45c1-9d3e-22d07e6f58f1",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/rock_sharp_01.vmdl",
+          "RenderType": "On",
+          "Tint": "0.4,0.42353,0.45098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "ab3ee7da-de1e-4eea-824f-442736bfb29f",
+      "Flags": 0,
+      "Name": "rock_sharp_01 (9)",
+      "Position": "-1200,1496,1312",
+      "Rotation": "0,0,1,-0.00000004371139",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "44516e70-ecae-4baf-a20f-b60cc6287c83",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/rock_sharp_01.vmdl",
+          "RenderType": "On",
+          "Tint": "0.4,0.42353,0.45098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "a5f236ad-1d93-46bc-a472-400fa086ae59",
+      "Flags": 0,
+      "Name": "rock_sharp_01 (1)",
+      "Position": "-264,-1792,464",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "8dfe3d6d-ea7a-4eb2-abaf-7a4543451c88",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/rock_sharp_01.vmdl",
+          "RenderType": "On",
+          "Tint": "0.4,0.42353,0.45098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "9f13bfc8-8f34-46eb-b118-079db77fdf92",
+      "Flags": 0,
+      "Name": "rock_sharp_01 (14)",
+      "Position": "1416,-8,424",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "eef8d573-6b42-48aa-931f-7b7706cfb53e",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/rock_sharp_01.vmdl",
+          "RenderType": "On",
+          "Tint": "0.4,0.42353,0.45098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "668da74a-17e7-4d9f-baa2-9785113f1c98",
+      "Flags": 0,
+      "Name": "rock_sharp_02",
+      "Position": "-440,720,616",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "1d511406-9995-4559-a423-7fccdfef1ac6",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/rock_sharp_02.vmdl",
+          "RenderType": "On",
+          "Tint": "0.4,0.42353,0.45098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "6786048f-9921-4068-9528-a543ec9406ca",
+      "Flags": 0,
+      "Name": "rock_sharp_02 (1)",
+      "Position": "-2656,-2096,736.0001",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "28131df2-bd3f-4d12-b054-8f60e8ec5d0d",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/rock_sharp_02.vmdl",
+          "RenderType": "On",
+          "Tint": "0.4,0.42353,0.45098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "a77eecdb-b7dd-4766-9aff-5166576f3bc7",
+      "Flags": 0,
+      "Name": "rock_sharp_02 (2)",
+      "Position": "-2832,-2080,968",
+      "Rotation": "0,0,0.9914449,-0.1305261",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "e7b7c32a-de82-4196-8b6a-81619e66cd8c",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/rock_sharp_02.vmdl",
+          "RenderType": "On",
+          "Tint": "0.4,0.42353,0.45098,1"
+        }
+      ]
+    }
+  ],
+  "SceneProperties": {
+    "FixedUpdateFrequency": 50,
+    "MaxFixedUpdates": 5,
+    "NetworkFrequency": 30,
+    "NetworkInterpolation": true,
+    "ThreadedAnimation": true,
+    "TimeScale": 1,
+    "UseFixedUpdate": true,
+    "NavMesh": {
+      "Enabled": false,
+      "IncludeStaticBodies": true,
+      "IncludeKeyframedBodies": true,
+      "EditorAutoUpdate": true,
+      "AgentHeight": 64,
+      "AgentRadius": 16,
+      "AgentStepSize": 18,
+      "AgentMaxSlope": 40,
+      "ExcludedBodies": "",
+      "IncludedBodies": ""
+    }
+  },
+  "Title": "terrain_lookdev",
+  "Description": "",
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}
