@@ -583,6 +583,7 @@
                                                     "AttackDelay": 1,
                                                     "AttackRange": 512,
                                                     "Damage": 50,
+                                                    "DamageType": "Fire",
                                                     "HoldType": "HoldItem",
                                                     "InputAction": "attack1"
                                                   }

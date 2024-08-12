@@ -17,6 +17,10 @@ public abstract class WeaponComponent : Component
 	/// </summary>
 	[Property] public CitizenAnimationHelper.HoldTypes HoldType { get; set; } = CitizenAnimationHelper.HoldTypes.None;
 
+	[Property] public float Damage { get; set; } = 50f;
+
+	[Property] public DamageType DamageType { get; set; }
+
 	/// <summary>
 	/// How long since we attacked?
 	/// </summary>
@@ -31,9 +35,14 @@ public abstract class WeaponComponent : Component
 	/// This is a method because the player's skills could increase attack speed.
 	/// </summary>
 	/// <returns></returns>
-	private float GetAttackDelay()
+	protected virtual float GetAttackDelay()
 	{
 		return AttackDelay;
+	}
+
+	protected virtual DamageType GetDamageType()
+	{
+		return DamageType;
 	}
 
 	protected override void OnFixedUpdate()
@@ -55,6 +64,28 @@ public abstract class WeaponComponent : Component
 				Attack();
 			}
 		}
+	}
+
+	protected DamageInstance ConstructDamage( SceneTraceResult tr )
+	{
+		return new DamageInstance()
+		{
+			Type = GetDamageType(),
+			Damage = GetDamage(),
+			Attacker = Player,
+			Victim = tr.Component,
+			Position = tr.HitPosition,
+			Inflictor = this
+		};
+	}
+
+	/// <summary>
+	/// This is a method because the player could have buffs / stats that increase their damage.
+	/// </summary>
+	/// <returns></returns>
+	protected float GetDamage()
+	{
+		return Damage;
 	}
 
 	/// <summary>

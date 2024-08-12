@@ -3,7 +3,7 @@ using System;
 /// <summary>
 /// A shitty mannequin component that reacts to getting hit by a player. 
 /// </summary>
-public partial class Mannequin : Component, Component.IDamageable
+public partial class Mannequin : Component, IDamage
 {
 	[Property] public GameObject Root { get; set; }
 	[Property] public float Jiggle { get; set; } = 100f;
@@ -13,18 +13,6 @@ public partial class Mannequin : Component, Component.IDamageable
 
 	Vector3 trackedPosition;
 	Vector3 lastDirection;
-
-	void IDamageable.OnDamage( in DamageInfo damage )
-	{
-		BroadcastAttack( ( damage.Attacker.Transform.Position - Transform.Position ).Normal ) ;
-
-		//Should be more generic
-		var dmgEffect = Components.Get<DamageEffect>();
-		if ( dmgEffect != null )
-		{
-			dmgEffect.OnDamage( damage );
-		}
-	}
 
 	[Broadcast]
 	private void BroadcastAttack( Vector3 direction )
@@ -49,5 +37,17 @@ public partial class Mannequin : Component, Component.IDamageable
 			.WithPosition( trackedPosition )
 			// Inherit scale
 			.WithScale( Root.Transform.Local.Scale );
+	}
+
+	public void OnDamage( in DamageInstance damage )
+	{
+		BroadcastAttack( (damage.Attacker.Transform.Position - Transform.Position).Normal );
+
+		//Should be more generic
+		var dmgEffect = Components.Get<DamageEffect>();
+		if ( dmgEffect != null )
+		{
+			dmgEffect.OnDamage( damage );
+		}
 	}
 }
