@@ -1,0 +1,54 @@
+@using System
+@using HC2
+@inherits PanelComponent
+
+@{
+	var player = LocalPlayer;
+	if ( !player.IsValid() ) return;
+
+	var inventory = player.Inventory;
+	if ( !inventory.IsValid() ) return;
+}
+
+<root>
+	<div class="container">
+		@for ( var i = 0; i < inventory.Slots.Count; i++ )
+		{
+			var item = inventory.GetItemInSlot( i );
+			<div class="slot">
+				@if ( item.IsValid() )
+				{
+					<div class="item" style="background-image: url(@item.Resource.Icon);">
+						
+					</div>
+				}
+			</div>
+		}
+	</div>
+</root>
+
+@code
+{
+	public Player LocalPlayer => Scene.GetAllComponents<Player>().FirstOrDefault( p => !p.Network.IsProxy );
+	public Inventory Inventory => LocalPlayer?.Inventory;
+	
+	protected override int BuildHash()
+	{
+		var hc = new HashCode();
+		var inventory = Inventory;
+		
+		hc.Add( inventory );
+		
+		if ( inventory.IsValid() )
+		{
+			foreach ( var item in inventory.GetAllItems() )
+			{
+				hc.Add( item );
+			}
+		}
+
+		hc.Add( LocalPlayer );
+
+		return hc.ToHashCode();
+	}
+}

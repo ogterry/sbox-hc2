@@ -1,0 +1,11 @@
+{
+  "Name": "Cookie",
+  "Description": "It\u0027s a cookie, yum.",
+  "Icon": "items/cookie.png",
+  "Tags": "cookie",
+  "Prefab": null,
+  "ItemPrefab": null,
+  "WorldModel": null,
+  "__references": [],
+  "__version": 0
+}

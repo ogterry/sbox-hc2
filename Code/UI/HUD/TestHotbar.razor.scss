@@ -1,0 +1,24 @@
+TestHotbar
+{
+   .container {
+       background-color: black;
+       padding: 8px;
+       position: absolute;
+       flex-direction: row;
+       gap: 16px;
+       
+       .slot {
+           background-color: gray;
+           justify-content: center;
+           align-items: center;
+           width: 64px;
+           height: 64px;
+           
+           .item {
+               background-size: cover;
+               width: 48px;
+               height: 48px;
+           }
+       }
+   }
+}
