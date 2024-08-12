@@ -1,0 +1,40 @@
+@using Sandbox;
+@using Sandbox.UI;
+@inherits Panel
+@namespace HC2
+@attribute [StyleSheet]
+
+@{
+	var experience = Player.Local?.Experience;
+	if ( !experience.IsValid() ) return;
+}
+<root class="stats-menu @(isStatsMenuOpen ? "visible" : "")">
+	<div class="stats-panel">
+		<label class="header">Stat Upgrades</label>
+		<div class="stats">
+			// TODO: this menu :)
+		</div>
+		<label>@(experience.UnspentUpgrades) Unspent Stat Upgrade(s)</label>
+		<label class="footer">Press TAB to close</label>
+	</div>
+</root>
+
+
+@code
+{
+
+	bool isStatsMenuOpen = false;
+
+	public override void Tick ()
+	{
+		base.Tick();
+
+		// TAB Button
+		if ( Input.Pressed( "Score" ) )
+		{
+			isStatsMenuOpen = !isStatsMenuOpen;
+		}
+	}
+
+	protected override int BuildHash () => System.HashCode.Combine( isStatsMenuOpen );
+}

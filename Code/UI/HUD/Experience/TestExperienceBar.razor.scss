@@ -9,7 +9,7 @@ TestExperienceBar {
 	padding: 16px;
 	flex-direction: column;
 	gap: 4px;
-	font-family: Poppins;
+	font-family: Glegoo;
 	font-size: 18px;
 
 	.xp-header {
@@ -118,56 +118,6 @@ TestExperienceBar {
 					}
 				}
 			}
-		}
-	}
-
-	.stats-menu {
-		position: absolute;
-		top: 0;
-		width: 100%;
-		height: 100%;
-		justify-content: flex-start;
-		align-items: center;
-		opacity: 0;
-		transition: all 0.2s;
-		pointer-events: none;
-
-		.stats-panel {
-			position: relative;
-			flex-direction: column;
-			padding: 8px 12px;
-			background-color: white;
-			gap: 2px;
-			transition: all 0.1s;
-			left: -100%;
-
-			.header {
-				font-size: 24px;
-				font-weight: bold;
-				margin-bottom: 8px;
-			}
-
-			.stats {
-				width: 100%;
-				flex-direction: column;
-				height: 300px;
-				background-color: #eee;
-				padding: 8px;
-			}
-
-			.footer {
-				font-size: 14px;
-			}
-		}
-
-		&.visible {
-			left: 0%;
-			opacity: 1;
-			pointer-events: all;
-
-			.stats-panel {
-                left: 0%;
-            }
 		}
 	}
 }

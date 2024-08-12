@@ -22,21 +22,11 @@
 		</div>
 	</div>
 
-	<div class="stats-menu @(isStatsMenuOpen ? "visible" : "")">
-		<div class="stats-panel">
-			<label class="header">Stat Upgrades</label>
-			<div class="stats">
-				// TODO: this menu :)
-			</div>
-			<label>@(experience.UnspentUpgrades) Unspent Stat Upgrade(s)</label>
-			<label class="footer">Press TAB to close</label>
-		</div>
-	</div>
+	<StatUpgradesPanel />
 </root>
 
 @code
 {
-	bool isStatsMenuOpen = false;
 	bool hasInitialized = false;
 	RealTimeSince timeSinceLevelUp = 0;
 
@@ -56,12 +46,6 @@
 			experience.OnGivePoints += OnPointsGained;
 			experience.OnGiveLevels += OnLevelsGained;
 			hasInitialized = true;
-		}
-
-		// TAB Button
-		if(Input.Pressed("Score"))
-		{
-			isStatsMenuOpen = !isStatsMenuOpen;
 		}
 	}
 
@@ -100,5 +84,5 @@
 		return classes;
 	}
 
-	protected override int BuildHash () => System.HashCode.Combine( Player.Local?.Experience?.Points, ToastClasses(), isStatsMenuOpen );
+	protected override int BuildHash () => System.HashCode.Combine( Player.Local?.Experience?.Points, ToastClasses() );
 }
