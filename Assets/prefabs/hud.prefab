@@ -2,7 +2,7 @@
   "RootObject": {
     "__guid": "92da79b0-b2a8-443b-b29f-8f5757b3cd7f",
     "Flags": 0,
-    "Name": "HUD",
+    "Name": "hud",
     "Enabled": true,
     "Components": [
       {
@@ -16,8 +16,14 @@
       {
         "__type": "Hud",
         "__guid": "da052e11-6dfd-462d-8d03-a7590897635f"
+      },
+      {
+        "__type": "TestHotbar",
+        "__guid": "74d900bc-08af-484d-9998-d479058c307d"
       }
-    ]
+    ],
+    "Children": [],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,
