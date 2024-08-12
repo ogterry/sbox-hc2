@@ -96,6 +96,20 @@
       {
         "__type": "HC2.Mobs.MobTarget",
         "__guid": "8baec84e-18e2-41b4-80a1-ef3eecf69ef6"
+      },
+      {
+        "__type": "PlayerFootsteps",
+        "__guid": "d971e3bf-2bde-4871-b241-f87e74ed8013",
+        "Particle": {
+          "_type": "gameobject",
+          "prefab": "prefabs/particles/footstep/footstepeffect.prefab"
+        },
+        "Source": {
+          "_type": "component",
+          "component_id": "84111462-d9ad-40e3-8808-992c26f37bc5",
+          "go": "b26515b5-0677-43ab-952f-c78b9007bada",
+          "component_type": "SkinnedModelRenderer"
+        }
       }
     ],
     "Children": [
