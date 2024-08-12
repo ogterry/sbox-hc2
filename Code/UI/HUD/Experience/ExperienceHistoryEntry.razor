@@ -1,0 +1,30 @@
+﻿@using Sandbox;
+@using Sandbox.UI;
+@inherits Panel
+@namespace HC2
+
+<root>
+	<label>+@(Points) XP</label>
+</root>
+
+@code
+{
+	public int Points { get; set; }
+
+	RealTimeSince _timeSinceCreated = 0;
+
+	protected override void OnAfterTreeRender ( bool firstTime )
+	{
+		base.OnAfterTreeRender( firstTime );
+
+		if (firstTime) _timeSinceCreated = 0f;
+	}
+
+	public override void Tick()
+	{
+		if ( _timeSinceCreated > 4 )
+		{
+			Delete();
+		}
+	}
+}

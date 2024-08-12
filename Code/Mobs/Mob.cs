@@ -30,7 +30,7 @@ public sealed class Mob : Component,
 
 	[Property, Range( 0f, 4f )] public float DamageScale { get; set; } = 1f;
 
-	[Property] public int ExperienceYield { get; set; } = 1;
+	[Property] public int ExperienceYield { get; set; } = 6;
 
 	[Property, KeyProperty]
 	public event Action<DamageTakenEvent>? DamageTaken;

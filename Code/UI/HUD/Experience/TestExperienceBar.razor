@@ -1,0 +1,83 @@
+@using Sandbox;
+@using Sandbox.UI;
+@inherits PanelComponent
+@namespace HC2
+
+@{
+	var experience = Player.Local?.Experience;
+	if (!experience.IsValid()) return;
+}
+<root>
+	<div class="xp-bar">
+		<div class="inner">
+			<div class="fill" style="width: @(CurrentFill * 100f)%;" />
+			<div class="inner-text">
+				<label>XP: @(experience.Points) / @(experience.MaxPoints)</label>
+			</div>
+		</div>
+	</div>
+	<div class="xp-content">
+		<label class="current-level">Level @(experience.Level)</label>
+		<div @ref="HistoryList" class="history-list">
+			
+		</div>
+	</div>
+</root>
+
+@code
+{
+	protected float CurrentFill = 0f;
+	bool hasInitialized = false;
+
+	Panel HistoryList { get; set; }
+
+	protected override void OnUpdate()
+	{
+		var experience = Player.Local?.Experience;
+		if(!experience.IsValid())
+		{
+			hasInitialized = false;
+			return;
+		}
+
+		if(!hasInitialized)
+		{
+			experience.OnGivePoints += OnPointsGained;
+			experience.OnGiveLevels += OnLevelsGained;
+			hasInitialized = true;
+		}
+
+		var previousValue = CurrentFill;
+		var targetFill = (float)experience.Points / experience.MaxPoints;
+		CurrentFill = CurrentFill.LerpTo( targetFill, Time.Delta * 10f );
+		if ( CurrentFill < previousValue )
+			CurrentFill = 0;
+	}
+
+	protected override void OnDestroy ()
+	{
+		var experience = Player.Local?.Experience;
+		if(!experience.IsValid())
+			return;
+
+		experience.OnGivePoints -= OnPointsGained;
+		experience.OnGiveLevels -= OnLevelsGained;
+	}
+
+	void OnPointsGained( int points )
+	{
+		if(!HistoryList.IsValid())
+			return;
+			
+		var entry = new ExperienceHistoryEntry();
+		entry.Points = points;
+		HistoryList.AddChild(entry);
+	}
+
+	void OnLevelsGained(int levels)
+	{
+		
+	}
+
+	protected override int BuildHash() => System.HashCode.Combine(CurrentFill, Player.Local?.Experience);
+}

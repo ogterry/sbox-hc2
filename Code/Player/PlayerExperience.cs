@@ -1,3 +1,5 @@
+using System;
+
 namespace HC2;
 
 public sealed class PlayerExperience : Component, ISaveData
@@ -7,17 +9,27 @@ public sealed class PlayerExperience : Component, ISaveData
 	[Property] public Curve XpCurve { get; set; }
 	[Property] public int MaxLevel { get; set; } = 40;
 
+	public Action<int> OnGivePoints { get; set; }
+	public Action<int> OnGiveLevels { get; set; }
+
 	public int MaxPoints => GetPointsForLevel( Level );
 
 	[Authority]
 	public void GivePoints( int amount )
 	{
 		Points += amount;
+		OnGivePoints?.Invoke( amount );
 
+		int levels = 0;
 		while ( Points >= MaxPoints )
 		{
 			Points -= MaxPoints;
-			GiveLevel( 1 );
+			levels++;
+		}
+
+		if ( levels > 0 )
+		{
+			GiveLevel( levels );
 		}
 	}
 
@@ -25,6 +37,7 @@ public sealed class PlayerExperience : Component, ISaveData
 	public void GiveLevel( int amount )
 	{
 		Level += amount;
+		OnGiveLevels?.Invoke( amount );
 	}
 
 	public int GetPointsForLevel( int level )
