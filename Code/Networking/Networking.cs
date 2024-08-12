@@ -42,7 +42,7 @@ public sealed class Networking : Component, Component.INetworkListener
 		// Spawn this object and make the client the owner
 		var player = PlayerPrefab.Clone( startLocation, name: $"Player - {channel.DisplayName}" );
 		var playerComponent = player.Components.Get<Player>();
-		playerComponent.Inventory = Inventory.Create( 8 );
+		playerComponent.Inventory = Inventory.Create( 8, channel );
 		player.NetworkSpawn( channel );
 	}
 

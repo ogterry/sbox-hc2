@@ -21,7 +21,7 @@ public class Inventory : Component
 	{
 		Assert.True( Sandbox.Networking.IsHost );
 		
-		var go = new GameObject();
+		var go = new GameObject { Name = "Inventory" };
 		var inventory = go.Components.Create<Inventory>();
 
 		for ( var i = 0; i < 8; i++ )
