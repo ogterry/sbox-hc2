@@ -1,0 +1,737 @@
+{
+  "RootObject": {
+    "__guid": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+    "Flags": 0,
+    "Name": "roller",
+    "Enabled": true,
+    "Components": [
+      {
+        "__type": "HC2.Mobs.Mob",
+        "__guid": "aded3d0b-89a1-4728-a60a-0e11f2abea59"
+      },
+      {
+        "__type": "Sandbox.CharacterController",
+        "__guid": "81a5dd2a-6885-4126-b0b4-56edb2c7dcf3",
+        "Acceleration": 10,
+        "Bounciness": 0.3,
+        "GroundAngle": 45,
+        "Height": 64,
+        "IgnoreLayers": "",
+        "Radius": 16,
+        "StepHeight": 18,
+        "UseCollisionRules": false
+      },
+      {
+        "__type": "Sandbox.States.StateMachineComponent",
+        "__guid": "685bccb4-f7e2-4efe-a771-2b63e336fe93",
+        "Serialized": {
+          "States": [
+            {
+              "Name": "Start",
+              "UserData": {
+                "Position": "-320,-384"
+              }
+            },
+            {
+              "Id": 1,
+              "Name": "Idle",
+              "UserData": {
+                "Position": "64,-448"
+              }
+            },
+            {
+              "Id": 3,
+              "Name": "Wander",
+              "UserData": {
+                "Position": "-160,-704"
+              }
+            },
+            {
+              "Id": 6,
+              "Name": "At Destination",
+              "UserData": {
+                "Position": "320,-704"
+              }
+            }
+          ],
+          "Transitions": [
+            {
+              "Id": 2,
+              "TargetId": 1
+            },
+            {
+              "Id": 4,
+              "SourceId": 1,
+              "TargetId": 3,
+              "Delay": 2,
+              "OnTransition": {
+                "__version": 7,
+                "__guid": "2ea5007f-4238-4eb3-898a-2f2399f1027c",
+                "UserData": {
+                  "Title": "Choose destination",
+                  "ReferencedComponentTypes": [
+                    "HC2.Mobs.Mob"
+                  ]
+                },
+                "Variables": [],
+                "Nodes": [
+                  {
+                    "Id": 0,
+                    "Type": "input"
+                  },
+                  {
+                    "Id": 3,
+                    "Type": "call",
+                    "Properties": {
+                      "_name": "SetMoveTarget",
+                      "_isStatic": false,
+                      "_type": "HC2.Mobs.Mob"
+                    },
+                    "UserData": {
+                      "Position": "272,0"
+                    }
+                  },
+                  {
+                    "Id": 5,
+                    "Type": "hc2.mob.getnearby",
+                    "UserData": {
+                      "Position": "-0,96"
+                    }
+                  },
+                  {
+                    "Id": 7,
+                    "Type": "scene.get",
+                    "Properties": {
+                      "T": "HC2.Mobs.Mob"
+                    },
+                    "UserData": {
+                      "Position": "-64,-144",
+                      "Labels": {
+                        "_result": "mob"
+                      }
+                    }
+                  },
+                  {
+                    "Id": 8,
+                    "Type": "property",
+                    "ParentId": 7,
+                    "Properties": {
+                      "_name": "SpawnTransform",
+                      "_type": "HC2.Mobs.Mob"
+                    },
+                    "UserData": {
+                      "Visible": false
+                    }
+                  },
+                  {
+                    "Id": 9,
+                    "Type": "property",
+                    "ParentId": 8,
+                    "Properties": {
+                      "_name": "Position",
+                      "_type": "Transform"
+                    },
+                    "UserData": {
+                      "Labels": {
+                        "_result": "spawn pos"
+                      }
+                    }
+                  }
+                ],
+                "Links": [
+                  {
+                    "SrcId": 0,
+                    "SrcName": "_signal",
+                    "DstId": 3,
+                    "DstName": "_signal"
+                  },
+                  {
+                    "SrcId": 7,
+                    "SrcName": "_result",
+                    "DstId": 3,
+                    "DstName": "_target"
+                  },
+                  {
+                    "SrcId": 5,
+                    "SrcName": "_result",
+                    "DstId": 3,
+                    "DstName": "position"
+                  },
+                  {
+                    "Value": 64,
+                    "DstId": 5,
+                    "DstName": "maxHeight"
+                  },
+                  {
+                    "Value": 256,
+                    "DstId": 5,
+                    "DstName": "maxRange"
+                  },
+                  {
+                    "Value": 128,
+                    "DstId": 5,
+                    "DstName": "minRange"
+                  },
+                  {
+                    "SrcId": 9,
+                    "SrcName": "_result",
+                    "DstId": 5,
+                    "DstName": "origin"
+                  },
+                  {
+                    "SrcId": 0,
+                    "SrcName": "_target",
+                    "DstId": 7,
+                    "DstName": "_this"
+                  },
+                  {
+                    "SrcId": 7,
+                    "SrcName": "_result",
+                    "DstId": 8,
+                    "DstName": "_target"
+                  },
+                  {
+                    "SrcId": 8,
+                    "SrcName": "_result",
+                    "DstId": 9,
+                    "DstName": "_target"
+                  }
+                ]
+              }
+            },
+            {
+              "Id": 5,
+              "SourceId": 3,
+              "TargetId": 1,
+              "Condition": {
+                "__version": 7,
+                "__guid": "40d3f988-0b90-4b2d-ae34-06954a32fc0e",
+                "UserData": {
+                  "Title": "Reached destination",
+                  "ReferencedComponentTypes": []
+                },
+                "Variables": [],
+                "Nodes": [
+                  {
+                    "Id": 0,
+                    "Type": "input"
+                  },
+                  {
+                    "Id": 1,
+                    "Type": "output",
+                    "UserData": {
+                      "Position": "416,0"
+                    }
+                  },
+                  {
+                    "Id": 3,
+                    "Type": "scene.ref",
+                    "Properties": {
+                      "component": {
+                        "_type": "component",
+                        "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
+                        "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                        "component_type": "Mob"
+                      }
+                    },
+                    "UserData": {
+                      "Position": "-32,64"
+                    }
+                  },
+                  {
+                    "Id": 4,
+                    "Type": "property",
+                    "ParentId": 3,
+                    "Properties": {
+                      "_name": "HasMoveTarget",
+                      "_type": "HC2.Mobs.Mob"
+                    }
+                  },
+                  {
+                    "Id": 5,
+                    "Type": "op.not",
+                    "UserData": {
+                      "Position": "224,48"
+                    }
+                  }
+                ],
+                "Links": [
+                  {
+                    "SrcId": 5,
+                    "SrcName": "_result",
+                    "DstId": 1,
+                    "DstName": "_result"
+                  },
+                  {
+                    "SrcId": 0,
+                    "SrcName": "_signal",
+                    "DstId": 1,
+                    "DstName": "_signal"
+                  },
+                  {
+                    "SrcId": 3,
+                    "SrcName": "_result",
+                    "DstId": 4,
+                    "DstName": "_target"
+                  },
+                  {
+                    "SrcId": 4,
+                    "SrcName": "_result",
+                    "DstId": 5,
+                    "DstName": "a"
+                  }
+                ],
+                "Defaults": {
+                  "$3.component": {
+                    "_type": "component",
+                    "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
+                    "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                    "component_type": "Mob"
+                  }
+                }
+              }
+            },
+            {
+              "Id": 7,
+              "SourceId": 3,
+              "TargetId": 6,
+              "Condition": {
+                "__version": 7,
+                "__guid": "490acddc-928d-4e1f-80e3-92da035f8fa9",
+                "UserData": {
+                  "Title": "Almost at target",
+                  "ReferencedComponentTypes": []
+                },
+                "Variables": [],
+                "Nodes": [
+                  {
+                    "Id": 0,
+                    "Type": "input"
+                  },
+                  {
+                    "Id": 1,
+                    "Type": "output",
+                    "UserData": {
+                      "Position": "256,0"
+                    }
+                  },
+                  {
+                    "Id": 5,
+                    "Type": "scene.ref",
+                    "Properties": {
+                      "component": {
+                        "_type": "component",
+                        "component_id": "355f4ad9-b6a5-4d57-bbfb-656f6f64850e",
+                        "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                        "component_type": "GroundMover"
+                      }
+                    },
+                    "UserData": {
+                      "Position": "-64,80"
+                    }
+                  },
+                  {
+                    "Id": 6,
+                    "Type": "property",
+                    "ParentId": 5,
+                    "Properties": {
+                      "_name": "IsApproachingTarget",
+                      "_type": "HC2.Mobs.GroundMover"
+                    }
+                  }
+                ],
+                "Links": [
+                  {
+                    "SrcId": 6,
+                    "SrcName": "_result",
+                    "DstId": 1,
+                    "DstName": "_result"
+                  },
+                  {
+                    "SrcId": 0,
+                    "SrcName": "_signal",
+                    "DstId": 1,
+                    "DstName": "_signal"
+                  },
+                  {
+                    "SrcId": 5,
+                    "SrcName": "_result",
+                    "DstId": 6,
+                    "DstName": "_target"
+                  }
+                ],
+                "Defaults": {
+                  "$5.component": {
+                    "_type": "component",
+                    "component_id": "355f4ad9-b6a5-4d57-bbfb-656f6f64850e",
+                    "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                    "component_type": "GroundMover"
+                  }
+                }
+              }
+            },
+            {
+              "Id": 8,
+              "SourceId": 6,
+              "TargetId": 1,
+              "Condition": {
+                "__version": 7,
+                "__guid": "51ac9c85-6323-492c-9014-5a3807c25a73",
+                "UserData": {
+                  "Title": "25% Chance",
+                  "Icon": "casino",
+                  "ReferencedComponentTypes": []
+                },
+                "Variables": [],
+                "Nodes": [
+                  {
+                    "Id": 0,
+                    "Type": "input"
+                  },
+                  {
+                    "Id": 1,
+                    "Type": "output",
+                    "UserData": {
+                      "Position": "256,0"
+                    }
+                  },
+                  {
+                    "Id": 2,
+                    "Type": "random.chance",
+                    "UserData": {
+                      "Position": "-32,80"
+                    }
+                  }
+                ],
+                "Links": [
+                  {
+                    "SrcId": 2,
+                    "SrcName": "_result",
+                    "DstId": 1,
+                    "DstName": "_result"
+                  },
+                  {
+                    "SrcId": 0,
+                    "SrcName": "_signal",
+                    "DstId": 1,
+                    "DstName": "_signal"
+                  },
+                  {
+                    "Value": 0.25,
+                    "DstId": 2,
+                    "DstName": "probability"
+                  }
+                ]
+              }
+            },
+            {
+              "Id": 9,
+              "SourceId": 6,
+              "TargetId": 3,
+              "OnTransition": {
+                "__version": 7,
+                "__guid": "0e6bc071-04fd-4485-86b7-33efe09aae2e",
+                "UserData": {
+                  "Title": "Keep going forwards",
+                  "ReferencedComponentTypes": []
+                },
+                "Variables": [],
+                "Nodes": [
+                  {
+                    "Id": 0,
+                    "Type": "input",
+                    "UserData": {
+                      "Position": "304,-0"
+                    }
+                  },
+                  {
+                    "Id": 1,
+                    "Type": "property",
+                    "Properties": {
+                      "_name": "Transform",
+                      "_type": "Sandbox.GameObject"
+                    },
+                    "UserData": {
+                      "Position": "-400,144"
+                    }
+                  },
+                  {
+                    "Id": 2,
+                    "Type": "property",
+                    "ParentId": 1,
+                    "Properties": {
+                      "_name": "Position",
+                      "_type": "Sandbox.GameTransform"
+                    }
+                  },
+                  {
+                    "Id": 3,
+                    "Type": "property",
+                    "ParentId": 1,
+                    "Properties": {
+                      "_name": "Rotation",
+                      "_type": "Sandbox.GameTransform"
+                    }
+                  },
+                  {
+                    "Id": 4,
+                    "Type": "property",
+                    "ParentId": 3,
+                    "Properties": {
+                      "_name": "Forward",
+                      "_type": "Rotation"
+                    }
+                  },
+                  {
+                    "Id": 6,
+                    "Type": "scene.ref",
+                    "Properties": {
+                      "component": {
+                        "_type": "component",
+                        "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
+                        "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                        "component_type": "Mob"
+                      }
+                    },
+                    "UserData": {
+                      "Position": "320,64"
+                    }
+                  },
+                  {
+                    "Id": 7,
+                    "Type": "call",
+                    "Properties": {
+                      "_name": "SetMoveTarget",
+                      "_isStatic": false,
+                      "_type": "HC2.Mobs.Mob"
+                    },
+                    "UserData": {
+                      "Position": "576,48"
+                    }
+                  },
+                  {
+                    "Id": 8,
+                    "Type": "op.add",
+                    "UserData": {
+                      "Position": "64,192"
+                    }
+                  },
+                  {
+                    "Id": 9,
+                    "Type": "op.multiply",
+                    "UserData": {
+                      "Position": "-144,256"
+                    }
+                  },
+                  {
+                    "Id": 10,
+                    "Type": "random.float",
+                    "UserData": {
+                      "Position": "-368,304"
+                    }
+                  },
+                  {
+                    "Id": 16,
+                    "Type": "hc2.mob.getnearby",
+                    "UserData": {
+                      "Position": "304,176"
+                    }
+                  }
+                ],
+                "Links": [
+                  {
+                    "SrcId": 0,
+                    "SrcName": "_target",
+                    "DstId": 1,
+                    "DstName": "_target"
+                  },
+                  {
+                    "SrcId": 1,
+                    "SrcName": "_result",
+                    "DstId": 2,
+                    "DstName": "_target"
+                  },
+                  {
+                    "SrcId": 1,
+                    "SrcName": "_result",
+                    "DstId": 3,
+                    "DstName": "_target"
+                  },
+                  {
+                    "SrcId": 3,
+                    "SrcName": "_result",
+                    "DstId": 4,
+                    "DstName": "_target"
+                  },
+                  {
+                    "SrcId": 0,
+                    "SrcName": "_signal",
+                    "DstId": 7,
+                    "DstName": "_signal"
+                  },
+                  {
+                    "SrcId": 6,
+                    "SrcName": "_result",
+                    "DstId": 7,
+                    "DstName": "_target"
+                  },
+                  {
+                    "SrcId": 16,
+                    "SrcName": "_result",
+                    "DstId": 7,
+                    "DstName": "position"
+                  },
+                  {
+                    "SrcId": 2,
+                    "SrcName": "_result",
+                    "DstId": 8,
+                    "DstName": "a"
+                  },
+                  {
+                    "SrcId": 9,
+                    "SrcName": "_result",
+                    "DstId": 8,
+                    "DstName": "b"
+                  },
+                  {
+                    "SrcId": 4,
+                    "SrcName": "_result",
+                    "DstId": 9,
+                    "DstName": "a"
+                  },
+                  {
+                    "SrcId": 10,
+                    "SrcName": "_result",
+                    "DstId": 9,
+                    "DstName": "b"
+                  },
+                  {
+                    "Value": 256,
+                    "DstId": 10,
+                    "DstName": "max"
+                  },
+                  {
+                    "Value": 128,
+                    "DstId": 10,
+                    "DstName": "min"
+                  },
+                  {
+                    "Value": 32,
+                    "DstId": 16,
+                    "DstName": "maxHeight"
+                  },
+                  {
+                    "Value": 128,
+                    "DstId": 16,
+                    "DstName": "maxRange"
+                  },
+                  {
+                    "Value": 0,
+                    "DstId": 16,
+                    "DstName": "minRange"
+                  },
+                  {
+                    "SrcId": 8,
+                    "SrcName": "_result",
+                    "DstId": 16,
+                    "DstName": "origin"
+                  }
+                ],
+                "Defaults": {
+                  "$6.component": {
+                    "_type": "component",
+                    "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
+                    "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                    "component_type": "Mob"
+                  }
+                }
+              }
+            }
+          ],
+          "InitialStateId": 0
+        }
+      },
+      {
+        "__type": "HC2.Mobs.GroundMover",
+        "__guid": "355f4ad9-b6a5-4d57-bbfb-656f6f64850e",
+        "MaxSpeed": 150
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "e5fff93b-14e0-4d75-b7ec-6a423a64da68",
+        "Flags": 0,
+        "Name": "Sphere",
+        "Position": "0,0,16",
+        "Scale": "0.5,0.5,0.5",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "69ca473a-0802-4b5d-9a4e-d9634f088201",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/dev/sphere.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "ad4607ca-136d-45a0-a837-a35d78d7bb8a",
+        "Flags": 0,
+        "Name": "Head",
+        "Position": "0,0,48",
+        "Enabled": true,
+        "Children": [
+          {
+            "__guid": "593e8a0f-65ae-4820-814e-c3fe08482989",
+            "Flags": 0,
+            "Name": "Cube",
+            "Position": "0,0,0",
+            "Scale": "0.5,0.5,0.5",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.ModelRenderer",
+                "__guid": "42784a1e-b509-41bc-92c0-bd9f7e43626f",
+                "BodyGroups": 18446744073709551615,
+                "Model": "models/dev/box.vmdl",
+                "RenderType": "On",
+                "Tint": "1,1,1,1"
+              }
+            ],
+            "Children": [
+              {
+                "__guid": "9137113a-7bf9-4a60-87d5-8f31c49ba025",
+                "Flags": 0,
+                "Name": "Face",
+                "Position": "28,0,0",
+                "Enabled": true,
+                "Components": [
+                  {
+                    "__type": "Sandbox.TextRenderer",
+                    "__guid": "80c32109-0f5a-4ac3-a53c-b6f1eec8ff8f",
+                    "Color": "0.45103,0.47149,0.5297,1",
+                    "FontFamily": "Poppins",
+                    "FontSize": 128,
+                    "FontWeight": 800,
+                    "Scale": 0.3,
+                    "Text": "\uD83D\uDE21",
+                    "TextAlignment": "Center"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}
