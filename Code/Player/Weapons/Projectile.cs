@@ -27,6 +27,8 @@ public partial class Projectile : Component, Component.ICollisionListener
 	/// </summary>
 	[Property] public GameObject PrefabToSpawn { get; set; }
 
+	[Property] public float LifeTime { get; set; } = 5f;
+
 	/// <summary>
 	/// Passed in by a weapon, how much damage do we inflict to a damageable?
 	/// </summary>
@@ -36,6 +38,11 @@ public partial class Projectile : Component, Component.ICollisionListener
 	/// Passed in by a weapon, what's the damage type?
 	/// </summary>
 	public DamageType DamageType { get; set; }
+
+	protected override void OnStart()
+	{
+		DestroyAfter( LifeTime );
+	}
 
 	[Broadcast]
 	public void SpawnEffects( Vector3 position )
@@ -58,8 +65,6 @@ public partial class Projectile : Component, Component.ICollisionListener
 			return;
 		}
 
-		SpawnEffects( other.Contact.Point );
-
 		var healthComponent = other.Other.GameObject.Root.Components.Get<HealthComponent>();
 		if ( healthComponent.IsValid() )
 		{
@@ -75,6 +80,24 @@ public partial class Projectile : Component, Component.ICollisionListener
 			} );
 		}
 
+		InternalDestroy( other.Contact.Point );
+	}
+
+	void InternalDestroy( Vector3 position = default )
+	{
+		if ( IsProxy ) return;
+
+		if ( position == default )
+			position = Transform.Position;
+
+		SpawnEffects( position );
 		GameObject.Destroy();
+	}
+
+	async void DestroyAfter( float time )
+	{
+		await GameTask.DelaySeconds( time );
+		if ( !GameObject.IsValid() ) return;
+		InternalDestroy();
 	}
 }
