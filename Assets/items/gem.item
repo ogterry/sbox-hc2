@@ -1,9 +1,10 @@
 {
   "Name": "Gem",
   "Description": "It\u0027s shiny!",
-  "Icon": null,
+  "Icon": "items/gem.png",
   "Tags": null,
   "Prefab": null,
+  "ItemPrefab": null,
   "WorldModel": null,
   "__references": [],
   "__version": 0
