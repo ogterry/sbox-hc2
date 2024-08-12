@@ -1,4 +1,4 @@
-$safe-zone-x: 25px;
+$safe-zone-x: 50px;
 $safe-zone-y: 25px;
 
 $font: Glegoo;
@@ -11,8 +11,8 @@ $yellow: #FFB52B;
 
 $text-md: 16px;
 
-$background: rgba( black, 0.75 );
-$blur: blur( 50px );
+$background: rgba( black, 0.5 );
+$blur: blur( 25px );
 $rounding: 4px;
 $border: 0px solid rgba( black, 0.1 );
 $shadow: 0 5px 50px rgba( black, 0.25 );
@@ -23,4 +23,16 @@ $shadow: 0 5px 50px rgba( black, 0.25 );
     border-radius: $rounding;
     border: $border;
     box-shadow: $shadow;
+}
+
+label, text {
+    font-size: 16px;
+
+    &.small {
+        font-size: 12px;
+    }
+
+    &.large {
+        font-size: 20px;
+    }
 }

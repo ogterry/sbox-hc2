@@ -2,6 +2,11 @@
 
 Hud {
     .canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
         flex-grow: 1;
     }
 
@@ -16,14 +21,6 @@ Hud {
         justify-content: space-between;
         align-items: flex-start;
         align-content: stretch;
-
-        .left {
-            justify-content: flex-start;
-        }
-
-        .right {
-            justify-content: flex-end;
-        }
     }
 
     .bottom {
@@ -36,14 +33,25 @@ Hud {
         align-items: flex-end;
         align-content: stretch;
         gap: 16px;
+    }
 
-        .left {
-            justify-content: flex-start;
-        }
+    .left {
+        justify-content: flex-start;
+    }
 
-        .right {
-            justify-content: flex-end;
-        }
+    .middle {
+        justify-content: center;
+    }
+
+    .right {
+        justify-content: flex-end;
+    }
+
+    .left, .middle, .right {
+        flex-basis: 33%;
+        width: 33%;
+        flex-grow: 0;
+        flex-shrink: 0;
     }
 }
 
