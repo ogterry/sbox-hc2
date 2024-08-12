@@ -53,7 +53,7 @@ public class ModifyDamageEvent : IGameEvent
 
 public sealed class HealthComponent : Component
 {
-	[Sync, Property, JsonIgnore, ReadOnly] public float Health { get; set; } = 100f;
+	[HostSync, Property, JsonIgnore, ReadOnly] public float Health { get; set; } = 100f;
 	[Property] public float MaxHealth { get; set; } = 100f;
 	[Property] public GameObject DamageEffectPrefab { get; set; }
 
@@ -78,8 +78,6 @@ public sealed class HealthComponent : Component
 			Position = position,
 			Attacker = attacker, 
 		};
-
-		Log.Info( instance );
 
 		GameObject.Dispatch( new DamageTakenEvent( instance ) );
 
@@ -117,6 +115,30 @@ public sealed class HealthComponent : Component
 		return modifyEvent.DamageInstance;
 	}
 
+	[Broadcast]
+	private void AskHostToDamage( float damage, Vector3 position, Vector3 force, Component attacker, Component inflictor = null, Component victim = null, DamageFlags flags = default, DamageType type = default )
+	{
+		if ( !Sandbox.Networking.IsHost )
+		{
+			return;
+		}
+
+		var instance = new DamageInstance()
+		{
+			Damage = damage,
+			Force = force,
+			Victim = victim,
+			Inflictor = inflictor,
+			Flags = flags,
+			Type = type,
+			Position = position,
+			Attacker = attacker,
+		};
+
+		// Have the host do all the damaging
+		TakeDamage( instance );
+	}
+
 	public void Kill()
 	{
 		Health = 0;
@@ -125,9 +147,15 @@ public sealed class HealthComponent : Component
 
 	public void TakeDamage( DamageInstance damage )
 	{
-		if ( IsProxy )
+		if ( !Sandbox.Networking.IsHost )
+		{
+			using ( Rpc.FilterInclude( Connection.Host ) )
+			{
+				AskHostToDamage( damage.Damage, damage.Position, damage.Force, damage.Attacker, damage.Inflictor, damage.Victim, damage.Flags, damage.Type );
+			}
 			return;
-		
+		}
+
 		damage = ModifyDamage( damage );
 
 		Health -= damage.Damage;

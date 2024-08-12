@@ -17,7 +17,6 @@
 
 		var tr = Scene.Trace.Ray( Player.CameraController.AimRay, GetAttackRange() )
 			.IgnoreGameObjectHierarchy( Player.GameObject )
-			.UseHitboxes()
 			.Run();
 
 		if ( tr.Hit )

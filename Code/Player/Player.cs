@@ -1,7 +1,8 @@
 using HC2;
 using Sandbox.Citizen;
+using Sandbox.Events;
 
-public sealed class Player : Component
+public sealed class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 {
 	/// <summary>
 	/// The player's character controller, handles movement
@@ -270,5 +271,40 @@ public sealed class Player : Component
 			return;
 
 		CameraController.UpdateFromPlayer();
+	}
+
+	/// <summary>
+	/// Called when you die and respawn, at the moment it's immediate
+	/// </summary>
+	public void Respawn()
+	{
+		HealthComponent.Health = HealthComponent.MaxHealth;
+
+		// This is from the host, so we gotta tell the owner that we want them to respawn.
+		// also means we can do stuff on other clients, informing them
+		BroadcastRespawn();
+	}
+
+	[Broadcast]
+	private void BroadcastRespawn()
+	{
+		Transform.Position = Vector3.Zero;
+	}
+
+	/// <summary>
+	/// Called on the host when damaging smoething
+	/// </summary>
+	/// <param name="damage"></param>
+	void IDamage.OnDamage( DamageInstance damage )
+	{
+	}
+
+	/// <summary>
+	/// Called on the host when this thing has been killed
+	/// </summary>
+	/// <param name="eventArgs"></param>
+	void IGameEventHandler<KilledEvent>.OnGameEvent( KilledEvent eventArgs )
+	{
+		Respawn();
 	}
 }

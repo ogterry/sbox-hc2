@@ -74,6 +74,23 @@
           "go": "b26515b5-0677-43ab-952f-c78b9007bada",
           "component_type": "SkinnedModelRenderer"
         }
+      },
+      {
+        "__type": "HealthComponent",
+        "__guid": "f24f6f57-8e65-45c5-aeae-2fd41c5610b6",
+        "DamageEffectPrefab": {
+          "_type": "gameobject",
+          "prefab": "prefabs/damage/dmgnumber.prefab"
+        },
+        "MaxHealth": 100
+      },
+      {
+        "__type": "Sandbox.BoxCollider",
+        "__guid": "0536addd-28e1-4519-97e7-f366cc431464",
+        "Center": "0,0,34.3",
+        "IsTrigger": false,
+        "Scale": "25,25,67.99998",
+        "Static": false
       }
     ],
     "Children": [
