@@ -70,7 +70,6 @@ public partial class ChunkMesh
 		ChunkZP = ChunkPosZ < Model.ChunkAmountZM1 ? Model.chunks[chunkAccess + CHUNK_STEP_Z] : exteriorChunk;
 	}
 
-
 	public void PreMeshing()
 	{
 		Assert.True( Chunk.voxels != null );
@@ -99,11 +98,11 @@ public partial class ChunkMesh
 				modelBuilder.AddMesh( mesh );
 				var model = modelBuilder.Create();
 
-				SceneObject = new SceneObject( scene, model, new Transform( new Vector3( WorldPos.z, WorldPos.x, WorldPos.y ) * 16 ) );
+				SceneObject = new SceneObject( scene, model, new Transform( new Vector3( WorldPos.z, WorldPos.x, WorldPos.y ) * Constants.VoxelSize ) );
 				SceneObject.Flags.CastShadows = true;
 				SceneObject.Flags.IsOpaque = true;
 				SceneObject.Flags.IsTranslucent = false;
-				SceneObject.Attributes.Set( "VoxelSize", 16 );
+				SceneObject.Attributes.Set( "VoxelSize", Constants.VoxelSize );
 			}
 		}
 	}
