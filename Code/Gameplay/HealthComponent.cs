@@ -104,7 +104,7 @@ public sealed class HealthComponent : Component
 		if ( !DamageEffectPrefab.IsValid() ) 
 			return;	
 
-		var particle = DamageEffectPrefab.Clone();
+		var particle = DamageEffectPrefab.Clone( position: instance.Position, rotation: new Angles(-90f, 0f, 0f) );
 		particle.Transform.Position = instance.Position;
 
 		var textRenderer = particle.Components.Get<ParticleTextRenderer>();
