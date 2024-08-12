@@ -105,12 +105,16 @@ public sealed class HealthComponent : Component
 			return;	
 
 		var particle = DamageEffectPrefab.Clone( position: instance.Position, rotation: new Angles(-90f, 0f, 0f) );
-		particle.Transform.Position = instance.Position;
 
 		var textRenderer = particle.Components.Get<ParticleTextRenderer>();
 		if ( textRenderer != null )
 		{
-			textRenderer.Text = new TextRendering.Scope( icon + instance.Damage.ToString(), color, 32, weight: 800 );
+			var text = new TextRendering.Scope( icon + instance.Damage.ToString(), color, 32, weight: 800 );
+			text.Outline.Enabled = true;
+			text.Outline.Color = Color.Black;
+			text.Outline.Size = 8;
+
+			textRenderer.Text = text;
 		}
 	}
 
