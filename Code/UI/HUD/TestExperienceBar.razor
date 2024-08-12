@@ -1,0 +1,18 @@
+@using Sandbox;
+@using Sandbox.UI;
+@inherits PanelComponent
+
+<root>
+	<div class="xp-bar">
+		<div class="inner">
+			<div class="fill" style="width: 50%;" />
+		</div>
+	</div>
+</root>
+
+@code
+{
+
+	
+	protected override int BuildHash() => System.HashCode.Combine("");
+}
