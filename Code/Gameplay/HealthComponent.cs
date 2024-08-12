@@ -1,4 +1,4 @@
-using Sandbox.Events;
+﻿using Sandbox.Events;
 using System.Text.Json.Serialization;
 
 public record DamageTakenEvent( DamageInstance Instance ) : IGameEvent;
@@ -91,12 +91,18 @@ public sealed class HealthComponent : Component
 
 	private void CreateDamageEffect( DamageInstance instance )
 	{
+		string icon = instance.Type.GetIcon();
+		Color color = instance.Type.GetColor();
+
 		// No effects if the damage was nullified or didn't exist in the first place
 		if ( instance.Damage <= 0 )
-			return;
+		{
+			icon = "🛡️";
+			color = Color.White.Darken( 0.25f );
+		}
 
 		if ( !DamageEffectPrefab.IsValid() ) 
-			return;
+			return;	
 
 		var particle = DamageEffectPrefab.Clone();
 		particle.Transform.Position = instance.Position;
@@ -104,7 +110,7 @@ public sealed class HealthComponent : Component
 		var textRenderer = particle.Components.Get<ParticleTextRenderer>();
 		if ( textRenderer != null )
 		{
-			textRenderer.Text = new TextRendering.Scope( instance.Type.GetIcon() + instance.Damage.ToString(), instance.Type.GetColor(), 32, weight: 800 );
+			textRenderer.Text = new TextRendering.Scope( icon + instance.Damage.ToString(), color, 32, weight: 800 );
 		}
 	}
 
