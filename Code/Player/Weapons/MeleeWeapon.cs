@@ -1,4 +1,4 @@
-public partial class MeleeWeapon : WeaponComponent
+	public partial class MeleeWeapon : WeaponComponent
 {
 	[Property] public float AttackRange { get; set; } = 512f;
 
@@ -22,9 +22,9 @@ public partial class MeleeWeapon : WeaponComponent
 
 		if ( tr.Hit )
 		{
-			foreach ( var damageable in tr.GameObject.Root.Components.GetAll<IDamage>() )
+			foreach ( var damageable in tr.GameObject.Root.Components.GetAll<HealthComponent>() )
 			{
-				damageable.OnDamage( ConstructDamage( tr ) );
+				damageable.TakeDamage( ConstructDamage( tr ) );
 			}
 		}
 	}

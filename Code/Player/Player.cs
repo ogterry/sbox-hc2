@@ -9,6 +9,9 @@ public sealed class Player : Component
 	[RequireComponent]
 	public CharacterController Character { get; set; }
 
+	[RequireComponent]
+	public HealthComponent HealthComponent { get; set; }
+
 	/// <summary>
 	/// Lil' helper for the citizen animations
 	/// </summary>

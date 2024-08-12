@@ -526,12 +526,13 @@
           }
         },
         {
-          "__type": "DamageEffect",
-          "__guid": "e408b2c0-60d2-45c1-a529-60905643932e",
-          "Particle": {
+          "__type": "HealthComponent",
+          "__guid": "14af5717-dc26-454d-9ef8-96829c924b13",
+          "DamageEffectPrefab": {
             "_type": "gameobject",
             "prefab": "prefabs/damage/dmgnumber.prefab"
-          }
+          },
+          "MaxHealth": 100
         }
       ],
       "Children": [

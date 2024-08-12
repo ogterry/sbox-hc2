@@ -1,25 +1,22 @@
+using Sandbox.Events;
 using System;
 
 /// <summary>
 /// A shitty mannequin component that reacts to getting hit by a player. 
 /// </summary>
-public partial class Mannequin : Component, IDamage
+public partial class Mannequin : Component, 
+	IGameEventHandler<DamageTakenEvent>,
+	IGameEventHandler<KilledEvent>
 {
 	[Property] public GameObject Root { get; set; }
 	[Property] public float Jiggle { get; set; } = 100f;
 	[Property] public float JiggleRecovery { get; set; } = 0.1f;
+	[RequireComponent] HealthComponent HealthComponent { get; set; }
 
 	RealTimeSince TimeSinceAttacked { get; set; }
 
 	Vector3 trackedPosition;
 	Vector3 lastDirection;
-
-	[Broadcast]
-	private void BroadcastAttack( Vector3 direction )
-	{
-		TimeSinceAttacked = 0;
-		lastDirection = direction;
-	}
 
 	protected override void OnUpdate()
 	{
@@ -39,15 +36,15 @@ public partial class Mannequin : Component, IDamage
 			.WithScale( Root.Transform.Local.Scale );
 	}
 
-	public void OnDamage( in DamageInstance damage )
+	void IGameEventHandler<KilledEvent>.OnGameEvent( KilledEvent eventArgs )
 	{
-		BroadcastAttack( (damage.Attacker.Transform.Position - Transform.Position).Normal );
+		// Reset HP back to 100
+		HealthComponent.Health = 100;
+	}
 
-		//Should be more generic
-		var dmgEffect = Components.Get<DamageEffect>();
-		if ( dmgEffect != null )
-		{
-			dmgEffect.OnDamage( damage );
-		}
+	void IGameEventHandler<DamageTakenEvent>.OnGameEvent( DamageTakenEvent eventArgs )
+	{
+		TimeSinceAttacked = 0;
+		lastDirection = (eventArgs.Instance.Attacker.Transform.Position - Transform.Position).Normal;
 	}
 }

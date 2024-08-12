@@ -66,7 +66,7 @@ public static class DamageTypeExtensions
 
 public interface IDamage
 {
-	public void OnDamage( in DamageInstance damage );
+	public void OnDamage( DamageInstance damage );
 }
 
 public partial record class DamageInstance
