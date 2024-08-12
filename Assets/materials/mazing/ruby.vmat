@@ -6,6 +6,7 @@ Layer0
 
 	//---- PBR ----
 	F_SELF_ILLUM 1
+	F_SPECULAR 1
 
 	//---- Translucent ----
 	F_TRANSLUCENT 1
@@ -39,7 +40,7 @@ Layer0
 	//---- Self Illum ----
 	g_flSelfIllumAlbedoFactor "1.000"
 	g_flSelfIllumBrightness "0.000"
-	g_flSelfIllumScale "1.000"
+	g_flSelfIllumScale "4.000"
 	g_vSelfIllumScrollSpeed "[0.000 0.000]"
 	g_vSelfIllumTint "[1.000000 1.000000 1.000000 0.000000]"
 	TextureSelfIllumMask "[0.750000 0.750000 0.750000 0.000000]"
@@ -53,5 +54,5 @@ Layer0
 
 	//---- Translucent ----
 	g_flOpacityScale "1.000"
-	TextureTranslucency "[0.500000 0.500000 0.500000 0.000000]"
+	TextureTranslucency "[0.750000 0.750000 0.750000 0.000000]"
 }
