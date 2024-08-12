@@ -1,11 +1,11 @@
 {
-  "Title": "hc2",
+  "Title": "HC2",
   "Type": "game",
-  "Org": "local",
+  "Org": "facepunch",
   "Ident": "hc2",
   "Schema": 1,
   "IncludeSourceFiles": false,
-  "Resources": "*",
+  "Resources": "*.ttf\n/items/*.png",
   "PackageReferences": [],
   "EditorReferences": null,
   "Metadata": {
@@ -21,6 +21,21 @@
     "PerMapRanking": false,
     "LeaderboardType": "None",
     "CsProjName": "",
-    "StartupScene": "scenes/minimal.scene"
+    "StartupScene": "scenes/mob_testbed.scene",
+    "MapStartupScene": "scenes/mob_testbed.scene",
+    "LaunchMode": "QuickPlay",
+    "Compiler": {
+      "RootNamespace": "HC2",
+      "DefineConstants": "SANDBOX;ADDON;DEBUG",
+      "NoWarn": "1701;1702;1591;",
+      "WarningsAsErrors": "",
+      "Whitelist": true,
+      "AssemblyReferences": [],
+      "IgnoreFolders": [
+        "editor",
+        "unittest"
+      ],
+      "DistinctAssemblyReferences": []
+    }
   }
 }
