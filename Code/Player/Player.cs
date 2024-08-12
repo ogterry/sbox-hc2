@@ -2,7 +2,7 @@ using HC2;
 using Sandbox.Citizen;
 using Sandbox.Events;
 
-public sealed class Player : Component, IDamage, IGameEventHandler<KilledEvent>, IGameEventHandler<ModifyDamageEvent>
+public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>, IGameEventHandler<ModifyDamageEvent>
 {
 	[ConCmd( "hc2_listitems" )]
 	public static void ListPlayersAndItems()
@@ -25,6 +25,9 @@ public sealed class Player : Component, IDamage, IGameEventHandler<KilledEvent>,
 	[RequireComponent]
 	public CharacterController Character { get; set; }
 
+	/// <summary>
+	/// The player's health component, handles their HP
+	/// </summary>
 	[RequireComponent]
 	public HealthComponent HealthComponent { get; set; }
 

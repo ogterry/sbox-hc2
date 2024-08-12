@@ -25,9 +25,12 @@ public sealed class CameraController : Component
 	/// How far can we look up / down?
 	/// </summary>
 	[Property, Group( "Config" )]
-	public Vector2 PitchLimits { get; set; } = new( -50, 50 );
+	public Vector2 PitchLimits { get; set; } = new( -50f, 50f );
 
-	bool IsAiming => Input.Down( "attack2" );
+	[Property, Group( "Config" )]
+	public float VelocityFOVScale { get; set; } = 50f;
+
+	bool IsAiming => Input.Down( "attack2" ) && Player.MainWeapon.IsValid() && Player.MainWeapon.AimingEnabled;
 
 	/// <summary>
 	/// Constructs a ray using the camera's GameObject
@@ -57,11 +60,14 @@ public sealed class CameraController : Component
 
 		Boom.Transform.Rotation = Player.EyeAngles.ToRotation();
 
-		Camera.FieldOfView = Camera.FieldOfView.LerpTo( 90 + Player.Character.Velocity.Length / 50, Time.Delta * 10 );
+		var targetFov = Preferences.FieldOfView + Player.Character.Velocity.Length / VelocityFOVScale;
 
-		if( IsAiming )
+		if ( IsAiming )
 		{
-			Camera.FieldOfView = Camera.FieldOfView.LerpTo( 20, Time.Delta * 10 );
+			targetFov -= Player.MainWeapon.AimingFOVOffset;
 		}
+
+		Camera.FieldOfView = Camera.FieldOfView.LerpTo( targetFov, Time.Delta * 10 );
+
 	}
 }

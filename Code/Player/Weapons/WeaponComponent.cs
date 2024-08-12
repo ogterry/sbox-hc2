@@ -5,21 +5,37 @@ public abstract class WeaponComponent : Component
 	/// <summary>
 	/// What button do we use to attack with this weapon?
 	/// </summary>
-	[Property, InputAction] public string InputAction { get; set; } = "Attack1";
+	[Property, Group( "Input" ), InputAction] public string InputAction { get; set; } = "Attack1";
 
 	/// <summary>
 	/// What's the base attack delay for this weapon?
 	/// </summary>
-	[Property] public float AttackDelay { get; set; } = 1f;
+	[Property, Group( "Stats" )] public float AttackDelay { get; set; } = 1f;
+
+	/// <summary>
+	/// How much damage does this weapon inflict?
+	/// </summary>
+	[Property, Group( "Stats" )] public float Damage { get; set; } = 50f;
+
+	/// <summary>
+	/// What type of damage?
+	/// </summary>
+	[Property, Group( "Stats" )] public DamageType DamageType { get; set; }
+
+	/// <summary>
+	/// Is aiming enabled for this weapon?
+	/// </summary>
+	[Property, Group( "Aiming" )] public bool AimingEnabled { get; set; }
+
+	/// <summary>
+	/// Aiming FOV offset
+	/// </summary>
+	[Property, Group( "Aiming" ), ShowIf( nameof( AimingEnabled ), true ), Title( "Aiming FOV Offset" )] public float AimingFOVOffset { get; set; }
 
 	/// <summary>
 	/// How do we hold this weapon?
 	/// </summary>
-	[Property] public CitizenAnimationHelper.HoldTypes HoldType { get; set; } = CitizenAnimationHelper.HoldTypes.None;
-
-	[Property] public float Damage { get; set; } = 50f;
-
-	[Property] public DamageType DamageType { get; set; }
+	[Property, Group( "Visuals" )] public CitizenAnimationHelper.HoldTypes HoldType { get; set; } = CitizenAnimationHelper.HoldTypes.None;
 
 	/// <summary>
 	/// How long since we attacked?
@@ -98,7 +114,7 @@ public abstract class WeaponComponent : Component
 	}
 
 	[Broadcast]
-	protected void BroadcastEffects()
+	protected virtual void BroadcastEffects()
 	{
 		if ( Player.IsValid() )
 		{

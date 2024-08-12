@@ -3,22 +3,32 @@ public partial class ProjectileWeapon : WeaponComponent
 	/// <summary>
 	/// What projectile should we spawn?
 	/// </summary>
-	[Property] public GameObject ProjectilePrefab { get; set; }
+	[Property, Group( "Projectile Weapon" )] public GameObject ProjectilePrefab { get; set; }
 
 	/// <summary>
 	/// Where's the muzzle of this gun?
 	/// </summary>
-	[Property] public GameObject Muzzle { get; set; }
+	[Property, Group( "Projectile Weapon" )] public GameObject Muzzle { get; set; }
 
 	/// <summary>
 	/// How fast should the projectile be travelling?
 	/// </summary>
-	[Property] public float EjectSpeed { get; set; } = 1024000f;
+	[Property, Group( "Projectile Weapon" )] public float EjectSpeed { get; set; } = 1024000f;
 
 	/// <summary>
 	/// The shoot sound
 	/// </summary>
-	[Property] public SoundEvent Sound { get; set; }
+	[Property, Group( "Projectile Weapon" )] public SoundEvent AttackSound { get; set; }
+
+	protected override void BroadcastEffects()
+	{
+		base.BroadcastEffects();
+
+		if ( AttackSound is not null )
+		{
+			Sound.Play( AttackSound, Muzzle.Transform.Position );
+		}
+	}
 
 	protected override void Attack()
 	{

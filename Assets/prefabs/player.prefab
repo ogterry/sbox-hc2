@@ -24,6 +24,12 @@
           "component_type": "CameraController"
         },
         "JumpPower": 512,
+        "MainWeapon": {
+          "_type": "component",
+          "component_id": "9099219a-cde4-473b-89d4-84c6fef4eef4",
+          "go": "4e07684a-e466-458b-af5f-289d8b020dc1",
+          "component_type": "ProjectileWeapon"
+        },
         "MaxAcceleration": 500,
         "MaxAirAcceleration": 125,
         "ModelRenderer": {
@@ -617,6 +623,8 @@
                                                   {
                                                     "__type": "ProjectileWeapon",
                                                     "__guid": "9099219a-cde4-473b-89d4-84c6fef4eef4",
+                                                    "AimingEnabled": true,
+                                                    "AimingFOVOffset": 25,
                                                     "AttackDelay": 0.125,
                                                     "Damage": 12,
                                                     "DamageType": "Sharp",
@@ -731,6 +739,8 @@
                                                   {
                                                     "__type": "MeleeWeapon",
                                                     "__guid": "42ef9772-1109-4ed9-93e3-678d64ed85c9",
+                                                    "AimingEnabled": false,
+                                                    "AimingFOVOffset": 0,
                                                     "AttackDelay": 1,
                                                     "AttackRange": 512,
                                                     "Damage": 50,
