@@ -307,6 +307,18 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 		}
 	}
 
+	protected override void OnDestroy()
+	{
+		if ( IsProxy )
+			return;
+
+		// Save the character
+		if ( CharacterSave.Current is not null )
+		{
+			CharacterSave.Current.Save( this );
+		}
+	}
+
 	protected override void OnUpdate()
 	{
 		// Only rotate the model if we're in motion

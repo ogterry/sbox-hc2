@@ -1,14 +1,16 @@
+using HC2;
 using Sandbox.Network;
 using System;
 using System.Threading.Tasks;
-using HC2;
 
 public sealed class Networking : Component, Component.INetworkListener
-{   
+{
+	public static string LastLobbyId { get; set; } = null;
+
 	/// <summary>
 	/// The prefab to spawn for the player to control.
 	/// </summary>
-	[Property] 
+	[Property]
 	public GameObject PlayerPrefab { get; set; }
 
 	protected override async Task OnLoad()

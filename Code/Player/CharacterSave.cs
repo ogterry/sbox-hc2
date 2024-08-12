@@ -18,7 +18,7 @@ public sealed class CharacterSave
 	public CharacterType CharacterType { get; set; } = CharacterType.Class1;
 	public string SaveData { get; set; }
 
-	public void Save( Player player, CharacterSave character )
+	public void Save( Player player )
 	{
 		if ( !FileSystem.Data.DirectoryExists( "characters" ) )
 		{
@@ -31,7 +31,7 @@ public sealed class CharacterSave
 			var type = component.GetType();
 			saveData[type] = component.Save();
 		}
-		character.SaveData = Json.Serialize( saveData );
+		SaveData = Json.Serialize( saveData );
 
 		FileSystem.Data.WriteJson( $"characters/{Id.ToString()}.json", this );
 	}
