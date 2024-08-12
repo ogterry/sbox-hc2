@@ -11,6 +11,7 @@ public sealed class PlayerExperience : Component, ISaveData
 
 	[Property] public Curve XpCurve { get; set; }
 	[Property] public int MaxLevel { get; set; } = 40;
+	[Property] public int MaxUpgrades { get; set; } = 10;
 
 	public Action<int> OnGivePoints { get; set; }
 	public Action<int> OnGiveLevels { get; set; }
@@ -52,9 +53,14 @@ public sealed class PlayerExperience : Component, ISaveData
 	public void UpgradeStat( StatusEffect status )
 	{
 		if ( UnspentUpgrades <= 0 ) return;
+		if ( Upgrades.ContainsKey( status.ResourceName ) && Upgrades[status.ResourceName] >= MaxUpgrades ) return;
 
 		var modifier = Player.Local?.Components.Get<StatModifier>();
 		if ( modifier == null ) return;
+
+		if ( !Upgrades.ContainsKey( status.ResourceName ) )
+			Upgrades[status.ResourceName] = 0;
+		Upgrades[status.ResourceName]++;
 
 		modifier.AddEffect( status );
 		UnspentUpgrades--;

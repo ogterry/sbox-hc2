@@ -18,7 +18,7 @@
 				<div class="stat">
 					<label class="name">@stat.Name</label>
 					<div class="count">
-						<label>@(modifier?.GetStatusCount(stat) ?? 0)/10</label>
+						<label>@(modifier?.GetStatusCount(stat) ?? 0)/@(experience.MaxUpgrades)</label>
 						@if(experience.UnspentUpgrades > 0)
 						{
 							<div class="btn" onclick=@(() => GiveStat(stat))>+</div>
