@@ -8,29 +8,35 @@
 	if (!experience.IsValid()) return;
 }
 <root>
-	<div class="xp-bar">
-		<div class="inner">
-			<div class="fill" style="width: @(CurrentFill * 100f)%;" />
-			<div class="inner-text">
-				<label>XP: @(experience.Points) / @(experience.MaxPoints)</label>
+	<div class="xp-header">
+		<AnimatedExperienceBar Value=@((float)experience.Points / experience.MaxPoints) Text="XP: @(experience.Points) / @(experience.MaxPoints)" />
+		<div class="xp-content">
+			<label class="current-level">Level @(experience.Level)</label>
+			<div class="level-up-toast @ToastClasses()">
+				<label class="upgrades">You have @(experience.UnspentUpgrades) Stat Upgrades Available</label>
+				<label class="prompt">Press TAB to open the Stats Menu</label>
+			</div>
+			<div @ref="HistoryList" class="history-list">
+			
 			</div>
 		</div>
 	</div>
-	<div class="xp-content">
-		<label class="current-level">Level @(experience.Level)</label>
-		<div class="level-up-toast @ToastClasses()">
-			<label class="upgrades">You have @(experience.UnspentUpgrades) Stat Upgrades Available</label>
-			<label class="prompt">Press TAB to open the Stats Menu</label>
-		</div>
-		<div @ref="HistoryList" class="history-list">
-			
+
+	<div class="stats-menu @(isStatsMenuOpen ? "visible" : "")">
+		<div class="stats-panel">
+			<label class="header">Stat Upgrades</label>
+			<div class="stats">
+				// TODO: this menu :)
+			</div>
+			<label>@(experience.UnspentUpgrades) Unspent Stat Upgrade(s)</label>
+			<label class="footer">Press TAB to close</label>
 		</div>
 	</div>
 </root>
 
 @code
 {
-	protected float CurrentFill = 0f;
+	bool isStatsMenuOpen = false;
 	bool hasInitialized = false;
 	RealTimeSince timeSinceLevelUp = 0;
 
@@ -52,11 +58,11 @@
 			hasInitialized = true;
 		}
 
-		var previousValue = CurrentFill;
-		var targetFill = (float)experience.Points / experience.MaxPoints;
-		CurrentFill = CurrentFill.LerpTo( targetFill, Time.Delta * 10f );
-		if ( CurrentFill < previousValue )
-			CurrentFill = 0;
+		// TAB Button
+		if(Input.Pressed("Score"))
+		{
+			isStatsMenuOpen = !isStatsMenuOpen;
+		}
 	}
 
 	protected override void OnDestroy ()
@@ -94,5 +100,5 @@
 		return classes;
 	}
 
-	protected override int BuildHash() => System.HashCode.Combine(CurrentFill, Player.Local?.Experience, ToastClasses());
+	protected override int BuildHash () => System.HashCode.Combine( Player.Local?.Experience?.Points, ToastClasses(), isStatsMenuOpen );
 }
