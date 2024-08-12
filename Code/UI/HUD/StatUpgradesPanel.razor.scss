@@ -32,6 +32,38 @@
             height: 300px;
             background-color: #eee;
             padding: 8px;
+
+            .stat {
+                width: 100%;
+                align-items: center;
+
+                .name {
+                    flex-grow: 1;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                }
+
+                .count {
+                    flex-shrink: 0;
+                    gap: 8px;
+                    align-items: center;
+
+                    .btn {
+                        width: 24px;
+                        height: 24px;
+                        border-radius: 50%;
+                        background-color: #ddd;
+                        justify-content: center;
+                        align-items: center;
+                        cursor: pointer;
+
+                        &:hover {
+                            background-color: #ccc;
+                        }
+                    }
+                }
+            }
         }
 
         .footer {

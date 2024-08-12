@@ -1,0 +1,12 @@
+{
+  "Name": "Base Damage",
+  "Type": "Stat",
+  "Effects": [
+    {
+      "Type": "DamageIncrease",
+      "Value": 4
+    }
+  ],
+  "__references": [],
+  "__version": 0
+}

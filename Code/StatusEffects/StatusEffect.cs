@@ -49,6 +49,8 @@ public enum StatusEffectType
 {
 	ActionGraph,
 	DamageIncrease,
+	DamageMultiplier,
+	DamageReduction,
 	HealthRegenIncrease,
 	MaxHealthIncrease,
 }
@@ -64,7 +66,11 @@ public struct StatusEffectEntry
 	public override string ToString()
 	{
 		var name = $"{Type}";
-		if ( Type != StatusEffectType.ActionGraph )
+		if ( Type == StatusEffectType.DamageReduction )
+			name += $" -{Value}%";
+		else if ( Type == StatusEffectType.HealthRegenIncrease )
+			name += $" +{Value}/s";
+		else if ( Type != StatusEffectType.ActionGraph )
 			name += $" +{Value}";
 		return name;
 	}

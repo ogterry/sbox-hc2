@@ -7,12 +7,25 @@
 @{
 	var experience = Player.Local?.Experience;
 	if ( !experience.IsValid() ) return;
+	var modifier = experience.Components.Get<StatModifier>();
 }
 <root class="stats-menu @(isStatsMenuOpen ? "visible" : "")">
 	<div class="stats-panel">
 		<label class="header">Stat Upgrades</label>
 		<div class="stats">
-			// TODO: this menu :)
+			@foreach(var stat in ResourceLibrary.GetAll<StatusEffect>().Where(x => x.Type == StatusEffect.StatusType.Stat))
+			{
+				<div class="stat">
+					<label class="name">@stat.Name</label>
+					<div class="count">
+						<label>@(modifier?.GetStatusCount(stat) ?? 0)/10</label>
+						@if(experience.UnspentUpgrades > 0)
+						{
+							<div class="btn" onclick=@(() => GiveStat(stat))>+</div>
+						}
+					</div>
+				</div>
+			}
 		</div>
 		<label>@(experience.UnspentUpgrades) Unspent Stat Upgrade(s)</label>
 		<label class="footer">Press TAB to close</label>
@@ -24,6 +37,13 @@
 {
 
 	bool isStatsMenuOpen = false;
+
+	void GiveStat(StatusEffect status)
+	{
+		var experience = Player.Local?.Experience;
+
+		experience.UpgradeStat(status);
+	}
 
 	public override void Tick ()
 	{

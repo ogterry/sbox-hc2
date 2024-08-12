@@ -1,0 +1,12 @@
+{
+  "Name": "Health Regen",
+  "Type": "Stat",
+  "Effects": [
+    {
+      "Type": "HealthRegenIncrease",
+      "Value": 10
+    }
+  ],
+  "__references": [],
+  "__version": 0
+}

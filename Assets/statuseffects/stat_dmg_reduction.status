@@ -1,0 +1,12 @@
+{
+  "Name": "Damage Reduction",
+  "Type": "Stat",
+  "Effects": [
+    {
+      "Type": "DamageReduction",
+      "Value": 4
+    }
+  ],
+  "__references": [],
+  "__version": 0
+}

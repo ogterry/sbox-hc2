@@ -1,0 +1,12 @@
+{
+  "Name": "Max Health",
+  "Type": "Stat",
+  "Effects": [
+    {
+      "Type": "MaxHealthIncrease",
+      "Value": 40
+    }
+  ],
+  "__references": [],
+  "__version": 0
+}

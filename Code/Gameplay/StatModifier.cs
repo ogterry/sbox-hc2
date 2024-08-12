@@ -62,4 +62,9 @@ public sealed class StatModifier : Component
 			}
 		}
 	}
+
+	public int GetStatusCount( StatusEffect effect )
+	{
+		return StatusEffects.Count( x => x == effect );
+	}
 }
