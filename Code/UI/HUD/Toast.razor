@@ -18,5 +18,11 @@
 </root>
 
 @code {
+    private TimeSince Alive = 0;
 
+    public override void Tick()
+    {
+        if (Alive > 3)
+            Delete();
+    }
 }

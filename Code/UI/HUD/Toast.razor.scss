@@ -9,6 +9,10 @@ Toast {
     padding-bottom: 400px;
     align-items: center;
     justify-content: center;
+
+    &:outro {
+        opacity: 0;
+    }
 }
 
 .item {
