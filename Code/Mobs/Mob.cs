@@ -31,8 +31,9 @@ public sealed class Mob : Component,
 	public event Action<KilledEvent>? Killed;
 
 	private DamageTakenEvent? _lastDamageEvent;
+	private TimeSince _sinceLastDamage;
 
-	public bool HasTakenDamage => _lastDamageEvent is not null;
+	public bool HasTakenDamage => _lastDamageEvent is not null && _sinceLastDamage < 0.1f;
 	public MobTarget? LastAttacker => _lastDamageEvent?.Instance.Attacker?.Components.GetInAncestorsOrSelf<MobTarget>();
 
 	protected override void OnStart()
@@ -62,7 +63,7 @@ public sealed class Mob : Component,
 
 	protected override void OnFixedUpdate()
 	{
-		_lastDamageEvent = null;
+
 	}
 
 	void IGameEventHandler<DamageTakenEvent>.OnGameEvent( DamageTakenEvent eventArgs )
@@ -70,6 +71,7 @@ public sealed class Mob : Component,
 		DamageTaken?.Invoke( eventArgs );
 
 		_lastDamageEvent = eventArgs;
+		_sinceLastDamage = 0f;
 	}
 
 	void IGameEventHandler<KilledEvent>.OnGameEvent( KilledEvent eventArgs )

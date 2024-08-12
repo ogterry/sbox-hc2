@@ -45,7 +45,7 @@ public sealed class VisionCone : Component
 
 	protected override void DrawGizmos()
 	{
-		if ( !Gizmo.HasSelected ) return;
+		if ( !Gizmo.IsSelected ) return;
 
 		var radius = MathF.Tan( Angle * MathF.PI / 360f ) * MaxRange;
 

@@ -230,6 +230,30 @@
                             "component_type": "TextRenderer"
                           }
                         }
+                      },
+                      {
+                        "Id": 38,
+                        "Type": "property",
+                        "Properties": {
+                          "_type": "HC2.Mobs.GroundMover",
+                          "_name": "MaxSpeed"
+                        },
+                        "UserData": {
+                          "Position": "928,160"
+                        }
+                      },
+                      {
+                        "Id": 39,
+                        "Type": "scene.ref",
+                        "ParentId": 38,
+                        "Properties": {
+                          "component": {
+                            "_type": "component",
+                            "component_id": "355f4ad9-b6a5-4d57-bbfb-656f6f64850e",
+                            "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                            "component_type": "GroundMover"
+                          }
+                        }
                       }
                     ],
                     "Links": [
@@ -300,9 +324,32 @@
                         "Value": "\uD83D\uDE0A",
                         "DstId": 33,
                         "DstName": "_value"
+                      },
+                      {
+                        "SrcId": 33,
+                        "SrcName": "_signal",
+                        "DstId": 38,
+                        "DstName": "_signal"
+                      },
+                      {
+                        "SrcId": 39,
+                        "SrcName": "_result",
+                        "DstId": 38,
+                        "DstName": "_target"
+                      },
+                      {
+                        "Value": 150,
+                        "DstId": 38,
+                        "DstName": "_value"
                       }
                     ],
                     "Defaults": {
+                      "$39.component": {
+                        "_type": "component",
+                        "component_id": "355f4ad9-b6a5-4d57-bbfb-656f6f64850e",
+                        "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                        "component_type": "GroundMover"
+                      },
                       "$30.component": {
                         "_type": "component",
                         "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
@@ -867,6 +914,126 @@
                             "component_type": "TextRenderer"
                           }
                         }
+                      },
+                      {
+                        "Id": 11,
+                        "Type": "scene.ref",
+                        "Properties": {
+                          "component": {
+                            "_type": "component",
+                            "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
+                            "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                            "component_type": "Mob"
+                          }
+                        },
+                        "UserData": {
+                          "Position": "352,-144",
+                          "Labels": {
+                            "_result": "mob"
+                          }
+                        }
+                      },
+                      {
+                        "Id": 12,
+                        "Type": "property",
+                        "ParentId": 11,
+                        "Properties": {
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "LastAttacker"
+                        },
+                        "UserData": {
+                          "Labels": {
+                            "_result": "attacker"
+                          }
+                        }
+                      },
+                      {
+                        "Id": 13,
+                        "Type": "op.isnotnull",
+                        "UserData": {
+                          "Position": "368,80"
+                        }
+                      },
+                      {
+                        "Id": 14,
+                        "Type": "if",
+                        "UserData": {
+                          "Position": "592,32"
+                        }
+                      },
+                      {
+                        "Id": 15,
+                        "Type": "call",
+                        "Properties": {
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "SetAimTarget",
+                          "_isStatic": false
+                        },
+                        "UserData": {
+                          "Position": "896,96"
+                        }
+                      },
+                      {
+                        "Id": 17,
+                        "Type": "property",
+                        "ParentId": 12,
+                        "Properties": {
+                          "_type": "Sandbox.Component",
+                          "_name": "Transform"
+                        },
+                        "UserData": {
+                          "Visible": false
+                        }
+                      },
+                      {
+                        "Id": 18,
+                        "Type": "property",
+                        "ParentId": 17,
+                        "Properties": {
+                          "_type": "Sandbox.GameTransform",
+                          "_name": "Position"
+                        },
+                        "UserData": {
+                          "Labels": {
+                            "_result": "attacker pos"
+                          }
+                        }
+                      },
+                      {
+                        "Id": 19,
+                        "Type": "call",
+                        "Properties": {
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "SetMoveTarget",
+                          "_isStatic": false
+                        },
+                        "UserData": {
+                          "Position": "1200,96"
+                        }
+                      },
+                      {
+                        "Id": 22,
+                        "Type": "property",
+                        "Properties": {
+                          "_type": "HC2.Mobs.GroundMover",
+                          "_name": "MaxSpeed"
+                        },
+                        "UserData": {
+                          "Position": "992,-32"
+                        }
+                      },
+                      {
+                        "Id": 23,
+                        "Type": "scene.ref",
+                        "ParentId": 22,
+                        "Properties": {
+                          "component": {
+                            "_type": "component",
+                            "component_id": "355f4ad9-b6a5-4d57-bbfb-656f6f64850e",
+                            "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                            "component_type": "GroundMover"
+                          }
+                        }
                       }
                     ],
                     "Links": [
@@ -886,6 +1053,95 @@
                         "Value": "\uD83E\uDD15",
                         "DstId": 3,
                         "DstName": "_value"
+                      },
+                      {
+                        "SrcId": 11,
+                        "SrcName": "_result",
+                        "DstId": 12,
+                        "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 12,
+                        "SrcName": "_result",
+                        "DstId": 13,
+                        "DstName": "input"
+                      },
+                      {
+                        "SrcId": 3,
+                        "SrcName": "_signal",
+                        "DstId": 14,
+                        "DstName": "_signal"
+                      },
+                      {
+                        "SrcId": 13,
+                        "SrcName": "_result",
+                        "DstId": 14,
+                        "DstName": "condition"
+                      },
+                      {
+                        "SrcId": 14,
+                        "SrcName": "true",
+                        "DstId": 15,
+                        "DstName": "_signal"
+                      },
+                      {
+                        "SrcId": 11,
+                        "SrcName": "_result",
+                        "DstId": 15,
+                        "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 12,
+                        "SrcName": "_result",
+                        "DstId": 15,
+                        "DstName": "target"
+                      },
+                      {
+                        "SrcId": 12,
+                        "SrcName": "_result",
+                        "DstId": 17,
+                        "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 17,
+                        "SrcName": "_result",
+                        "DstId": 18,
+                        "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 15,
+                        "SrcName": "_signal",
+                        "DstId": 19,
+                        "DstName": "_signal"
+                      },
+                      {
+                        "SrcId": 11,
+                        "SrcName": "_result",
+                        "DstId": 19,
+                        "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 18,
+                        "SrcName": "_result",
+                        "DstId": 19,
+                        "DstName": "position"
+                      },
+                      {
+                        "SrcId": 14,
+                        "SrcName": "_signal",
+                        "DstId": 22,
+                        "DstName": "_signal"
+                      },
+                      {
+                        "SrcId": 23,
+                        "SrcName": "_result",
+                        "DstId": 22,
+                        "DstName": "_target"
+                      },
+                      {
+                        "Value": 0,
+                        "DstId": 22,
+                        "DstName": "_value"
                       }
                     ],
                     "Defaults": {
@@ -894,11 +1150,23 @@
                         "component_id": "80c32109-0f5a-4ac3-a53c-b6f1eec8ff8f",
                         "go": "9137113a-7bf9-4a60-87d5-8f31c49ba025",
                         "component_type": "TextRenderer"
+                      },
+                      "$11.component": {
+                        "_type": "component",
+                        "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
+                        "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                        "component_type": "Mob"
+                      },
+                      "$23.component": {
+                        "_type": "component",
+                        "component_id": "355f4ad9-b6a5-4d57-bbfb-656f6f64850e",
+                        "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                        "component_type": "GroundMover"
                       }
                     }
                   },
                   "UserData": {
-                    "Position": "-224,-1184"
+                    "Position": "-544,-1248"
                   }
                 },
                 {
@@ -967,6 +1235,18 @@
                         "UserData": {
                           "Position": "528,0"
                         }
+                      },
+                      {
+                        "Id": 9,
+                        "Type": "call",
+                        "Properties": {
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "ClearMoveTarget",
+                          "_isStatic": false
+                        },
+                        "UserData": {
+                          "Position": "784,96"
+                        }
                       }
                     ],
                     "Links": [
@@ -998,6 +1278,18 @@
                         "SrcName": "_result",
                         "DstId": 8,
                         "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 8,
+                        "SrcName": "_signal",
+                        "DstId": 9,
+                        "DstName": "_signal"
+                      },
+                      {
+                        "SrcId": 7,
+                        "SrcName": "_result",
+                        "DstId": 9,
+                        "DstName": "_target"
                       }
                     ],
                     "Defaults": {
@@ -1016,7 +1308,7 @@
                     }
                   },
                   "UserData": {
-                    "Position": "-768,-1088"
+                    "Position": "-960,-1024"
                   }
                 }
               ],
@@ -1649,6 +1941,86 @@
                         "Properties": {
                           "_type": "HC2.Mobs.Mob",
                           "_name": "HasTakenDamage"
+                        }
+                      }
+                    ],
+                    "Links": [
+                      {
+                        "SrcId": 4,
+                        "SrcName": "_result",
+                        "DstId": 1,
+                        "DstName": "_result"
+                      },
+                      {
+                        "SrcId": 0,
+                        "SrcName": "_signal",
+                        "DstId": 1,
+                        "DstName": "_signal"
+                      },
+                      {
+                        "SrcId": 3,
+                        "SrcName": "_result",
+                        "DstId": 4,
+                        "DstName": "_target"
+                      }
+                    ],
+                    "Defaults": {
+                      "$3.component": {
+                        "_type": "component",
+                        "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
+                        "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                        "component_type": "Mob"
+                      }
+                    }
+                  }
+                },
+                {
+                  "Id": 29,
+                  "SourceId": 20,
+                  "TargetId": 11,
+                  "Delay": 1,
+                  "Condition": {
+                    "__version": 7,
+                    "__guid": "37bfdeeb-5dfa-4072-9a82-3ee60870e5f9",
+                    "UserData": {
+                      "Title": "Condition",
+                      "ReferencedComponentTypes": []
+                    },
+                    "Variables": [],
+                    "Nodes": [
+                      {
+                        "Id": 0,
+                        "Type": "input"
+                      },
+                      {
+                        "Id": 1,
+                        "Type": "output",
+                        "UserData": {
+                          "Position": "304,64"
+                        }
+                      },
+                      {
+                        "Id": 3,
+                        "Type": "scene.ref",
+                        "Properties": {
+                          "component": {
+                            "_type": "component",
+                            "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
+                            "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+                            "component_type": "Mob"
+                          }
+                        },
+                        "UserData": {
+                          "Position": "-32,160"
+                        }
+                      },
+                      {
+                        "Id": 4,
+                        "Type": "property",
+                        "ParentId": 3,
+                        "Properties": {
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "HasAimTarget"
                         }
                       }
                     ],

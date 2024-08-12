@@ -478,13 +478,24 @@
       ]
     },
     {
-      "__guid": "9ce8ee59-6987-469a-bd3b-d82b08703522",
+      "__guid": "4bae457a-8bd2-4648-ac58-b9eb6b9e758d",
       "Flags": 0,
-      "Name": "roller",
-      "Position": "-97.67223,117.6629,-0.00002880331",
+      "Name": "Spawner",
+      "Position": "-253.9928,-351.841,0.0001428719",
       "Enabled": true,
-      "__Prefab": "prefabs/mobs/roller.prefab",
-      "__PrefabVariables": {}
+      "Components": [
+        {
+          "__type": "HC2.Mobs.MobSpawner",
+          "__guid": "a8a874fb-386f-4e7e-9c3b-e0e2baca973f",
+          "MaxAlive": 10,
+          "Prefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/mobs/roller.prefab"
+          },
+          "Radius": 256,
+          "SpawnPeriod": "5.00,10.00,0"
+        }
+      ]
     }
   ],
   "SceneProperties": {
