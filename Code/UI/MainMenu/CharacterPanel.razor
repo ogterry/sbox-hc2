@@ -1,0 +1,75 @@
+@using Sandbox;
+@using Sandbox.UI;
+@attribute [StyleSheet]
+@namespace HC2
+
+<root>
+    <div class="column character-preview">
+		<div class="character-model">
+			<label>3D Character Preview Here?</label>
+		</div>
+	</div>
+	<div class="column">
+		<div class="row">
+			Name:
+			<TextEntry Value:bind=@Character.Name />
+		</div>
+		<div class="row">
+			Class:
+			<DropDown BuildOptions=@GetClassOptions Value:bind=@Character.CharacterType />
+		</div>
+		<div class="character-inventory">
+			<label>Character Inventory Here?</label>
+		</div>
+		<a href="/" class="button">Select Character</a>
+		<div class="button" onclick="@DeleteButton">@(DeleteClicks == 0 ? "Delete Character" : $"Delete Character (Confirm in {5 - DeleteClicks}...)")</a>
+	</div>
+</root>
+
+@code
+{
+	public CharacterSave Character { get; set; }
+
+	int DeleteClicks { get; set; } = 0;
+	RealTimeSince timeSinceLastDeleteClick = 0f;
+
+	public override void Tick ()
+	{
+		base.Tick();
+
+		if ( DeleteClicks > 0 && timeSinceLastDeleteClick > 2f )
+		{
+			DeleteClicks = 0;
+		}
+	}
+
+	void DeleteButton()
+	{
+		DeleteClicks++;
+		timeSinceLastDeleteClick = 0f;
+
+		if ( DeleteClicks >= 5 )
+		{
+			Character.Delete();
+			Character = null;
+			CharacterSave.Current = null;
+		}
+	}
+
+	List<Option> GetClassOptions()
+	{
+		var names = System.Enum.GetNames(typeof(CharacterType));
+		var options = new List<Option>();
+
+		foreach ( var name in names )
+		{
+			options.Add( new Option(name, name) );
+		}
+		return options;
+	}
+
+	protected override int BuildHash ()
+	{
+		return System.HashCode.Combine( Character, DeleteClicks );
+	}
+}

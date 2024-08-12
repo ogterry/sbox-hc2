@@ -1,27 +1,69 @@
 @using Sandbox;
 @using Sandbox.UI;
-
+@attribute [StyleSheet]
 @implements INavigatorPage
 @namespace HC2
 
 <root>
-    <div class="canvas">
+	<div class="canvas">
         <div class="column">
             <div class="title">
-                HC2
+                Characters
             </div>
 
             <div class="column gap" style="width: 256px;">
+				<div class="character-list column">
+					@if(Characters is not null)
+					{
+						@foreach(var character in Characters)
+						{
+							<div class="button @(CharacterSave.Current == character ? "active" : "")" onclick=@(() => SelectCharacter(character))>@character.Name</div>
+						}
+					}
+				</div>
+				<div class="button" onclick=@CreateNewCharacter>+ Create New</div>
                 <a class="button" href="/">Return</a>
             </div>
         </div>
-
-        <div class="grow center">
-            <div>Not implemented yet</div>
-        </div>
+		<div class="grow current-character" style="height: 100%;">
+			@if(CharacterSave.Current is not null)
+			{
+				<CharacterPanel Character="@CharacterSave.Current" />
+			}
+		</div>
     </div>
 </root>
 
 @code
 {
+	List<CharacterSave> Characters = new();
+
+	void SelectCharacter(CharacterSave character)
+	{
+		CharacterSave.Current = character;
+	}
+
+	protected override void OnAfterTreeRender(bool firstTime)
+	{
+		base.OnAfterTreeRender(firstTime);
+
+		var chars = CharacterSave.GetAll();
+		if(chars.Count != Characters.Count)
+		{
+			Characters = chars;
+		}
+	}
+
+	void CreateNewCharacter()
+	{
+		var character = new CharacterSave(){ Name = "New Character" };
+		character.Save();
+		Characters.Add(character);
+		CharacterSave.Current = character;
+	}
+
+	protected override int BuildHash ()
+	{
+		return System.HashCode.Combine( Characters?.Count, CharacterSave.Current );
+	}
 }

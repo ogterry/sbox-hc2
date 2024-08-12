@@ -1,0 +1,20 @@
+CharactersPage {
+    .canvas {
+        height: 100%;
+        align-items: center;
+        gap: 32px;
+    }
+
+    .character-list {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        max-height: 800px;
+        width: 264px;
+        padding-right: 8px;
+        gap: 8px;
+
+        .button.active {
+            background-color: rgba(white, 0.1);
+        }
+    }
+}

@@ -1,0 +1,39 @@
+CharacterPanel {
+    height: 100%;
+    flex-grow: 1;
+    background-color: rgba(black, 0.2);
+
+    .column {
+        flex-grow: 1;
+        padding: 64 128px;
+        gap: 8px;
+    }
+
+    .row {
+        align-items: center;
+        gap: 8px;
+    }
+
+    .character-preview {
+        align-items: center;
+        justify-content: center;
+
+        .character-model {
+            width: 600px;
+            height: 100%;
+            background-color: grey;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    .character-inventory {
+        flex-grow: 1;
+        background-color: grey;
+    }
+
+    TextEntry {
+        background-color: rgba(black, 0.3);
+        flex-grow: 1;
+    }
+}

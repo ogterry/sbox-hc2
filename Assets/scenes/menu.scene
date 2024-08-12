@@ -64,7 +64,7 @@
         },
         {
           "__type": "HC2.MainMenu",
-          "__guid": "e75ab2d1-f282-4126-9921-112fce890122"
+          "__guid": "7a64e688-94c0-4312-8e69-c7ce0de9b047"
         }
       ]
     }
@@ -90,8 +90,8 @@
       "IncludedBodies": ""
     }
   },
-  "Title": null,
-  "Description": null,
+  "Title": "menu",
+  "Description": "",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1
