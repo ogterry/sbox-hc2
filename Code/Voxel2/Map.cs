@@ -11,17 +11,17 @@ public class VoxelRenderer : Component, Component.ExecuteInEditor
 	{
 		base.OnEnabled();
 
-		m = new Map( 64, 512, 512 );
+		m = new Map( 64, 32, 64 );
 
-		for ( int x = 0; x < 512; x++ )
+		for ( int x = 0; x < 64; x++ )
 		{
-			for ( int z = 0; z < 512; z++ )
+			for ( int z = 0; z < 64; z++ )
 			{
-				var height = 1 + (int)((MathF.Sin( x / 16.0f ) + 1) * 16) + (int)((MathF.Sin( z / 16.0f ) + 1) * 16);
+				var height = 1 + (int)((MathF.Sin( x / 4.0f ) + 1) * 8) + (int)((MathF.Sin( z / 4.0f ) + 1) * 8);
 
 				for ( int y = 0; y < height; y++ )
 				{
-					m.AddVoxel( y, x, z, (byte)Game.Random.Int( 1, 5 ) );
+					m.AddVoxel( z, y, x, (byte)Game.Random.Int( 1, 5 ) );
 				}
 			}
 		}
@@ -144,10 +144,8 @@ public partial class Map
 		if ( OutOfBounds( x, y, z ) )
 			return;
 
-
 		// Get and initialise (if null) the chunk
 		var c = InitChunk( x, y, z );
-
 
 		// Add a voxel to the chunk
 		c.SetVoxel( x, y, z, index );

@@ -35,7 +35,7 @@ public partial class ChunkMesh
 				modelBuilder.AddMesh( mesh );
 				var model = modelBuilder.Create();
 
-				SceneObject = new SceneObject( scene, model, new Transform( new Vector3( WorldPos.y, WorldPos.z, WorldPos.x ) * 16 ) );
+				SceneObject = new SceneObject( scene, model, new Transform( new Vector3( WorldPos.z, WorldPos.x, WorldPos.y ) * 16 ) );
 				SceneObject.Flags.CastShadows = true;
 				SceneObject.Flags.IsOpaque = true;
 				SceneObject.Flags.IsTranslucent = false;

@@ -18,9 +18,8 @@ public partial class ChunkMesh
 		uint shared = (uint)((texture & 255) << 24 | (normal & 7) << 21 | (brightness & 7) << 18);
 
 		// Adjust the bit shifts for Z-up:
-		TempData[VertexCount++] = shared | ((uint)i & 63) << 12 | ((uint)k & 63) << 6 | ((uint)j & 63);
+		TempData[VertexCount++] = shared | ((uint)j & 63) << 12 | ((uint)i & 63) << 6 | ((uint)k & 63);
 	}
-
 
 	public void GenerateMesh()
 	{
@@ -188,13 +187,13 @@ public partial class ChunkMesh
 				}
 			}
 
-			WriteVertex( i, j, k, 1, textureID );
-			WriteVertex( i, j, k + length_b, 1, textureID );
-			WriteVertex( i, j + length_a, k, 1, textureID );
+			WriteVertex( i, j, k, 2, textureID );
+			WriteVertex( i, j, k + length_b, 2, textureID );
+			WriteVertex( i, j + length_a, k, 2, textureID );
 
-			WriteVertex( i, j + length_a, k, 1, textureID );
-			WriteVertex( i, j, k + length_b, 1, textureID );
-			WriteVertex( i, j + length_a, k + length_b, 1, textureID );
+			WriteVertex( i, j + length_a, k, 2, textureID );
+			WriteVertex( i, j, k + length_b, 2, textureID );
+			WriteVertex( i, j + length_a, k + length_b, 2, textureID );
 		}
 
 		// Right (X+)
@@ -272,13 +271,13 @@ public partial class ChunkMesh
 				}
 			}
 
-			WriteVertex( i + 1, j, k, 0, textureID );
-			WriteVertex( i + 1, j + length_a, k, 0, textureID );
-			WriteVertex( i + 1, j, k + length_b, 0, textureID );
+			WriteVertex( i + 1, j, k, 3, textureID );
+			WriteVertex( i + 1, j + length_a, k, 3, textureID );
+			WriteVertex( i + 1, j, k + length_b, 3, textureID );
 
-			WriteVertex( i + 1, j, k + length_b, 0, textureID );
-			WriteVertex( i + 1, j + length_a, k, 0, textureID );
-			WriteVertex( i + 1, j + length_a, k + length_b, 0, textureID );
+			WriteVertex( i + 1, j, k + length_b, 3, textureID );
+			WriteVertex( i + 1, j + length_a, k, 3, textureID );
+			WriteVertex( i + 1, j + length_a, k + length_b, 3, textureID );
 		}
 
 		// Back (Z-)
@@ -356,13 +355,13 @@ public partial class ChunkMesh
 				}
 			}
 
-			WriteVertex( i, j, k, 2, textureID );
-			WriteVertex( i, j + length_a, k, 2, textureID );
-			WriteVertex( i + length_b, j, k, 2, textureID );
+			WriteVertex( i, j, k, 4, textureID );
+			WriteVertex( i, j + length_a, k, 4, textureID );
+			WriteVertex( i + length_b, j, k, 4, textureID );
 
-			WriteVertex( i + length_b, j, k, 2, textureID );
-			WriteVertex( i, j + length_a, k, 2, textureID );
-			WriteVertex( i + length_b, j + length_a, k, 2, textureID );
+			WriteVertex( i + length_b, j, k, 4, textureID );
+			WriteVertex( i, j + length_a, k, 4, textureID );
+			WriteVertex( i + length_b, j + length_a, k, 4, textureID );
 		}
 
 		// Front (Z+)
@@ -440,13 +439,13 @@ public partial class ChunkMesh
 				}
 			}
 
-			WriteVertex( i, j, k + 1, 3, textureID );
-			WriteVertex( i + length_b, j, k + 1, 3, textureID );
-			WriteVertex( i, j + length_a, k + 1, 3, textureID );
+			WriteVertex( i, j, k + 1, 5, textureID );
+			WriteVertex( i + length_b, j, k + 1, 5, textureID );
+			WriteVertex( i, j + length_a, k + 1, 5, textureID );
 
-			WriteVertex( i, j + length_a, k + 1, 3, textureID );
-			WriteVertex( i + length_b, j, k + 1, 3, textureID );
-			WriteVertex( i + length_b, j + length_a, k + 1, 3, textureID );
+			WriteVertex( i, j + length_a, k + 1, 5, textureID );
+			WriteVertex( i + length_b, j, k + 1, 5, textureID );
+			WriteVertex( i + length_b, j + length_a, k + 1, 5, textureID );
 		}
 
 		// Bottom (Y-)
@@ -524,13 +523,13 @@ public partial class ChunkMesh
 				}
 			}
 
-			WriteVertex( i, j, k, 4, textureID );
-			WriteVertex( i + length_a, j, k, 4, textureID );
-			WriteVertex( i, j, k + length_b, 4, textureID );
+			WriteVertex( i, j, k, 1, textureID );
+			WriteVertex( i + length_a, j, k, 1, textureID );
+			WriteVertex( i, j, k + length_b, 1, textureID );
 
-			WriteVertex( i, j, k + length_b, 4, textureID );
-			WriteVertex( i + length_a, j, k, 4, textureID );
-			WriteVertex( i + length_a, j, k + length_b, 4, textureID );
+			WriteVertex( i, j, k + length_b, 1, textureID );
+			WriteVertex( i + length_a, j, k, 1, textureID );
+			WriteVertex( i + length_a, j, k + length_b, 1, textureID );
 		}
 
 		// Top (Y+)
@@ -609,13 +608,13 @@ public partial class ChunkMesh
 				}
 			}
 
-			WriteVertex( i, j + 1, k, 5, textureID );
-			WriteVertex( i, j + 1, k + length_b, 5, textureID );
-			WriteVertex( i + length_a, j + 1, k, 5, textureID );
+			WriteVertex( i, j + 1, k, 0, textureID );
+			WriteVertex( i, j + 1, k + length_b, 0, textureID );
+			WriteVertex( i + length_a, j + 1, k, 0, textureID );
 
-			WriteVertex( i + length_a, j + 1, k, 5, textureID );
-			WriteVertex( i, j + 1, k + length_b, 5, textureID );
-			WriteVertex( i + length_a, j + 1, k + length_b, 5, textureID );
+			WriteVertex( i + length_a, j + 1, k, 0, textureID );
+			WriteVertex( i, j + 1, k + length_b, 0, textureID );
+			WriteVertex( i + length_a, j + 1, k + length_b, 0, textureID );
 		}
 	}
 
