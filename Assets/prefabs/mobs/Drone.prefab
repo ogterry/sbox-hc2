@@ -1,0 +1,1191 @@
+{
+  "RootObject": {
+    "__guid": "7415ac66-ae34-4cab-af30-2f7141f438d1",
+    "Flags": 0,
+    "Name": "Drone",
+    "Position": "-152,4,52",
+    "Tags": "mob",
+    "Enabled": true,
+    "Components": [
+      {
+        "__type": "HC2.Mobs.Mob",
+        "__guid": "f87dcfd7-78a3-4a06-a1d9-5b927d74d0b1",
+        "DamageScale": 1,
+        "ExperienceYield": 6
+      },
+      {
+        "__type": "HealthComponent",
+        "__guid": "8cd60b45-3309-4a84-b9f2-cc7a27f89844",
+        "MaxHealth": 100
+      },
+      {
+        "__type": "Sandbox.BoxCollider",
+        "__guid": "267436dd-ef52-489b-a48f-87ae0590aa54",
+        "Center": "0,0,0",
+        "IsTrigger": false,
+        "Scale": "44,38,7.066651",
+        "Static": false
+      },
+      {
+        "__type": "HC2.Mobs.AirMover",
+        "__guid": "af753169-2502-4e90-a3fe-3c044fd4d762",
+        "MaxMoveAngle": 45,
+        "MaxSpeed": 150,
+        "MaxTurnSpeed": 180,
+        "MinHeightAboveGround": 100
+      },
+      {
+        "__type": "Sandbox.Rigidbody",
+        "__guid": "4c00d0b1-013e-4c82-8d74-d2605a5420f3",
+        "AngularDamping": 0,
+        "Gravity": false,
+        "LinearDamping": 0,
+        "Locking": {},
+        "MassCenterOverride": "0,0,0",
+        "MassOverride": 0,
+        "MotionEnabled": true,
+        "OverrideMassCenter": false,
+        "RigidbodyFlags": 0,
+        "StartAsleep": false
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "e9197d64-01dc-4ee6-9fc5-c99bbddc9356",
+        "Flags": 0,
+        "Name": "StateMachine",
+        "Position": "0,0,0",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.States.StateMachineComponent",
+            "__guid": "58846b34-1cba-4da2-8af0-f6fc2b0613dd",
+            "Serialized": {
+              "States": [
+                {
+                  "Name": "Idle",
+                  "UserData": {
+                    "Position": "-416,-384"
+                  }
+                },
+                {
+                  "Id": 1,
+                  "Name": "Chase",
+                  "OnUpdateState": {
+                    "__version": 7,
+                    "__guid": "2be710da-913f-4edd-beea-2375066f2d96",
+                    "UserData": {
+                      "Title": "Condition",
+                      "ReferencedComponentTypes": []
+                    },
+                    "Variables": [],
+                    "Nodes": [
+                      {
+                        "Id": 0,
+                        "Type": "input",
+                        "UserData": {
+                          "Position": "16,-320"
+                        }
+                      },
+                      {
+                        "Id": 2,
+                        "Type": "scene.ref",
+                        "Properties": {
+                          "component": {
+                            "_type": "component",
+                            "component_id": "f87dcfd7-78a3-4a06-a1d9-5b927d74d0b1",
+                            "go": "7415ac66-ae34-4cab-af30-2f7141f438d1",
+                            "component_type": "Mob"
+                          }
+                        },
+                        "UserData": {
+                          "Position": "-112,-208"
+                        }
+                      },
+                      {
+                        "Id": 10,
+                        "Type": "property",
+                        "ParentId": 2,
+                        "Properties": {
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "AimTarget"
+                        },
+                        "UserData": {
+                          "Visible": false
+                        }
+                      },
+                      {
+                        "Id": 38,
+                        "Type": "property",
+                        "ParentId": 10,
+                        "Properties": {
+                          "_type": "Sandbox.Component",
+                          "_name": "Transform"
+                        },
+                        "UserData": {
+                          "Visible": false
+                        }
+                      },
+                      {
+                        "Id": 43,
+                        "Type": "property",
+                        "ParentId": 38,
+                        "Properties": {
+                          "_type": "Sandbox.GameTransform",
+                          "_name": "World"
+                        },
+                        "UserData": {
+                          "Visible": false
+                        }
+                      },
+                      {
+                        "Id": 48,
+                        "Type": "property",
+                        "ParentId": 43,
+                        "Properties": {
+                          "_type": "Transform",
+                          "_name": "Position"
+                        }
+                      },
+                      {
+                        "Id": 60,
+                        "Type": "call",
+                        "Properties": {
+                          "_isStatic": false,
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "SetMoveTarget"
+                        },
+                        "UserData": {
+                          "Position": "304,-320"
+                        }
+                      }
+                    ],
+                    "Links": [
+                      {
+                        "SrcId": 2,
+                        "SrcName": "_result",
+                        "DstId": 10,
+                        "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 10,
+                        "SrcName": "_result",
+                        "DstId": 38,
+                        "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 38,
+                        "SrcName": "_result",
+                        "DstId": 43,
+                        "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 43,
+                        "SrcName": "_result",
+                        "DstId": 48,
+                        "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 0,
+                        "SrcName": "_signal",
+                        "DstId": 60,
+                        "DstName": "_signal"
+                      },
+                      {
+                        "SrcId": 2,
+                        "SrcName": "_result",
+                        "DstId": 60,
+                        "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 48,
+                        "SrcName": "_result",
+                        "DstId": 60,
+                        "DstName": "position"
+                      }
+                    ],
+                    "Defaults": {
+                      "$2.component": {
+                        "_type": "component",
+                        "component_id": "f87dcfd7-78a3-4a06-a1d9-5b927d74d0b1",
+                        "go": "7415ac66-ae34-4cab-af30-2f7141f438d1",
+                        "component_type": "Mob"
+                      }
+                    }
+                  },
+                  "UserData": {
+                    "Position": "32,-32"
+                  }
+                },
+                {
+                  "Id": 5,
+                  "Name": "Look Around",
+                  "UserData": {
+                    "Position": "32,-384"
+                  }
+                },
+                {
+                  "Id": 9,
+                  "Name": "Wander",
+                  "OnEnterState": {
+                    "__version": 7,
+                    "__guid": "cac1af27-0f7a-4267-95ba-6db182e8263e",
+                    "UserData": {
+                      "Title": "Condition",
+                      "ReferencedComponentTypes": []
+                    },
+                    "Variables": [],
+                    "Nodes": [
+                      {
+                        "Id": 0,
+                        "Type": "input",
+                        "UserData": {
+                          "Position": "16,-128"
+                        }
+                      },
+                      {
+                        "Id": 4,
+                        "Type": "property",
+                        "Properties": {
+                          "_type": "Sandbox.GameObject",
+                          "_name": "Transform"
+                        },
+                        "UserData": {
+                          "Position": "-32,64"
+                        }
+                      },
+                      {
+                        "Id": 5,
+                        "Type": "property",
+                        "ParentId": 4,
+                        "Properties": {
+                          "_type": "Sandbox.GameTransform",
+                          "_name": "Position"
+                        }
+                      },
+                      {
+                        "Id": 7,
+                        "Type": "scene.ref",
+                        "Properties": {
+                          "component": {
+                            "_type": "component",
+                            "component_id": "f87dcfd7-78a3-4a06-a1d9-5b927d74d0b1",
+                            "go": "7415ac66-ae34-4cab-af30-2f7141f438d1",
+                            "component_type": "Mob"
+                          }
+                        },
+                        "UserData": {
+                          "Position": "16,-80"
+                        }
+                      },
+                      {
+                        "Id": 8,
+                        "Type": "hc2.mob.getnearby",
+                        "UserData": {
+                          "Position": "272,112"
+                        }
+                      },
+                      {
+                        "Id": 15,
+                        "Type": "call",
+                        "Properties": {
+                          "_isStatic": false,
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "SetMoveTarget"
+                        },
+                        "UserData": {
+                          "Position": "576,-128"
+                        }
+                      }
+                    ],
+                    "Links": [
+                      {
+                        "SrcId": 0,
+                        "SrcName": "_target",
+                        "DstId": 4,
+                        "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 4,
+                        "SrcName": "_result",
+                        "DstId": 5,
+                        "DstName": "_target"
+                      },
+                      {
+                        "Value": 1024,
+                        "DstId": 8,
+                        "DstName": "maxHeight"
+                      },
+                      {
+                        "Value": 1024,
+                        "DstId": 8,
+                        "DstName": "maxRange"
+                      },
+                      {
+                        "Value": 512,
+                        "DstId": 8,
+                        "DstName": "minRange"
+                      },
+                      {
+                        "SrcId": 5,
+                        "SrcName": "_result",
+                        "DstId": 8,
+                        "DstName": "origin"
+                      },
+                      {
+                        "SrcId": 0,
+                        "SrcName": "_signal",
+                        "DstId": 15,
+                        "DstName": "_signal"
+                      },
+                      {
+                        "SrcId": 7,
+                        "SrcName": "_result",
+                        "DstId": 15,
+                        "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 8,
+                        "SrcName": "_result",
+                        "DstId": 15,
+                        "DstName": "position"
+                      }
+                    ],
+                    "Defaults": {
+                      "$7.component": {
+                        "_type": "component",
+                        "component_id": "f87dcfd7-78a3-4a06-a1d9-5b927d74d0b1",
+                        "go": "7415ac66-ae34-4cab-af30-2f7141f438d1",
+                        "component_type": "Mob"
+                      }
+                    }
+                  },
+                  "UserData": {
+                    "Position": "352,-384"
+                  }
+                }
+              ],
+              "Transitions": [
+                {
+                  "Id": 4,
+                  "SourceId": 1,
+                  "Condition": {
+                    "__version": 7,
+                    "__guid": "0c241b09-2c3b-44bc-a698-7a7af6084e89",
+                    "UserData": {
+                      "Title": "Condition",
+                      "ReferencedComponentTypes": []
+                    },
+                    "Variables": [],
+                    "Nodes": [
+                      {
+                        "Id": 0,
+                        "Type": "input"
+                      },
+                      {
+                        "Id": 1,
+                        "Type": "output",
+                        "UserData": {
+                          "Position": "480,0"
+                        }
+                      },
+                      {
+                        "Id": 3,
+                        "Type": "scene.ref",
+                        "Properties": {
+                          "component": {
+                            "_type": "component",
+                            "component_id": "f87dcfd7-78a3-4a06-a1d9-5b927d74d0b1",
+                            "go": "7415ac66-ae34-4cab-af30-2f7141f438d1",
+                            "component_type": "Mob"
+                          }
+                        },
+                        "UserData": {
+                          "Position": "-352,128"
+                        }
+                      },
+                      {
+                        "Id": 5,
+                        "Type": "call",
+                        "Properties": {
+                          "_isStatic": false,
+                          "_type": "Vector3",
+                          "_name": "Distance"
+                        },
+                        "UserData": {
+                          "Position": "96,160"
+                        }
+                      },
+                      {
+                        "Id": 16,
+                        "Type": "property",
+                        "ParentId": 3,
+                        "Properties": {
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "AimTarget"
+                        },
+                        "UserData": {
+                          "Visible": false
+                        }
+                      },
+                      {
+                        "Id": 35,
+                        "Type": "property",
+                        "ParentId": 16,
+                        "Properties": {
+                          "_type": "Sandbox.Component",
+                          "_name": "GameObject"
+                        },
+                        "UserData": {
+                          "Visible": false
+                        }
+                      },
+                      {
+                        "Id": 43,
+                        "Type": "property",
+                        "ParentId": 35,
+                        "Properties": {
+                          "_type": "Sandbox.GameObject",
+                          "_name": "Transform"
+                        },
+                        "UserData": {
+                          "Visible": false
+                        }
+                      },
+                      {
+                        "Id": 44,
+                        "Type": "property",
+                        "ParentId": 43,
+                        "Properties": {
+                          "_type": "Sandbox.GameTransform",
+                          "_name": "World"
+                        },
+                        "UserData": {
+                          "Visible": false
+                        }
+                      },
+                      {
+                        "Id": 52,
+                        "Type": "property",
+                        "ParentId": 44,
+                        "Properties": {
+                          "_type": "Transform",
+                          "_name": "Position"
+                        }
+                      },
+                      {
+                        "Id": 57,
+                        "Type": "scene.ref",
+                        "Properties": {
+                          "gameobject": {
+                            "_type": "gameobject",
+                            "go": "7415ac66-ae34-4cab-af30-2f7141f438d1"
+                          }
+                        },
+                        "UserData": {
+                          "Position": "-240,224"
+                        }
+                      },
+                      {
+                        "Id": 60,
+                        "Type": "property",
+                        "ParentId": 57,
+                        "Properties": {
+                          "_type": "Sandbox.GameObject",
+                          "_name": "Transform"
+                        },
+                        "UserData": {
+                          "Visible": false
+                        }
+                      },
+                      {
+                        "Id": 61,
+                        "Type": "property",
+                        "ParentId": 60,
+                        "Properties": {
+                          "_type": "Sandbox.GameTransform",
+                          "_name": "World"
+                        },
+                        "UserData": {
+                          "Visible": false
+                        }
+                      },
+                      {
+                        "Id": 66,
+                        "Type": "property",
+                        "ParentId": 61,
+                        "Properties": {
+                          "_type": "Transform",
+                          "_name": "Position"
+                        }
+                      },
+                      {
+                        "Id": 68,
+                        "Type": "op.greaterthan",
+                        "UserData": {
+                          "Position": "320,160"
+                        }
+                      }
+                    ],
+                    "Links": [
+                      {
+                        "SrcId": 68,
+                        "SrcName": "_result",
+                        "DstId": 1,
+                        "DstName": "_result"
+                      },
+                      {
+                        "SrcId": 0,
+                        "SrcName": "_signal",
+                        "DstId": 1,
+                        "DstName": "_signal"
+                      },
+                      {
+                        "SrcId": 52,
+                        "SrcName": "_result",
+                        "DstId": 5,
+                        "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 66,
+                        "SrcName": "_result",
+                        "DstId": 5,
+                        "DstName": "target"
+                      },
+                      {
+                        "SrcId": 3,
+                        "SrcName": "_result",
+                        "DstId": 16,
+                        "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 16,
+                        "SrcName": "_result",
+                        "DstId": 35,
+                        "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 35,
+                        "SrcName": "_result",
+                        "DstId": 43,
+                        "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 43,
+                        "SrcName": "_result",
+                        "DstId": 44,
+                        "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 44,
+                        "SrcName": "_result",
+                        "DstId": 52,
+                        "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 57,
+                        "SrcName": "_result",
+                        "DstId": 60,
+                        "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 60,
+                        "SrcName": "_result",
+                        "DstId": 61,
+                        "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 61,
+                        "SrcName": "_result",
+                        "DstId": 66,
+                        "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 5,
+                        "SrcName": "_result",
+                        "DstId": 68,
+                        "DstName": "a"
+                      },
+                      {
+                        "Value": {
+                          "$type": "Simple",
+                          "Type": "System.Single",
+                          "Value": 600
+                        },
+                        "DstId": 68,
+                        "DstName": "b"
+                      }
+                    ],
+                    "Defaults": {
+                      "$3.component": {
+                        "_type": "component",
+                        "component_id": "f87dcfd7-78a3-4a06-a1d9-5b927d74d0b1",
+                        "go": "7415ac66-ae34-4cab-af30-2f7141f438d1",
+                        "component_type": "Mob"
+                      },
+                      "$57.gameobject": {
+                        "_type": "gameobject",
+                        "go": "7415ac66-ae34-4cab-af30-2f7141f438d1"
+                      }
+                    }
+                  },
+                  "OnTransition": {
+                    "__version": 7,
+                    "__guid": "91c90651-50dd-401d-9596-c3a2f3ae6302",
+                    "UserData": {
+                      "Title": "Action"
+                    },
+                    "Variables": [],
+                    "Nodes": [
+                      {
+                        "Id": 0,
+                        "Type": "input"
+                      }
+                    ],
+                    "Links": []
+                  }
+                },
+                {
+                  "Id": 6,
+                  "TargetId": 5,
+                  "Delay": 1
+                },
+                {
+                  "Id": 7,
+                  "SourceId": 5,
+                  "Delay": 1,
+                  "Condition": {
+                    "__version": 7,
+                    "__guid": "90925df5-2226-41c0-b0bc-5055ca261780",
+                    "UserData": {
+                      "Title": "Condition",
+                      "ReferencedComponentTypes": []
+                    },
+                    "Variables": [],
+                    "Nodes": [
+                      {
+                        "Id": 0,
+                        "Type": "input"
+                      },
+                      {
+                        "Id": 1,
+                        "Type": "output",
+                        "UserData": {
+                          "Position": "256,0"
+                        }
+                      },
+                      {
+                        "Id": 2,
+                        "Type": "random.chance",
+                        "UserData": {
+                          "Position": "-16,48"
+                        }
+                      }
+                    ],
+                    "Links": [
+                      {
+                        "SrcId": 2,
+                        "SrcName": "_result",
+                        "DstId": 1,
+                        "DstName": "_result"
+                      },
+                      {
+                        "SrcId": 0,
+                        "SrcName": "_signal",
+                        "DstId": 1,
+                        "DstName": "_signal"
+                      },
+                      {
+                        "Value": 0.25,
+                        "DstId": 2,
+                        "DstName": "probability"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "Id": 8,
+                  "SourceId": 5,
+                  "TargetId": 1,
+                  "Delay": 0.5,
+                  "Condition": {
+                    "__version": 7,
+                    "__guid": "20a76b5c-4a2e-4a84-bf62-3dce87765488",
+                    "UserData": {
+                      "Title": "Seen Target",
+                      "ReferencedComponentTypes": []
+                    },
+                    "Variables": [],
+                    "Nodes": [
+                      {
+                        "Id": 0,
+                        "Type": "input"
+                      },
+                      {
+                        "Id": 1,
+                        "Type": "output",
+                        "UserData": {
+                          "Position": "736,176"
+                        }
+                      },
+                      {
+                        "Id": 3,
+                        "Type": "scene.ref",
+                        "Properties": {
+                          "component": {
+                            "_type": "component",
+                            "component_id": "f87dcfd7-78a3-4a06-a1d9-5b927d74d0b1",
+                            "go": "7415ac66-ae34-4cab-af30-2f7141f438d1",
+                            "component_type": "Mob"
+                          }
+                        },
+                        "UserData": {
+                          "Position": "-112,176"
+                        }
+                      },
+                      {
+                        "Id": 4,
+                        "Type": "scene.ref",
+                        "Properties": {
+                          "component": {
+                            "_type": "component",
+                            "component_id": "5e75fdb8-c0b8-4c4b-b0fa-82e428ca8f68",
+                            "go": "68ce1f67-7d9c-43a7-b8b4-d2d4a51090d3",
+                            "component_type": "VisionCone"
+                          }
+                        },
+                        "UserData": {
+                          "Position": "-272,320"
+                        }
+                      },
+                      {
+                        "Id": 5,
+                        "Type": "call",
+                        "Properties": {
+                          "_isStatic": false,
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "SetAimTarget"
+                        },
+                        "UserData": {
+                          "Position": "192,176"
+                        }
+                      },
+                      {
+                        "Id": 6,
+                        "Type": "call",
+                        "Properties": {
+                          "_isStatic": false,
+                          "_type": "HC2.Mobs.VisionCone",
+                          "_name": "CanSeeAnyTarget"
+                        },
+                        "UserData": {
+                          "Position": "-48,320"
+                        }
+                      }
+                    ],
+                    "Links": [
+                      {
+                        "SrcId": 6,
+                        "SrcName": "_result",
+                        "DstId": 1,
+                        "DstName": "_result"
+                      },
+                      {
+                        "SrcId": 5,
+                        "SrcName": "_signal",
+                        "DstId": 1,
+                        "DstName": "_signal"
+                      },
+                      {
+                        "SrcId": 0,
+                        "SrcName": "_signal",
+                        "DstId": 5,
+                        "DstName": "_signal"
+                      },
+                      {
+                        "SrcId": 3,
+                        "SrcName": "_result",
+                        "DstId": 5,
+                        "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 6,
+                        "SrcName": "target",
+                        "DstId": 5,
+                        "DstName": "target"
+                      },
+                      {
+                        "SrcId": 4,
+                        "SrcName": "_result",
+                        "DstId": 6,
+                        "DstName": "_target"
+                      }
+                    ],
+                    "Defaults": {
+                      "$3.component": {
+                        "_type": "component",
+                        "component_id": "f87dcfd7-78a3-4a06-a1d9-5b927d74d0b1",
+                        "go": "7415ac66-ae34-4cab-af30-2f7141f438d1",
+                        "component_type": "Mob"
+                      },
+                      "$4.component": {
+                        "_type": "component",
+                        "component_id": "5e75fdb8-c0b8-4c4b-b0fa-82e428ca8f68",
+                        "go": "68ce1f67-7d9c-43a7-b8b4-d2d4a51090d3",
+                        "component_type": "VisionCone"
+                      }
+                    }
+                  }
+                },
+                {
+                  "Id": 10,
+                  "SourceId": 5,
+                  "TargetId": 9,
+                  "Delay": 5
+                },
+                {
+                  "Id": 11,
+                  "SourceId": 9,
+                  "TargetId": 5,
+                  "Delay": 5
+                },
+                {
+                  "Id": 12,
+                  "SourceId": 9,
+                  "TargetId": 1,
+                  "Delay": 0.5,
+                  "Condition": {
+                    "__version": 7,
+                    "__guid": "b1649bac-e7ab-4552-ad8f-49c2e0b3f875",
+                    "UserData": {
+                      "Title": "Condition",
+                      "ReferencedComponentTypes": []
+                    },
+                    "Variables": [],
+                    "Nodes": [
+                      {
+                        "Id": 0,
+                        "Type": "input"
+                      },
+                      {
+                        "Id": 1,
+                        "Type": "output",
+                        "UserData": {
+                          "Position": "720,144"
+                        }
+                      },
+                      {
+                        "Id": 3,
+                        "Type": "scene.ref",
+                        "Properties": {
+                          "component": {
+                            "_type": "component",
+                            "component_id": "f87dcfd7-78a3-4a06-a1d9-5b927d74d0b1",
+                            "go": "7415ac66-ae34-4cab-af30-2f7141f438d1",
+                            "component_type": "Mob"
+                          }
+                        },
+                        "UserData": {
+                          "Position": "-80,144"
+                        }
+                      },
+                      {
+                        "Id": 4,
+                        "Type": "scene.ref",
+                        "Properties": {
+                          "component": {
+                            "_type": "component",
+                            "component_id": "5e75fdb8-c0b8-4c4b-b0fa-82e428ca8f68",
+                            "go": "68ce1f67-7d9c-43a7-b8b4-d2d4a51090d3",
+                            "component_type": "VisionCone"
+                          }
+                        },
+                        "UserData": {
+                          "Position": "-240,288"
+                        }
+                      },
+                      {
+                        "Id": 5,
+                        "Type": "call",
+                        "Properties": {
+                          "_isStatic": false,
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "SetAimTarget"
+                        },
+                        "UserData": {
+                          "Position": "224,144"
+                        }
+                      },
+                      {
+                        "Id": 6,
+                        "Type": "call",
+                        "Properties": {
+                          "_isStatic": false,
+                          "_type": "HC2.Mobs.VisionCone",
+                          "_name": "CanSeeAnyTarget"
+                        },
+                        "UserData": {
+                          "Position": "-16,288"
+                        }
+                      }
+                    ],
+                    "Links": [
+                      {
+                        "SrcId": 6,
+                        "SrcName": "_result",
+                        "DstId": 1,
+                        "DstName": "_result"
+                      },
+                      {
+                        "SrcId": 5,
+                        "SrcName": "_signal",
+                        "DstId": 1,
+                        "DstName": "_signal"
+                      },
+                      {
+                        "SrcId": 0,
+                        "SrcName": "_signal",
+                        "DstId": 5,
+                        "DstName": "_signal"
+                      },
+                      {
+                        "SrcId": 3,
+                        "SrcName": "_result",
+                        "DstId": 5,
+                        "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 6,
+                        "SrcName": "target",
+                        "DstId": 5,
+                        "DstName": "target"
+                      },
+                      {
+                        "SrcId": 4,
+                        "SrcName": "_result",
+                        "DstId": 6,
+                        "DstName": "_target"
+                      }
+                    ],
+                    "Defaults": {
+                      "$3.component": {
+                        "_type": "component",
+                        "component_id": "f87dcfd7-78a3-4a06-a1d9-5b927d74d0b1",
+                        "go": "7415ac66-ae34-4cab-af30-2f7141f438d1",
+                        "component_type": "Mob"
+                      },
+                      "$4.component": {
+                        "_type": "component",
+                        "component_id": "5e75fdb8-c0b8-4c4b-b0fa-82e428ca8f68",
+                        "go": "68ce1f67-7d9c-43a7-b8b4-d2d4a51090d3",
+                        "component_type": "VisionCone"
+                      }
+                    }
+                  }
+                }
+              ],
+              "InitialStateId": 0
+            }
+          }
+        ]
+      },
+      {
+        "__guid": "2a83c609-90b3-4b05-a098-c77544470890",
+        "Flags": 0,
+        "Name": "MainBody",
+        "Position": "0,0,0",
+        "Scale": "0.4603807,0.3104553,0.1707621",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "87cc2e2d-9cef-4825-8782-ff30aa0af571",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/dev/box.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "d5c00d85-baa1-4abb-8b8b-8c4ce234adcf",
+            "Flags": 0,
+            "Name": "Body",
+            "Position": "26.06538,25.7686,0",
+            "Rotation": "0,0,0.3826834,0.9238796",
+            "Scale": "1,0.2389228,0.2935168",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.ModelRenderer",
+                "__guid": "142fbec3-7bc1-4235-98cb-a59fc66d7825",
+                "BodyGroups": 18446744073709551615,
+                "Model": "models/dev/box.vmdl",
+                "RenderType": "On",
+                "Tint": "1,1,1,1"
+              }
+            ],
+            "Children": [
+              {
+                "__guid": "598fbcfe-5a70-4cc4-ad5a-e20d255a03ab",
+                "Flags": 0,
+                "Name": "Body",
+                "Position": "22.82821,-0.0002764279,0",
+                "Scale": "0.2286056,1.544045,2.710267",
+                "Enabled": true,
+                "Components": [
+                  {
+                    "__type": "Sandbox.ModelRenderer",
+                    "__guid": "5354f4d8-610d-4fa7-8ce1-70a04aa713d1",
+                    "BodyGroups": 18446744073709551615,
+                    "Model": "models/dev/box.vmdl",
+                    "RenderType": "On",
+                    "Tint": "1,1,1,1"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "__guid": "245e3a9e-bd8d-4f18-944b-5e7250310498",
+            "Flags": 0,
+            "Name": "Body",
+            "Position": "-26.06538,-25.7686,0",
+            "Rotation": "0,0,0.9238797,-0.3826832",
+            "Scale": "1,0.2389228,0.2935168",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.ModelRenderer",
+                "__guid": "783e33dc-1d70-4d7a-a562-ed48bb7e029a",
+                "BodyGroups": 18446744073709551615,
+                "Model": "models/dev/box.vmdl",
+                "RenderType": "On",
+                "Tint": "1,1,1,1"
+              }
+            ],
+            "Children": [
+              {
+                "__guid": "42e3996a-fa0a-4879-8c38-fba5f9a8f56a",
+                "Flags": 0,
+                "Name": "Body",
+                "Position": "22.82821,-0.0002764279,0",
+                "Scale": "0.2286056,1.544045,2.710267",
+                "Enabled": true,
+                "Components": [
+                  {
+                    "__type": "Sandbox.ModelRenderer",
+                    "__guid": "f8c16106-08ef-427a-a74c-d9c3dd3994c7",
+                    "BodyGroups": 18446744073709551615,
+                    "Model": "models/dev/box.vmdl",
+                    "RenderType": "On",
+                    "Tint": "1,1,1,1"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "__guid": "4a69dc2d-1889-42db-bc34-c505cf425cfe",
+            "Flags": 0,
+            "Name": "Body",
+            "Position": "26.06538,-25.7686,0",
+            "Rotation": "0,0,-0.3826835,0.9238796",
+            "Scale": "1,0.2389228,0.2935168",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.ModelRenderer",
+                "__guid": "b6bbfac2-3959-4f30-b6cf-93779bdeea8d",
+                "BodyGroups": 18446744073709551615,
+                "Model": "models/dev/box.vmdl",
+                "RenderType": "On",
+                "Tint": "1,1,1,1"
+              }
+            ],
+            "Children": [
+              {
+                "__guid": "8337b7c7-ed04-47a9-baf2-634253a9d038",
+                "Flags": 0,
+                "Name": "Body",
+                "Position": "22.82821,-0.0002764279,0",
+                "Scale": "0.2286056,1.544045,2.710267",
+                "Enabled": true,
+                "Components": [
+                  {
+                    "__type": "Sandbox.ModelRenderer",
+                    "__guid": "432fe262-3e76-400a-993b-e68d3f4b186e",
+                    "BodyGroups": 18446744073709551615,
+                    "Model": "models/dev/box.vmdl",
+                    "RenderType": "On",
+                    "Tint": "1,1,1,1"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "__guid": "34472235-d4bb-4aff-becf-a6711430c07f",
+            "Flags": 0,
+            "Name": "Body",
+            "Position": "-26.06538,25.7686,0",
+            "Rotation": "0,0,0.9238796,0.3826837",
+            "Scale": "1,0.2389228,0.2935168",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.ModelRenderer",
+                "__guid": "58b6e0d1-cedb-456e-b431-d7396f87de06",
+                "BodyGroups": 18446744073709551615,
+                "Model": "models/dev/box.vmdl",
+                "RenderType": "On",
+                "Tint": "1,1,1,1"
+              }
+            ],
+            "Children": [
+              {
+                "__guid": "fe79f82a-692a-4e09-bd9b-2012062fd9f7",
+                "Flags": 0,
+                "Name": "Body",
+                "Position": "22.82821,-0.0002764279,0",
+                "Scale": "0.2286056,1.544045,2.710267",
+                "Enabled": true,
+                "Components": [
+                  {
+                    "__type": "Sandbox.ModelRenderer",
+                    "__guid": "4ae24506-74d0-46d2-86ba-9124ee849eea",
+                    "BodyGroups": 18446744073709551615,
+                    "Model": "models/dev/box.vmdl",
+                    "RenderType": "On",
+                    "Tint": "1,1,1,1"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "__guid": "68ce1f67-7d9c-43a7-b8b4-d2d4a51090d3",
+        "Flags": 0,
+        "Name": "Cone",
+        "Position": "20,0,0",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "HC2.Mobs.VisionCone",
+            "__guid": "5e75fdb8-c0b8-4c4b-b0fa-82e428ca8f68",
+            "Angle": 90,
+            "MaxRange": 512
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}
