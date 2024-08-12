@@ -48,6 +48,12 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 	public HealthComponent HealthComponent { get; set; }
 
 	/// <summary>
+	/// The player's experience component, handles their XP, levels, and upgrades stats
+	/// </summary>
+	[RequireComponent]
+	public PlayerExperience Experience { get; set; }
+
+	/// <summary>
 	/// Lil' helper for the citizen animations
 	/// </summary>
 	[Property, Group( "Components" )]

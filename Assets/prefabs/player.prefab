@@ -119,8 +119,21 @@
         }
       },
       {
-        "__type": "PlayerExperience",
-        "__guid": "53f468ab-46c0-40ec-8fe2-180995612278"
+        "__type": "HC2.PlayerExperience",
+        "__guid": "53f468ab-46c0-40ec-8fe2-180995612278",
+        "Level": 0,
+        "MaxLevel": 40,
+        "Points": 0,
+        "XpCurve": {
+          "rangey": "10,200",
+          "frames": [
+            {},
+            {
+              "x": 1,
+              "y": 1
+            }
+          ]
+        }
       }
     ],
     "Children": [

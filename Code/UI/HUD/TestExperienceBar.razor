@@ -2,15 +2,33 @@
 @using Sandbox.UI;
 @inherits PanelComponent
 
+@{
+	var experience = Player.Local?.Experience;
+	if (!experience.IsValid()) return;
+}
 <root>
 	<div class="xp-bar">
 		<div class="inner">
-			<div class="fill" style="width: 50%;" />
+			<div class="fill" style="width: @(CurrentFill * 100f)%;" />
+			<div class="inner-text">
+				<label>XP: @(experience.Points) / @(experience.MaxPoints)</label>
+			</div>
 		</div>
 	</div>
+	<label class="current-level">Level @(experience.Level)</label>
 </root>
 
 @code
 {
-	protected override int BuildHash() => System.HashCode.Combine("");
+	protected float CurrentFill = 0f;
+
+	protected override void OnUpdate()
+	{
+		var experience = Player.Local?.Experience;
+		if(!experience.IsValid()) return;
+		var targetFill = (float)experience.Points / experience.MaxPoints;
+		CurrentFill = CurrentFill.LerpTo( targetFill, Time.Delta * 10f );
+	}
+
+	protected override int BuildHash() => System.HashCode.Combine(CurrentFill, Player.Local?.Experience);
 }
