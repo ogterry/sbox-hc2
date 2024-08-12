@@ -1,13 +1,12 @@
-Hud
-{
-    .canvas
-    {
-        flex-grow :1;
+@import "../Styles/_theme.scss";
+
+Hud {
+    .canvas {
+        flex-grow: 1;
     }
 
-    .top
-    {
-        padding: 16px 16px 0px 16px;
+    .top {
+        padding: $safe-zone-y $safe-zone-x 0px $safe-zone-x;
         position: absolute;
         left: 0;
         top: 0;
@@ -18,20 +17,17 @@ Hud
         align-items: flex-end;
         align-content: stretch;
 
-        .left
-        {
+        .left {
             justify-content: flex-start;
         }
 
-        .right
-        {
+        .right {
             justify-content: flex-end;
         }
     }
 
-    .bottom
-    {
-        padding: 0px 16px 16px 16px;
+    .bottom {
+        padding: 0px $safe-zone-x $safe-zone-y $safe-zone-x;
         position: absolute;
         left: 0;
         bottom: 0;
@@ -41,13 +37,11 @@ Hud
         align-content: stretch;
         gap: 16px;
 
-        .left
-        {
+        .left {
             justify-content: flex-start;
         }
 
-        .right
-        {
+        .right {
             justify-content: flex-end;
         }
     }
