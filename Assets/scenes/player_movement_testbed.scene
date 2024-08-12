@@ -1,5 +1,5 @@
 {
-  "__guid": "68c15283-a02b-48fe-b681-b87ce5bd5f7a",
+  "__guid": "b27fe107-a3b7-491c-b44c-fbcdbbae396d",
   "GameObjects": [
     {
       "__guid": "a29dbec0-5232-455d-ac98-2f51e1b4bb48",
@@ -516,32 +516,21 @@
           "Static": false
         },
         {
-          "__type": "Sandbox.Rigidbody",
-          "__guid": "61b97163-b763-4e96-a81c-3ed6188d2cb0",
-          "__enabled": false,
-          "AngularDamping": 0,
-          "Gravity": true,
-          "LinearDamping": 0,
-          "Locking": {},
-          "MassCenterOverride": "0,0,0",
-          "MassOverride": 50,
-          "MotionEnabled": false,
-          "OverrideMassCenter": false,
-          "RigidbodyFlags": 0,
-          "StartAsleep": false
-        },
-        {
           "__type": "Mannequin",
           "__guid": "cf64444b-cb46-4ea1-bb89-f4344ea0ef2a",
-          "Rigidbody": {
-            "_type": "component",
-            "component_id": "61b97163-b763-4e96-a81c-3ed6188d2cb0",
-            "go": "422d09e6-0278-4e42-b270-755d751a600e",
-            "component_type": "Rigidbody"
-          },
+          "Jiggle": 100,
+          "JiggleRecovery": 0.1,
           "Root": {
             "_type": "gameobject",
             "go": "06fbb84d-d837-49c6-90af-ea1ee7fec431"
+          }
+        },
+        {
+          "__type": "DamageEffect",
+          "__guid": "e408b2c0-60d2-45c1-a529-60905643932e",
+          "Particle": {
+            "_type": "gameobject",
+            "prefab": "prefabs/damage/dmgnumber.prefab"
           }
         }
       ],
