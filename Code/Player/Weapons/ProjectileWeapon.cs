@@ -47,6 +47,9 @@ public partial class ProjectileWeapon : WeaponComponent
 			return;
 		}
 
+		// Make projectiles ignore players!
+		projectile.Tags.Add( "ignore_players" );
+
 		projectile.Weapon = this;
 		projectile.Damage = GetDamage();
 		projectile.DamageType = GetDamageType();
