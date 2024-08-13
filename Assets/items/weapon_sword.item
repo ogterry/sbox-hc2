@@ -1,6 +1,7 @@
 {
   "Name": "Sword",
   "Description": "Hack n slash!",
+  "MaxStack": 1,
   "Icon": "item_icons/weapon_sword.png",
   "Tags": "weapon,melee",
   "Prefab": "prefabs/weapons/sword.prefab",

@@ -14,6 +14,11 @@ public class ItemAsset : GameResource
 	public string Description { get; set; }
 
 	/// <summary>
+	/// The maximum amount that can be stacked in a single slot.
+	/// </summary>
+	public int MaxStack { get; set; } = 99;
+
+	/// <summary>
 	/// What icon should the item use?
 	/// </summary>
 	[ImageAssetPath]

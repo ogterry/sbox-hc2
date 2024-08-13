@@ -58,18 +58,35 @@ public struct InventoryContainer
 	public bool TryGiveItem( Item item )
 	{
 		if ( !Inventory.IsValid() ) return false;
+		var amount = item.Amount;
 		for ( int i = 0; i < MaxSlots; i++ )
 		{
 			if ( Items[i] == null )
 			{
 				Items[i] = item;
 				item.Container = this;
-				return true;
+				if ( amount > item.Resource.MaxStack )
+				{
+					Items[i].Amount = item.Resource.MaxStack;
+					amount -= item.Resource.MaxStack;
+				}
+				else
+				{
+					return true;
+				}
 			}
 			else if ( Items[i].Resource == item.Resource )
 			{
-				Items[i].Amount += item.Amount;
-				return true;
+				if ( Items[i].Amount + item.Amount > item.Resource.MaxStack )
+				{
+					amount -= item.Resource.MaxStack - Items[i].Amount;
+					Items[i].Amount = item.Resource.MaxStack;
+				}
+				else
+				{
+					Items[i].Amount += item.Amount;
+					return true;
+				}
 			}
 		}
 		return false;
@@ -97,7 +114,18 @@ public struct InventoryContainer
 			{
 				return false;
 			}
-			Items[slotIndex].Amount += item.Amount;
+
+			if ( Items[slotIndex].Amount + item.Amount > item.Resource.MaxStack )
+			{
+				var leftover = Items[slotIndex].Amount + item.Amount - item.Resource.MaxStack;
+				Items[slotIndex].Amount = item.Resource.MaxStack;
+				TryGiveItem( Item.Create( item.Resource, leftover ) );
+			}
+			else
+			{
+				Items[slotIndex].Amount += item.Amount;
+				return true;
+			}
 		}
 		else
 		{

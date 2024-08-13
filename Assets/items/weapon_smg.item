@@ -1,6 +1,7 @@
 {
   "Name": "SMG",
   "Description": "Shoots bullets quickly",
+  "MaxStack": 1,
   "Icon": "item_icons/weapon_smg.png",
   "Tags": "weapon",
   "Prefab": "prefabs/weapons/smg.prefab",
