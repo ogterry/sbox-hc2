@@ -14,16 +14,16 @@
         "ZIndex": 100
       },
       {
-        "__type": "Hud",
-        "__guid": "da052e11-6dfd-462d-8d03-a7590897635f"
-      },
-      {
         "__type": "TestHotbar",
         "__guid": "74d900bc-08af-484d-9998-d479058c307d"
       },
       {
         "__type": "HC2.TestExperienceBar",
         "__guid": "ebc7cdcb-4b63-4d22-a0b2-b50c09d53b54"
+      },
+      {
+        "__type": "HC2.Hud",
+        "__guid": "49005cd1-fa90-41e6-867f-e2b3a803c585"
       }
     ],
     "Children": [],
