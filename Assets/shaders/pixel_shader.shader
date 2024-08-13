@@ -75,11 +75,13 @@ PS
 	
 	SamplerState g_sSampler0 < Filter( POINT ); AddressU( WRAP ); AddressV( WRAP ); >;
 	CreateInputTexture2D( Color, Srgb, 8, "None", "_color", ",0/,0/1", Default4( 1.00, 1.00, 1.00, 1.00 ) );
+	CreateInputTexture2D( SelfIllum, Srgb, 8, "None", "_selfillum", ",0/,0/1", Default4( 0.00, 0.00, 0.00, 1.00 ) );
 	CreateInputTexture2D( Normal, Linear, 8, "NormalizeNormals", "_normal", ",0/,0/2", Default4( 1.00, 1.00, 1.00, 1.00 ) );
 	CreateInputTexture2D( Rough, Linear, 8, "None", "_rough", ",0/,0/3", Default4( 1.00, 1.00, 1.00, 1.00 ) );
 	CreateInputTexture2D( Metal, Linear, 8, "None", "_metal", ",0/,0/4", Default4( 1.00, 1.00, 1.00, 1.00 ) );
 	CreateInputTexture2D( AO, Linear, 8, "None", "_ao", ",0/,0/5", Default4( 1.00, 1.00, 1.00, 1.00 ) );
-	Texture2D g_tColor < Channel( RGBA, Box( Color ), Srgb ); OutputFormat( DXT5 ); SrgbRead( True ); >;
+	Texture2D g_tColor < Channel( RGBA, Box( Color ), Srgb ); OutputFormat( BC7 ); SrgbRead( True ); >;
+	Texture2D g_tSelfIllum < Channel( RGBA, Box( SelfIllum ), Srgb ); OutputFormat( BC7 ); SrgbRead( True ); >;
 	Texture2D g_tNormal < Channel( RGBA, Box( Normal ), Linear ); OutputFormat( DXT5 ); SrgbRead( False ); >;
 	Texture2D g_tRough < Channel( RGBA, Box( Rough ), Linear ); OutputFormat( DXT5 ); SrgbRead( False ); >;
 	Texture2D g_tMetal < Channel( RGBA, Box( Metal ), Linear ); OutputFormat( DXT5 ); SrgbRead( False ); >;
@@ -100,18 +102,20 @@ PS
 		
 		float2 l_0 = i.vTextureCoords.xy * float2( 1, 1 );
 		float4 l_1 = Tex2DS( g_tColor, g_sSampler0, l_0 );
-		float4 l_2 = Tex2DS( g_tNormal, g_sSampler0, l_0 );
-		float3 l_3 = DecodeNormal( l_2.xyz );
-		float4 l_4 = Tex2DS( g_tRough, g_sSampler0, l_0 );
-		float4 l_5 = Tex2DS( g_tMetal, g_sSampler0, l_0 );
-		float4 l_6 = Tex2DS( g_tAO, g_sSampler0, l_0 );
+		float4 l_2 = Tex2DS( g_tSelfIllum, g_sSampler0, l_0 );
+		float4 l_3 = Tex2DS( g_tNormal, g_sSampler0, l_0 );
+		float3 l_4 = DecodeNormal( l_3.xyz );
+		float4 l_5 = Tex2DS( g_tRough, g_sSampler0, l_0 );
+		float4 l_6 = Tex2DS( g_tMetal, g_sSampler0, l_0 );
+		float4 l_7 = Tex2DS( g_tAO, g_sSampler0, l_0 );
 		
 		m.Albedo = l_1.xyz;
+		m.Emission = l_2.xyz;
 		m.Opacity = 1;
-		m.Normal = l_3;
-		m.Roughness = l_4.x;
-		m.Metalness = l_5.x;
-		m.AmbientOcclusion = l_6.x;
+		m.Normal = l_4;
+		m.Roughness = l_5.x;
+		m.Metalness = l_6.x;
+		m.AmbientOcclusion = l_7.x;
 		
 		m.AmbientOcclusion = saturate( m.AmbientOcclusion );
 		m.Roughness = saturate( m.Roughness );

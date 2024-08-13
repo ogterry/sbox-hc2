@@ -38,6 +38,7 @@ public sealed class ResourceNode : Component,
 
 	protected override void OnStart()
 	{
+		Tags.Add( "resource_node" );
 		UpdateDepletion();
 	}
 
@@ -83,29 +84,17 @@ public sealed class ResourceNode : Component,
 		while ( _spareDamage >= DamagePerItem )
 		{
 			_spareDamage -= DamagePerItem;
-			DropItem( (eventArgs.Instance.Position - Transform.Position).Normal );
+
+			var inst = WorldItem.CreateInstance( Item, Transform.Position + Vector3.Up * 64f );
+			inst.Rigidbody.MassOverride = 10;
+
+			var randomYaw = Rotation.FromYaw( Game.Random.Int( 0, 360 ) );
+			inst.Rigidbody.ApplyForce( Vector3.Up * 5000f + randomYaw.Forward * 150000f );
 		}
 
 		_sinceGathered = 0f;
 
 		UpdateDepletion();
-	}
-
-	private void DropItem( Vector3 direction )
-	{
-		// TODO: drop in world
-
-		var inst = WorldItem.CreateInstance( Item, Transform.Position + direction * 150f );
-
-		//var player = Scene.GetAllComponents<Player>()
-		//	.MinBy( x => x.Transform.Position - Transform.Position );
-
-		//if ( player is null )
-		//{
-		//	return;
-		//}
-
-		//player.Inventory.GiveItem( HC2.Item.Create( Item ) );
 	}
 
 	private void UpdateDepletion()
