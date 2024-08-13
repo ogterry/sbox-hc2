@@ -5,10 +5,9 @@ compass {
     width: 1000px;
     z-index: 1000;
     backdrop-filter: $blur;
-    border-image: url( /ui/Panel/panel-001.png ) 20 fill;
+    border-image: url( /ui/Panel/panel-015.png ) fill;
     border-image-tint: $background;
     mask: $fade-horizontal;
-
     align-items: center;
 
     CompassLabel.compass-item {

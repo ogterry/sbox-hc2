@@ -67,7 +67,7 @@
 
     string ChatKey()
     {
-        return Input.GetButtonOrigin("chat");
+        return Input.GetButtonOrigin( "chat" ).ToUpper();
     }
 
     [Broadcast]

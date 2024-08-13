@@ -32,7 +32,7 @@ Toast {
     backdrop-filter: $blur;
     border-image-tint: $background;
     mask: $fade-horizontal;
-    border-image: url( /ui/Panel/panel-001.png ) 20 fill;
+    border-image: url( /ui/Panel/panel-015.png ) fill;
 }
 
 column {
@@ -53,8 +53,8 @@ divider {
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    background-image: url( /ui/Divider Fade/divider-fade-004.png );
-    mask: linear-gradient( to right, transparent, white 75% ) alpha;
+    background-image: url( /ui/Divider/divider-004.png );
+    mask: linear-gradient( to right, transparent, white 50% ) alpha;
 
     &.divider-left {
     }
