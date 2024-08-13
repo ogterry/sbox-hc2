@@ -31,10 +31,12 @@ public partial class ChunkMesh
 	public Transform Transform => new( new Vector3( WorldPos.z, WorldPos.x, WorldPos.y ) * Constants.VoxelSize );
 
 	static readonly uint[] Buffer = new uint[Constants.ChunkSizeCubed * 6 * 6];
+	static readonly Vector3[] Vertices = new Vector3[Constants.ChunkSizeCubed * 6 * 4];
 	static readonly MeshVisiter meshVisiter = new();
 	int BufferWrite = 0;
 
 	public SceneObject SceneObject { get; private set; }
+	public PhysicsBody PhysicsBody { get; private set; }
 
 	private static readonly VertexAttribute[] Layout =
 	{
@@ -77,7 +79,7 @@ public partial class ChunkMesh
 		Chunk.UnsetDirty();
 	}
 
-	public void PostMeshing( SceneWorld scene, Transform transform )
+	public void PostMeshing( SceneWorld scene, PhysicsWorld world, Transform transform )
 	{
 		var size = BufferWrite;
 		if ( size > 0 )
@@ -102,6 +104,14 @@ public partial class ChunkMesh
 				SceneObject.Flags.IsTranslucent = false;
 				SceneObject.Attributes.Set( "VoxelSize", Constants.VoxelSize );
 				SceneObject.Attributes.Set( "ColorPalette", Model.PaletteBuffer );
+
+				var indices = new int[size];
+				for ( int i = 0; i < size; i++ )
+					indices[i] = i;
+
+				PhysicsBody = new PhysicsBody( world );
+				PhysicsBody.Transform = transform.ToWorld( Transform );
+				PhysicsBody.AddMeshShape( Vertices, indices );
 			}
 		}
 	}
@@ -113,6 +123,12 @@ public partial class ChunkMesh
 			SceneObject.Delete();
 			SceneObject = null;
 		}
+
+		if ( PhysicsBody.IsValid() )
+		{
+			PhysicsBody.Remove();
+			PhysicsBody = null;
+		}
 	}
 
 	void WriteVertex( int i, int j, int k, byte normal, byte kind )
@@ -120,6 +136,7 @@ public partial class ChunkMesh
 		byte brightness = 7;
 		byte texture = (byte)(kind - 1);
 		uint shared = (uint)((texture & 255) << 24 | (normal & 7) << 21 | (brightness & 7) << 18);
+		Vertices[BufferWrite] = new Vector3( k, i, j ) * Constants.VoxelSize;
 		Buffer[BufferWrite++] = shared | ((uint)j & 63) << 12 | ((uint)i & 63) << 6 | ((uint)k & 63);
 	}
 

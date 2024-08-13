@@ -41,7 +41,7 @@ VS
 
 	StructuredBuffer<float4> g_ColorPalette < Attribute( "ColorPalette" ); >;
 
-	static const float3 normalVectors[6] =
+	static const float3 normals[6] =
 	{
 		float3( 0, 0, 1 ),
 		float3( 0, 0, -1 ),
@@ -51,7 +51,7 @@ VS
 		float3( 1, 0, 0 )
 	};
 
-	static const float3 tangentVectors[6] = 
+	static const float3 tangents[6] = 
 	{
 		float3( 1, 0, 0 ),
 		float3( 1, 0, 0 ),
@@ -64,17 +64,17 @@ VS
 	PixelInput MainVs( VertexInput i )
 	{
 		float3 position = float3(float(i.vData & 63), float((i.vData >> 6) & 63), float((i.vData >> 12) & 63)) * g_flVoxelSize;
-		int textureId = int((i.vData >> 24) & 255);
-		int normal = int((i.vData >> 21) & 7); 
+		int paletteIndex = int((i.vData >> 24) & 255);
+		int normalIndex = int((i.vData >> 21) & 7); 
 		float brightness = float((i.vData >> 18) & 7) / 7.0;
-		float3 color = g_ColorPalette[textureId];
+		float3 color = g_ColorPalette[paletteIndex];
 
 		i.vPositionOs = position;
 
-		float3 vNormalOs = normalVectors[normal];
-		float3 vTangentOs = tangentVectors[normal];
-
+		float3 vNormalOs = normals[normalIndex];
+		float3 vTangentOs = tangents[normalIndex];
 		float3 vBinormalOs = cross( vNormalOs, vTangentOs );
+
 		i.vTexCoord = float2( dot( vBinormalOs, position ), dot( vTangentOs, position ) ) * ( 1.0 / 32.0 );
 
 		PixelInput o = ProcessVertex( i );
