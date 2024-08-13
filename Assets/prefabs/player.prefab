@@ -279,63 +279,6 @@
                                     "Position": "6.908859,5.140497,-3.234591",
                                     "Rotation": "0.7071079,0.7071056,0.000003464245,-0.000004183565",
                                     "Enabled": true
-                                  },
-                                  {
-                                    "__guid": "43aaec16-5c17-4101-9c71-e7e8ee724ea3",
-                                    "Flags": 0,
-                                    "Name": "Left Eye",
-                                    "Position": "9.957051,7.382442,3.818985",
-                                    "Scale": "0.05,0.05,0.03",
-                                    "Enabled": true,
-                                    "Components": [
-                                      {
-                                        "__type": "Sandbox.SkinnedModelRenderer",
-                                        "__guid": "4659f0cc-f493-45de-94d9-b2aec65309ca",
-                                        "BodyGroups": 18446744073709551615,
-                                        "CreateBoneObjects": false,
-                                        "RenderType": "On",
-                                        "Tint": "0,0,0,1",
-                                        "UseAnimGraph": true
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "__guid": "e4ca87c1-a382-4a01-b122-90043a954d42",
-                                    "Flags": 0,
-                                    "Name": "Right Eye",
-                                    "Position": "9.95705,7.382457,-3.858335",
-                                    "Scale": "0.05,0.05,0.03",
-                                    "Enabled": true,
-                                    "Components": [
-                                      {
-                                        "__type": "Sandbox.SkinnedModelRenderer",
-                                        "__guid": "fca129a9-33a8-4d32-9df5-bd6a27aa37d4",
-                                        "BodyGroups": 18446744073709551615,
-                                        "CreateBoneObjects": false,
-                                        "RenderType": "On",
-                                        "Tint": "0,0,0,1",
-                                        "UseAnimGraph": true
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "__guid": "2a365175-a581-48e4-9c97-08956acbaef0",
-                                    "Flags": 0,
-                                    "Name": "Head",
-                                    "Position": "6.678758,-0.00002292232,0.000102175",
-                                    "Scale": "0.3,0.3,0.3",
-                                    "Enabled": true,
-                                    "Components": [
-                                      {
-                                        "__type": "Sandbox.SkinnedModelRenderer",
-                                        "__guid": "2391f070-3b72-4b8d-9824-246bb3c73a8f",
-                                        "BodyGroups": 18446744073709551615,
-                                        "CreateBoneObjects": false,
-                                        "RenderType": "On",
-                                        "Tint": "1,1,1,1",
-                                        "UseAnimGraph": true
-                                      }
-                                    ]
                                   }
                                 ]
                               }
@@ -570,26 +513,6 @@
                                     "Name": "arm_upper_L_twist1",
                                     "Position": "5.02261,0.00001764297,-0.00002670288",
                                     "Enabled": true
-                                  },
-                                  {
-                                    "__guid": "4dc5c75f-c6ee-4cd9-b965-a28946d3f874",
-                                    "Flags": 0,
-                                    "Name": "Left Arm",
-                                    "Position": "9.330265,-0.00001597404,-0.000005245209",
-                                    "Rotation": "0.00000002980232,0.7071068,0.00000002607703,0.7071069",
-                                    "Scale": "0.1,0.1,0.4",
-                                    "Enabled": true,
-                                    "Components": [
-                                      {
-                                        "__type": "Sandbox.SkinnedModelRenderer",
-                                        "__guid": "6c6afb5f-b949-4044-ba6a-1856cee83e6e",
-                                        "BodyGroups": 18446744073709551615,
-                                        "CreateBoneObjects": false,
-                                        "RenderType": "On",
-                                        "Tint": "1,1,1,1",
-                                        "UseAnimGraph": true
-                                      }
-                                    ]
                                   }
                                 ]
                               }
@@ -826,26 +749,6 @@
                                     "Name": "arm_upper_R_twist1",
                                     "Position": "5.022587,0.00001764297,-0.00004577637",
                                     "Enabled": true
-                                  },
-                                  {
-                                    "__guid": "892b53ed-7625-4cce-bfff-3f1c600c5dd3",
-                                    "Flags": 0,
-                                    "Name": "Right Arm",
-                                    "Position": "8.921288,-0.000017941,0",
-                                    "Rotation": "0,-0.7071067,0.00000001117587,0.7071068",
-                                    "Scale": "0.1,0.1,0.4",
-                                    "Enabled": true,
-                                    "Components": [
-                                      {
-                                        "__type": "Sandbox.SkinnedModelRenderer",
-                                        "__guid": "0ba1ff3a-bde2-442a-9df3-36953acdc561",
-                                        "BodyGroups": 18446744073709551615,
-                                        "CreateBoneObjects": false,
-                                        "RenderType": "On",
-                                        "Tint": "1,1,1,1",
-                                        "UseAnimGraph": true
-                                      }
-                                    ]
                                   }
                                 ]
                               }
@@ -919,49 +822,7 @@
                         "Name": "leg_knee_helper_R",
                         "Position": "0,0,0",
                         "Rotation": "0.000000905889,-0.000001318489,0.7135269,0.7006279",
-                        "Enabled": true,
-                        "Children": [
-                          {
-                            "__guid": "73358e4c-b04a-46bf-ac51-4f93abdb1cd2",
-                            "Flags": 0,
-                            "Name": "Left Knee",
-                            "Position": "0.03504332,1.918887,-0.3687096",
-                            "Rotation": "0.5045387,0.4954196,-0.5045419,0.4954165",
-                            "Scale": "0.1,0.1,0.1",
-                            "Enabled": true,
-                            "Components": [
-                              {
-                                "__type": "Sandbox.SkinnedModelRenderer",
-                                "__guid": "c993a0e5-cb21-4f32-ad78-2adaa8b3616b",
-                                "BodyGroups": 18446744073709551615,
-                                "CreateBoneObjects": false,
-                                "RenderType": "On",
-                                "Tint": "1,1,1,1",
-                                "UseAnimGraph": true
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "__guid": "ac88f6f2-4506-4035-addd-eee1ad338ad7",
-                        "Flags": 0,
-                        "Name": "Left Lower Leg",
-                        "Position": "6.424427,0.000008314848,-0.2868083",
-                        "Rotation": "-0.0000002682209,0.7071066,-0.000002095476,0.7071071",
-                        "Scale": "0.1,0.1,0.2",
-                        "Enabled": true,
-                        "Components": [
-                          {
-                            "__type": "Sandbox.SkinnedModelRenderer",
-                            "__guid": "b21f1b53-9a57-4c1e-aeac-06af0a3c0686",
-                            "BodyGroups": 18446744073709551615,
-                            "CreateBoneObjects": false,
-                            "RenderType": "On",
-                            "Tint": "1,1,1,1",
-                            "UseAnimGraph": true
-                          }
-                        ]
+                        "Enabled": true
                       }
                     ]
                   },
@@ -987,26 +848,6 @@
                     "Position": "0,0,0",
                     "Rotation": "-0.000001221895,-0.0000006515999,-0.7071052,0.7071083",
                     "Enabled": true
-                  },
-                  {
-                    "__guid": "939b30a9-e432-4749-ac2c-1d94caa5e27a",
-                    "Flags": 0,
-                    "Name": "Left Upper Leg",
-                    "Position": "4.471243,0.3658125,-0.3467993",
-                    "Rotation": "0.01292545,0.7069886,-0.01292969,0.7069888",
-                    "Scale": "0.1,0.1,0.2",
-                    "Enabled": true,
-                    "Components": [
-                      {
-                        "__type": "Sandbox.SkinnedModelRenderer",
-                        "__guid": "43de9d87-f9d5-4a36-aa3a-fb842048c389",
-                        "BodyGroups": 18446744073709551615,
-                        "CreateBoneObjects": false,
-                        "RenderType": "On",
-                        "Tint": "1,1,1,1",
-                        "UseAnimGraph": true
-                      }
-                    ]
                   }
                 ]
               },
@@ -1064,49 +905,7 @@
                         "Name": "leg_knee_helper_L",
                         "Position": "0,0,0",
                         "Rotation": "-0.000002973302,-0.000001705918,0.7135277,0.7006271",
-                        "Enabled": true,
-                        "Children": [
-                          {
-                            "__guid": "1f48bce3-f7cd-45f5-bb83-dabbc6dcae3c",
-                            "Flags": 0,
-                            "Name": "Left Knee",
-                            "Position": "0.03501423,1.918877,0.00001476483",
-                            "Rotation": "0.5045424,0.4954193,-0.5045381,0.4954171",
-                            "Scale": "0.1,0.1,0.1",
-                            "Enabled": true,
-                            "Components": [
-                              {
-                                "__type": "Sandbox.SkinnedModelRenderer",
-                                "__guid": "1b6354b7-ebed-4587-bb2e-506b2754bbda",
-                                "BodyGroups": 18446744073709551615,
-                                "CreateBoneObjects": false,
-                                "RenderType": "On",
-                                "Tint": "1,1,1,1",
-                                "UseAnimGraph": true
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "__guid": "7f05ea6e-1ff7-496a-b81c-6e13258ec535",
-                        "Flags": 0,
-                        "Name": "Left Lower Leg",
-                        "Position": "6.424425,0.000001221895,0.000001110602",
-                        "Rotation": "0.00000002980232,0.7071068,0.00000003352761,0.7071069",
-                        "Scale": "0.1,0.1,0.2",
-                        "Enabled": true,
-                        "Components": [
-                          {
-                            "__type": "Sandbox.SkinnedModelRenderer",
-                            "__guid": "c0fcb3f4-0445-4246-b025-5fa9fe55958f",
-                            "BodyGroups": 18446744073709551615,
-                            "CreateBoneObjects": false,
-                            "RenderType": "On",
-                            "Tint": "1,1,1,1",
-                            "UseAnimGraph": true
-                          }
-                        ]
+                        "Enabled": true
                       }
                     ]
                   },
@@ -1131,46 +930,6 @@
                     "Position": "0,0,0",
                     "Rotation": "-0.000001102686,-0.0000007682514,-0.7071056,0.707108",
                     "Enabled": true
-                  },
-                  {
-                    "__guid": "ec53122c-a1e8-44c7-bb3c-1704dc92ffed",
-                    "Flags": 0,
-                    "Name": "Left Upper Leg",
-                    "Position": "4.471247,0.36575,-0.00003307635",
-                    "Rotation": "0.01292545,0.7069884,-0.01292971,0.7069889",
-                    "Scale": "0.1,0.1,0.2",
-                    "Enabled": true,
-                    "Components": [
-                      {
-                        "__type": "Sandbox.SkinnedModelRenderer",
-                        "__guid": "6c82efb3-62c7-4c87-9441-40a06bc1e2c7",
-                        "BodyGroups": 18446744073709551615,
-                        "CreateBoneObjects": false,
-                        "RenderType": "On",
-                        "Tint": "1,1,1,1",
-                        "UseAnimGraph": true
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "__guid": "056fd824-6bcb-407f-b8d4-0d35bc50c9d7",
-                "Flags": 0,
-                "Name": "Body",
-                "Position": "12.21067,-0.000004366877,0.00003108382",
-                "Rotation": "0.4999993,0.4999994,0.5000004,0.5000009",
-                "Scale": "0.2,0.2,0.4",
-                "Enabled": true,
-                "Components": [
-                  {
-                    "__type": "Sandbox.SkinnedModelRenderer",
-                    "__guid": "b06d29b1-26cb-4051-8910-d51150216116",
-                    "BodyGroups": 18446744073709551615,
-                    "CreateBoneObjects": false,
-                    "RenderType": "On",
-                    "Tint": "1,1,1,1",
-                    "UseAnimGraph": true
                   }
                 ]
               }
@@ -1237,6 +996,30 @@
                 "Position": "-0.884093,4.427404,3.807924",
                 "Rotation": "0.650896,0.276287,-0.2762894,0.6508948",
                 "Enabled": true
+              }
+            ]
+          },
+          {
+            "__guid": "7349897c-d9d7-4df5-bf75-a39525948453",
+            "Flags": 0,
+            "Name": "Mesh",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.SkinnedModelRenderer",
+                "__guid": "df7d4a45-fab4-4228-b65d-1b97d2eb75da",
+                "BodyGroups": 18446744073709551615,
+                "BoneMergeTarget": {
+                  "_type": "component",
+                  "component_id": "84111462-d9ad-40e3-8808-992c26f37bc5",
+                  "go": "b26515b5-0677-43ab-952f-c78b9007bada",
+                  "component_type": "SkinnedModelRenderer"
+                },
+                "CreateBoneObjects": false,
+                "Model": "player/models/player_01.vmdl",
+                "RenderType": "On",
+                "Tint": "1,1,1,1",
+                "UseAnimGraph": true
               }
             ]
           }
@@ -1310,7 +1093,8 @@
             "DamageType": "Blunt",
             "Hand": "OffHand",
             "HoldType": "HoldItem",
-            "InputAction": "attack2"
+            "InputAction": "attack2",
+            "Thickness": 5
           }
         ],
         "Children": [
@@ -1358,7 +1142,8 @@
             "DamageType": "Fire",
             "Hand": "MainHand, OffHand",
             "HoldType": "HoldItem",
-            "InputAction": "attack1"
+            "InputAction": "attack1",
+            "Thickness": 5
           }
         ]
       },
