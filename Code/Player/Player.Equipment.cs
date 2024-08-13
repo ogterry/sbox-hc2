@@ -1,4 +1,5 @@
 using HC2;
+using Sandbox.Events;
 
 public partial class Player
 {
@@ -99,6 +100,32 @@ public partial class Player
 		// TODO: Events
 		OffHand = null;
 		OffHand = carriable;
+	}
+
+	/// <summary>
+	/// Removes the main hand carriable, destroying it.
+	/// </summary>
+	public void RemoveMainHand()
+	{
+		if ( MainHand.IsValid() )
+		{
+			MainHand.GameObject.Destroy();
+		}
+
+		MainHand = null;
+	}
+
+	/// <summary>
+	/// Removes the offhand carriable, destroying it.
+	/// </summary>
+	public void RemoveOffHand()
+	{
+		if ( OffHand.IsValid() )
+		{
+			OffHand.GameObject.Destroy();
+		}
+
+		OffHand = null;
 	}
 
 	/// <summary>

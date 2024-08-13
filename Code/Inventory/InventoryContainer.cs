@@ -9,27 +9,27 @@ public struct InventoryContainer
 	public int MaxSlots { get; set; } = 9;
 	public Inventory Inventory { get; set; }
 
-	public InventoryContainer(Inventory inventory, int maxSlots = 9)
+	public InventoryContainer( Inventory inventory, int maxSlots = 9 )
 	{
 		Inventory = inventory;
 		Items = new();
 		MaxSlots = maxSlots;
-		for (int i = 0; i < MaxSlots; i++)
+		for ( int i = 0; i < MaxSlots; i++ )
 		{
-			Items.Add(null);
+			Items.Add( null );
 		}
 	}
 
-	public bool CanGiveItem(Item item)
+	public bool CanGiveItem( Item item )
 	{
-		if (!Inventory.IsValid()) return false;
-		for (int i = 0; i < MaxSlots; i++)
+		if ( !Inventory.IsValid() ) return false;
+		for ( int i = 0; i < MaxSlots; i++ )
 		{
-			if (Items[i] == null)
+			if ( Items[i] == null )
 			{
 				return true;
 			}
-			else if (Items[i].Resource == item.Resource)
+			else if ( Items[i].Resource == item.Resource )
 			{
 				return true;
 			}
@@ -37,18 +37,36 @@ public struct InventoryContainer
 		return false;
 	}
 
-	public bool TryGiveItem(Item item)
+	public bool HasItem( Item item )
 	{
-		if (!Inventory.IsValid()) return false;
-		for (int i = 0; i < MaxSlots; i++)
+		if ( !Inventory.IsValid() ) return false;
+		int amount = item.Amount;
+		for ( int i = 0; i < MaxSlots; i++ )
 		{
-			if (Items[i] == null)
+			if ( Items[i]?.Resource == item.Resource )
+			{
+				amount -= Items[i].Amount;
+				if ( amount <= 0 )
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	public bool TryGiveItem( Item item )
+	{
+		if ( !Inventory.IsValid() ) return false;
+		for ( int i = 0; i < MaxSlots; i++ )
+		{
+			if ( Items[i] == null )
 			{
 				Items[i] = item;
 				item.Container = this;
 				return true;
 			}
-			else if (Items[i].Resource == item.Resource)
+			else if ( Items[i].Resource == item.Resource )
 			{
 				Items[i].Amount += item.Amount;
 				return true;
@@ -57,25 +75,25 @@ public struct InventoryContainer
 		return false;
 	}
 
-	public bool TryGiveItem(ItemAsset resource, int amount = 1)
+	public bool TryGiveItem( ItemAsset resource, int amount = 1 )
 	{
 		var item = new Item();
 		item.Resource = resource;
 		item.Amount = amount;
-		return TryGiveItem(item);
+		return TryGiveItem( item );
 	}
 
-	public bool TryGiveItemSlot(Item item, int slotIndex)
+	public bool TryGiveItemSlot( Item item, int slotIndex )
 	{
-		if (!Inventory.IsValid()) return false;
-		if (slotIndex < 0 || slotIndex >= MaxSlots)
+		if ( !Inventory.IsValid() ) return false;
+		if ( slotIndex < 0 || slotIndex >= MaxSlots )
 		{
-			throw new ArgumentOutOfRangeException(nameof(slotIndex));
+			throw new ArgumentOutOfRangeException( nameof( slotIndex ) );
 		}
 
-		if (Items[slotIndex] != null)
+		if ( Items[slotIndex] != null )
 		{
-			if (Items[slotIndex].Resource != item.Resource)
+			if ( Items[slotIndex].Resource != item.Resource )
 			{
 				return false;
 			}
@@ -90,22 +108,22 @@ public struct InventoryContainer
 		return true;
 	}
 
-	public void TakeItem(Item item)
+	public void TakeItem( Item item )
 	{
-		for (int i = MaxSlots - 1; i >= 0; i--)
+		for ( int i = MaxSlots - 1; i >= 0; i-- )
 		{
-			if (Items[i] == item)
+			if ( Items[i] == item )
 			{
 				Items[i] = null;
 				item.Container = null;
 				return;
 			}
-			else if (Items[i].Resource == item.Resource)
+			else if ( Items[i].Resource == item.Resource )
 			{
 				Items[i].Amount -= item.Amount;
-				if (Items[i].Amount <= 0)
+				if ( Items[i].Amount <= 0 )
 				{
-					item.Amount = Math.Abs(Items[i].Amount);
+					item.Amount = Math.Abs( Items[i].Amount );
 					Items[i] = null;
 					item.Container = null;
 				}
@@ -113,11 +131,11 @@ public struct InventoryContainer
 		}
 	}
 
-	public Item GetItemInSlot(int slot)
+	public Item GetItemInSlot( int slot )
 	{
-		if (slot < 0 || slot >= MaxSlots)
+		if ( slot < 0 || slot >= MaxSlots )
 		{
-			throw new ArgumentOutOfRangeException(nameof(slot));
+			throw new ArgumentOutOfRangeException( nameof( slot ) );
 		}
 
 		var item = Items[slot];

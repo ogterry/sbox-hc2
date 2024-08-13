@@ -65,6 +65,11 @@ public class Inventory : Component, ISaveData
 		return false;
 	}
 
+	public bool HasItem( Item item )
+	{
+		return Container.HasItem( item ) || OverflowContainer.HasItem( item );
+	}
+
 	/// <summary>
 	/// Move an item to the specified slot.
 	/// </summary>

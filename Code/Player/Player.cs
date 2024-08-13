@@ -2,19 +2,23 @@ using HC2;
 using Sandbox.Citizen;
 using Sandbox.Events;
 
-public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>, IGameEventHandler<ModifyDamageEvent>
+public partial class Player : Component, IDamage,
+	IGameEventHandler<KilledEvent>,
+	IGameEventHandler<ModifyDamageEvent>,
+	IGameEventHandler<ItemEquipEvent>,
+	IGameEventHandler<ItemUnequipEvent>
 {
-	[ConCmd("hc2_listitems")]
+	[ConCmd( "hc2_listitems" )]
 	public static void ListPlayersAndItems()
 	{
 		var players = Game.ActiveScene.GetAllComponents<Player>();
 
-		foreach (var p in players)
+		foreach ( var p in players )
 		{
-			Log.Info("==" + p.Network.OwnerConnection.DisplayName);
-			foreach (var item in p.Inventory.GetAllItems())
+			Log.Info( "==" + p.Network.OwnerConnection.DisplayName );
+			foreach ( var item in p.Inventory.GetAllItems() )
 			{
-				Log.Info(item.Resource.Name + " / " + item.SlotIndex);
+				Log.Info( item.Resource.Name + " / " + item.SlotIndex );
 			}
 		}
 	}
@@ -26,9 +30,9 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 	{
 		get
 		{
-			if (!_local.IsValid())
+			if ( !_local.IsValid() )
 			{
-				_local = Game.ActiveScene.GetAllComponents<Player>().FirstOrDefault(x => x.Network.IsOwner);
+				_local = Game.ActiveScene.GetAllComponents<Player>().FirstOrDefault( x => x.Network.IsOwner );
 			}
 			return _local;
 		}
@@ -56,73 +60,73 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 	/// <summary>
 	/// Lil' helper for the citizen animations
 	/// </summary>
-	[Property, Group("Components")]
+	[Property, Group( "Components" )]
 	public CitizenAnimationHelper AnimationHelper { get; set; }
 
 	/// <summary>
 	/// Our skinned model renderer
 	/// </summary>
-	[Property, Group("Components")]
+	[Property, Group( "Components" )]
 	public SkinnedModelRenderer ModelRenderer { get; set; }
 
 	/// <summary>
 	/// The camera controller which controls the camera
 	/// </summary>
-	[Property, Group("Components")]
+	[Property, Group( "Components" )]
 	public CameraController CameraController { get; set; }
 
 	/// <summary>
 	/// The player's hotbar
 	/// </summary>
-	[Property, Group("Components"), Sync]
+	[Property, Group( "Components" ), Sync]
 	public Hotbar Hotbar { get; set; }
 
 	/// <summary>
 	/// The player's inventory
 	/// </summary>
-	[Property, Group("Components"), Sync]
+	[Property, Group( "Components" ), Sync]
 	public Inventory Inventory { get; set; }
 
 	/// <summary>
 	/// Base jump power, can possibly change
 	/// </summary>
-	[Property, Group("Movement Config")]
+	[Property, Group( "Movement Config" )]
 	public float JumpPower { get; set; } = 1024f;
 
 	/// <summary>
 	/// Base movement speed, can possibly change
 	/// </summary>
-	[Property, Group("Movement Config")]
+	[Property, Group( "Movement Config" )]
 	public float MovementSpeed { get; set; } = 256f;
 
 	/// <summary>
 	/// Base Run speed, can possibly change
 	/// </summary>
-	[Property, Group("Movement Config")]
+	[Property, Group( "Movement Config" )]
 	public float RunMovementSpeed { get; set; } = 360f;
 
 	/// <summary>
 	/// The base acceleration in the air
 	/// </summary>
-	[Property, Group("Movement Config")]
+	[Property, Group( "Movement Config" )]
 	private float AirAcceleration { get; set; } = 5f;
 
 	/// <summary>
 	/// The base acceleration on foot
 	/// </summary>
-	[Property, Group("Movement Config")]
+	[Property, Group( "Movement Config" )]
 	private float Acceleration { get; set; } = 10f;
 
 	/// <summary>
 	/// The fastest acceleration you can move while in the air
 	/// </summary>
-	[Property, Group("Movement Config")]
+	[Property, Group( "Movement Config" )]
 	private float MaxAirAcceleration { get; set; } = 125f;
 
 	/// <summary>
 	/// The fastest acceleration you can move on foot
 	/// </summary>
-	[Property, Group("Movement Config")]
+	[Property, Group( "Movement Config" )]
 	private float MaxAcceleration { get; set; } = 500f;
 
 	/// <summary>
@@ -160,7 +164,7 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 	/// <returns></returns>
 	private float GetFriction()
 	{
-		if (Character.IsOnGround)
+		if ( Character.IsOnGround )
 			return Friction;
 
 		// Base air friction, not gonna bother having it customizable
@@ -174,7 +178,7 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 	/// <returns></returns>
 	private Vector3 GetWishSpeed()
 	{
-		if (Input.Down("run"))
+		if ( Input.Down( "run" ) )
 			return RunMovementSpeed;
 		return MovementSpeed;
 	}
@@ -197,31 +201,31 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 		WishVelocity = 0f;
 		WishMove = Input.AnalogMove;
 
-		var rot = EyeAngles.WithPitch(0f).ToRotation();
+		var rot = EyeAngles.WithPitch( 0f ).ToRotation();
 
 		var wishDirection = WishMove.Normal * rot;
-		wishDirection = wishDirection.WithZ(0);
+		wishDirection = wishDirection.WithZ( 0 );
 		WishVelocity = wishDirection * GetWishSpeed();
-		WishVelocity = WishVelocity.WithZ(0);
+		WishVelocity = WishVelocity.WithZ( 0 );
 	}
 
 	private void ApplyHalfGravity()
 	{
 		var halfGravity = Scene.PhysicsWorld.Gravity * Time.Delta * 0.5f;
 
-		if (!Character.IsOnGround)
+		if ( !Character.IsOnGround )
 		{
 			Character.Velocity += halfGravity;
 		}
 		else
 		{
-			Character.Velocity = Character.Velocity.WithZ(0);
+			Character.Velocity = Character.Velocity.WithZ( 0 );
 		}
 	}
 
 	private float GetAcceleration()
 	{
-		if (!Character.IsOnGround) return AirAcceleration;
+		if ( !Character.IsOnGround ) return AirAcceleration;
 
 		return Acceleration;
 	}
@@ -236,9 +240,9 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 	/// </summary>
 	private void ApplyJump()
 	{
-		if (Character.IsOnGround && Input.Pressed("Jump"))
+		if ( Character.IsOnGround && Input.Pressed( "Jump" ) )
 		{
-			Character.Punch(Vector3.Up * GetJumpPower());
+			Character.Punch( Vector3.Up * GetJumpPower() );
 			BroadcastJump();
 		}
 	}
@@ -249,7 +253,7 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 	[Broadcast]
 	private void BroadcastJump()
 	{
-		if (AnimationHelper.IsValid())
+		if ( AnimationHelper.IsValid() )
 		{
 			AnimationHelper.TriggerJump();
 		}
@@ -257,30 +261,30 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 
 	private float GetMaxAcceleration()
 	{
-		if (!Character.IsOnGround) return MaxAirAcceleration;
+		if ( !Character.IsOnGround ) return MaxAirAcceleration;
 		return MaxAcceleration;
 	}
 
 	protected override void OnFixedUpdate()
 	{
-		if (IsProxy)
+		if ( IsProxy )
 			return;
 
-		if (timeSinceLastSave > 2.5f)
+		if ( timeSinceLastSave > 2.5f )
 		{
 			timeSinceLastSave = 0f;
-			CharacterSave.Current?.Save(Player.Local);
+			CharacterSave.Current?.Save( Player.Local );
 		}
 
 		BuildWishVelocity();
 		ApplyAcceleration();
 		ApplyJump();
 
-		Character.ApplyFriction(GetFriction());
+		Character.ApplyFriction( GetFriction() );
 
-		if (Character.IsOnGround)
+		if ( Character.IsOnGround )
 		{
-			Character.Velocity = Character.Velocity.WithZ(0);
+			Character.Velocity = Character.Velocity.WithZ( 0 );
 		}
 		else
 		{
@@ -288,13 +292,13 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 			ApplyHalfGravity();
 		}
 
-		Character.Accelerate(WishVelocity.ClampLength(GetMaxAcceleration()));
+		Character.Accelerate( WishVelocity.ClampLength( GetMaxAcceleration() ) );
 
 		Character.Move();
 		// Apply the second half
 		ApplyHalfGravity();
 
-		if (Input.Released("attack2"))
+		if ( Input.Released( "attack2" ) )
 		{
 			GiveRandomItemOnHost();
 		}
@@ -303,20 +307,20 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 	[Broadcast]
 	private void GiveRandomItemOnHost()
 	{
-		if (!Sandbox.Networking.IsHost) return;
+		if ( !Sandbox.Networking.IsHost ) return;
 		var itemType = Game.Random.Float() > 0.5f ? "gem" : "test";
-		var item = Item.Create(itemType);
-		Hotbar.GiveItem(item);
+		var item = Item.Create( itemType );
+		Hotbar.GiveItem( item );
 	}
 
 	private void ApplyAnimation()
 	{
-		if (AnimationHelper.IsValid())
+		if ( AnimationHelper.IsValid() )
 		{
-			AnimationHelper.WithVelocity(Character.Velocity);
-			AnimationHelper.WithWishVelocity(WishVelocity);
+			AnimationHelper.WithVelocity( Character.Velocity );
+			AnimationHelper.WithWishVelocity( WishVelocity );
 			AnimationHelper.IsGrounded = Character.IsOnGround;
-			AnimationHelper.WithLook(EyeAngles.Forward, 0.1f, 0.1f, 0.1f);
+			AnimationHelper.WithLook( EyeAngles.Forward, 0.1f, 0.1f, 0.1f );
 			AnimationHelper.DuckLevel = 0;
 			AnimationHelper.HoldType = HoldType;
 			AnimationHelper.Handedness = CitizenAnimationHelper.Hand.Right;
@@ -326,7 +330,7 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 
 	protected override void OnStart()
 	{
-		if (IsProxy)
+		if ( IsProxy )
 			return;
 
 		Inventory.OverflowContainer = Hotbar.Container;
@@ -335,22 +339,35 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 		InitEquipment();
 
 		// Load the character data
-		if (CharacterSave.Current is not null)
+		if ( CharacterSave.Current is not null )
 		{
-			CharacterSave.Current.Load(this);
+			CharacterSave.Current.Load( this );
+
+			// Give them some starting weapons if they didn't have them. We can remove this later
+			var smgItem = HC2.Item.Create( "weapon_smg" );
+			if ( !Hotbar.HasItem( smgItem ) )
+			{
+				Log.Info( "giving smg" );
+				Hotbar.GiveItem( smgItem );
+			}
+			var swordItem = HC2.Item.Create( "weapon_sword" );
+			if ( !Hotbar.HasItem( swordItem ) )
+			{
+				Hotbar.GiveItem( swordItem );
+			}
 		}
 	}
 
 	protected override void OnUpdate()
 	{
-		if (ModelRenderer.IsValid())
+		if ( ModelRenderer.IsValid() )
 		{
-			ModelRenderer.Transform.Rotation = Rotation.FromYaw(EyeAngles.yaw);
+			ModelRenderer.Transform.Rotation = Rotation.FromYaw( EyeAngles.yaw );
 		}
 
 		ApplyAnimation();
 
-		if (IsProxy)
+		if ( IsProxy )
 			return;
 
 		CameraController.UpdateFromPlayer();
@@ -378,7 +395,7 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 	/// Called on the host when damaging smoething
 	/// </summary>
 	/// <param name="damage"></param>
-	void IDamage.OnDamage(DamageInstance damage)
+	void IDamage.OnDamage( DamageInstance damage )
 	{
 	}
 
@@ -386,17 +403,38 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 	/// Called on the host when this thing has been killed
 	/// </summary>
 	/// <param name="eventArgs"></param>
-	void IGameEventHandler<KilledEvent>.OnGameEvent(KilledEvent eventArgs)
+	void IGameEventHandler<KilledEvent>.OnGameEvent( KilledEvent eventArgs )
 	{
 		Respawn();
 	}
 
-	void IGameEventHandler<ModifyDamageEvent>.OnGameEvent(ModifyDamageEvent eventArgs)
+	void IGameEventHandler<ModifyDamageEvent>.OnGameEvent( ModifyDamageEvent eventArgs )
 	{
-		if (eventArgs.DamageInstance.Attacker is Player player)
+		if ( eventArgs.DamageInstance.Attacker is Player player )
 		{
 			// If we're being attacked by a player, scale the damage down to 0, as this game does not support friendly fire
-			eventArgs.ScaleDamage(0f);
+			eventArgs.ScaleDamage( 0f );
 		}
+	}
+
+
+	void IGameEventHandler<ItemEquipEvent>.OnGameEvent( ItemEquipEvent eventArgs )
+	{
+		var item = eventArgs.Item;
+		if ( item is null ) return;
+
+		if ( item.Resource.Prefab is not null )
+		{
+			var obj = SceneUtility.GetPrefabScene( item.Resource.Prefab );
+			SetMainHand( obj );
+		}
+	}
+
+	void IGameEventHandler<ItemUnequipEvent>.OnGameEvent( ItemUnequipEvent eventArgs )
+	{
+		var item = eventArgs.Item;
+		if ( item is null ) return;
+
+		RemoveMainHand();
 	}
 }

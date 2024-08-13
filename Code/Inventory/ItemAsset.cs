@@ -30,12 +30,6 @@ public class ItemAsset : GameResource
 	public PrefabFile Prefab { get; set; }
 
 	/// <summary>
-	/// What prefab to spawn when creating the item itself. If empty it will create an empty GameObject
-	/// with an Item component.
-	/// </summary>
-	public PrefabFile ItemPrefab { get; set; }
-
-	/// <summary>
 	/// What world model to use for this item.
 	/// </summary>
 	public Model WorldModel { get; set; }

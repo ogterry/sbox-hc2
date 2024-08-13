@@ -1,0 +1,143 @@
+{
+  "RootObject": {
+    "__guid": "70818148-0689-41d7-a059-1216c8afd3cd",
+    "Flags": 0,
+    "Name": "SMG",
+    "Position": "-0.000008602085,0.000007232561,-4.653377",
+    "Scale": "0.1,0.1,0.6",
+    "Components": [
+      {
+        "__type": "ProjectileWeapon",
+        "__guid": "23dee7a0-a4d1-40ac-ba7b-862d6b6234b0",
+        "AimingEnabled": true,
+        "AimingFOVOffset": 25,
+        "AttackDelay": 0.125,
+        "AttackSound": "sounds/weapons/laser_gun_shoot.sound",
+        "Damage": 12,
+        "DamageType": "Sharp",
+        "EjectSpeed": 32000,
+        "Hand": "MainHand",
+        "HoldType": "Rifle",
+        "InputAction": "Attack1",
+        "Muzzle": {
+          "_type": "gameobject",
+          "go": "99705985-0f19-444c-9d48-0fdbe9b8aa05"
+        },
+        "ProjectilePrefab": {
+          "_type": "gameobject",
+          "go": "ed8d5c90-52c7-4715-b1e7-7a7cb8ae4128"
+        }
+      },
+      {
+        "__type": "HC2.ResourceGatherer",
+        "__guid": "24e04cf9-b2ef-493a-bf66-c263cc057d32",
+        "Effectiveness": 1,
+        "SourceKind": "Stone"
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "ed8d5c90-52c7-4715-b1e7-7a7cb8ae4128",
+        "Flags": 0,
+        "Name": "SMG Projectile",
+        "Position": "0,0,0",
+        "Components": [
+          {
+            "__type": "Projectile",
+            "__guid": "88406883-8679-4573-b973-87fc9b51630c",
+            "Collider": {
+              "_type": "component",
+              "component_id": "7758e6cf-d428-49b7-9886-ee1ee949297e",
+              "go": "ed8d5c90-52c7-4715-b1e7-7a7cb8ae4128",
+              "component_type": "SphereCollider"
+            },
+            "LifeTime": 5,
+            "PrefabToSpawn": {
+              "_type": "gameobject",
+              "prefab": "prefabs/particles/footstep/footstepeffect.prefab"
+            },
+            "Renderer": {
+              "_type": "component",
+              "component_id": "338aa0ca-2c28-49a8-abe9-0d28681925ef",
+              "go": "19541090-abb4-4d18-8ebd-ccc227e00db6",
+              "component_type": "ModelRenderer"
+            }
+          },
+          {
+            "__type": "Sandbox.Rigidbody",
+            "__guid": "d234dab2-3143-42a7-a011-2b94579aed40",
+            "AngularDamping": 0,
+            "Gravity": false,
+            "LinearDamping": 0,
+            "Locking": {},
+            "MassCenterOverride": "0,0,0",
+            "MassOverride": 0,
+            "MotionEnabled": true,
+            "OverrideMassCenter": false,
+            "RigidbodyFlags": 0,
+            "StartAsleep": false
+          },
+          {
+            "__type": "Sandbox.SphereCollider",
+            "__guid": "7758e6cf-d428-49b7-9886-ee1ee949297e",
+            "Center": "0,0,0",
+            "IsTrigger": false,
+            "Radius": 1,
+            "Static": false
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "19541090-abb4-4d18-8ebd-ccc227e00db6",
+            "Flags": 0,
+            "Name": "Sphere",
+            "Position": "0,0,0",
+            "Scale": "0.1,0.1,0.1",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.ModelRenderer",
+                "__guid": "338aa0ca-2c28-49a8-abe9-0d28681925ef",
+                "BodyGroups": 18446744073709551615,
+                "Model": "models/dev/sphere.vmdl",
+                "RenderType": "On",
+                "Tint": "1,1,1,1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "__guid": "99705985-0f19-444c-9d48-0fdbe9b8aa05",
+        "Flags": 0,
+        "Name": "Muzzle",
+        "Position": "175.8311,0.000005844395,-1.333206",
+        "Rotation": "-0.0000000000001136868,-0.7071067,0.00000000000005684342,0.7071068",
+        "Enabled": true
+      },
+      {
+        "__guid": "e5de3e9c-bf8d-4c62-8544-fa2f80d8d9de",
+        "Flags": 0,
+        "Name": "Object",
+        "Position": "5,0,0",
+        "Rotation": "0,0.7071068,0,0.7071068",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "ecff1592-6daf-4ebd-ac33-54af0abdce29",
+            "BodyGroups": 18446744073709551615,
+            "RenderType": "On",
+            "Tint": "1,0.33488,0.33488,1"
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

@@ -1,0 +1,12 @@
+{
+  "Name": "Sword",
+  "Description": "Hack n slash!",
+  "Icon": "item_icons/weapon_sword.png",
+  "Tags": "weapon,melee",
+  "Prefab": "prefabs/weapons/sword.prefab",
+  "WorldModel": "models/sword/sword.vmdl",
+  "__references": [
+    "hecker.sword"
+  ],
+  "__version": 0
+}

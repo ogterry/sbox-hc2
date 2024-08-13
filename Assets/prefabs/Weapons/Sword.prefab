@@ -1,0 +1,51 @@
+{
+  "RootObject": {
+    "__guid": "b7c98c4e-8217-4956-a6a1-87559ffe2b98",
+    "Flags": 0,
+    "Name": "Sword",
+    "Position": "-0.000007148182,0.00001070521,2.330258",
+    "Scale": "0.1,0.1,1",
+    "Components": [
+      {
+        "__type": "Sandbox.ModelRenderer",
+        "__guid": "a4c4a786-2487-473c-9e41-620967dc5df9",
+        "BodyGroups": 18446744073709551615,
+        "RenderType": "On",
+        "Tint": "0.33488,0.49008,1,1"
+      },
+      {
+        "__type": "MeleeWeapon",
+        "__guid": "a9db2399-a4a5-416e-bc76-442c7c81b836",
+        "AimingEnabled": false,
+        "AimingFOVOffset": 0,
+        "AttackDelay": 1,
+        "AttackRange": 128,
+        "AttackSound": "sounds/weapons/sword_swing.sound",
+        "Damage": 50,
+        "DamageType": "Fire",
+        "Hand": "MainHand, OffHand",
+        "HitSound": "sounds/weapons/sword_metallic_hit.sound",
+        "HoldType": "HoldItem",
+        "InputAction": "attack1",
+        "PrefabToSpawn": {
+          "_type": "gameobject",
+          "prefab": "prefabs/particles/footstep/footstepeffect.prefab"
+        },
+        "SwingDelay": 0.25,
+        "Thickness": 5
+      },
+      {
+        "__type": "HC2.ResourceGatherer",
+        "__guid": "287bdfe0-edeb-44d7-a689-aa8436be0562",
+        "Effectiveness": 1,
+        "SourceKind": "Wood"
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}
