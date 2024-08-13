@@ -25,7 +25,7 @@
         "__guid": "250ea4de-bcf0-4f1a-b479-a40345ac3168",
         "MaxMoveAngle": 45,
         "MaxSpeed": 150,
-        "MaxTurnSpeed": 180
+        "MaxTurnSpeed": 45
       },
       {
         "__type": "Sandbox.CharacterController",
