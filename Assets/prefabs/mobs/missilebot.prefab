@@ -1,0 +1,153 @@
+{
+  "RootObject": {
+    "__guid": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+    "Flags": 0,
+    "Name": "missilebot",
+    "Tags": "mob",
+    "Enabled": true,
+    "NetworkMode": 1,
+    "Components": [
+      {
+        "__type": "HC2.Mobs.Mob",
+        "__guid": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
+        "DamageScale": 1,
+        "ExperienceYield": 10
+      },
+      {
+        "__type": "Sandbox.CharacterController",
+        "__guid": "81a5dd2a-6885-4126-b0b4-56edb2c7dcf3",
+        "Acceleration": 10,
+        "Bounciness": 0.3,
+        "GroundAngle": 45,
+        "Height": 64,
+        "IgnoreLayers": "",
+        "Radius": 16,
+        "StepHeight": 18,
+        "UseCollisionRules": false
+      },
+      {
+        "__type": "HealthComponent",
+        "__guid": "44666c46-474f-4003-ab46-00718546ec8d",
+        "DamageEffectPrefab": {
+          "_type": "gameobject",
+          "prefab": "prefabs/damage/dmgnumber.prefab"
+        },
+        "MaxHealth": 200
+      },
+      {
+        "__type": "Sandbox.CapsuleCollider",
+        "__guid": "db6e6114-1de3-43e9-8548-45f6246d4282",
+        "End": "0,0,48",
+        "IsTrigger": false,
+        "Radius": 16,
+        "Start": "0,0,16",
+        "Static": false
+      },
+      {
+        "__type": "HC2.Mobs.ProjectileSpawner",
+        "__guid": "37c7d38a-397b-4565-9af1-73e8655d7595",
+        "Prefab": {
+          "_type": "gameobject",
+          "prefab": "prefabs/mobs/projectiles/homing_missile.prefab"
+        },
+        "SpawnOffset": "0,0,68.50005",
+        "SpawnPeriod": "5.00,5.00,0"
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "12020394-ac0b-451a-bbc9-e9afca3f5c28",
+        "Flags": 0,
+        "Name": "State Machine",
+        "Enabled": true,
+        "NetworkMode": 0,
+        "Components": [
+          {
+            "__type": "Sandbox.States.StateMachineComponent",
+            "__guid": "399e6eab-0a17-4393-bedf-cfb7af30bcf8"
+          }
+        ]
+      },
+      {
+        "__guid": "ad4607ca-136d-45a0-a837-a35d78d7bb8a",
+        "Flags": 0,
+        "Name": "Head",
+        "Position": "0,0,48",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "JiggleBone",
+            "__guid": "2df7c321-f543-424a-b7c3-249d1680740e",
+            "EndPoint": "0,0,0",
+            "StartPoint": "0,0,-16",
+            "Damping": 1,
+            "Mass": 1,
+            "Radius": 40,
+            "Speed": 1,
+            "Stiffness": 1
+          },
+          {
+            "__type": "HC2.Mobs.VisionCone",
+            "__guid": "38e0b566-c266-4102-b614-ad6221ea6a07",
+            "Angle": 90,
+            "MaxRange": 512
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "d43a81fc-d89d-4720-8f8e-6d0daea50b06",
+            "Flags": 0,
+            "Name": "Cube",
+            "Position": "0,0,-6.276413",
+            "Scale": "0.4271979,0.4271979,0.6494997",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.ModelRenderer",
+                "__guid": "e466fdf9-66ab-412e-9b48-ff905dbb4414",
+                "BodyGroups": 18446744073709551615,
+                "Model": "models/dev/box.vmdl",
+                "RenderType": "On",
+                "Tint": "0.67442,0.20389,0.20389,1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "__guid": "685bb501-543d-4515-bc6f-7684d9f96e31",
+        "Flags": 0,
+        "Name": "Bottom",
+        "Position": "0,0,12",
+        "Enabled": true,
+        "Children": [
+          {
+            "__guid": "d951033d-6757-4c36-9bc6-92f2cc6f6201",
+            "Flags": 0,
+            "Name": "Cube",
+            "Position": "0,0,2.480764",
+            "Scale": "0.5457266,0.5457266,0.4838226",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.ModelRenderer",
+                "__guid": "f962ccc3-59dc-44c1-a93f-c3ec124d6bf7",
+                "BodyGroups": 18446744073709551615,
+                "Model": "models/dev/box.vmdl",
+                "RenderType": "On",
+                "Tint": "0.22988,0.55855,0.74884,1"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}
