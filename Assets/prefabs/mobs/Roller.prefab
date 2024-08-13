@@ -2319,24 +2319,6 @@
         ]
       },
       {
-        "__guid": "e5fff93b-14e0-4d75-b7ec-6a423a64da68",
-        "Flags": 0,
-        "Name": "Sphere",
-        "Position": "0,0,11.9796",
-        "Scale": "0.163401,0.163401,0.163401",
-        "Enabled": true,
-        "Components": [
-          {
-            "__type": "Sandbox.ModelRenderer",
-            "__guid": "69ca473a-0802-4b5d-9a4e-d9634f088201",
-            "BodyGroups": 18446744073709551615,
-            "Model": "models/mobs/roller/roller_ball.vmdl",
-            "RenderType": "On",
-            "Tint": "1,1,1,1"
-          }
-        ]
-      },
-      {
         "__guid": "ad4607ca-136d-45a0-a837-a35d78d7bb8a",
         "Flags": 0,
         "Name": "Head",
@@ -2398,6 +2380,46 @@
                     "TextAlignment": "Center"
                   }
                 ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "__guid": "685bb501-543d-4515-bc6f-7684d9f96e31",
+        "Flags": 0,
+        "Name": "Ball",
+        "Position": "0,0,12",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "HC2.Mobs.Rollerball",
+            "__guid": "337a6c05-a51e-439e-af74-7730f4e0af7c",
+            "CharacterController": {
+              "_type": "component",
+              "component_id": "81a5dd2a-6885-4126-b0b4-56edb2c7dcf3",
+              "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+              "component_type": "CharacterController"
+            },
+            "Radius": 16
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "e5fff93b-14e0-4d75-b7ec-6a423a64da68",
+            "Flags": 0,
+            "Name": "Sphere",
+            "Position": "0,0,0",
+            "Scale": "0.163401,0.163401,0.163401",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.ModelRenderer",
+                "__guid": "69ca473a-0802-4b5d-9a4e-d9634f088201",
+                "BodyGroups": 18446744073709551615,
+                "Model": "models/mobs/roller/roller_ball.vmdl",
+                "RenderType": "On",
+                "Tint": "1,1,1,1"
               }
             ]
           }
