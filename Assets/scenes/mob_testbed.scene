@@ -473,6 +473,7 @@
       "Flags": 0,
       "Name": "leggy",
       "Position": "-343.4939,-690.2849,50",
+      "Tags": "mob",
       "Enabled": true,
       "__Prefab": "prefabs/mobs/leggy.prefab",
       "__PrefabVariables": {}
