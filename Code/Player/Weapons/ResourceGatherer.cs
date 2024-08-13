@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace HC2;
 
-public enum GatherSourceKind
+[Icon( "shopping_cart" )]
+public sealed class ResourceGatherer : Component
 {
-	None,
-	Wood,
-	Stone,
-	Metal
-}
+	[Property] public GatherSourceKind SourceKind { get; set; }
 
-public sealed class ResourceGatherer : WeaponComponent
-{
-	[Property] public Dictionary<GatherSourceKind, float> Effectiveness { get; set; } = new();
+	[Range( 0f, 4f )]
+	[Property] public float Effectiveness { get; set; }
 }
