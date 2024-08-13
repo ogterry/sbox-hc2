@@ -2393,8 +2393,8 @@
         "Enabled": true,
         "Components": [
           {
-            "__type": "HC2.Mobs.Rollerball",
-            "__guid": "337a6c05-a51e-439e-af74-7730f4e0af7c",
+            "__type": "HC2.Mobs.Wheel",
+            "__guid": "b5c7895a-9ebe-43c9-9996-a5c5181c63ed",
             "CharacterController": {
               "_type": "component",
               "component_id": "81a5dd2a-6885-4126-b0b4-56edb2c7dcf3",
