@@ -514,6 +514,48 @@
       "Enabled": true,
       "__Prefab": "prefabs/mobs/leggy.prefab",
       "__PrefabVariables": {}
+    },
+    {
+      "__guid": "ea865760-495e-4ea4-8b9b-da5017d4b3b3",
+      "Flags": 0,
+      "Name": "Cube",
+      "Position": "346.2209,115.7421,50.00007",
+      "Scale": "1,1,2",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "07fc4969-eddf-4644-a336-f7c185dc0611",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/dev/box.vmdl",
+          "RenderType": "On",
+          "Tint": "1,0,0,1"
+        },
+        {
+          "__type": "HC2.ResourceNode",
+          "__guid": "9a129aa3-6085-45ba-96d2-b6795b2b797f",
+          "DamagePerItem": 100,
+          "Item": "items/gem.item",
+          "SourceKind": "Wood"
+        },
+        {
+          "__type": "HealthComponent",
+          "__guid": "718cbadb-a111-4126-b770-daaa86dc05aa",
+          "DamageEffectPrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/damage/dmgnumber.prefab"
+          },
+          "MaxHealth": 1000
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "0656d21c-4d57-4c52-8d37-af351a41e8dd",
+          "Center": "0,0,0",
+          "IsTrigger": false,
+          "Scale": "50,50,50",
+          "Static": false
+        }
+      ]
     }
   ],
   "SceneProperties": {

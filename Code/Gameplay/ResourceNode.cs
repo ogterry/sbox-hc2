@@ -31,6 +31,8 @@ public sealed class ResourceNode : Component,
 
 	private float GetWeaponEffectiveness( DamageInstance damageInfo )
 	{
+		Log.Info( damageInfo.Inflictor );
+
 		if ( damageInfo.Inflictor is not { } inflictor ) return 0f;
 
 		return inflictor.Components.GetAll<ResourceGatherer>()
@@ -66,6 +68,18 @@ public sealed class ResourceNode : Component,
 	private void DropItem( Vector3 direction )
 	{
 		Log.Info( "Dropped!" );
+
+		// Just find closest player
+
+		var player = Scene.GetAllComponents<Player>()
+			.MinBy( x => x.Transform.Position - Transform.Position );
+
+		if ( player is null )
+		{
+			return;
+		}
+
+		player.Inventory.GiveItem( HC2.Item.Create( Item ) );
 	}
 
 	void IGameEventHandler<KilledEvent>.OnGameEvent( KilledEvent eventArgs )

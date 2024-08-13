@@ -27,10 +27,6 @@
           "_type": "gameobject",
           "go": "b7c98c4e-8217-4956-a6a1-87559ffe2b98"
         },
-        "DefaultOffHandPrefab": {
-          "_type": "gameobject",
-          "go": "532599a6-2cb5-4be7-82f6-073ec4eb15a3"
-        },
         "JumpPower": 512,
         "MainHandBone": {
           "_type": "gameobject",
@@ -1102,6 +1098,12 @@
             },
             "SwingDelay": 0.25,
             "Thickness": 5
+          },
+          {
+            "__type": "HC2.ResourceGatherer",
+            "__guid": "287bdfe0-edeb-44d7-a689-aa8436be0562",
+            "Effectiveness": 1,
+            "SourceKind": "Wood"
           }
         ]
       },
@@ -1133,6 +1135,12 @@
               "_type": "gameobject",
               "go": "ed8d5c90-52c7-4715-b1e7-7a7cb8ae4128"
             }
+          },
+          {
+            "__type": "HC2.ResourceGatherer",
+            "__guid": "24e04cf9-b2ef-493a-bf66-c263cc057d32",
+            "Effectiveness": 1,
+            "SourceKind": "Stone"
           }
         ],
         "Children": [
