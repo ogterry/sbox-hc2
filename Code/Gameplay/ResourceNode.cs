@@ -31,7 +31,13 @@ public sealed class ResourceNode : Component,
 
 	private float GetWeaponEffectiveness( DamageInstance damageInfo )
 	{
-		return 0f;
+		if ( damageInfo.Inflictor is not { } inflictor ) return 0f;
+
+		return inflictor.Components.GetAll<ResourceGatherer>()
+			.Where( x => x.SourceKind == SourceKind )
+			.Select( x => x.Effectiveness )
+			.DefaultIfEmpty( 0f )
+			.Max();
 	}
 
 	void IGameEventHandler<ModifyDamageEvent>.OnGameEvent( ModifyDamageEvent eventArgs )
