@@ -43,8 +43,6 @@ public sealed class ResourceNode : Component,
 
 	private float GetWeaponEffectiveness( DamageInstance damageInfo )
 	{
-		Log.Info( damageInfo.Inflictor );
-
 		if ( damageInfo.Inflictor is not { } inflictor ) return 0f;
 
 		return inflictor.Components.GetAll<ResourceGatherer>()
@@ -95,8 +93,6 @@ public sealed class ResourceNode : Component,
 
 	private void DropItem( Vector3 direction )
 	{
-		Log.Info( "Dropped!" );
-
 		// TODO: drop in world
 
 		var inst = WorldItem.CreateInstance( Item, Transform.Position + direction * 150f );
