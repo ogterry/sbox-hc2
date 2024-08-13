@@ -66,7 +66,19 @@ public class VoxelRenderer : Component, Component.ExecuteInEditor
 
 		Transform.OnTransformChanged -= OnLocalTransformChanged;
 
-		Model.Destroy();
+		DestroyInternal();
+	}
+
+	protected override void OnDestroy()
+	{
+		base.OnDestroy();
+
+		DestroyInternal();
+	}
+
+	private void DestroyInternal()
+	{
+		Model?.Destroy();
 		Model = null;
 	}
 
