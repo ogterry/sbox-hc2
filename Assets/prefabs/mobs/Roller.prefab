@@ -567,7 +567,7 @@
                           "_isStatic": false
                         },
                         "UserData": {
-                          "Position": "416,32"
+                          "Position": "464,64"
                         }
                       },
                       {
@@ -601,6 +601,66 @@
                         "Properties": {
                           "_type": "Sandbox.GameTransform",
                           "_name": "Position"
+                        },
+                        "UserData": {
+                          "Labels": {
+                            "_result": "target pos"
+                          }
+                        }
+                      },
+                      {
+                        "Id": 7,
+                        "Type": "property",
+                        "Properties": {
+                          "_type": "Sandbox.GameObject",
+                          "_name": "Transform"
+                        },
+                        "UserData": {
+                          "Position": "-48,-144"
+                        }
+                      },
+                      {
+                        "Id": 8,
+                        "Type": "property",
+                        "ParentId": 7,
+                        "Properties": {
+                          "_type": "Sandbox.GameTransform",
+                          "_name": "Position"
+                        }
+                      },
+                      {
+                        "Id": 9,
+                        "Type": "op.subtract",
+                        "UserData": {
+                          "Position": "256,-144"
+                        }
+                      },
+                      {
+                        "Id": 11,
+                        "Type": "property",
+                        "Properties": {
+                          "_type": "Vector3",
+                          "_name": "Normal"
+                        },
+                        "UserData": {
+                          "Position": "448,-144",
+                          "Labels": {
+                            "_result": "target dir"
+                          }
+                        }
+                      },
+                      {
+                        "Id": 12,
+                        "Type": "op.multiply",
+                        "UserData": {
+                          "Position": "0,208"
+                        }
+                      },
+                      {
+                        "Id": 17,
+                        "Type": "op.add",
+                        "UserData": {
+                          "Position": "192,160"
                         }
                       }
                     ],
@@ -618,7 +678,7 @@
                         "DstName": "_target"
                       },
                       {
-                        "SrcId": 6,
+                        "SrcId": 17,
                         "SrcName": "_result",
                         "DstId": 3,
                         "DstName": "position"
@@ -640,6 +700,63 @@
                         "SrcName": "_result",
                         "DstId": 6,
                         "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 0,
+                        "SrcName": "_target",
+                        "DstId": 7,
+                        "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 7,
+                        "SrcName": "_result",
+                        "DstId": 8,
+                        "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 6,
+                        "SrcName": "_result",
+                        "DstId": 9,
+                        "DstName": "a"
+                      },
+                      {
+                        "SrcId": 8,
+                        "SrcName": "_result",
+                        "DstId": 9,
+                        "DstName": "b"
+                      },
+                      {
+                        "SrcId": 9,
+                        "SrcName": "_result",
+                        "DstId": 11,
+                        "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 11,
+                        "SrcName": "_result",
+                        "DstId": 12,
+                        "DstName": "a"
+                      },
+                      {
+                        "Value": {
+                          "$type": "Simple",
+                          "Type": "System.Single",
+                          "Value": 200
+                        },
+                        "DstId": 12,
+                        "DstName": "b"
+                      },
+                      {
+                        "SrcId": 6,
+                        "SrcName": "_result",
+                        "DstId": 17,
+                        "DstName": "a"
+                      },
+                      {
+                        "SrcId": 12,
+                        "SrcName": "_result",
+                        "DstId": 17,
+                        "DstName": "b"
                       }
                     ],
                     "Defaults": {
