@@ -15,6 +15,10 @@
         "Identifier": "1",
         "Output": "Result"
       },
+      "Emission": {
+        "Identifier": "8",
+        "Output": "Result"
+      },
       "Normal": {
         "Identifier": "7",
         "Output": "Result"
@@ -42,11 +46,12 @@
         "Name": "Color",
         "Default": "1,1,1,1",
         "CustomExtension": "",
+        "ImageFormat": "BC7",
         "SrgbRead": true,
         "Priority": 1
       },
       "Identifier": "1",
-      "Position": "-704,-304",
+      "Position": "-704,-496",
       "Coords": {
         "Identifier": "2",
         "Output": "Result"
@@ -153,6 +158,28 @@
       "Position": "-368,-48",
       "Input": {
         "Identifier": "6",
+        "Output": "Result"
+      }
+    },
+    {
+      "_class": "TextureSampler",
+      "Image": "materials/dev/white_color.tga",
+      "Sampler": {
+        "Filter": "Point"
+      },
+      "UI": {
+        "Name": "Self Illum",
+        "Default": "0,0,0,1",
+        "Extension": "SelfIllum",
+        "CustomExtension": "",
+        "ImageFormat": "BC7",
+        "SrgbRead": true,
+        "Priority": 1
+      },
+      "Identifier": "8",
+      "Position": "-704,-304",
+      "Coords": {
+        "Identifier": "2",
         "Output": "Result"
       }
     }
