@@ -22,7 +22,7 @@
 					}
 				</div>
 				<div class="button @((CharacterSave.Current is null) ? "active" : "")" onclick=@CreateCharacterButton>+ Create New</div>
-                <a class="button" href="/">Return</a>
+				<div class="button" onclick=@ReturnButton>Return</div>
             </div>
         </div>
 		<div class="grow current-character" style="height: 100%;">
@@ -61,6 +61,13 @@
 	void SelectCharacter(CharacterSave character)
 	{
 		CharacterSave.Current = character;
+	}
+
+	void ReturnButton()
+	{
+		// Reset the last lobby id so we don't try to reconnect if user purposely backs out
+		global::Networking.LastLobbyId = 0;
+		MenuRoot.Instance.Navigate("/");
 	}
 
 	protected override void OnAfterTreeRender(bool firstTime)

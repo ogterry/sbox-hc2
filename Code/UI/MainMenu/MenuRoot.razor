@@ -11,10 +11,16 @@
 
 @code
 {
-    public MenuRoot()
-    {
-        DefaultUrl = "/";
-        AddDestination( "/", typeof( LandingPage ) );
-        AddDestination( "/characters", typeof( CharactersPage ) );
+	public static MenuRoot Instance { get; private set; }
+
+	public MenuRoot()
+	{
+		DefaultUrl = "/";
+		AddDestination( "/", typeof( LandingPage ) );
+		AddDestination( "/characters", typeof( CharactersPage ) );
+
+		Instance = this;
+
+		if ( global::Networking.LastLobbyId != 0 ) Navigate("/characters");
     }
 }

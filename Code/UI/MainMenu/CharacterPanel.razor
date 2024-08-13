@@ -1,5 +1,6 @@
 @using Sandbox;
 @using Sandbox.UI;
+@using Sandbox.Network;
 @attribute [StyleSheet]
 @namespace HC2
 
@@ -21,7 +22,7 @@
 		<div class="character-inventory">
 			<label>Character Inventory Here?</label>
 		</div>
-		<a href="/" class="button">Select Character</a>
+		<div class="button" onclick="@SelectButton">Select Character</div>
 		<div class="button" onclick="@DeleteButton">@(DeleteClicks == 0 ? "Delete Character" : $"Delete Character (Confirm in {5 - DeleteClicks}...)")</a>
 	</div>
 </root>
@@ -41,6 +42,15 @@
 		{
 			DeleteClicks = 0;
 		}
+	}
+
+	void SelectButton()
+	{
+		CharacterSave.Current = Character;
+		if (global::Networking.LastLobbyId == 0)
+			MenuRoot.Instance.Navigate("/");
+		else
+			GameNetworkSystem.Connect(global::Networking.LastLobbyId);
 	}
 
 	void DeleteButton()

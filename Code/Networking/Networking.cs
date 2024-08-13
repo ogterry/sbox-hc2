@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 public sealed class Networking : Component, Component.INetworkListener
 {
-	public static string LastLobbyId { get; set; } = null;
+	public static ulong LastLobbyId { get; set; } = 0;
 
 	/// <summary>
 	/// The prefab to spawn for the player to control.
@@ -17,6 +17,29 @@ public sealed class Networking : Component, Component.INetworkListener
 	{
 		if ( Scene.IsEditor )
 			return;
+
+		// Boot to Character Select if we don't have a character selected
+		if ( CharacterSave.Current is null )
+		{
+			// If we're in the editor, just use the first character we find
+			if ( Game.IsEditor )
+			{
+				CharacterSave.Current = CharacterSave.GetAll().FirstOrDefault();
+				if ( CharacterSave.Current is null )
+				{
+					// There's no character at all, so lets just make a new one
+					CharacterSave.Current = new CharacterSave();
+					CharacterSave.Current.Save();
+				}
+			}
+			else
+			{
+				// LastLobbyId is how the MainMenu knows to return us to this server
+				LastLobbyId = Connection.Host?.SteamId ?? 0;
+				Scene.LoadFromFile( "scenes/menu.scene" );
+				return;
+			}
+		}
 
 		if ( !GameNetworkSystem.IsActive )
 		{
