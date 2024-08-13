@@ -4,44 +4,32 @@ public sealed class PlayerFootsteps : Component
 {
 	[Property] SkinnedModelRenderer Source { get; set; }
 	[Property] GameObject Particle { get; set; }
-	bool LeftFoot = true;
 
-	Player PlayerController;
+	protected override void OnEnabled()
+	{
+		if ( Source is null )
+			return;
 
-	CharacterController Controller;
+		Source.OnFootstepEvent += OnEvent;
+	}
+
+	protected override void OnDisabled()
+	{
+		if ( Source is null )
+			return;
+
+		Source.OnFootstepEvent -= OnEvent;
+	}
 
 	TimeSince timeSinceStep;
 
-	protected override void OnStart()
+	private void OnEvent( SceneModel.FootstepEvent e )
 	{
-		base.OnStart();
-
-		Controller = GameObject.Components.Get<CharacterController>();
-		PlayerController = GameObject.Components.Get<Player>();
-	}
-
-	float GetWalkSpeed()
-	{
-		float baseSpeed = 0.5f;
-
-		float playerSpeed = Controller.Velocity.Length;
-
-		float minSpeed = 60.0f;
-		float maxSpeed = 240.0f;
-
-		float stepInterval = MathX.Lerp( baseSpeed, 0.2f, playerSpeed.Remap( minSpeed, maxSpeed, 0.0f, 1.0f ) );
-		return Math.Max( stepInterval, 0.2f ); // Minimum step interval
-	}
-
-	protected override void OnFixedUpdate()
-	{
-		base.OnFixedUpdate();
-
-		if ( timeSinceStep < GetWalkSpeed() ) return;
-		if ( Controller.Velocity.Length < 10 ) return;
+		if ( timeSinceStep < 0.2f )
+			return;
 
 		var tr = Scene.Trace
-			.Ray( Transform.Position + Vector3.Up * 20, Transform.Position + Vector3.Up * -20 )
+			.Ray( e.Transform.Position + Vector3.Up * 20, e.Transform.Position + Vector3.Up * -20 )
 			.Run();
 
 		if ( !tr.Hit )
@@ -52,11 +40,11 @@ public sealed class PlayerFootsteps : Component
 
 		timeSinceStep = 0;
 
-		var sound = LeftFoot ? tr.Surface.Sounds.FootLeft : tr.Surface.Sounds.FootRight;
+		var sound = e.FootId == 0 ? tr.Surface.Sounds.FootLeft : tr.Surface.Sounds.FootRight;
 		if ( sound is null ) return;
 
 		var handle = Sound.Play( sound, tr.HitPosition + tr.Normal * 5 );
-		LeftFoot = !LeftFoot;
+		handle.Volume *= e.Volume;
 
 		OnFootstep( tr.HitPosition + tr.Normal * 5 );
 	}
@@ -68,7 +56,7 @@ public sealed class PlayerFootsteps : Component
 		var particle = Particle.Clone();
 		particle.Transform.Position = position;
 
-		var effect = particle.Components.Get<ParticleEffect>(FindMode.InChildren);
+		var effect = particle.Components.Get<ParticleEffect>( FindMode.InChildren );
 		if ( effect is null ) return;
 		effect.Tint = Color.Gray;
 	}
