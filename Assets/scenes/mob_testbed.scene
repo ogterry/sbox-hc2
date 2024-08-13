@@ -307,46 +307,8 @@
         {
           "__type": "Sandbox.SkyBox2D",
           "__guid": "817e73e7-3e97-44d4-a1ca-006276a6d8fc",
-          "SkyMaterial": "materials/skybox/skybox_day_01.vmat",
+          "SkyMaterial": "materials/sky/atmosphere_sky.vmat",
           "Tint": "1,1,1,1"
-        },
-        {
-          "__type": "Sandbox.EnvmapProbe",
-          "__guid": "e3663d11-ed5a-4bcb-860d-052063637692",
-          "Texture": "textures/cubemaps/default2.vtex",
-          "Bounds": {
-            "Mins": "-512,-512,-512",
-            "Maxs": "512,512,512"
-          },
-          "DelayBetweenUpdates": 0.1,
-          "Feathering": 0.02,
-          "FrameInterval": 5,
-          "MaxDistance": 512,
-          "Projection": "Sphere",
-          "RenderDynamically": false,
-          "TintColor": "1,1,1,1",
-          "UpdateStrategy": "OnEnabled",
-          "ZFar": 4096,
-          "ZNear": 16
-        }
-      ]
-    },
-    {
-      "__guid": "0c7a0830-0f29-41df-b758-e0e7af9fff54",
-      "Flags": 0,
-      "Name": "Sun",
-      "Rotation": "-0.0729315,0.4822396,0.1305433,0.8631827",
-      "Tags": "light_directional,light",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DirectionalLight",
-          "__guid": "170241c6-4ad5-4cbc-b746-8b78277ef5f8",
-          "FogMode": "Enabled",
-          "FogStrength": 1,
-          "LightColor": "0.94419,0.97767,1,1",
-          "Shadows": true,
-          "SkyColor": "0.2532,0.32006,0.35349,1"
         }
       ]
     },
@@ -566,6 +528,74 @@
       "Enabled": true,
       "__Prefab": "prefabs/resources/node_tree.prefab",
       "__PrefabVariables": {}
+    },
+    {
+      "__guid": "5e38fc45-d39f-421b-867b-f0316c599294",
+      "Flags": 0,
+      "Name": "node_rock",
+      "Position": "269.0147,304.4832,7",
+      "Enabled": true,
+      "__Prefab": "prefabs/resources/node_rock.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "a6c33cc2-456c-4bfa-b1e3-59ed13ae9698",
+      "Flags": 0,
+      "Name": "node_rock (1)",
+      "Position": "64.47986,321.8297,7",
+      "Enabled": true,
+      "__Prefab": "prefabs/resources/node_rock.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "04d5b641-ddaa-459f-b6cb-28ac2166ea35",
+      "Flags": 0,
+      "Name": "node_rock (2)",
+      "Position": "155.2104,217.5102,7",
+      "Rotation": "0,0,0.3826834,0.9238796",
+      "Enabled": true,
+      "__Prefab": "prefabs/resources/node_rock.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "52383615-7ce4-4075-bfd0-2d5a54ae05b1",
+      "Flags": 0,
+      "Name": "DN",
+      "Position": "464.2596,216.0869,60.467",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "HC2.DayNightCycle",
+          "__guid": "8963e8fb-9cee-4859-95b2-7e14cd312a90"
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "0c7a0830-0f29-41df-b758-e0e7af9fff54",
+          "Flags": 0,
+          "Name": "Sun",
+          "Rotation": "-0.0729315,0.4822396,0.1305433,0.8631827",
+          "Tags": "light_directional,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.DirectionalLight",
+              "__guid": "170241c6-4ad5-4cbc-b746-8b78277ef5f8",
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.94419,0.97767,1,1",
+              "Shadows": true,
+              "SkyColor": "0.2532,0.32006,0.35349,1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "47c7a503-29ea-4e1b-add3-a964d3d99e0d",
+      "Flags": 0,
+      "Name": "GameObject",
+      "Enabled": true
     }
   ],
   "SceneProperties": {

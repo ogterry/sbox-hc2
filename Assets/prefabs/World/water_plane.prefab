@@ -1,0 +1,57 @@
+{
+  "RootObject": {
+    "__guid": "9717e1a7-9ef9-46ff-bc8b-a6cb8f69e239",
+    "Flags": 0,
+    "Name": "Water",
+    "Position": "0,0,-64",
+    "Enabled": true,
+    "Children": [
+      {
+        "__guid": "df88f7b3-7311-4738-8098-edb9bc24eddf",
+        "Flags": 0,
+        "Name": "Planar Reflections",
+        "Position": "0,0,0",
+        "Tags": "maincamera",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Facepunch.PlanarReflectionCamera",
+            "__guid": "d8b0ea7f-0ddb-4a8d-a1af-bedefd5cba22",
+            "Plane": {
+              "_type": "component",
+              "component_id": "7efb2f82-1d1a-43a2-b85c-09ed4d3c352f",
+              "go": "5b6f6f6a-876d-47a4-9edf-379db5db6654",
+              "component_type": "ModelRenderer"
+            },
+            "Resolution": 128
+          }
+        ]
+      },
+      {
+        "__guid": "5b6f6f6a-876d-47a4-9edf-379db5db6654",
+        "Flags": 0,
+        "Name": "Plane",
+        "Position": "0,0,0",
+        "Scale": "1000,1000,1",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "7efb2f82-1d1a-43a2-b85c-09ed4d3c352f",
+            "BodyGroups": 18446744073709551615,
+            "MaterialOverride": "materials/water/water_sea.vmat",
+            "Model": "models/dev/plane.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}
