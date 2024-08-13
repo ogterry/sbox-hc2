@@ -19,7 +19,7 @@
 		@for (var i = 0; i < Hotbar.MaxSlots; i++)
 		{
 			var item = Hotbar.GetItemInSlot(i);
-			<ItemSlot Item=@item SlotIndex=@i />
+			<ItemSlot class="@(Hotbar.SelectedSlot == i ? "active" : "")" Item=@item SlotIndex=@i />
 		}
 	</div>
 </root>
@@ -44,6 +44,7 @@
 		var hc = new HashCode();
 
 		hc.Add(InventoryOpen);
+		hc.Add(Hotbar.SelectedSlot);
 
 		var hotbar = Hotbar;
 		hc.Add(hotbar);
