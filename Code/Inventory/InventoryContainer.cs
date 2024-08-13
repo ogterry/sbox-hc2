@@ -9,55 +9,75 @@ public struct InventoryContainer
 	public int MaxSlots { get; set; } = 9;
 	public Inventory Inventory { get; set; }
 
-	public InventoryContainer( Inventory inventory, int maxSlots = 9 )
+	public InventoryContainer(Inventory inventory, int maxSlots = 9)
 	{
 		Inventory = inventory;
 		Items = new();
 		MaxSlots = maxSlots;
-		for ( int i = 0; i < MaxSlots; i++ )
+		for (int i = 0; i < MaxSlots; i++)
 		{
-			Items.Add( null );
+			Items.Add(null);
 		}
 	}
 
-	public void GiveItem( Item item )
+	public bool CanGiveItem(Item item)
 	{
-		for ( int i = 0; i < MaxSlots; i++ )
+		if (!Inventory.IsValid()) return false;
+		for (int i = 0; i < MaxSlots; i++)
 		{
-			if ( Items[i] == null )
+			if (Items[i] == null)
+			{
+				return true;
+			}
+			else if (Items[i].Resource == item.Resource)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public bool TryGiveItem(Item item)
+	{
+		if (!Inventory.IsValid()) return false;
+		for (int i = 0; i < MaxSlots; i++)
+		{
+			if (Items[i] == null)
 			{
 				Items[i] = item;
 				item.Container = this;
-				break;
+				return true;
 			}
-			else if ( Items[i].Resource == item.Resource )
+			else if (Items[i].Resource == item.Resource)
 			{
 				Items[i].Amount += item.Amount;
-				break;
+				return true;
 			}
 		}
+		return false;
 	}
 
-	public void GiveItem( ItemAsset resource, int amount = 1 )
+	public bool TryGiveItem(ItemAsset resource, int amount = 1)
 	{
 		var item = new Item();
 		item.Resource = resource;
 		item.Amount = amount;
-		GiveItem( item );
+		return TryGiveItem(item);
 	}
 
-	public void GiveItemSlot( Item item, int slotIndex )
+	public bool TryGiveItemSlot(Item item, int slotIndex)
 	{
-		if ( slotIndex < 0 || slotIndex >= MaxSlots )
+		if (!Inventory.IsValid()) return false;
+		if (slotIndex < 0 || slotIndex >= MaxSlots)
 		{
-			throw new ArgumentOutOfRangeException( nameof( slotIndex ) );
+			throw new ArgumentOutOfRangeException(nameof(slotIndex));
 		}
 
-		if ( Items[slotIndex] != null )
+		if (Items[slotIndex] != null)
 		{
-			if ( Items[slotIndex].Resource != item.Resource )
+			if (Items[slotIndex].Resource != item.Resource)
 			{
-				throw new InvalidOperationException( "Slot already contains a different item." );
+				return false;
 			}
 			Items[slotIndex].Amount += item.Amount;
 		}
@@ -66,29 +86,42 @@ public struct InventoryContainer
 			Items[slotIndex] = item;
 			item.Container = this;
 		}
+
+		return true;
 	}
 
-	public void TakeItem( Item item )
+	public void TakeItem(Item item)
 	{
-		for ( int i = MaxSlots - 1; i >= 0; i-- )
+		for (int i = MaxSlots - 1; i >= 0; i--)
 		{
-			if ( Items[i] == item )
+			if (Items[i] == item)
 			{
 				Items[i] = null;
 				item.Container = null;
 				return;
 			}
-			else if ( Items[i].Resource == item.Resource )
+			else if (Items[i].Resource == item.Resource)
 			{
 				Items[i].Amount -= item.Amount;
-				if ( Items[i].Amount <= 0 )
+				if (Items[i].Amount <= 0)
 				{
-					item.Amount = Math.Abs( Items[i].Amount );
+					item.Amount = Math.Abs(Items[i].Amount);
 					Items[i] = null;
 					item.Container = null;
 				}
 			}
 		}
+	}
+
+	public Item GetItemInSlot(int slot)
+	{
+		if (slot < 0 || slot >= MaxSlots)
+		{
+			throw new ArgumentOutOfRangeException(nameof(slot));
+		}
+
+		var item = Items[slot];
+		return item;
 	}
 
 

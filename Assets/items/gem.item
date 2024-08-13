@@ -1,7 +1,7 @@
 {
   "Name": "Gem",
   "Description": "It\u0027s shiny!",
-  "Icon": "items/gem.png",
+  "Icon": "item_icons/gem.png",
   "Tags": null,
   "Prefab": null,
   "ItemPrefab": null,

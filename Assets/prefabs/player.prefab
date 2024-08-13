@@ -27,6 +27,12 @@
           "_type": "gameobject",
           "go": "b7c98c4e-8217-4956-a6a1-87559ffe2b98"
         },
+        "Hotbar": {
+          "_type": "component",
+          "component_id": "a080aa62-f755-4b7f-b18e-71402eae3534",
+          "go": "1ae189d1-c127-4cc0-9d74-447ba0c42c09",
+          "component_type": "Hotbar"
+        },
         "Inventory": {
           "_type": "component",
           "component_id": "cf1149d6-49e3-4ad3-b8f8-ad5b07856720",
@@ -153,6 +159,11 @@
       {
         "__type": "HC2.Inventory",
         "__guid": "cf1149d6-49e3-4ad3-b8f8-ad5b07856720",
+        "MaxSlots": 27
+      },
+      {
+        "__type": "HC2.Hotbar",
+        "__guid": "a080aa62-f755-4b7f-b18e-71402eae3534",
         "MaxSlots": 9
       }
     ],
