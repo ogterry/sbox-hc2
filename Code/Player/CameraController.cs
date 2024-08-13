@@ -62,6 +62,8 @@ public sealed class CameraController : Component
 
 		Boom.Transform.Rotation = Player.EyeAngles.ToRotation();
 
+		Boom.Transform.Position = Boom.Transform.Position.LerpTo( Player.Character.Transform.Position + Vector3.Up * Player.GetDuckHeight() * 0.95f, Time.Delta * 10 );
+
 		var targetFov = Preferences.FieldOfView + Player.Character.Velocity.Length / VelocityFOVScale;
 
 		if ( IsAiming )

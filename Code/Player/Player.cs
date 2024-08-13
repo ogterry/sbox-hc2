@@ -115,6 +115,18 @@ public partial class Player : Component, IDamage,
 	[Property, Group( "Movement Config" )]
 	private float MaxAcceleration { get; set; } = 500f;
 
+	///<summary>
+	/// Duck Height
+	/// </summary>
+	[Property, Group( "Movement Config" )]
+	public float DuckHeight { get; set; } = 36f;
+
+	///<summary>
+	///Duck Speed
+	/// </summary>
+	[Property, Group( "Movement Config" )]
+	public float DuckSpeed { get; set; } = 128f;
+
 	/// <summary>
 	/// Which way are we looking?
 	/// </summary>
@@ -157,6 +169,9 @@ public partial class Player : Component, IDamage,
 		return 0.2f;
 	}
 
+	[Sync]
+	bool IsDucking { get; set; }
+
 	/// <summary>
 	/// How fast can we move?
 	/// I've made this a method as I assume we'll want to adjust this with levels, skills, armors, etc.
@@ -164,9 +179,21 @@ public partial class Player : Component, IDamage,
 	/// <returns></returns>
 	private Vector3 GetWishSpeed()
 	{
-		if ( Input.Down( "run" ) )
+		if ( IsDucking )
+			return DuckSpeed;
+		else if ( Input.Down( "run" ) )
 			return RunMovementSpeed;
 		return MovementSpeed;
+	}
+
+	///<summary>
+	/// Get the Hight
+	/// </summary>
+	public float GetDuckHeight()
+	{
+		if ( IsDucking )
+			return DuckHeight;
+		return 72f;
 	}
 
 	/// <summary>
@@ -278,6 +305,10 @@ public partial class Player : Component, IDamage,
 			ApplyHalfGravity();
 		}
 
+		IsDucking = Input.Down( "duck" ) || Character.TraceDirection( Vector3.Up * 72 ).Hit;
+
+		Character.Height = IsDucking ? DuckHeight : 72f;
+
 		Character.Accelerate( WishVelocity.ClampLength( GetMaxAcceleration() ) );
 
 		Character.Move();
@@ -307,7 +338,7 @@ public partial class Player : Component, IDamage,
 			AnimationHelper.WithWishVelocity( WishVelocity );
 			AnimationHelper.IsGrounded = Character.IsOnGround;
 			AnimationHelper.WithLook( EyeAngles.Forward, 0.1f, 0.1f, 0.1f );
-			AnimationHelper.DuckLevel = 0;
+			AnimationHelper.DuckLevel = MathX.LerpTo( AnimationHelper.DuckLevel, IsDucking ? 1 : 0, Time.Delta * 10.0f );
 			AnimationHelper.HoldType = HoldType;
 			AnimationHelper.Handedness = CitizenAnimationHelper.Hand.Right;
 			AnimationHelper.AimBodyWeight = 0.1f;
