@@ -2,26 +2,52 @@
   "RootObject": {
     "__guid": "7f0983ad-5cb8-47f3-b336-fe4fa72bd6ff",
     "Flags": 0,
-    "Name": "Leg",
-    "Position": "0,75,0",
-    "Rotation": "0,0,0.7071068,0.7071068",
+    "Name": "leg",
     "Enabled": true,
+    "Components": [
+      {
+        "__type": "HC2.Mobs.Leg",
+        "__guid": "5f81be9b-5a56-475e-9cd5-a25d5f5244ad",
+        "Foot": {
+          "_type": "gameobject",
+          "go": "401c001d-4163-4dc8-9116-d780a57020f6"
+        },
+        "Lower": {
+          "_type": "gameobject",
+          "go": "32bd6809-6b9f-4586-b4b6-f433d5ca76e5"
+        },
+        "StepPeriod": 1,
+        "StepPhase": 0,
+        "Upper": {
+          "_type": "gameobject",
+          "go": "ef3720fa-0668-40a5-a122-dce729dfec8b"
+        }
+      }
+    ],
     "Children": [
       {
-        "__guid": "deca9e45-537c-4064-b037-1f15fc33d6ab",
+        "__guid": "ef3720fa-0668-40a5-a122-dce729dfec8b",
         "Flags": 0,
-        "Name": "Model",
-        "Position": "75,0,0",
-        "Scale": "3,0.5,0.5",
+        "Name": "Upper",
         "Enabled": true,
-        "Components": [
+        "Children": [
           {
-            "__type": "Sandbox.ModelRenderer",
-            "__guid": "a23cee60-000c-4fb9-95fd-7013d9f2115e",
-            "BodyGroups": 18446744073709551615,
-            "Model": "models/dev/box.vmdl",
-            "RenderType": "On",
-            "Tint": "1,1,1,1"
+            "__guid": "deca9e45-537c-4064-b037-1f15fc33d6ab",
+            "Flags": 0,
+            "Name": "Model",
+            "Position": "75,0,0",
+            "Scale": "3,0.5,0.5",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.ModelRenderer",
+                "__guid": "a23cee60-000c-4fb9-95fd-7013d9f2115e",
+                "BodyGroups": 18446744073709551615,
+                "Model": "models/dev/box.vmdl",
+                "RenderType": "On",
+                "Tint": "1,1,1,1"
+              }
+            ]
           }
         ]
       },
@@ -49,32 +75,54 @@
                 "Tint": "1,1,1,1"
               }
             ]
-          },
+          }
+        ]
+      },
+      {
+        "__guid": "401c001d-4163-4dc8-9116-d780a57020f6",
+        "Flags": 0,
+        "Name": "Foot",
+        "Position": "300,-0.00007710231,0",
+        "Enabled": true,
+        "Children": [
           {
-            "__guid": "401c001d-4163-4dc8-9116-d780a57020f6",
+            "__guid": "dca703fd-daa1-4107-abe6-67a15cec59e4",
             "Flags": 0,
-            "Name": "Foot",
-            "Position": "150,-0.0000268221,0",
+            "Name": "Model",
+            "Position": "0,0,0",
             "Enabled": true,
-            "Children": [
+            "Components": [
               {
-                "__guid": "dca703fd-daa1-4107-abe6-67a15cec59e4",
-                "Flags": 0,
-                "Name": "Model",
-                "Position": "0,0,0",
-                "Enabled": true,
-                "Components": [
-                  {
-                    "__type": "Sandbox.ModelRenderer",
-                    "__guid": "0cbe808a-c903-4fbf-97a1-fdcdac7d3553",
-                    "BodyGroups": 18446744073709551615,
-                    "Model": "models/dev/sphere.vmdl",
-                    "RenderType": "On",
-                    "Tint": "1,1,1,1"
-                  }
-                ]
+                "__type": "Sandbox.ModelRenderer",
+                "__guid": "0cbe808a-c903-4fbf-97a1-fdcdac7d3553",
+                "BodyGroups": 18446744073709551615,
+                "Model": "models/dev/sphere.vmdl",
+                "RenderType": "On",
+                "Tint": "1,1,1,1"
               }
             ]
+          }
+        ]
+      }
+    ],
+    "__variables": [
+      {
+        "Id": "Step Period",
+        "Title": "Step Period",
+        "Targets": [
+          {
+            "Id": "5f81be9b-5a56-475e-9cd5-a25d5f5244ad",
+            "Property": "StepPeriod"
+          }
+        ]
+      },
+      {
+        "Id": "Step Phase",
+        "Title": "Step Phase",
+        "Targets": [
+          {
+            "Id": "5f81be9b-5a56-475e-9cd5-a25d5f5244ad",
+            "Property": "StepPhase"
           }
         ]
       }
