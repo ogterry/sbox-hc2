@@ -307,15 +307,15 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 		}
 	}
 
-	protected override void OnDestroy()
+	protected override void OnStart()
 	{
 		if ( IsProxy )
 			return;
 
-		// Save the character
+		// Load the character data
 		if ( CharacterSave.Current is not null )
 		{
-			CharacterSave.Current.Save( this );
+			CharacterSave.Current.Load( this );
 		}
 	}
 

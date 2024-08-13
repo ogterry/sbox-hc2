@@ -25,10 +25,10 @@ public sealed class CharacterSave
 			FileSystem.Data.CreateDirectory( "characters" );
 		}
 
-		var saveData = new Dictionary<Type, string>();
-		foreach ( var component in player.Components.GetAll<ISaveData>() )
+		var saveData = new Dictionary<string, string>();
+		foreach ( var component in player.GameObject.Components.GetAll<ISaveData>() )
 		{
-			var type = component.GetType();
+			var type = component.GetType().FullName;
 			saveData[type] = component.Save();
 		}
 		SaveData = Json.Serialize( saveData );
@@ -44,6 +44,19 @@ public sealed class CharacterSave
 		}
 
 		FileSystem.Data.WriteJson( $"characters/{Id.ToString()}.json", this );
+	}
+
+	public void Load( Player player )
+	{
+		var data = Json.Deserialize<Dictionary<string, string>>( SaveData );
+		foreach ( var component in player.Components.GetAll<ISaveData>() )
+		{
+			var type = component.GetType().FullName;
+			if ( data.ContainsKey( type ) )
+			{
+				component.Load( data[type] );
+			}
+		}
 	}
 
 	public void Delete()

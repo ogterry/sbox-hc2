@@ -35,6 +35,10 @@ public sealed class PlayerExperience : Component, ISaveData
 		{
 			GiveLevel( levels );
 		}
+		else
+		{
+			CharacterSave.Current?.Save( Player.Local );
+		}
 	}
 
 	[Authority]
@@ -43,6 +47,8 @@ public sealed class PlayerExperience : Component, ISaveData
 		Level += amount;
 		UnspentUpgrades += amount;
 		OnGiveLevels?.Invoke( amount );
+
+		CharacterSave.Current?.Save( Player.Local );
 	}
 
 	public int GetPointsForLevel( int level )
@@ -50,9 +56,9 @@ public sealed class PlayerExperience : Component, ISaveData
 		return (int)XpCurve.Evaluate( (float)level / MaxLevel );
 	}
 
-	public void UpgradeStat( StatusEffect status )
+	public void UpgradeStat( StatusEffect status, bool force = false )
 	{
-		if ( UnspentUpgrades <= 0 ) return;
+		if ( UnspentUpgrades <= 0 && !force ) return;
 		if ( Upgrades.ContainsKey( status.ResourceName ) && Upgrades[status.ResourceName] >= MaxUpgrades ) return;
 
 		var modifier = Player.Local?.Components.Get<StatModifier>();
@@ -63,16 +69,21 @@ public sealed class PlayerExperience : Component, ISaveData
 		Upgrades[status.ResourceName]++;
 
 		modifier.AddEffect( status );
-		UnspentUpgrades--;
+		if ( !force )
+		{
+			UnspentUpgrades--;
+			CharacterSave.Current?.Save( Player.Local );
+		}
 	}
 
-	public void RemoveStat( StatusEffect status )
+	public void RemoveStat( StatusEffect status, bool force = false )
 	{
 		var modifier = Player.Local?.Components.Get<StatModifier>();
 		if ( modifier == null ) return;
 
 		modifier.RemoveEffect( status );
-		UnspentUpgrades++;
+		if ( !force )
+			UnspentUpgrades++;
 	}
 
 	void ClearStats()
@@ -85,7 +96,7 @@ public sealed class PlayerExperience : Component, ISaveData
 			if ( status == null ) continue;
 
 			for ( int i = 0; i < upgrade.Value; i++ )
-				RemoveStat( status );
+				RemoveStat( status, true );
 		}
 	}
 
@@ -96,6 +107,7 @@ public sealed class PlayerExperience : Component, ISaveData
 		{
 			upgradeString += $"{upgrade.Key}:{upgrade.Value},";
 		}
+		if ( upgradeString.EndsWith( "," ) ) upgradeString = upgradeString.Substring( 0, upgradeString.Length - 1 );
 		return $"{Level};{Points};{UnspentUpgrades};{upgradeString}";
 	}
 
@@ -123,7 +135,7 @@ public sealed class PlayerExperience : Component, ISaveData
 			if ( status == null ) continue;
 
 			for ( int i = 0; i < upgradeCount; i++ )
-				UpgradeStat( status );
+				UpgradeStat( status, true );
 		}
 	}
 }
