@@ -112,6 +112,7 @@ public partial class Player
 			MainHand.GameObject.Destroy();
 		}
 
+		HoldType = Sandbox.Citizen.CitizenAnimationHelper.HoldTypes.None;
 		MainHand = null;
 	}
 
