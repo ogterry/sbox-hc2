@@ -8,20 +8,6 @@ public partial class Player : Component, IDamage,
 	IGameEventHandler<ItemEquipEvent>,
 	IGameEventHandler<ItemUnequipEvent>
 {
-	[ConCmd( "hc2_listitems" )]
-	public static void ListPlayersAndItems()
-	{
-		var players = Game.ActiveScene.GetAllComponents<Player>();
-
-		foreach ( var p in players )
-		{
-			Log.Info( "==" + p.Network.OwnerConnection.DisplayName );
-			foreach ( var item in p.Inventory.GetAllItems() )
-			{
-				Log.Info( item.Resource.Name + " / " + item.SlotIndex );
-			}
-		}
-	}
 
 	/// <summary>
 	/// A reference to the local player. Returns null if one does not exist (headless server or something)
