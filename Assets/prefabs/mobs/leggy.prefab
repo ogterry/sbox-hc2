@@ -3,7 +3,9 @@
     "__guid": "428544c1-ffd3-4a74-8117-54a26c9f5fd0",
     "Flags": 0,
     "Name": "leggy",
+    "Tags": "mob",
     "Enabled": true,
+    "NetworkMode": 1,
     "Components": [
       {
         "__type": "HC2.Mobs.Mob",
@@ -34,7 +36,7 @@
         "Bounciness": 0.3,
         "GroundAngle": 45,
         "Height": 128,
-        "IgnoreLayers": "",
+        "IgnoreLayers": "mob",
         "Radius": 128,
         "StepHeight": 18,
         "UseCollisionRules": false
