@@ -39,6 +39,26 @@ VS
 
 	float g_flVoxelSize < Attribute( "VoxelSize" ); Default( 16.0 ); >;
 
+	static const float3 normalVectors[6] =
+	{
+		float3( 0, 0, 1 ),
+		float3( 0, 0, -1 ),
+		float3( 0, -1, 0 ),
+		float3( 0, 1, 0 ),
+		float3( -1, 0, 0 ),
+		float3( 1, 0, 0 )
+	};
+
+	static const float3 tangentVectors[6] = 
+	{
+		float3( 1, 0, 0 ),
+		float3( 1, 0, 0 ),
+		float3( 0, 0, -1 ),
+		float3( 0, 0, -1 ),
+		float3( 0, 0, -1 ),
+		float3( 0, 0, -1 )
+	};
+
 	PixelInput MainVs( VertexInput i )
 	{
 		float3 position = float3(float(i.vData & 63), float((i.vData >> 6) & 63), float((i.vData >> 12) & 63)) * g_flVoxelSize;
@@ -54,19 +74,8 @@ VS
 
 		i.vPositionOs = position;
 
-		float3 vNormalOs = float3( 0, 0, 1 );
-		if ( normal == 1 ) vNormalOs = float3( 0, 0, -1 );
-		else if ( normal == 2 ) vNormalOs = float3( 0, -1, 0 );
-		else if ( normal == 3 ) vNormalOs = float3( 0, 1, 0 );
-		else if ( normal == 4 ) vNormalOs = float3( -1, 0, 0 );
-		else if ( normal == 5 ) vNormalOs = float3( 1, 0, 0 );
-
-		float3 vTangentOs = float3( 1, 0, 0 );
-		if ( normal == 1 ) vTangentOs = float3( 1, 0, 0 );
-		else if ( normal == 2 ) vTangentOs = float3( 0, 0, -1 );
-		else if ( normal == 3 ) vTangentOs = float3( 0, 0, -1 );
-		else if ( normal == 4 ) vTangentOs = float3( 0, 0, -1 );
-		else if ( normal == 5 ) vTangentOs = float3( 0, 0, -1 );
+		float3 vNormalOs = normalVectors[normal];
+		float3 vTangentOs = tangentVectors[normal];
 
 		float3 vBinormalOs = cross( vNormalOs, vTangentOs );
 		i.vTexCoord = float2( dot( vBinormalOs, position ), dot( vTangentOs, position ) ) * ( 1.0 / 32.0 );
