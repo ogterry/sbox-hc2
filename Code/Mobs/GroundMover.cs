@@ -65,8 +65,14 @@ public sealed class GroundMover : Component
 
 		var wishDir = diff.Normal;
 		var wishRot = Rotation.LookAt( wishDir, Vector3.Up );
+		var diffRot = Rotation.Difference( Transform.Rotation, wishRot );
 
-		Transform.Rotation = Rotation.Lerp( Transform.Rotation, wishRot, 0.2f );
+		if ( diffRot.Angle() > MaxTurnSpeed * Time.Delta )
+		{
+			diffRot *= MaxTurnSpeed * Time.Delta / diffRot.Angle();
+		}
+
+		Transform.Rotation = diffRot * Transform.Rotation;
 	}
 
 	private Vector3 GetWishVelocity()
