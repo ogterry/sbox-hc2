@@ -312,6 +312,8 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 		if ( IsProxy )
 			return;
 
+		InitEquipment();
+
 		// Load the character data
 		if ( CharacterSave.Current is not null )
 		{
