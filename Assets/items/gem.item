@@ -5,7 +5,7 @@
   "Tags": null,
   "Prefab": null,
   "ItemPrefab": null,
-  "WorldModel": null,
+  "WorldModel": "models/mazing/ruby.vmdl",
   "__references": [],
   "__version": 0
 }
