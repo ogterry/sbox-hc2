@@ -20,13 +20,21 @@
                     }
                 }
             </div>
-            <div class="button @((CharacterSave.Current is null) ? "active" : "")" onclick=@CreateCharacterButton>+ Create New</div>
+            @if (!IsPause)
+            {
+                <div class="button @((CharacterSave.Current is null) ? "active" : "")" onclick=@CreateCharacterButton>+ Create New</div>
+            }
         </div>
+
+        @if (!IsModal)
+        {
+            <a class="button" href="/">Return</a>
+        }
     </div>
     <div class="grow center current-character" style="height: 100%;">
         @if (CharacterSave.Current is not null)
         {
-            <CharacterPanel Character="@CharacterSave.Current" CanDelete=@(false) OnSelect=@OnSelect />
+            <CharacterPanel Character="@CharacterSave.Current" CanDelete=@(!IsPause) CanSelect=@(!IsPause) OnSelect=@OnSelect />
         }
         else
         {
@@ -56,6 +64,9 @@
     string NewCharacterName { get; set; }
     CharacterType NewCharacterType { get; set; }
 
+    bool IsModal { get; set; }
+    bool IsPause { get; set; }
+
     void SelectCharacter(CharacterSave character)
     {
         CharacterSave.Current = character;
@@ -64,6 +75,11 @@
     protected override void OnAfterTreeRender(bool firstTime)
     {
         base.OnAfterTreeRender(firstTime);
+
+        var elementName = FindRootPanel().Children.FirstOrDefault().ElementName;
+        Log.Info(elementName);
+        IsModal = elementName == "characterselectmodal";
+        IsPause = elementName == "pausemenu";
 
         var chars = CharacterSave.GetAll();
         if (chars.Count != Characters.Count)

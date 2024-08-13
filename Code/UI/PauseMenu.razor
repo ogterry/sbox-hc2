@@ -1,0 +1,40 @@
+@using Sandbox;
+@using Sandbox.UI;
+
+@namespace HC2
+@inherits PanelComponent
+
+<style>
+    PauseMenu {
+        z-index: 1000;
+    }
+</style>
+
+<root>
+    <MenuRoot class="pause @(IsOpen ? "open" : "")" IsPauseMenu=@(true) />
+</root>
+
+@code
+{
+    public static PauseMenu Instance { get; private set; }
+    public bool IsOpen = false;
+
+    protected override void OnAwake()
+    {
+        Instance = this;
+    }
+
+    protected override void OnUpdate()
+    {
+        if (Input.EscapePressed)
+        {
+            IsOpen = !IsOpen;
+            Input.EscapePressed = false;
+        }
+    }
+
+    protected override int BuildHash()
+    {
+        return System.HashCode.Combine(IsOpen);
+    }
+}

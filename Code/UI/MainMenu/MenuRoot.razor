@@ -3,6 +3,7 @@
 
 @inherits Sandbox.UI.NavHostPanel
 @namespace HC2
+@attribute [StyleSheet]
 
 <root>
 	<div class="background" />
@@ -12,6 +13,8 @@
 @code
 {
 	public static MenuRoot Instance { get; private set; }
+
+	public bool IsPauseMenu { get; set; }
 
 	public MenuRoot()
 	{

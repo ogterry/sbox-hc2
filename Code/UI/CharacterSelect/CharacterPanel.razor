@@ -22,7 +22,10 @@
 		<div class="character-inventory">
 			<label>Character Inventory Here?</label>
 		</div>
-		<div class="button" onclick="@SelectButton">Select Character</div>
+		@if (CanSelect)
+		{
+			<div class="button" onclick="@SelectButton">Select Character</div>
+		}
 		@if (CanDelete)
 		{
 			<div class="button" onclick="@DeleteButton">@(DeleteClicks == 0 ? "Delete Character" : $"Delete Character (Confirm in {5 - DeleteClicks}...)")</a>
@@ -35,6 +38,7 @@
 	public CharacterSave Character { get; set; }
 
 	public bool CanDelete { get; set; } = true;
+	public bool CanSelect { get; set; } = true;
 	public System.Action OnSelect { get; set; }
 
 	int DeleteClicks { get; set; } = 0;
@@ -52,7 +56,8 @@
 
 	void SelectButton()
 	{
-		CharacterSave.Current = Character;
+		if (CanSelect)
+			CharacterSave.Current = Character;
 		OnSelect?.Invoke();
 	}
 

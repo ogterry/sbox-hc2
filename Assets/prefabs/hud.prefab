@@ -24,6 +24,10 @@
       {
         "__type": "HC2.Hud",
         "__guid": "49005cd1-fa90-41e6-867f-e2b3a803c585"
+      },
+      {
+        "__type": "HC2.PauseMenu",
+        "__guid": "2dce7504-3ac4-461f-bc46-193fdad112d2"
       }
     ],
     "Children": [],
