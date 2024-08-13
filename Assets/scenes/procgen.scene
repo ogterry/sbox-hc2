@@ -297,7 +297,7 @@
           "FrameInterval": 5,
           "MaxDistance": 512,
           "Projection": "Sphere",
-          "RenderDynamically": false,
+          "RenderDynamically": true,
           "TintColor": "1,1,1,1",
           "UpdateStrategy": "OnEnabled",
           "ZFar": 4096,
@@ -339,6 +339,7 @@
       "Flags": 0,
       "Name": "leggy",
       "Position": "-1148.796,-1145.07,98.21879",
+      "Tags": "mob",
       "Enabled": true,
       "__Prefab": "prefabs/mobs/leggy.prefab",
       "__PrefabVariables": {}
