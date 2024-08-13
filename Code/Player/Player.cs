@@ -14,7 +14,7 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 			Log.Info( "==" + p.Network.OwnerConnection.DisplayName );
 			foreach ( var item in p.Inventory.GetAllItems() )
 			{
-				Log.Info( item.Resource.Name + " / " + item.Slot.SlotIndex );
+				Log.Info( item.Resource.Name + " / " + item.SlotIndex );
 			}
 		}
 	}
@@ -72,6 +72,12 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 	public CameraController CameraController { get; set; }
 
 	/// <summary>
+	/// The player's inventory
+	/// </summary>
+	[Property, Group( "Components" ), Sync]
+	public Inventory Inventory { get; set; }
+
+	/// <summary>
 	/// Base jump power, can possibly change
 	/// </summary>
 	[Property, Group( "Movement Config" )]
@@ -112,8 +118,6 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 	/// </summary>
 	[Property, Group( "Movement Config" )]
 	private float MaxAcceleration { get; set; } = 500f;
-
-	[Sync] public Inventory Inventory { get; set; }
 
 	/// <summary>
 	/// Which way are we looking?

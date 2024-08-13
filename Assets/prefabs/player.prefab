@@ -27,6 +27,12 @@
           "_type": "gameobject",
           "go": "b7c98c4e-8217-4956-a6a1-87559ffe2b98"
         },
+        "Inventory": {
+          "_type": "component",
+          "component_id": "cf1149d6-49e3-4ad3-b8f8-ad5b07856720",
+          "go": "1ae189d1-c127-4cc0-9d74-447ba0c42c09",
+          "component_type": "Inventory"
+        },
         "JumpPower": 512,
         "MainHandBone": {
           "_type": "gameobject",
@@ -143,6 +149,11 @@
       {
         "__type": "HC2.StatModifier",
         "__guid": "4939f46a-d084-420f-8e2c-4f04a85e1f01"
+      },
+      {
+        "__type": "HC2.Inventory",
+        "__guid": "cf1149d6-49e3-4ad3-b8f8-ad5b07856720",
+        "MaxSlots": 9
       }
     ],
     "Children": [

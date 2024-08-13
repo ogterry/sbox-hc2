@@ -1,76 +1,28 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 using Sandbox.Diagnostics;
 
 namespace HC2;
 
-[Hide]
-[Category( "Inventory" )]
-public class Item : Component
+public class Item
 {
-	[Property] public ItemAsset Resource { get; set; }
+	public ItemAsset Resource { get; set; }
+	public int Amount { get; set; } = 1;
+	public float Durability { get; set; } = 1f;
 
-	/// <summary>
-	/// Get the <see cref="InventorySlot"/> this item is in.
-	/// </summary>
-	public InventorySlot Slot => Components.GetInParent<InventorySlot>();
+	[JsonIgnore, Hide] public InventoryContainer? Container;
+	[JsonIgnore, Hide] public int SlotIndex => Container?.Items?.IndexOf( this ) ?? -1;
 
-	/// <summary>
-	/// Get the <see cref="Inventory"/> this item is contained in.
-	/// </summary>
-	public Inventory Container => Slot?.Container;
-	
-	/// <summary>
-	/// Create a new item from its asset.
-	/// </summary>
-	/// <param name="asset"></param>
-	/// <returns></returns>
-	public static Item Create( ItemAsset asset )
+	public static Item Create( string resourceName, int amount = 1 )
 	{
-		Assert.True( Sandbox.Networking.IsHost );
-		
-		GameObject go;
-		Item item;
-		
-		if ( asset.ItemPrefab is not null )
-		{
-			go = GameObject.Clone( asset.ItemPrefab );
-			item = go.Components.Get<Item>();
-		}
-		else
-		{
-			go = new();
-			item = go.Components.Create<Item>();
-		}
-		
-		item.Resource = asset;
+		var item = new Item();
+		item.Resource = ResourceLibrary.GetAll<ItemAsset>().FirstOrDefault( x => x.ResourceName == resourceName );
+		item.Amount = amount;
 		return item;
 	}
-	
-	/// <summary>
-	/// Create a new item from its asset name.
-	/// </summary>
-	/// <param name="name"></param>
-	/// <returns></returns>
-	public static Item Create( string name )
-	{
-		Assert.True( Sandbox.Networking.IsHost );
-		
-		var asset = ResourceLibrary.GetAll<ItemAsset>()
-			.FirstOrDefault( i => string.Equals( i.ResourceName, name, StringComparison.CurrentCultureIgnoreCase ) );
 
-		return asset is null ? null : Create( asset );
-	}
-
-	[Broadcast]
-	public void Remove()
+	public bool IsValid()
 	{
-		if ( !Sandbox.Networking.IsHost )
-			return;
-		
-		Destroy();
-		
-		var container = Container;
-		if ( container.IsValid() )
-			container.Network.Refresh();
+		return Resource != null && (Container?.IsValid() ?? false);
 	}
 }

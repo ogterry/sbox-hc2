@@ -8,60 +8,18 @@ namespace HC2;
 [Icon( "inventory_2" )]
 public class Inventory : Component
 {
-	/// <summary>
-	/// Get all the <see cref="InventorySlot"/> slots we have available.
-	/// </summary>
-	public List<InventorySlot> Slots { get; private set; } = new();
+	[Property] public int MaxSlots { get; set; } = 9;
 
 	/// <summary>
-	/// Create a new networked inventory.
+	/// The Container that this Inventory references/networks
 	/// </summary>
-	/// <returns></returns>
-	public static Inventory Create( int slots, Connection owner = null )
-	{
-		Assert.True( Sandbox.Networking.IsHost );
-		
-		var go = new GameObject { Name = "Inventory" };
-		var inventory = go.Components.Create<Inventory>();
+	[Sync] public InventoryContainer Container { get; private set; }
 
-		for ( var i = 0; i < 8; i++ )
-		{
-			var slotGo = new GameObject();
-			slotGo.Components.Create<InventorySlot>();
-			slotGo.Parent = go;
-		}
-		
-		go.NetworkSpawn( owner );
-		
-		return inventory;
+	protected override void OnAwake()
+	{
+		Container = new( this, MaxSlots );
 	}
 
-	protected override void OnRefresh()
-	{
-		UpdateSlots();
-		base.OnRefresh();
-	}
-
-	protected override void OnStart()
-	{
-		UpdateSlots();
-		base.OnStart();
-	}
-
-	void UpdateSlots()
-	{
-		Slots.Clear();
-		
-		for ( var i = 0; i < GameObject.Children.Count; i++ )
-		{
-			var slot = GameObject.Children[i].Components.Get<InventorySlot>();
-			if ( !slot.IsValid() ) continue;
-
-			slot.SlotIndex = Slots.Count;
-			Slots.Add( slot );
-		}
-	}
-	
 	/// <summary>
 	/// Get an item in the specified slot.
 	/// </summary>
@@ -69,13 +27,13 @@ public class Inventory : Component
 	/// <returns></returns>
 	public Item GetItemInSlot( int slot )
 	{
-		if ( slot < 0 || slot >= Slots.Count )
+		if ( slot < 0 || slot >= MaxSlots )
 		{
 			throw new ArgumentOutOfRangeException( nameof( slot ) );
 		}
 
-		var child = Slots[slot];
-		return child.IsValid() ? child.Components.GetInChildren<Item>() : null;
+		var item = Container.Items[slot];
+		return item;
 	}
 
 	/// <summary>
@@ -90,19 +48,14 @@ public class Inventory : Component
 			return;
 
 		var oldInventory = item.Container;
-		var oldSlot = item.Slot;
-		var slot = GetSlotAt( slotIndex );
-		var otherItem = slot.Item;
+		var otherItem = GetItemInSlot( slotIndex );
 
 		if ( otherItem.IsValid() )
 		{
-			if ( oldInventory.IsValid() && oldSlot.IsValid() )
+			if ( oldInventory?.IsValid() ?? false )
 			{
-				otherItem.GameObject.SetParent( oldSlot.GameObject );
-				
-				// Don't refresh if its us because we're gonna refresh later.
-				if ( oldInventory != this )
-					oldInventory.Network.Refresh();
+				oldInventory?.TakeItem( item );
+				oldInventory.Value.Inventory.Container = oldInventory.Value;
 			}
 			else
 			{
@@ -111,8 +64,8 @@ public class Inventory : Component
 			}
 		}
 
-		item.GameObject.SetParent( slot.GameObject );
-		Network.Refresh();
+		Container.GiveItemSlot( item, slotIndex );
+		Container = Container; // Refresh the container
 	}
 
 	/// <summary>
@@ -124,36 +77,24 @@ public class Inventory : Component
 	{
 		if ( !Sandbox.Networking.IsHost )
 			return;
-		
-		var slot = GetFreeSlot();
 
-		if ( !slot.IsValid() )
+		var slot = GetFreeSlotIndex();
+
+		if ( slot == -1 )
 		{
 			Log.Warning( "Unable to give item to inventory because there are no free slots!" );
 			return;
 		}
 
 		var oldContainer = item.Container;
-		item.GameObject.SetParent( slot.GameObject );
-		Network.Refresh();
-		
-		if ( oldContainer.IsValid() )
-			oldContainer.Network.Refresh();
-	}
-
-	/// <summary>
-	/// Get the <see cref="InventorySlot"/> at the specified index.
-	/// </summary>
-	/// <param name="index"></param>
-	/// <returns></returns>
-	public InventorySlot GetSlotAt( int index )
-	{
-		if ( index < 0 || index >= Slots.Count )
+		oldContainer?.TakeItem( item );
+		if ( oldContainer?.Inventory?.IsValid() ?? false )
 		{
-			throw new ArgumentOutOfRangeException( nameof( index ) );
+			oldContainer.Value.Inventory.Container = oldContainer.Value;
 		}
 
-		return Slots[index];
+		Container.GiveItemSlot( item, slot );
+		Container = Container; // Refresh the container
 	}
 
 	/// <summary>
@@ -162,31 +103,13 @@ public class Inventory : Component
 	/// <returns>Returns -1 if no slot index is free.</returns>
 	public int GetFreeSlotIndex()
 	{
-		for ( var i = 0; i < Slots.Count; i++ )
+		for ( var i = 0; i < MaxSlots; i++ )
 		{
-			var slot = Slots[i];
-			if ( !slot.Item.IsValid() )
+			if ( Container.Items[i] is null )
 				return i;
 		}
 
 		return -1;
-	}
-
-	/// <summary>
-	/// Get the next free <see cref="InventorySlot"/>.
-	/// </summary>
-	/// <returns></returns>
-	public InventorySlot GetFreeSlot()
-	{
-		foreach ( var slot in Slots )
-		{
-			if ( !slot.Item.IsValid() )
-			{
-				return slot;
-			}
-		}
-
-		return null;
 	}
 
 	/// <summary>
@@ -195,10 +118,10 @@ public class Inventory : Component
 	/// <returns></returns>
 	public IEnumerable<Item> GetAllItems()
 	{
-		for ( var i = 0; i < Slots.Count; i++ )
+		for ( var i = 0; i < MaxSlots; i++ )
 		{
-			var item = Slots[i].Item;
-			if ( item.IsValid() )
+			var item = Container.Items[i];
+			if ( item is not null )
 				yield return item;
 		}
 	}

@@ -3,16 +3,16 @@
 @inherits PanelComponent
 
 @{
-	if ( !Inventory.IsValid() ) return;
+	if (!Inventory.IsValid()) return;
 }
 
 <root>
 	<div class="container">
-		@for ( var i = 0; i < Inventory.Slots.Count; i++ )
+		@for (var i = 0; i < Inventory.MaxSlots; i++)
 		{
-			var item = Inventory.GetItemInSlot( i );
+			var item = Inventory.GetItemInSlot(i);
 			<div class="slot">
-				@if (item.IsValid())
+				@if (item?.IsValid() ?? false)
 				{
 					<div class="item" style="background-image: url(@item.Resource.Icon);">
 
