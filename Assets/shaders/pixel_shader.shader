@@ -75,7 +75,7 @@ PS
 	
 	SamplerState g_sSampler0 < Filter( POINT ); AddressU( WRAP ); AddressV( WRAP ); >;
 	CreateInputTexture2D( Color, Srgb, 8, "None", "_color", ",0/,0/1", Default4( 1.00, 1.00, 1.00, 1.00 ) );
-	CreateInputTexture2D( Normal, Srgb, 8, "NormalizeNormals", "_normal", ",0/,0/2", Default4( 1.00, 1.00, 1.00, 1.00 ) );
+	CreateInputTexture2D( Normal, Linear, 8, "NormalizeNormals", "_normal", ",0/,0/2", Default4( 1.00, 1.00, 1.00, 1.00 ) );
 	CreateInputTexture2D( Rough, Linear, 8, "None", "_rough", ",0/,0/3", Default4( 1.00, 1.00, 1.00, 1.00 ) );
 	CreateInputTexture2D( Metal, Linear, 8, "None", "_metal", ",0/,0/4", Default4( 1.00, 1.00, 1.00, 1.00 ) );
 	CreateInputTexture2D( AO, Linear, 8, "None", "_ao", ",0/,0/5", Default4( 1.00, 1.00, 1.00, 1.00 ) );

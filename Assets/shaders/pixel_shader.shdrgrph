@@ -134,6 +134,7 @@
         "Extension": "Normal",
         "CustomExtension": "",
         "Processor": "NormalizeNormals",
+        "ColorSpace": "Linear",
         "Priority": 2
       },
       "Identifier": "6",
