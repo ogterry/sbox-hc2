@@ -350,6 +350,7 @@
       "Name": "node_tree (6)",
       "Position": "983.4567,-1919.139,117.347",
       "Enabled": true,
+      "NetworkMode": 1,
       "__Prefab": "prefabs/resources/node_tree.prefab",
       "__PrefabVariables": {}
     },
@@ -359,6 +360,7 @@
       "Name": "node_tree (5)",
       "Position": "559.2329,-1762.317,64.84203",
       "Enabled": true,
+      "NetworkMode": 1,
       "__Prefab": "prefabs/resources/node_tree.prefab",
       "__PrefabVariables": {}
     },
@@ -368,6 +370,7 @@
       "Name": "node_tree (4)",
       "Position": "-419.0924,-1957.195,12.81321",
       "Enabled": true,
+      "NetworkMode": 1,
       "__Prefab": "prefabs/resources/node_tree.prefab",
       "__PrefabVariables": {}
     },
@@ -377,6 +380,7 @@
       "Name": "node_tree (7)",
       "Position": "-1527.577,1102.895,94.55267",
       "Enabled": true,
+      "NetworkMode": 1,
       "__Prefab": "prefabs/resources/node_tree.prefab",
       "__PrefabVariables": {}
     },
@@ -386,6 +390,7 @@
       "Name": "node_tree (3)",
       "Position": "-695.8984,419.2975,41.70671",
       "Enabled": true,
+      "NetworkMode": 1,
       "__Prefab": "prefabs/resources/node_tree.prefab",
       "__PrefabVariables": {}
     },
@@ -395,6 +400,7 @@
       "Name": "node_tree (2)",
       "Position": "1583.781,-893.7079,125.0763",
       "Enabled": true,
+      "NetworkMode": 1,
       "__Prefab": "prefabs/resources/node_tree.prefab",
       "__PrefabVariables": {}
     },
@@ -404,6 +410,7 @@
       "Name": "node_tree",
       "Position": "665.8662,275.8308,28.62457",
       "Enabled": true,
+      "NetworkMode": 1,
       "__Prefab": "prefabs/resources/node_tree.prefab",
       "__PrefabVariables": {}
     },
@@ -413,6 +420,7 @@
       "Name": "node_tree (1)",
       "Position": "272.7562,516.9243,35.77235",
       "Enabled": true,
+      "NetworkMode": 1,
       "__Prefab": "prefabs/resources/node_tree.prefab",
       "__PrefabVariables": {}
     },
@@ -422,6 +430,7 @@
       "Name": "node_rock",
       "Position": "294.9036,386.9606,166.6689",
       "Enabled": true,
+      "NetworkMode": 1,
       "__Prefab": "prefabs/resources/node_rock.prefab",
       "__PrefabVariables": {}
     },
@@ -431,6 +440,7 @@
       "Name": "node_rock (1)",
       "Position": "64.47986,321.8297,189.4231",
       "Enabled": true,
+      "NetworkMode": 1,
       "__Prefab": "prefabs/resources/node_rock.prefab",
       "__PrefabVariables": {}
     },
@@ -441,6 +451,7 @@
       "Position": "-1207.445,523.8398,133.5656",
       "Rotation": "0,0,0.3826834,0.9238796",
       "Enabled": true,
+      "NetworkMode": 1,
       "__Prefab": "prefabs/resources/node_rock.prefab",
       "__PrefabVariables": {}
     },
@@ -451,6 +462,7 @@
       "Position": "-1324.318,669.5745,159.1123",
       "Rotation": "0,0,0.258819,0.9659258",
       "Enabled": true,
+      "NetworkMode": 1,
       "__Prefab": "prefabs/resources/node_rock.prefab",
       "__PrefabVariables": {}
     },
@@ -460,6 +472,7 @@
       "Name": "node_rock (8)",
       "Position": "-1093.894,734.7053,159.5068",
       "Enabled": true,
+      "NetworkMode": 1,
       "__Prefab": "prefabs/resources/node_rock.prefab",
       "__PrefabVariables": {}
     },
@@ -470,6 +483,7 @@
       "Position": "1245.407,-1071.788,234.2633",
       "Rotation": "0,0,0.3826834,0.9238796",
       "Enabled": true,
+      "NetworkMode": 1,
       "__Prefab": "prefabs/resources/node_rock.prefab",
       "__PrefabVariables": {}
     },
@@ -479,6 +493,7 @@
       "Name": "node_rock (4)",
       "Position": "1128.534,-926.0536,241.2003",
       "Enabled": true,
+      "NetworkMode": 1,
       "__Prefab": "prefabs/resources/node_rock.prefab",
       "__PrefabVariables": {}
     },
@@ -488,6 +503,7 @@
       "Name": "node_rock (5)",
       "Position": "1358.958,-860.9227,218.4461",
       "Enabled": true,
+      "NetworkMode": 1,
       "__Prefab": "prefabs/resources/node_rock.prefab",
       "__PrefabVariables": {}
     },
@@ -498,6 +514,7 @@
       "Position": "181.3525,176.0951,182.4861",
       "Rotation": "0,0,0.3826834,0.9238796",
       "Enabled": true,
+      "NetworkMode": 1,
       "__Prefab": "prefabs/resources/node_rock.prefab",
       "__PrefabVariables": {}
     },
