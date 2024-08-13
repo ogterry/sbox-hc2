@@ -15,15 +15,15 @@ public class VoxelRenderer : Component, Component.ExecuteInEditor
 		Transform.OnTransformChanged += OnLocalTransformChanged;
 
 		Model?.Destroy();
-		Model = new VoxelModel( 512, 128, 512 );
+		Model = new VoxelModel( 256, 32, 256 );
 
-		for ( int x = 0; x < 512; x++ )
+		for ( int x = 0; x < 256; x++ )
 		{
-			for ( int z = 0; z < 512; z++ )
+			for ( int z = 0; z < 256; z++ )
 			{
 				float noiseValue = Noise.Fbm( 8, x * 0.4f, z * 0.4f );
-				int surfaceHeight = (int)(noiseValue * 128);
-				surfaceHeight = Math.Clamp( surfaceHeight, 0, 127 );
+				int surfaceHeight = (int)(noiseValue * 32);
+				surfaceHeight = Math.Clamp( surfaceHeight, 0, 31 );
 
 				for ( int y = 0; y < surfaceHeight; y++ )
 				{
@@ -66,7 +66,19 @@ public class VoxelRenderer : Component, Component.ExecuteInEditor
 
 		Transform.OnTransformChanged -= OnLocalTransformChanged;
 
-		Model.Destroy();
+		DestroyInternal();
+	}
+
+	protected override void OnDestroy()
+	{
+		base.OnDestroy();
+
+		DestroyInternal();
+	}
+
+	private void DestroyInternal()
+	{
+		Model?.Destroy();
 		Model = null;
 	}
 
@@ -80,10 +92,12 @@ public class VoxelRenderer : Component, Component.ExecuteInEditor
 				continue;
 
 			var so = mesh.SceneObject;
-			if ( !so.IsValid() )
-				continue;
+			if ( so.IsValid() )
+				so.Transform = transform.ToWorld( mesh.Transform );
 
-			so.Transform = transform.ToWorld( mesh.Transform );
+			var body = mesh.PhysicsBody;
+			if ( body.IsValid() )
+				body.Transform = transform.ToWorld( mesh.Transform );
 		}
 	}
 
@@ -99,7 +113,7 @@ public class VoxelRenderer : Component, Component.ExecuteInEditor
 
 		c.PreMeshing();
 		c.GenerateMesh();
-		c.PostMeshing( Scene.SceneWorld, transform );
+		c.PostMeshing( Scene.SceneWorld, Scene.PhysicsWorld, transform );
 	}
 }
 

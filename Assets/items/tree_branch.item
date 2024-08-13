@@ -5,7 +5,7 @@
   "Tags": null,
   "Prefab": null,
   "ItemPrefab": null,
-  "WorldModel": "models/mobs/roller/roller_ball.vmdl",
+  "WorldModel": "models/props/dead_tree/branch.vmdl",
   "__references": [],
   "__version": 0
 }

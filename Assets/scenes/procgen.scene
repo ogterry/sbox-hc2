@@ -5,6 +5,7 @@
       "__guid": "fcd503d0-cd29-4b20-8f5b-91de13e90aaf",
       "Flags": 0,
       "Name": "Networking",
+      "Position": "0,0,207.6329",
       "Enabled": true,
       "Components": [
         {
@@ -272,32 +273,6 @@
       ]
     },
     {
-      "__guid": "4f13ed92-c5f8-4b41-a64d-0ad0e5af8a1d",
-      "Flags": 0,
-      "Name": "Plane",
-      "Scale": "50,50,5",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.ModelRenderer",
-          "__guid": "9298727a-8274-455c-9992-23d28e1ed266",
-          "BodyGroups": 18446744073709551615,
-          "MaterialOverride": "materials/default.vmat",
-          "Model": "models/dev/plane.vmdl",
-          "RenderType": "On",
-          "Tint": "0.39546,0.51163,0.27128,1"
-        },
-        {
-          "__type": "Sandbox.BoxCollider",
-          "__guid": "b3b389af-2b65-4ce9-adff-636bb2295bc2",
-          "Center": "0,0,-5",
-          "IsTrigger": false,
-          "Scale": "100,100,10",
-          "Static": false
-        }
-      ]
-    },
-    {
       "__guid": "76397bcc-599f-480e-b1e2-11efc10b7ba4",
       "Flags": 0,
       "Name": "2D Skybox",
@@ -307,135 +282,26 @@
         {
           "__type": "Sandbox.SkyBox2D",
           "__guid": "817e73e7-3e97-44d4-a1ca-006276a6d8fc",
-          "SkyMaterial": "materials/sky/atmosphere_sky.vmat",
+          "SkyMaterial": "materials/skybox/skybox_overcast_01.vmat",
           "Tint": "1,1,1,1"
-        }
-      ]
-    },
-    {
-      "__guid": "8dda365d-03ba-478c-b442-2c253bdafc46",
-      "Flags": 0,
-      "Name": "Box (2)",
-      "Position": "368,-608,64",
-      "Enabled": true,
-      "Components": [
+        },
         {
-          "__type": "Sandbox.MeshComponent",
-          "__guid": "1e2ec0e9-1b90-4f87-82ff-aeefb2ff7d88",
-          "Collision": "Mesh",
-          "Color": "1,1,1,1",
-          "HideInGame": false,
-          "IsTrigger": false,
-          "Mesh": {
-            "Topology": "H4sIAAAAAAAACl2Qiw6CUAxDh1flgg/wAfr/X2pP0iWLJA25W9t16xHxFc4C30E4\u002Bt2FWbgKd2Ew4NTvIZxcb9ZH4b5db\u002Bb9z/oUzVh8m7lPc9FOzjRYQ8ZXyXxxXvrw4e72wvtWdoEPdzMXj8We9OHDXcvO7EqdN396eKaeLHjkLciePeYxi4z0mMFtMisablFvRXZ2Tj158KQOF78f9WSROMQBAAA=",
-            "Positions": [
-              "-112,-176,64",
-              "112,-176,64",
-              "112,176,64",
-              "-112,176,64",
-              "-112,176,-64",
-              "112,176,-64",
-              "112,-176,-64",
-              "-112,-176,-64"
-            ],
-            "TextureCoord": [
-              "0.875,1.375",
-              "-0.875,-0.625",
-              "0.875,-1.375",
-              "-1.375,-0.625",
-              "-0.875,-1.375",
-              "-0.875,-0.625",
-              "-0.875,1.375",
-              "-1.375,-0.625",
-              "0.875,-1.375",
-              "0.875,0.625",
-              "0.875,1.375",
-              "1.375,0.625",
-              "-0.875,1.375",
-              "0.875,0.625",
-              "-0.875,-1.375",
-              "1.375,0.625",
-              "1.375,-0.625",
-              "-0.875,0.625",
-              "-1.375,0.625",
-              "0.875,-0.625",
-              "-1.375,0.625",
-              "0.875,-0.625",
-              "1.375,-0.625",
-              "-0.875,0.625"
-            ],
-            "TextureUAxis": [
-              "1,0,0",
-              "1,0,-0",
-              "0,-1,0",
-              "0,1,0",
-              "-1,0,0",
-              "1,-0,0"
-            ],
-            "TextureVAxis": [
-              "0,-1,0",
-              "0,-1,0",
-              "0,0,-1",
-              "-0,0,-1",
-              "0,0,-1",
-              "-0,0,-1"
-            ],
-            "TextureScale": [
-              "0.25,0.25",
-              "0.25,0.25",
-              "0.25,0.2",
-              "0.25,0.2",
-              "0.25,0.2",
-              "0.25,0.2"
-            ],
-            "TextureOffset": [
-              "64,128",
-              "64,128",
-              "127.9998,320",
-              "384.0002,320.0001",
-              "448,320",
-              "64,319.9999"
-            ],
-            "MaterialIndex": [
-              0,
-              0,
-              0,
-              0,
-              0,
-              0
-            ],
-            "EdgeFlags": [
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0
-            ],
-            "Materials": [
-              "materials/dev/reflectivity_30.vmat"
-            ]
+          "__type": "Sandbox.EnvmapProbe",
+          "__guid": "aed94bba-2294-4d34-a663-35742bc3d351",
+          "Bounds": {
+            "Mins": "-5120,-5120,-5120",
+            "Maxs": "5120,5120,5120"
           },
-          "SmoothingAngle": 40,
-          "Static": true
+          "DelayBetweenUpdates": 0.1,
+          "Feathering": 0.25,
+          "FrameInterval": 5,
+          "MaxDistance": 512,
+          "Projection": "Sphere",
+          "RenderDynamically": false,
+          "TintColor": "1,1,1,1",
+          "UpdateStrategy": "OnEnabled",
+          "ZFar": 4096,
+          "ZNear": 16
         }
       ]
     },
@@ -443,7 +309,7 @@
       "__guid": "4bae457a-8bd2-4648-ac58-b9eb6b9e758d",
       "Flags": 0,
       "Name": "Spawner",
-      "Position": "-253.9928,-351.841,0.0001428719",
+      "Position": "-758.7197,635.3501,249.9034",
       "Enabled": true,
       "NetworkMode": 1,
       "Components": [
@@ -472,51 +338,70 @@
       "__guid": "d87b1018-2125-46f5-9486-fb95bf91e0d9",
       "Flags": 0,
       "Name": "leggy",
-      "Position": "-343.4939,-690.2849,50",
-      "Tags": "mob",
+      "Position": "-1148.796,-1145.07,98.21879",
       "Enabled": true,
       "__Prefab": "prefabs/mobs/leggy.prefab",
       "__PrefabVariables": {}
     },
     {
-      "__guid": "3e74ef41-9f6e-4166-9e23-176ba29a940a",
+      "__guid": "501336ac-44c0-45b7-a334-e6f91bfbff8b",
       "Flags": 0,
-      "Name": "rock_sharp_01",
-      "Position": "-311.8504,206.5747,2.176928",
+      "Name": "node_tree (6)",
+      "Position": "983.4567,-1919.139,117.347",
       "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.ModelRenderer",
-          "__guid": "8b8cc1f3-284b-4a2a-bc95-4d9d4f0074fd",
-          "BodyGroups": 18446744073709551615,
-          "Model": "models/terrain/rock_sharp_01.vmdl",
-          "RenderType": "On",
-          "Tint": "1,1,1,1"
-        }
-      ]
+      "__Prefab": "prefabs/resources/node_tree.prefab",
+      "__PrefabVariables": {}
     },
     {
-      "__guid": "6f52d102-8dea-4c51-91e2-9bdab7a9d573",
+      "__guid": "ff41aa84-9620-4759-a763-8c0044e7b328",
       "Flags": 0,
-      "Name": "rock_sharp_02",
-      "Position": "-400.5181,-13.03387,13.75757",
+      "Name": "node_tree (5)",
+      "Position": "559.2329,-1762.317,64.84203",
       "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.ModelRenderer",
-          "__guid": "7ead0f0d-d01d-4a47-ab84-c6295682b591",
-          "BodyGroups": 18446744073709551615,
-          "Model": "models/terrain/rock_sharp_02.vmdl",
-          "RenderType": "On",
-          "Tint": "1,1,1,1"
-        }
-      ]
+      "__Prefab": "prefabs/resources/node_tree.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "60574e53-94f3-48a3-8f66-10d6188ef836",
+      "Flags": 0,
+      "Name": "node_tree (4)",
+      "Position": "-419.0924,-1957.195,12.81321",
+      "Enabled": true,
+      "__Prefab": "prefabs/resources/node_tree.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "f6af0dd9-cb6b-441f-ae09-655d08076af8",
+      "Flags": 0,
+      "Name": "node_tree (7)",
+      "Position": "-1527.577,1102.895,94.55267",
+      "Enabled": true,
+      "__Prefab": "prefabs/resources/node_tree.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "086d58d9-c875-42fb-b44c-9e518c520938",
+      "Flags": 0,
+      "Name": "node_tree (3)",
+      "Position": "-695.8984,419.2975,41.70671",
+      "Enabled": true,
+      "__Prefab": "prefabs/resources/node_tree.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "1a89c5e0-c020-44ad-8d0b-dd2263564e95",
+      "Flags": 0,
+      "Name": "node_tree (2)",
+      "Position": "1583.781,-893.7079,125.0763",
+      "Enabled": true,
+      "__Prefab": "prefabs/resources/node_tree.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "6cda134c-ec4e-4a51-88f5-086498577cb4",
       "Flags": 0,
       "Name": "node_tree",
-      "Position": "665.8662,275.8308,-113.8945",
+      "Position": "665.8662,275.8308,28.62457",
       "Enabled": true,
       "__Prefab": "prefabs/resources/node_tree.prefab",
       "__PrefabVariables": {}
@@ -525,7 +410,7 @@
       "__guid": "50c68220-b5e3-4bf0-b59f-6ba01ded4800",
       "Flags": 0,
       "Name": "node_tree (1)",
-      "Position": "272.7562,516.9243,-106.7467",
+      "Position": "272.7562,516.9243,35.77235",
       "Enabled": true,
       "__Prefab": "prefabs/resources/node_tree.prefab",
       "__PrefabVariables": {}
@@ -534,7 +419,7 @@
       "__guid": "5e38fc45-d39f-421b-867b-f0316c599294",
       "Flags": 0,
       "Name": "node_rock",
-      "Position": "269.0147,304.4832,7",
+      "Position": "294.9036,386.9606,166.6689",
       "Enabled": true,
       "__Prefab": "prefabs/resources/node_rock.prefab",
       "__PrefabVariables": {}
@@ -543,7 +428,64 @@
       "__guid": "a6c33cc2-456c-4bfa-b1e3-59ed13ae9698",
       "Flags": 0,
       "Name": "node_rock (1)",
-      "Position": "64.47986,321.8297,7",
+      "Position": "64.47986,321.8297,189.4231",
+      "Enabled": true,
+      "__Prefab": "prefabs/resources/node_rock.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "4da82ad8-aac2-4a6f-945a-9f853d909283",
+      "Flags": 0,
+      "Name": "node_rock (6)",
+      "Position": "-1207.445,523.8398,133.5656",
+      "Rotation": "0,0,0.3826834,0.9238796",
+      "Enabled": true,
+      "__Prefab": "prefabs/resources/node_rock.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "1712e57e-a2bc-4f2c-88ff-718f96f541a3",
+      "Flags": 0,
+      "Name": "node_rock (7)",
+      "Position": "-1324.318,669.5745,159.1123",
+      "Rotation": "0,0,0.258819,0.9659258",
+      "Enabled": true,
+      "__Prefab": "prefabs/resources/node_rock.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "63c68489-dbaa-4ef3-be97-353b54ceb933",
+      "Flags": 0,
+      "Name": "node_rock (8)",
+      "Position": "-1093.894,734.7053,159.5068",
+      "Enabled": true,
+      "__Prefab": "prefabs/resources/node_rock.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "719fedf5-2200-496c-b115-81abca9ddffe",
+      "Flags": 0,
+      "Name": "node_rock (3)",
+      "Position": "1245.407,-1071.788,234.2633",
+      "Rotation": "0,0,0.3826834,0.9238796",
+      "Enabled": true,
+      "__Prefab": "prefabs/resources/node_rock.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "a42e82ca-90c5-4e60-8294-0fd6d2729e3d",
+      "Flags": 0,
+      "Name": "node_rock (4)",
+      "Position": "1128.534,-926.0536,241.2003",
+      "Enabled": true,
+      "__Prefab": "prefabs/resources/node_rock.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "519c81a0-c3aa-4085-ad1b-13b843f05fad",
+      "Flags": 0,
+      "Name": "node_rock (5)",
+      "Position": "1358.958,-860.9227,218.4461",
       "Enabled": true,
       "__Prefab": "prefabs/resources/node_rock.prefab",
       "__PrefabVariables": {}
@@ -552,51 +494,52 @@
       "__guid": "04d5b641-ddaa-459f-b6cb-28ac2166ea35",
       "Flags": 0,
       "Name": "node_rock (2)",
-      "Position": "155.2104,217.5102,7",
+      "Position": "181.3525,176.0951,182.4861",
       "Rotation": "0,0,0.3826834,0.9238796",
       "Enabled": true,
       "__Prefab": "prefabs/resources/node_rock.prefab",
       "__PrefabVariables": {}
     },
     {
-      "__guid": "52383615-7ce4-4075-bfd0-2d5a54ae05b1",
+      "__guid": "5594b67d-0df6-4e41-ad96-010954c3f893",
       "Flags": 0,
-      "Name": "DN",
-      "Position": "464.2596,216.0869,60.467",
+      "Name": "Water",
+      "Position": "0,0,102.4062",
+      "Enabled": true,
+      "__Prefab": "prefabs/world/water_plane.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "e6aafaa4-54a5-466b-8c87-938b3aa7854e",
+      "Flags": 0,
+      "Name": "Terrain",
+      "Position": "-1906.909,-2338.326,-80.0008",
       "Enabled": true,
       "Components": [
         {
-          "__type": "HC2.DayNightCycle",
-          "__guid": "8963e8fb-9cee-4859-95b2-7e14cd312a90"
-        }
-      ],
-      "Children": [
-        {
-          "__guid": "0c7a0830-0f29-41df-b758-e0e7af9fff54",
-          "Flags": 0,
-          "Name": "Sun",
-          "Rotation": "-0.0729315,0.4822396,0.1305433,0.8631827",
-          "Tags": "light_directional,light",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.DirectionalLight",
-              "__guid": "170241c6-4ad5-4cbc-b746-8b78277ef5f8",
-              "FogMode": "Enabled",
-              "FogStrength": 1,
-              "LightColor": "0.94419,0.97767,1,1",
-              "Shadows": true,
-              "SkyColor": "0.2532,0.32006,0.35349,1"
-            }
-          ]
+          "__type": "Voxel.VoxelRenderer",
+          "__guid": "f3f4364a-d9c4-4c59-8c63-24b74d8f5684"
         }
       ]
     },
     {
-      "__guid": "47c7a503-29ea-4e1b-add3-a964d3d99e0d",
+      "__guid": "22371b1f-a7a0-440b-85c3-e474618fa905",
       "Flags": 0,
-      "Name": "GameObject",
-      "Enabled": true
+      "Name": "Sun",
+      "Rotation": "-0.0729315,0.4822396,0.1305433,0.8631827",
+      "Tags": "light_directional,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DirectionalLight",
+          "__guid": "0819455b-07e1-45f6-ab55-f48a83e21635",
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.94419,0.97767,1,1",
+          "Shadows": true,
+          "SkyColor": "0.2532,0.32006,0.35349,1"
+        }
+      ]
     }
   ],
   "SceneProperties": {

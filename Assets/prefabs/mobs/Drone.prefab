@@ -5,6 +5,7 @@
     "Name": "drone",
     "Tags": "mob",
     "Enabled": true,
+    "NetworkMode": 1,
     "Components": [
       {
         "__type": "HC2.Mobs.Mob",

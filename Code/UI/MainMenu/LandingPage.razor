@@ -32,7 +32,7 @@
         bool joined = await global::Networking.TryJoinLobby();
         if ( !joined )
         {
-            var sceneFile = ResourceLibrary.Get<SceneFile>("scenes/mob_testbed.scene");
+            var sceneFile = ResourceLibrary.Get<SceneFile>("scenes/procgen.scene");
             Scene.Load( sceneFile );
         }
     }

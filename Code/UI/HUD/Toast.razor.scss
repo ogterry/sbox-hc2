@@ -16,7 +16,7 @@ Toast {
 }
 
 .item {
-    width: 500px;
+    width: 600px;
     height: 85px;
     top: 300px;
     font-family: $font;
@@ -27,12 +27,12 @@ Toast {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 20px;
 
     backdrop-filter: $blur;
-    mask: linear-gradient( to right, transparent 5%, white 10%, white 90%, transparent 95% ) alpha;
-    border-image: url( /ui/Panel/panel-001.png ) 20 fill;
     border-image-tint: $background;
+    mask: $fade-horizontal;
+    border-image: url( /ui/Panel/panel-001.png ) 20 fill;
 }
 
 column {
@@ -53,7 +53,7 @@ divider {
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    background-image: url( /ui/Divider Fade/divider-fade-002.png );
+    background-image: url( /ui/Divider Fade/divider-fade-004.png );
     mask: linear-gradient( to right, transparent, white 75% ) alpha;
 
     &.divider-left {

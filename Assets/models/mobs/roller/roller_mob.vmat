@@ -4,11 +4,11 @@ Layer0
 {
 	shader "shaders/pixel_shader.shader"
 
-	AO "[1.000000 1.000000 1.000000 0.000000]"
-	Color "player/models/player_01.png"
+	AO "materials/default/default_ao.tga"
+	Color "models/mobs/roller/roller_mob.png"
 	Metal "[0.000000 0.000000 0.000000 0.000000]"
 	Normal "materials/default/default_normal.tga"
-	Rough "[0.680000 0.680000 0.680000 0.000000]"
+	Rough "[1.000000 1.000000 1.000000 0.000000]"
 	SelfIllum "materials/default/default_selfillum.tga"
 
 	//---- Fog ----
