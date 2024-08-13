@@ -6,6 +6,12 @@
 	[Property, Group( "Melee" )]
 	public float Thickness { get; set; } = 5f;
 
+	[Property, Group( "Melee" )]
+	public float SwingDelay { get; set; } = 0.25f;
+
+	[Sync] TimeUntil TimeUntilAttackHit { get; set; }
+	[Sync] bool IsSwinging { get; set; }
+
 	/// <summary>
 	/// This is a method because the player could have buffs / stats that increase their attack range.
 	/// </summary>
@@ -15,20 +21,69 @@
 		return AttackRange;
 	}
 
+	/// <summary>
+	/// The shoot sound
+	/// </summary>
+	[Property, Group( "Audio" )] public SoundEvent HitSound { get; set; }
+
+	/// <summary>
+	/// The shoot sound
+	/// </summary>
+	[Property, Group( "Effects" )] public GameObject PrefabToSpawn { get; set; }
+
+	[Broadcast]
+	private void BroadcastHitEffects( Vector3 position )
+	{
+		if ( HitSound is not null )
+		{
+			Sound.Play( HitSound, position );
+		}
+
+		if ( PrefabToSpawn.IsValid() )
+		{
+			PrefabToSpawn.Clone( position );
+		}
+	}
+
+	protected override bool CanAttack()
+	{
+		if ( IsSwinging ) return false;
+
+		return base.CanAttack();
+	}
+
 	protected override void Attack()
 	{
 		base.Attack();
 
-		var tr = Scene.Trace.Ray( GameObject.Transform.Position, GameObject.Transform.Position + Player.CameraController.AimRay.Forward * GetAttackRange() )
+		TimeUntilAttackHit = SwingDelay;
+		IsSwinging = true;
+	}
+
+	protected override void OnUpdate()
+	{
+		if ( IsProxy )
+			return;
+
+		if ( IsSwinging && TimeUntilAttackHit )
+		{
+			IsSwinging = false;
+
+			Log.Info( "Swing!" );
+
+			var tr = Scene.Trace.Ray( GameObject.Transform.Position, GameObject.Transform.Position + Player.CameraController.AimRay.Forward * GetAttackRange() )
 			.IgnoreGameObjectHierarchy( Player.GameObject )
 			.Size( Thickness )
 			.Run();
 
-		if ( tr.Hit )
-		{
-			foreach ( var damageable in tr.GameObject.Root.Components.GetAll<HealthComponent>() )
+			if ( tr.Hit )
 			{
-				damageable.TakeDamage( ConstructDamage( tr ) );
+				foreach ( var damageable in tr.GameObject.Root.Components.GetAll<HealthComponent>() )
+				{
+					damageable.TakeDamage( ConstructDamage( tr ) );
+				}
+
+				BroadcastHitEffects( tr.EndPosition );
 			}
 		}
 	}

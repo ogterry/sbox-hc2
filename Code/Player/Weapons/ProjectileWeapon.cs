@@ -15,21 +15,6 @@ public partial class ProjectileWeapon : WeaponComponent
 	/// </summary>
 	[Property, Group( "Projectile Weapon" )] public float EjectSpeed { get; set; } = 1024000f;
 
-	/// <summary>
-	/// The shoot sound
-	/// </summary>
-	[Property, Group( "Projectile Weapon" )] public SoundEvent AttackSound { get; set; }
-
-	protected override void BroadcastEffects()
-	{
-		base.BroadcastEffects();
-
-		if ( AttackSound is not null )
-		{
-			Sound.Play( AttackSound, Muzzle.Transform.Position );
-		}
-	}
-
 	protected override void Attack()
 	{
 		base.Attack();

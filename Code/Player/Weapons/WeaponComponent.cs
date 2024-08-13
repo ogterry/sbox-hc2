@@ -39,6 +39,11 @@ public abstract class WeaponComponent : Carriable
 	[Property, Group( "Visuals" )] public CitizenAnimationHelper.HoldTypes HoldType { get; set; } = CitizenAnimationHelper.HoldTypes.None;
 
 	/// <summary>
+	/// The shoot sound
+	/// </summary>
+	[Property, Group( "Audio" )] public SoundEvent AttackSound { get; set; }
+
+	/// <summary>
 	/// How long since we attacked?
 	/// </summary>
 	TimeSince TimeSinceAttack { get; set; }
@@ -129,6 +134,11 @@ public abstract class WeaponComponent : Carriable
 			{
 				Player.ModelRenderer.Set( "b_attack", true );
 			}
+		}
+
+		if ( AttackSound is not null )
+		{
+			Sound.Play( AttackSound, Transform.Position );
 		}
 	}
 

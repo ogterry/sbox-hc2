@@ -1069,55 +1069,6 @@
         ]
       },
       {
-        "__guid": "532599a6-2cb5-4be7-82f6-073ec4eb15a3",
-        "Flags": 0,
-        "Name": "Shield",
-        "Position": "-0.000007148182,0.00001070521,2.330258",
-        "Scale": "0.25,0.25,0.25",
-        "Components": [
-          {
-            "__type": "Sandbox.ModelRenderer",
-            "__guid": "4afba7b9-9cca-46d0-93fa-71721226da3d",
-            "BodyGroups": 18446744073709551615,
-            "RenderType": "On",
-            "Tint": "0.33488,0.49008,1,1"
-          },
-          {
-            "__type": "MeleeWeapon",
-            "__guid": "9621c5dd-4c83-4e99-8d27-4fd6091520ce",
-            "AimingEnabled": false,
-            "AimingFOVOffset": 0,
-            "AttackDelay": 1,
-            "AttackRange": 512,
-            "Damage": 50,
-            "DamageType": "Blunt",
-            "Hand": "OffHand",
-            "HoldType": "HoldItem",
-            "InputAction": "attack2",
-            "Thickness": 5
-          }
-        ],
-        "Children": [
-          {
-            "__guid": "1daaf37f-f2b7-43e4-962d-b632d7c26552",
-            "Flags": 0,
-            "Name": "Sphere",
-            "Position": "0,0,0",
-            "Enabled": true,
-            "Components": [
-              {
-                "__type": "Sandbox.ModelRenderer",
-                "__guid": "aab45872-bba3-48cf-b85b-2341670c52f6",
-                "BodyGroups": 18446744073709551615,
-                "Model": "models/dev/sphere.vmdl",
-                "RenderType": "On",
-                "Tint": "1,1,1,1"
-              }
-            ]
-          }
-        ]
-      },
-      {
         "__guid": "b7c98c4e-8217-4956-a6a1-87559ffe2b98",
         "Flags": 0,
         "Name": "Sword",
@@ -1138,11 +1089,17 @@
             "AimingFOVOffset": 0,
             "AttackDelay": 1,
             "AttackRange": 512,
+            "AttackSound": "sounds/weapons/sword_swing.sound",
             "Damage": 50,
             "DamageType": "Fire",
             "Hand": "MainHand, OffHand",
+            "HitSound": "sounds/weapons/sword_metallic_hit.sound",
             "HoldType": "HoldItem",
             "InputAction": "attack1",
+            "PrefabToSpawn": {
+              "_type": "gameobject",
+              "prefab": "prefabs/particles/footstep/footstepeffect.prefab"
+            },
             "Thickness": 5
           }
         ]
@@ -1155,18 +1112,12 @@
         "Scale": "0.1,0.1,0.6",
         "Components": [
           {
-            "__type": "Sandbox.ModelRenderer",
-            "__guid": "ebc8a87e-edde-42bb-98cd-ccd5339e31ae",
-            "BodyGroups": 18446744073709551615,
-            "RenderType": "On",
-            "Tint": "1,0.33488,0.33488,1"
-          },
-          {
             "__type": "ProjectileWeapon",
             "__guid": "23dee7a0-a4d1-40ac-ba7b-862d6b6234b0",
             "AimingEnabled": true,
             "AimingFOVOffset": 25,
             "AttackDelay": 0.125,
+            "AttackSound": "sounds/weapons/laser_gun_shoot.sound",
             "Damage": 12,
             "DamageType": "Sharp",
             "EjectSpeed": 32000,
@@ -1259,9 +1210,26 @@
             "__guid": "99705985-0f19-444c-9d48-0fdbe9b8aa05",
             "Flags": 0,
             "Name": "Muzzle",
-            "Position": "-0.00000005302354,0.000005844449,26.23827",
+            "Position": "175.8311,0.000005844395,-1.333206",
             "Rotation": "-0.0000000000001136868,-0.7071067,0.00000000000005684342,0.7071068",
             "Enabled": true
+          },
+          {
+            "__guid": "e5de3e9c-bf8d-4c62-8544-fa2f80d8d9de",
+            "Flags": 0,
+            "Name": "Object",
+            "Position": "5,0,0",
+            "Rotation": "0,0.7071068,0,0.7071068",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.ModelRenderer",
+                "__guid": "ecff1592-6daf-4ebd-ac33-54af0abdce29",
+                "BodyGroups": 18446744073709551615,
+                "RenderType": "On",
+                "Tint": "1,0.33488,0.33488,1"
+              }
+            ]
           }
         ]
       }
