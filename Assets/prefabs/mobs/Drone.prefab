@@ -15,6 +15,10 @@
       {
         "__type": "HealthComponent",
         "__guid": "8cd60b45-3309-4a84-b9f2-cc7a27f89844",
+        "DamageEffectPrefab": {
+          "_type": "gameobject",
+          "prefab": "prefabs/damage/dmgnumber.prefab"
+        },
         "MaxHealth": 100
       },
       {
