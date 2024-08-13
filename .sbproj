@@ -5,7 +5,7 @@
   "Ident": "hc2",
   "Schema": 1,
   "IncludeSourceFiles": false,
-  "Resources": "*.ttf\n/items/*.png\n/item_icons/*.png\n/ui/*",
+  "Resources": "*.ttf\n/items/*.png\n/item_icons/*.png",
   "PackageReferences": [],
   "EditorReferences": null,
   "Metadata": {
