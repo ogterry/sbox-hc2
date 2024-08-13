@@ -37,10 +37,11 @@ public partial class WorldItem : Component, Component.ITriggerListener
 
 		if ( other.GameObject.Root.Components.Get<Player>() is { IsValid: true } player )
 		{
-			player.Inventory.GiveItem( HC2.Item.Create( Resource ) );
-
-			// TODO: Reject give item if full?
-			GameObject.Destroy();
+			if ( player.Inventory.GetFreeSlotIndex() >= 0 )
+			{
+				player.Inventory.GiveItem( HC2.Item.Create( Resource ) );
+				GameObject.Destroy();
+			}
 		}
 	}
 
