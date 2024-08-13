@@ -71,7 +71,7 @@ public partial class Projectile : Component, Component.ICollisionListener
 		{
 			healthComponent.TakeDamage( new DamageInstance()
 			{
-				Attacker = Weapon.Player,
+				Attacker = Weapon?.Player,
 				Inflictor = this,
 				Damage = Damage,
 				Type = DamageType,
