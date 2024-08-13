@@ -15,7 +15,7 @@
 				@if (item?.IsValid() ?? false)
 				{
 					<div class="item" style="background-image: url(@item.Resource.Icon);">
-
+						<label class="amount">@item.Amount</label>
 					</div>
 				}
 			</div>
@@ -39,6 +39,7 @@
 			foreach (var item in inventory.GetAllItems())
 			{
 				hc.Add(item);
+				hc.Add(item.Amount);
 			}
 		}
 

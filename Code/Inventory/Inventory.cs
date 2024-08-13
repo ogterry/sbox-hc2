@@ -78,14 +78,6 @@ public class Inventory : Component
 		if ( !Sandbox.Networking.IsHost )
 			return;
 
-		var slot = GetFreeSlotIndex();
-
-		if ( slot == -1 )
-		{
-			Log.Warning( "Unable to give item to inventory because there are no free slots!" );
-			return;
-		}
-
 		var oldContainer = item.Container;
 		oldContainer?.TakeItem( item );
 		if ( oldContainer?.Inventory?.IsValid() ?? false )
@@ -93,8 +85,22 @@ public class Inventory : Component
 			oldContainer.Value.Inventory.Container = oldContainer.Value;
 		}
 
-		Container.GiveItemSlot( item, slot );
-		Container = Container; // Refresh the container
+		for ( var i = 0; i < MaxSlots; i++ )
+		{
+			if ( Container.Items[i] is null )
+			{
+				Container.Items[i] = item;
+				item.Container = Container;
+				Container = Container; // Refresh the container
+				return;
+			}
+			else if ( Container.Items[i].Resource == item.Resource )
+			{
+				Container.Items[i].Amount += item.Amount;
+				Container = Container; // Refresh the container
+				return;
+			}
+		}
 	}
 
 	/// <summary>
