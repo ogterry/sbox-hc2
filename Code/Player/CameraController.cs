@@ -1,3 +1,5 @@
+using System;
+
 /// <summary>
 /// I've pulled this out into its own component because I feel like we'll want different camera behaviors when we have weapons, building, etc..
 /// </summary>
@@ -69,5 +71,16 @@ public sealed class CameraController : Component
 
 		Camera.FieldOfView = Camera.FieldOfView.LerpTo( targetFov, Time.Delta * 10 );
 
+	}
+
+	public float CalcRelativeYaw( float angle )
+	{
+		float length = Camera.Transform.Rotation.Yaw() - angle;
+
+		float d = MathX.UnsignedMod( Math.Abs( length ), 360 );
+		float r = (d > 180) ? 360 - d : d;
+		r *= (length >= 0 && length <= 180) || (length <= -180 && length >= -360) ? 1 : -1;
+
+		return r;
 	}
 }

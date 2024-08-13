@@ -1,0 +1,36 @@
+@import "../Styles/_theme.scss";
+
+compass {
+    position: absolute;
+    // top: $safe-zone-y;
+    top: 50px; // for now
+    left: 50%;
+    height: 75px;
+    width: 650px;
+    transform: translate( -50% );
+    z-index: 1000;
+    mask: linear-gradient( to right, transparent, white 20%, white 80%, transparent ) alpha;
+
+    CompassLabel.compass-item {
+        position: absolute;
+        height: 16px;
+        justify-content: center;
+        align-items: center;
+        background-color: black;
+
+        label {
+            position: absolute;
+            top: 16px;
+            font-size: $text-lg;
+        }
+
+        &.small {
+            height: 12px;
+
+            label {
+                top: 12px;
+                font-size: $text-sm;
+            }
+        }
+    }
+}
