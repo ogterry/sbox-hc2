@@ -1,0 +1,15 @@
+@using Sandbox;
+@using Sandbox.UI;
+@attribute [StyleSheet]
+@implements INavigatorPage
+@namespace HC2
+
+<root>
+	<div class="canvas">
+		<CharacterSelect OnSelect=@(() => MenuRoot.Instance.Navigate("/")) />
+	</div>
+</root>
+
+@code
+{
+}

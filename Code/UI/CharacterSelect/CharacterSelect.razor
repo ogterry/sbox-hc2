@@ -1,0 +1,107 @@
+@using Sandbox;
+@using Sandbox.UI;
+@attribute [StyleSheet]
+@inherits Panel
+@namespace HC2
+
+<root>
+    <div class="column">
+        <div class="title">
+            Characters
+        </div>
+
+        <div class="column gap" style="width: 256px;">
+            <div class="character-list column">
+                @if (Characters is not null)
+                {
+                    @foreach (var character in Characters)
+                    {
+                        <div class="button @(CharacterSave.Current == character ? "active" : "")" onclick=@(() => SelectCharacter(character))>@character.Name</div>
+                    }
+                }
+            </div>
+            <div class="button @((CharacterSave.Current is null) ? "active" : "")" onclick=@CreateCharacterButton>+ Create New</div>
+        </div>
+    </div>
+    <div class="grow center current-character" style="height: 100%;">
+        @if (CharacterSave.Current is not null)
+        {
+            <CharacterPanel Character="@CharacterSave.Current" CanDelete=@(false) OnSelect=@OnSelect />
+        }
+        else
+        {
+            <div class="character-creator column">
+                <label class="header">Create a new character:</label>
+                <div class="column center">
+                    <div class="row">
+                        Name:
+                        <TextEntry Value:bind=@NewCharacterName />
+                    </div>
+                    <div class="row">
+                        Class:
+                        <DropDown BuildOptions=@GetClassOptions Value:bind=@NewCharacterType />
+                    </div>
+                    <div class="button" onclick="@CreateNewCharacter">Create Character</div>
+                </div>
+            </div>
+        }
+    </div>
+</root>
+
+@code
+{
+    List<CharacterSave> Characters = new();
+
+    public System.Action OnSelect { get; set; }
+    string NewCharacterName { get; set; }
+    CharacterType NewCharacterType { get; set; }
+
+    void SelectCharacter(CharacterSave character)
+    {
+        CharacterSave.Current = character;
+    }
+
+    protected override void OnAfterTreeRender(bool firstTime)
+    {
+        base.OnAfterTreeRender(firstTime);
+
+        var chars = CharacterSave.GetAll();
+        if (chars.Count != Characters.Count)
+        {
+            Characters = chars;
+            CharacterSave.Current = Characters.FirstOrDefault();
+        }
+    }
+
+    void CreateCharacterButton()
+    {
+        CharacterSave.Current = null;
+        NewCharacterName = "New Character";
+    }
+
+    void CreateNewCharacter()
+    {
+        var character = new CharacterSave();
+        character.Name = NewCharacterName;
+        character.CharacterType = NewCharacterType;
+        character.Save();
+
+    }
+
+    List<Option> GetClassOptions()
+    {
+        var names = System.Enum.GetNames(typeof(CharacterType));
+        var options = new List<Option>();
+
+        foreach (var name in names)
+        {
+            options.Add(new Option(name, name));
+        }
+        return options;
+    }
+
+    protected override int BuildHash()
+    {
+        return System.HashCode.Combine(Characters?.Count, CharacterSave.Current);
+    }
+}

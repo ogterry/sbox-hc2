@@ -5,8 +5,8 @@
 @namespace HC2
 
 <root>
-    <div class="background" />
-    <div class="navigator-canvas" slot="navigator-canvas" />
+	<div class="background" />
+	<div class="navigator-canvas" slot="navigator-canvas" />
 </root>
 
 @code
@@ -16,11 +16,9 @@
 	public MenuRoot()
 	{
 		DefaultUrl = "/";
-		AddDestination( "/", typeof( LandingPage ) );
-		AddDestination( "/characters", typeof( CharactersPage ) );
+		AddDestination("/", typeof(LandingPage));
+		AddDestination("/characters", typeof(CharactersPage));
 
 		Instance = this;
-
-		if ( global::Networking.LastLobbyId != 0 ) Navigate("/characters");
-    }
+	}
 }

@@ -5,7 +5,7 @@
 @namespace HC2
 
 <root>
-    <div class="column character-preview">
+	<div class="column character-preview">
 		<div class="character-model">
 			<label>3D Character Preview Here?</label>
 		</div>
@@ -23,22 +23,28 @@
 			<label>Character Inventory Here?</label>
 		</div>
 		<div class="button" onclick="@SelectButton">Select Character</div>
-		<div class="button" onclick="@DeleteButton">@(DeleteClicks == 0 ? "Delete Character" : $"Delete Character (Confirm in {5 - DeleteClicks}...)")</a>
-	</div>
+		@if (CanDelete)
+		{
+			<div class="button" onclick="@DeleteButton">@(DeleteClicks == 0 ? "Delete Character" : $"Delete Character (Confirm in {5 - DeleteClicks}...)")</a>
+		}
+		</div>
 </root>
 
 @code
 {
 	public CharacterSave Character { get; set; }
 
+	public bool CanDelete { get; set; } = true;
+	public System.Action OnSelect { get; set; }
+
 	int DeleteClicks { get; set; } = 0;
 	RealTimeSince timeSinceLastDeleteClick = 0f;
 
-	public override void Tick ()
+	public override void Tick()
 	{
 		base.Tick();
 
-		if ( DeleteClicks > 0 && timeSinceLastDeleteClick > 2f )
+		if (DeleteClicks > 0 && timeSinceLastDeleteClick > 2f)
 		{
 			DeleteClicks = 0;
 		}
@@ -47,10 +53,7 @@
 	void SelectButton()
 	{
 		CharacterSave.Current = Character;
-		if (global::Networking.LastLobbyId == 0)
-			MenuRoot.Instance.Navigate("/");
-		else
-			GameNetworkSystem.Connect(global::Networking.LastLobbyId);
+		OnSelect?.Invoke();
 	}
 
 	void DeleteButton()
@@ -58,7 +61,7 @@
 		DeleteClicks++;
 		timeSinceLastDeleteClick = 0f;
 
-		if ( DeleteClicks >= 5 )
+		if (DeleteClicks >= 5)
 		{
 			Character.Delete();
 			Character = null;
@@ -66,8 +69,8 @@
 		}
 	}
 
-	protected override int BuildHash ()
+	protected override int BuildHash()
 	{
-		return System.HashCode.Combine( Character, DeleteClicks );
+		return System.HashCode.Combine(Character, DeleteClicks);
 	}
 }

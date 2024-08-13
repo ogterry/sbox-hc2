@@ -5,41 +5,25 @@ using System.Threading.Tasks;
 
 public sealed class Networking : Component, Component.INetworkListener
 {
-	public static ulong LastLobbyId { get; set; } = 0;
-
 	/// <summary>
 	/// The prefab to spawn for the player to control.
 	/// </summary>
 	[Property]
 	public GameObject PlayerPrefab { get; set; }
 
+	protected override void OnAwake()
+	{
+		// So we can make Broadcast/Authority calls in this script
+		if ( !Network.Active )
+		{
+			GameObject.NetworkSpawn( null );
+		}
+	}
+
 	protected override async Task OnLoad()
 	{
 		if ( Scene.IsEditor )
 			return;
-
-		// Boot to Character Select if we don't have a character selected
-		if ( CharacterSave.Current is null )
-		{
-			// If we're in the editor, just use the first character we find
-			if ( Game.IsEditor )
-			{
-				CharacterSave.Current = CharacterSave.GetAll().FirstOrDefault();
-				if ( CharacterSave.Current is null )
-				{
-					// There's no character at all, so lets just make a new one
-					CharacterSave.Current = new CharacterSave();
-					CharacterSave.Current.Save();
-				}
-			}
-			else
-			{
-				// LastLobbyId is how the MainMenu knows to return us to this server
-				LastLobbyId = Connection.Host?.SteamId ?? 0;
-				Scene.LoadFromFile( "scenes/menu.scene" );
-				return;
-			}
-		}
 
 		if ( !GameNetworkSystem.IsActive )
 		{
@@ -56,12 +40,52 @@ public sealed class Networking : Component, Component.INetworkListener
 	{
 		Log.Info( $"Player '{channel.DisplayName}' has joined the game" );
 
-		if ( !PlayerPrefab.IsValid() )
-			return;
+		using ( Rpc.FilterInclude( channel ) )
+		{
+			SpawnLocalPlayer();
+		}
+	}
 
-		//
+	[Broadcast]
+	public async void SpawnLocalPlayer()
+	{
+		// Open Character Select Modal if we don't have a character selected
+		if ( CharacterSave.Current is null )
+		{
+			var modalObject = new GameObject();
+			var screenPanel = modalObject.Components.Create<ScreenPanel>();
+			screenPanel.ZIndex = 250;
+			modalObject.Components.Create<CharacterSelectModal>();
+
+
+			while ( modalObject.IsValid() )
+			{
+				await Task.Delay( 100 );
+			}
+		}
+
+		SpawnPlayer();
+	}
+
+	[Authority]
+	public void SpawnPlayer()
+	{
+		if ( !Sandbox.Networking.IsHost ) return;
+		var channel = Rpc.Caller;
+
+		if ( Rpc.CallerId != channel.Id )
+		{
+			Log.Error( "Player tried to spawn another player" );
+			return;
+		}
+
+		if ( !PlayerPrefab.IsValid() )
+		{
+			Log.Error( "Player prefab is not valid" );
+			return;
+		}
+
 		// Find a spawn location for this player
-		//
 		var startLocation = FindSpawnLocation().WithScale( 1 );
 
 		// Spawn this object and make the client the owner
