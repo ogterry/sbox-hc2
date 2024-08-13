@@ -1,3 +1,5 @@
+using System;
+
 namespace HC2;
 
 public partial class WorldItem : Component, Component.ITriggerListener
@@ -14,13 +16,15 @@ public partial class WorldItem : Component, Component.ITriggerListener
 	[RequireComponent]
 	public BoxCollider Trigger { get; set; }
 
-	[RequireComponent]
+	[Property]
 	public SkinnedModelRenderer ModelRenderer { get; set; }
+	
+	[Property]
+	public GameObject SpinningItem { get; set; }
 
 	protected override void OnStart()
 	{
 		Tags.Add( "pickup" );
-
 		Trigger.Scale = new( 16, 16, 16 );
 		Trigger.IsTrigger = true;
 	}
@@ -28,6 +32,17 @@ public partial class WorldItem : Component, Component.ITriggerListener
 	protected override void OnUpdate()
 	{
 		Transform.Rotation = Rotation.Identity;
+		Spin();
+	}
+
+	void Spin()
+	{
+		if ( !SpinningItem.IsValid() )
+			return;
+
+		var newYaw = SpinningItem.Transform.Rotation.Yaw() + 50f * Time.Delta;
+		SpinningItem.Transform.Rotation = Rotation.From( 0, newYaw, 0 );
+		SpinningItem.Transform.LocalPosition = Vector3.Up * MathF.Sin( Time.Now * 3f ) * 2;
 	}
 
 	void ITriggerListener.OnTriggerEnter( Collider other )
@@ -65,8 +80,15 @@ public partial class WorldItem : Component, Component.ITriggerListener
 
 		var worldItem = go.Components.Create<WorldItem>();
 		worldItem.Resource = itemAsset;
-		worldItem.ModelRenderer.Model = itemAsset.WorldModel;
 		worldItem.Rigidbody.LinearDamping = 1f;
+
+		var spinningItem = new GameObject();
+		spinningItem.Parent = go;
+
+		var mdl = spinningItem.Components.Create<SkinnedModelRenderer>();
+		mdl.Model = itemAsset.WorldModel;
+		worldItem.ModelRenderer = mdl;
+		worldItem.SpinningItem = spinningItem;
 
 		return worldItem;
 	}

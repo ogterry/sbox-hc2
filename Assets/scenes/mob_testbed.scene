@@ -1,5 +1,5 @@
 {
-  "__guid": "a3c4d9e4-8636-44ff-bb3d-b69c0e76eef5",
+  "__guid": "34348e92-dab8-4866-a870-37f11c9e08c9",
   "GameObjects": [
     {
       "__guid": "fcd503d0-cd29-4b20-8f5b-91de13e90aaf",
@@ -550,6 +550,40 @@
       "Enabled": true,
       "__Prefab": "prefabs/resources/rubynode.prefab",
       "__PrefabVariables": {}
+    },
+    {
+      "__guid": "3e74ef41-9f6e-4166-9e23-176ba29a940a",
+      "Flags": 0,
+      "Name": "rock_sharp_01",
+      "Position": "-311.8504,206.5747,2.176928",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "8b8cc1f3-284b-4a2a-bc95-4d9d4f0074fd",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/rock_sharp_01.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "6f52d102-8dea-4c51-91e2-9bdab7a9d573",
+      "Flags": 0,
+      "Name": "rock_sharp_02",
+      "Position": "-400.5181,-13.03387,13.75757",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "7ead0f0d-d01d-4a47-ab84-c6295682b591",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/rock_sharp_02.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
     }
   ],
   "SceneProperties": {
