@@ -267,7 +267,7 @@
       "__guid": "af177afc-4b60-419c-baa2-8c38d972c44d",
       "Flags": 0,
       "Name": "Volumetric Fog (1)",
-      "Position": "-1552,-320,504",
+      "Position": "-429.8221,-197.2608,519.6459",
       "Rotation": "-0.02305578,0.1205502,0.1137443,0.9858997",
       "Enabled": true,
       "Components": [
@@ -712,6 +712,24 @@
           "Model": "models/terrain/rock_sharp_02.vmdl",
           "RenderType": "On",
           "Tint": "0.4,0.42353,0.45098,1"
+        }
+      ]
+    },
+    {
+      "__guid": "5b0c4dd3-b537-4559-a0b4-9289707618ec",
+      "Flags": 0,
+      "Name": "robot_shell_a",
+      "Position": "-1303.9,252.7368,448.3535",
+      "Rotation": "0.09521919,0.1574021,-0.9818574,-0.04598044",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "c7a36bf8-1630-46db-9752-ce91a3e8ded4",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/props/tech/robot_shell_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
         }
       ]
     }
