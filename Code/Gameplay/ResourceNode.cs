@@ -99,15 +99,17 @@ public sealed class ResourceNode : Component,
 
 		// TODO: drop in world
 
-		var player = Scene.GetAllComponents<Player>()
-			.MinBy( x => x.Transform.Position - Transform.Position );
+		var inst = WorldItem.CreateInstance( Item, Transform.Position + direction * 150f );
 
-		if ( player is null )
-		{
-			return;
-		}
+		//var player = Scene.GetAllComponents<Player>()
+		//	.MinBy( x => x.Transform.Position - Transform.Position );
 
-		player.Inventory.GiveItem( HC2.Item.Create( Item ) );
+		//if ( player is null )
+		//{
+		//	return;
+		//}
+
+		//player.Inventory.GiveItem( HC2.Item.Create( Item ) );
 	}
 
 	private void UpdateDepletion()
