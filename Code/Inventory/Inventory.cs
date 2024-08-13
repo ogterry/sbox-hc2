@@ -18,7 +18,7 @@ public class Inventory : Component, ISaveData
 	/// <summary>
 	/// If set, if this inventory can't hold any more items, it will overflow into this container.
 	/// </summary>
-	public InventoryContainer OverflowContainer { get; private set; }
+	public InventoryContainer OverflowContainer { get; set; }
 
 	protected override void OnAwake()
 	{

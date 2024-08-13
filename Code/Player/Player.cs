@@ -72,6 +72,12 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 	public CameraController CameraController { get; set; }
 
 	/// <summary>
+	/// The player's hotbar
+	/// </summary>
+	[Property, Group("Components"), Sync]
+	public Hotbar Hotbar { get; set; }
+
+	/// <summary>
 	/// The player's inventory
 	/// </summary>
 	[Property, Group("Components"), Sync]
@@ -300,7 +306,7 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 		if (!Sandbox.Networking.IsHost) return;
 		var itemType = Game.Random.Float() > 0.5f ? "gem" : "test";
 		var item = Item.Create(itemType);
-		Inventory.GiveItem(item);
+		Hotbar.GiveItem(item);
 	}
 
 	private void ApplyAnimation()
@@ -322,6 +328,9 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 	{
 		if (IsProxy)
 			return;
+
+		Inventory.OverflowContainer = Hotbar.Container;
+		Hotbar.OverflowContainer = Inventory.Container;
 
 		InitEquipment();
 

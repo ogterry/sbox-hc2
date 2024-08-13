@@ -1,0 +1,61 @@
+@using System
+@using HC2
+@inherits PanelComponent
+
+@{
+	if (!Hotbar.IsValid()) return;
+}
+
+<root>
+	<div class="inventory @(InventoryOpen ? "visible" : "")">
+		@for (var i = 0; i < Inventory.MaxSlots; i++)
+		{
+			var item = Inventory.GetItemInSlot(i);
+			<ItemSlot Item=@item SlotIndex=@i />
+		}
+	</div>
+
+	<div class="container">
+		@for (var i = 0; i < Hotbar.MaxSlots; i++)
+		{
+			var item = Hotbar.GetItemInSlot(i);
+			<ItemSlot Item=@item SlotIndex=@i />
+		}
+	</div>
+</root>
+
+@code
+{
+	public Hotbar Hotbar => Player.Local?.Hotbar;
+	public Inventory Inventory => Player.Local?.Inventory;
+
+	bool InventoryOpen { get; set; }
+
+	protected override void OnUpdate()
+	{
+		if (Input.Pressed("Score"))
+		{
+			InventoryOpen = !InventoryOpen;
+		}
+	}
+
+	protected override int BuildHash()
+	{
+		var hc = new HashCode();
+		var inventory = Hotbar;
+
+		hc.Add(InventoryOpen);
+		hc.Add(inventory);
+
+		if (inventory.IsValid())
+		{
+			foreach (var item in inventory.GetAllItems())
+			{
+				hc.Add(item);
+				hc.Add(item.Amount);
+			}
+		}
+
+		return hc.ToHashCode();
+	}
+}

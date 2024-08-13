@@ -1,0 +1,18 @@
+@using Sandbox.UI
+@using HC2
+@inherits Panel
+
+<root class="slot">
+    @if (Item?.IsValid() ?? false)
+    {
+        <div class="item" style="background-image: url(@Item.Resource.Icon);">
+            <label class="amount">@Item.Amount</label>
+        </div>
+    }
+</root>
+
+@code
+{
+    public Item Item { get; set; }                                  
+    public int SlotIndex { get; set; }
+}

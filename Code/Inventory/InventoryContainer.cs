@@ -96,6 +96,17 @@ public struct InventoryContainer
 		}
 	}
 
+	public Item GetItemInSlot(int slot)
+	{
+		if (slot < 0 || slot >= MaxSlots)
+		{
+			throw new ArgumentOutOfRangeException(nameof(slot));
+		}
+
+		var item = Items[slot];
+		return item;
+	}
+
 
 	public bool IsValid()
 	{
