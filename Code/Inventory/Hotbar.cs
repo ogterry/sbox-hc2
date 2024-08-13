@@ -4,8 +4,8 @@ using Sandbox.Events;
 
 namespace HC2;
 
-public record ItemEquipEvent( Item item ) : IGameEvent;
-public record ItemUnequipEvent( Item item ) : IGameEvent;
+public record ItemEquipEvent( Item Item ) : IGameEvent;
+public record ItemUnequipEvent( Item Item ) : IGameEvent;
 
 [Category( "Inventory - Hotbar" )]
 [Description( "The player's hotbar, with an active slot." )]
