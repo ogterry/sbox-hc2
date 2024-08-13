@@ -14,13 +14,13 @@ public sealed class CameraController : Component
 	/// <summary>
 	/// The camera
 	/// </summary>
-	[Property, Group( "Setup" )] 
+	[Property, Group( "Setup" )]
 	public CameraComponent Camera { get; set; }
 
 	/// <summary>
 	/// The boom arm for the character's camera.
 	/// </summary>
-	[Property, Group( "Setup" )] 
+	[Property, Group( "Setup" )]
 	public GameObject Boom { get; set; }
 
 	/// <summary>
@@ -62,7 +62,7 @@ public sealed class CameraController : Component
 
 		Boom.Transform.Rotation = Player.EyeAngles.ToRotation();
 
-		Boom.Transform.Position = Boom.Transform.Position.LerpTo( Player.Character.Transform.Position + Vector3.Up * Player.GetDuckHeight() * 0.95f, Time.Delta * 10 );
+		Boom.Transform.Position = Boom.Transform.Position.LerpTo( Player.Character.Transform.Position + Vector3.Up * Player.GetDuckHeight() * 0.8f, Time.Delta * 10 );
 
 		var targetFov = Preferences.FieldOfView + Player.Character.Velocity.Length / VelocityFOVScale;
 
