@@ -1088,7 +1088,7 @@
             "AimingEnabled": false,
             "AimingFOVOffset": 0,
             "AttackDelay": 1,
-            "AttackRange": 512,
+            "AttackRange": 128,
             "AttackSound": "sounds/weapons/sword_swing.sound",
             "Damage": 50,
             "DamageType": "Fire",
@@ -1100,6 +1100,7 @@
               "_type": "gameobject",
               "prefab": "prefabs/particles/footstep/footstepeffect.prefab"
             },
+            "SwingDelay": 0.25,
             "Thickness": 5
           }
         ]
