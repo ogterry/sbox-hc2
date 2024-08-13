@@ -90,6 +90,8 @@ public partial class WorldItem : Component, Component.ITriggerListener
 		worldItem.ModelRenderer = mdl;
 		worldItem.SpinningItem = spinningItem;
 
+		go.NetworkSpawn();
+
 		return worldItem;
 	}
 }
