@@ -24,8 +24,8 @@ public partial class WorldItem : Component, Component.ITriggerListener
 
 	protected override void OnStart()
 	{
-		Tags.Add("pickup");
-		Trigger.Scale = new(16, 16, 16);
+		Tags.Add( "pickup" );
+		Trigger.Scale = new( 16, 16, 16 );
 		Trigger.IsTrigger = true;
 	}
 
@@ -37,26 +37,41 @@ public partial class WorldItem : Component, Component.ITriggerListener
 
 	void Spin()
 	{
-		if (!SpinningItem.IsValid())
+		if ( !SpinningItem.IsValid() )
 			return;
 
 		var newYaw = SpinningItem.Transform.Rotation.Yaw() + 50f * Time.Delta;
-		SpinningItem.Transform.Rotation = Rotation.From(0, newYaw, 0);
-		SpinningItem.Transform.LocalPosition = Vector3.Up * MathF.Sin(Time.Now * 3f) * 2;
+		SpinningItem.Transform.Rotation = Rotation.From( 0, newYaw, 0 );
+		SpinningItem.Transform.LocalPosition = Vector3.Up * MathF.Sin( Time.Now * 3f ) * 2;
 	}
 
-	void ITriggerListener.OnTriggerEnter(Collider other)
+	void ITriggerListener.OnTriggerEnter( Collider other )
 	{
-		if (!Sandbox.Networking.IsHost)
+		if ( !Sandbox.Networking.IsHost )
 			return;
 
-		if (other.GameObject.Root.Components.Get<Player>() is { IsValid: true } player)
+		if ( other.GameObject.Root.Components.Get<Player>() is { IsValid: true } player )
 		{
-			if (player.Hotbar.TryGiveItem(HC2.Item.Create(Resource)))
+			using ( Rpc.FilterInclude( player.Network.OwnerConnection ) )
 			{
-				GameObject.Destroy();
+				TryPickup( player );
 			}
 		}
+	}
+
+	[Broadcast]
+	void TryPickup( Player player )
+	{
+		if ( player.Hotbar.TryGiveItem( HC2.Item.Create( Resource ) ) )
+		{
+			Pickup();
+		}
+	}
+
+	[Authority]
+	void Pickup()
+	{
+		GameObject.Destroy();
 	}
 
 	/// <summary>
@@ -65,7 +80,7 @@ public partial class WorldItem : Component, Component.ITriggerListener
 	/// <param name="itemAsset"></param>
 	/// <param name="worldPosition"></param>
 	/// <returns></returns>
-	public static WorldItem CreateInstance(ItemAsset itemAsset, Vector3 worldPosition)
+	public static WorldItem CreateInstance( ItemAsset itemAsset, Vector3 worldPosition )
 	{
 		// Push the active scene
 		using var _ = Game.ActiveScene.Push();

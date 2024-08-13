@@ -11,9 +11,9 @@ public class Item
 	public float Durability { get; set; } = 1f;
 
 	[JsonIgnore, Hide] public InventoryContainer? Container;
-	[JsonIgnore, Hide] public int SlotIndex => Container?.Items?.IndexOf(this) ?? -1;
+	[JsonIgnore, Hide] public int SlotIndex => Container?.Items?.IndexOf( this ) ?? -1;
 
-	public static Item Create(ItemAsset resource, int amount = 1)
+	public static Item Create( ItemAsset resource, int amount = 1 )
 	{
 		var item = new Item();
 		item.Resource = resource;
@@ -21,10 +21,10 @@ public class Item
 		return item;
 	}
 
-	public static Item Create(string resourceName, int amount = 1)
+	public static Item Create( string resourceName, int amount = 1 )
 	{
 		var item = new Item();
-		item.Resource = ResourceLibrary.GetAll<ItemAsset>().FirstOrDefault(x => x.ResourceName == resourceName);
+		item.Resource = ResourceLibrary.GetAll<ItemAsset>().FirstOrDefault( x => x.ResourceName == resourceName );
 		item.Amount = amount;
 		return item;
 	}
