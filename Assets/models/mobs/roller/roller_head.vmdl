@@ -11,8 +11,14 @@
 				[
 					{
 						_class = "DefaultMaterialGroup"
-						remaps = [  ]
-						use_global_default = true
+						remaps = 
+						[
+							{
+								from = "roller_mob_textures:m_7db27a30_617c_c058_72fd_fd9b1727c198.vmat"
+								to = "models/mobs/roller/roller_mob.vmat"
+							},
+						]
+						use_global_default = false
 						global_default_material = "models/mobs/roller/roller_head.vmat"
 					},
 				]
@@ -39,6 +45,21 @@
 								"roller_head",
 							]
 						}
+					},
+				]
+			},
+			{
+				_class = "ModelModifierList"
+				children = 
+				[
+					{
+						_class = "ModelModifier_ScaleAndMirror"
+						scale = 0.042
+						mirror_x = false
+						mirror_y = false
+						mirror_z = false
+						flip_bone_forward = false
+						swap_left_and_right_bones = false
 					},
 				]
 			},
