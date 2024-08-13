@@ -41,6 +41,7 @@ public partial class Projectile : Component, Component.ICollisionListener
 
 	protected override void OnStart()
 	{
+		Tags.Add( "projectile" );
 		DestroyAfter( LifeTime );
 	}
 
