@@ -19,7 +19,7 @@
           "_type": "gameobject",
           "prefab": "prefabs/damage/dmgnumber.prefab"
         },
-        "MaxHealth": 1000
+        "MaxHealth": 500
       },
       {
         "__type": "Sandbox.BoxCollider",

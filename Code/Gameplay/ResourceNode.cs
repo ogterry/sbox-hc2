@@ -12,8 +12,7 @@ public enum GatherSourceKind
 
 public sealed class ResourceNode : Component,
 	IGameEventHandler<ModifyDamageEvent>,
-	IGameEventHandler<DamageTakenEvent>,
-	IGameEventHandler<KilledEvent>
+	IGameEventHandler<DamageTakenEvent>
 {
 	[RequireComponent]
 	public HealthComponent Health { get; private set; }
@@ -27,12 +26,19 @@ public sealed class ResourceNode : Component,
 	[Property]
 	public int DamagePerItem { get; set; } = 10;
 
+	[Property]
+	public float RegenerateDelay { get; set; } = 60f;
+
+	[Property]
+	public float RegenerateRate { get; set; } = 1f;
+
 	private float _spareDamage;
-	private TimeSince _sinceDepleted;
+
+	private TimeSince _sinceGathered;
 
 	protected override void OnStart()
 	{
-		UpdateDepletion( 1f );
+		UpdateDepletion();
 	}
 
 	private float GetWeaponEffectiveness( DamageInstance damageInfo )
@@ -50,6 +56,8 @@ public sealed class ResourceNode : Component,
 
 	void IGameEventHandler<ModifyDamageEvent>.OnGameEvent( ModifyDamageEvent eventArgs )
 	{
+		if ( IsProxy ) return;
+
 		if ( Health.Health <= 0f )
 		{
 			eventArgs.ClearDamage();
@@ -63,12 +71,16 @@ public sealed class ResourceNode : Component,
 
 	void IGameEventHandler<DamageTakenEvent>.OnGameEvent( DamageTakenEvent eventArgs )
 	{
+		if ( IsProxy ) return;
+
 		if ( DamagePerItem <= 0 || Health.Health <= 0f )
 		{
 			return;
 		}
 
-		_spareDamage += eventArgs.Instance.Damage;
+		var damage = Math.Min( Health.Health, eventArgs.Instance.Damage );
+
+		_spareDamage += damage;
 
 		while ( _spareDamage >= DamagePerItem )
 		{
@@ -76,9 +88,9 @@ public sealed class ResourceNode : Component,
 			DropItem( (eventArgs.Instance.Position - Transform.Position).Normal );
 		}
 
-		var health = Health.Health - eventArgs.Instance.Damage;
+		_sinceGathered = 0f;
 
-		UpdateDepletion( Math.Clamp( health / Health.MaxHealth, 0f, 1f ));
+		UpdateDepletion();
 	}
 
 	private void DropItem( Vector3 direction )
@@ -98,14 +110,10 @@ public sealed class ResourceNode : Component,
 		player.Inventory.GiveItem( HC2.Item.Create( Item ) );
 	}
 
-	void IGameEventHandler<KilledEvent>.OnGameEvent( KilledEvent eventArgs )
+	private void UpdateDepletion()
 	{
-		_sinceDepleted = 0f;
-	}
+		var fraction = Math.Clamp( Health.Health / Health.MaxHealth, 0f, 1f );
 
-	[Broadcast( NetPermission.HostOnly )]
-	private void UpdateDepletion( float fraction )
-	{
 		var found = false;
 		var stages = Components.GetAll<ResourceDepletionStage>( FindMode.EverythingInChildren )
 			.OrderBy( x => x.Fraction );
@@ -122,6 +130,18 @@ public sealed class ResourceNode : Component,
 				stage.GameObject.Enabled = false;
 			}
 		}
+	}
+
+	protected override void OnFixedUpdate()
+	{
+		UpdateDepletion();
+
+		if ( IsProxy ) return;
+
+		if ( Health.Health >= Health.MaxHealth ) return;
+		if ( _sinceGathered < RegenerateDelay ) return;
+
+		Health.Health = Math.Min( Health.MaxHealth, Health.Health + Time.Delta * RegenerateRate );
 	}
 }
 
