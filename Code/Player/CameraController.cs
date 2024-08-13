@@ -30,7 +30,7 @@ public sealed class CameraController : Component
 	[Property, Group( "Config" )]
 	public float VelocityFOVScale { get; set; } = 50f;
 
-	bool IsAiming => Input.Down( "attack2" ) && Player.MainWeapon.IsValid() && Player.MainWeapon.AimingEnabled;
+	bool IsAiming => Input.Down( "attack2" ) && Player.MainHandWeapon.IsValid() && Player.MainHandWeapon.AimingEnabled;
 
 	/// <summary>
 	/// Constructs a ray using the camera's GameObject
@@ -64,7 +64,7 @@ public sealed class CameraController : Component
 
 		if ( IsAiming )
 		{
-			targetFov -= Player.MainWeapon.AimingFOVOffset;
+			targetFov -= Player.MainHandWeapon.AimingFOVOffset;
 		}
 
 		Camera.FieldOfView = Camera.FieldOfView.LerpTo( targetFov, Time.Delta * 10 );

@@ -1,7 +1,7 @@
 using HC2;
 using Sandbox.Citizen;
 
-public abstract class WeaponComponent : Component
+public abstract class WeaponComponent : Carriable
 {
 	/// <summary>
 	/// What button do we use to attack with this weapon?

@@ -2,8 +2,7 @@
   "RootObject": {
     "__guid": "7415ac66-ae34-4cab-af30-2f7141f438d1",
     "Flags": 0,
-    "Name": "Drone",
-    "Position": "-152,4,52",
+    "Name": "drone",
     "Tags": "mob",
     "Enabled": true,
     "Components": [
@@ -54,7 +53,6 @@
         "__guid": "e9197d64-01dc-4ee6-9fc5-c99bbddc9356",
         "Flags": 0,
         "Name": "StateMachine",
-        "Position": "0,0,0",
         "Enabled": true,
         "Components": [
           {
@@ -993,173 +991,22 @@
         "__guid": "2a83c609-90b3-4b05-a098-c77544470890",
         "Flags": 0,
         "Name": "MainBody",
-        "Position": "0,0,0",
-        "Scale": "0.4603807,0.3104553,0.1707621",
+        "Scale": "0.5,0.5,0.5",
         "Enabled": true,
-        "Components": [
-          {
-            "__type": "Sandbox.ModelRenderer",
-            "__guid": "87cc2e2d-9cef-4825-8782-ff30aa0af571",
-            "BodyGroups": 18446744073709551615,
-            "Model": "models/dev/box.vmdl",
-            "RenderType": "On",
-            "Tint": "1,1,1,1"
-          }
-        ],
         "Children": [
           {
-            "__guid": "d5c00d85-baa1-4abb-8b8b-8c4ce234adcf",
+            "__guid": "086a6b92-76d8-45ae-965b-6e3da33fd754",
             "Flags": 0,
-            "Name": "Body",
-            "Position": "26.06538,25.7686,0",
-            "Rotation": "0,0,0.3826834,0.9238796",
-            "Scale": "1,0.2389228,0.2935168",
+            "Name": "Cube",
             "Enabled": true,
             "Components": [
               {
                 "__type": "Sandbox.ModelRenderer",
-                "__guid": "142fbec3-7bc1-4235-98cb-a59fc66d7825",
+                "__guid": "9ab5a1cd-4c13-49d6-add1-58d701fbe7f1",
                 "BodyGroups": 18446744073709551615,
-                "Model": "models/dev/box.vmdl",
+                "Model": "models/mobs/drone/drone.vmdl",
                 "RenderType": "On",
                 "Tint": "1,1,1,1"
-              }
-            ],
-            "Children": [
-              {
-                "__guid": "598fbcfe-5a70-4cc4-ad5a-e20d255a03ab",
-                "Flags": 0,
-                "Name": "Body",
-                "Position": "22.82821,-0.0002764279,0",
-                "Scale": "0.2286056,1.544045,2.710267",
-                "Enabled": true,
-                "Components": [
-                  {
-                    "__type": "Sandbox.ModelRenderer",
-                    "__guid": "5354f4d8-610d-4fa7-8ce1-70a04aa713d1",
-                    "BodyGroups": 18446744073709551615,
-                    "Model": "models/dev/box.vmdl",
-                    "RenderType": "On",
-                    "Tint": "1,1,1,1"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "__guid": "245e3a9e-bd8d-4f18-944b-5e7250310498",
-            "Flags": 0,
-            "Name": "Body",
-            "Position": "-26.06538,-25.7686,0",
-            "Rotation": "0,0,0.9238797,-0.3826832",
-            "Scale": "1,0.2389228,0.2935168",
-            "Enabled": true,
-            "Components": [
-              {
-                "__type": "Sandbox.ModelRenderer",
-                "__guid": "783e33dc-1d70-4d7a-a562-ed48bb7e029a",
-                "BodyGroups": 18446744073709551615,
-                "Model": "models/dev/box.vmdl",
-                "RenderType": "On",
-                "Tint": "1,1,1,1"
-              }
-            ],
-            "Children": [
-              {
-                "__guid": "42e3996a-fa0a-4879-8c38-fba5f9a8f56a",
-                "Flags": 0,
-                "Name": "Body",
-                "Position": "22.82821,-0.0002764279,0",
-                "Scale": "0.2286056,1.544045,2.710267",
-                "Enabled": true,
-                "Components": [
-                  {
-                    "__type": "Sandbox.ModelRenderer",
-                    "__guid": "f8c16106-08ef-427a-a74c-d9c3dd3994c7",
-                    "BodyGroups": 18446744073709551615,
-                    "Model": "models/dev/box.vmdl",
-                    "RenderType": "On",
-                    "Tint": "1,1,1,1"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "__guid": "4a69dc2d-1889-42db-bc34-c505cf425cfe",
-            "Flags": 0,
-            "Name": "Body",
-            "Position": "26.06538,-25.7686,0",
-            "Rotation": "0,0,-0.3826835,0.9238796",
-            "Scale": "1,0.2389228,0.2935168",
-            "Enabled": true,
-            "Components": [
-              {
-                "__type": "Sandbox.ModelRenderer",
-                "__guid": "b6bbfac2-3959-4f30-b6cf-93779bdeea8d",
-                "BodyGroups": 18446744073709551615,
-                "Model": "models/dev/box.vmdl",
-                "RenderType": "On",
-                "Tint": "1,1,1,1"
-              }
-            ],
-            "Children": [
-              {
-                "__guid": "8337b7c7-ed04-47a9-baf2-634253a9d038",
-                "Flags": 0,
-                "Name": "Body",
-                "Position": "22.82821,-0.0002764279,0",
-                "Scale": "0.2286056,1.544045,2.710267",
-                "Enabled": true,
-                "Components": [
-                  {
-                    "__type": "Sandbox.ModelRenderer",
-                    "__guid": "432fe262-3e76-400a-993b-e68d3f4b186e",
-                    "BodyGroups": 18446744073709551615,
-                    "Model": "models/dev/box.vmdl",
-                    "RenderType": "On",
-                    "Tint": "1,1,1,1"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "__guid": "34472235-d4bb-4aff-becf-a6711430c07f",
-            "Flags": 0,
-            "Name": "Body",
-            "Position": "-26.06538,25.7686,0",
-            "Rotation": "0,0,0.9238796,0.3826837",
-            "Scale": "1,0.2389228,0.2935168",
-            "Enabled": true,
-            "Components": [
-              {
-                "__type": "Sandbox.ModelRenderer",
-                "__guid": "58b6e0d1-cedb-456e-b431-d7396f87de06",
-                "BodyGroups": 18446744073709551615,
-                "Model": "models/dev/box.vmdl",
-                "RenderType": "On",
-                "Tint": "1,1,1,1"
-              }
-            ],
-            "Children": [
-              {
-                "__guid": "fe79f82a-692a-4e09-bd9b-2012062fd9f7",
-                "Flags": 0,
-                "Name": "Body",
-                "Position": "22.82821,-0.0002764279,0",
-                "Scale": "0.2286056,1.544045,2.710267",
-                "Enabled": true,
-                "Components": [
-                  {
-                    "__type": "Sandbox.ModelRenderer",
-                    "__guid": "4ae24506-74d0-46d2-86ba-9124ee849eea",
-                    "BodyGroups": 18446744073709551615,
-                    "Model": "models/dev/box.vmdl",
-                    "RenderType": "On",
-                    "Tint": "1,1,1,1"
-                  }
-                ]
               }
             ]
           }
@@ -1180,7 +1027,8 @@
           }
         ]
       }
-    ]
+    ],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,
