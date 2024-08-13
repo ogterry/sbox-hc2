@@ -2,15 +2,133 @@
   "__guid": "08a1f7db-8340-476a-86f3-62c9933e2e62",
   "GameObjects": [
     {
-      "__guid": "625a7556-eff4-4235-9d15-d1da5c411751",
+      "__guid": "e10a6d28-9829-4141-8186-5d3fffc7b936",
       "Flags": 0,
-      "Name": "Main Camera",
-      "Position": "-300,0,100",
+      "Name": "Terrain",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Voxel.VoxelRenderer",
+          "__guid": "6700ab40-41ba-43b1-94b5-25f7e832ef13"
+        }
+      ]
+    },
+    {
+      "__guid": "51ccbdd7-0630-46f3-936f-d7857bc56c1f",
+      "Flags": 0,
+      "Name": "Gradient Fog",
+      "Position": "1583.432,-1400.329,594.924",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.GradientFog",
+          "__guid": "7d624898-e69d-4550-8cfa-70032c45a218",
+          "Color": "0.15576,0.20714,0.27907,1",
+          "EndDistance": 4096,
+          "FalloffExponent": 1.5,
+          "Height": 2000,
+          "StartDistance": 342,
+          "VerticalFalloffExponent": 2
+        }
+      ]
+    },
+    {
+      "__guid": "2172b6a0-785a-4f18-907a-9885698ca3d1",
+      "Flags": 0,
+      "Name": "2D Skybox",
+      "Position": "1397.252,-1412.911,929.1708",
+      "Rotation": "0,-0,-0.8508112,0.5254715",
+      "Tags": "skybox",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SkyBox2D",
+          "__guid": "a13b9c2d-8392-4c97-a127-f9db57af0133",
+          "SkyMaterial": "materials/skybox/skybox_overcast_02.vmat",
+          "Tint": "0.27353,0.35913,0.50698,1"
+        }
+      ]
+    },
+    {
+      "__guid": "cc9dde06-4f0e-4b2c-b77f-5afcb25aef78",
+      "Flags": 0,
+      "Name": "Envmap Probe",
+      "Position": "1358.047,-1047.05,624.2552",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.EnvmapProbe",
+          "__guid": "1a5a9a22-c74c-465d-ad37-6a5102982c06",
+          "Texture": "textures/cubemaps/default2.vtex",
+          "Bounds": {
+            "Mins": "-3773.9,-1689,-1414.4",
+            "Maxs": "1271.8,3875.902,1128.88"
+          },
+          "DelayBetweenUpdates": 0.1,
+          "Feathering": 0.02,
+          "FrameInterval": 5,
+          "MaxDistance": 512,
+          "Projection": "Box",
+          "RenderDynamically": true,
+          "TintColor": "1,1,1,1",
+          "UpdateStrategy": "OnEnabled",
+          "ZFar": 4096,
+          "ZNear": 16
+        }
+      ]
+    },
+    {
+      "__guid": "6758796c-3391-40eb-b5cd-9c24dcd6efa1",
+      "Flags": 0,
+      "Name": "Sun (1)",
+      "Position": "1361.37,-1088,630.3893",
+      "Rotation": "-0.00000004351884,0.7071066,0.00000005960464,0.7071069",
+      "Tags": "light_directional,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DirectionalLight",
+          "__guid": "ed4aae08-5ca9-489f-9be5-38aab2626e5b",
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.12093,0.12093,0.12093,1",
+          "Shadows": true,
+          "SkyColor": "11.68738,13.98156,15.51102,0"
+        }
+      ]
+    },
+    {
+      "__guid": "31bdbf0f-6ce7-4750-b05c-24afa3219ea5",
+      "Flags": 0,
+      "Name": "Sun",
+      "Position": "1361.37,-1042.314,630.3895",
+      "Rotation": "0.3535533,0.6123724,0.3535534,0.6123725",
+      "Tags": "light_directional,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DirectionalLight",
+          "__guid": "d8d388c5-d8f4-4b2f-8a36-0249063fb217",
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.84733,0.915,0.94884,1",
+          "Shadows": true,
+          "SkyColor": "11.68738,13.98156,15.51102,0"
+        }
+      ]
+    },
+    {
+      "__guid": "cbfd05a1-aabc-4233-a3a5-77f0a72e1b15",
+      "Flags": 0,
+      "Name": "Camera",
+      "Position": "71.92282,71.92291,1281.334",
+      "Rotation": "-0.1464466,0.3535534,0.3535534,0.8535534",
+      "Tags": "maincamera",
       "Enabled": true,
       "Components": [
         {
           "__type": "Sandbox.CameraComponent",
-          "__guid": "d352ceba-d663-45f4-a57c-023623dacfbc",
+          "__guid": "a6cea85f-b94b-432a-b642-7a8986b4b697",
           "BackgroundColor": "0.33333,0.46275,0.52157,1",
           "ClearFlags": "All",
           "FieldOfView": 60,
@@ -24,38 +142,78 @@
           "Viewport": "0,0,1,1",
           "ZFar": 10000,
           "ZNear": 10
-        }
-      ]
-    },
-    {
-      "__guid": "b7106f95-9356-44d9-b7d6-9cdd2b002dc5",
-      "Flags": 0,
-      "Name": "Directional Light",
-      "Position": "0,0,200",
-      "Rotation": "-0.1464469,0.3535533,0.3535535,0.8535533",
-      "Tags": "light_directional,light",
-      "Enabled": true,
-      "Components": [
+        },
         {
-          "__type": "Sandbox.DirectionalLight",
-          "__guid": "b9b23684-aa16-4272-95ba-56b8b51cdd39",
-          "FogMode": "Enabled",
-          "FogStrength": 1,
-          "LightColor": "0.91373,0.98039,1,1",
-          "Shadows": true,
-          "SkyColor": "0.32558,0.32558,0.32558,1"
-        }
-      ]
-    },
-    {
-      "__guid": "e10a6d28-9829-4141-8186-5d3fffc7b936",
-      "Flags": 0,
-      "Name": "Object",
-      "Enabled": true,
-      "Components": [
+          "__type": "Sandbox.AmbientOcclusion",
+          "__guid": "ccbe2983-62fc-4e26-b8de-b99a8b4c03a7",
+          "FalloffDistance": 1,
+          "Intensity": 12.3,
+          "Quality": "High",
+          "Radius": 32
+        },
         {
-          "__type": "Voxel.VoxelRenderer",
-          "__guid": "6700ab40-41ba-43b1-94b5-25f7e832ef13"
+          "__type": "Sandbox.Bloom",
+          "__guid": "debeed56-21fb-4539-a25a-5df53942655f",
+          "BloomColor": {
+            "color": [
+              {
+                "t": 0.008547009,
+                "c": "1,1,1,1"
+              },
+              {
+                "t": 1,
+                "c": "1,1,1,1"
+              }
+            ],
+            "alpha": []
+          },
+          "BloomCurve": [
+            {
+              "y": 0.5
+            },
+            {
+              "x": 1,
+              "y": 1
+            }
+          ],
+          "Mode": "Additive",
+          "Strength": 0.79,
+          "Threshold": 0.11,
+          "ThresholdWidth": 0.69
+        },
+        {
+          "__type": "Sandbox.Tonemapping",
+          "__guid": "1f9468e2-1df7-4c3c-847d-60989b6e8534",
+          "__version": 1,
+          "ExposureBias": 2,
+          "ExposureCompensation": 0,
+          "ExposureMethod": "RGB",
+          "MaximumExposure": 2,
+          "MinimumExposure": 1,
+          "Mode": "ACES",
+          "Rate": 1
+        },
+        {
+          "__type": "Sandbox.ColorAdjustments",
+          "__guid": "a1641f28-baf1-40ee-830b-d6ed957d400c",
+          "Brightness": 1,
+          "Contrast": 1,
+          "HueRotate": 0,
+          "Saturation": 1.17
+        },
+        {
+          "__type": "Sandbox.Sharpen",
+          "__guid": "4da31aa3-89f7-41d4-8eee-bc9dc9ac8bed",
+          "Scale": 0.2
+        },
+        {
+          "__type": "Sandbox.Vignette",
+          "__guid": "3dc2fb9f-4164-4adf-97d0-5878556b3037",
+          "Center": "0.5,0.5",
+          "Color": "0,0,0,1",
+          "Intensity": 0.45,
+          "Roundness": 1,
+          "Smoothness": 0.9
         }
       ]
     }

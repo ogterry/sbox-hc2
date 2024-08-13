@@ -14,31 +14,39 @@ public class VoxelRenderer : Component, Component.ExecuteInEditor
 
 		Transform.OnTransformChanged += OnLocalTransformChanged;
 
-		Model = new VoxelModel( 128, 64, 128 );
+		Model?.Destroy();
+		Model = new VoxelModel( 512, 128, 512 );
 
-		for ( int x = 0; x < 128; x++ )
+		for ( int x = 0; x < 512; x++ )
 		{
-			for ( int z = 0; z < 128; z++ )
+			for ( int z = 0; z < 512; z++ )
 			{
-				float noiseValue = Noise.Perlin( x * 1.0f, z * 1.0f );
-				int height = (int)(noiseValue * 64);
+				float noiseValue = Noise.Fbm( 8, x * 0.4f, z * 0.4f );
+				int surfaceHeight = (int)(noiseValue * 128);
+				surfaceHeight = Math.Clamp( surfaceHeight, 0, 127 );
 
-				byte blockType;
-				if ( noiseValue < 0.3f )
+				for ( int y = 0; y < surfaceHeight; y++ )
 				{
-					blockType = 1;
-				}
-				else if ( noiseValue < 0.6f )
-				{
-					blockType = 2;
-				}
-				else
-				{
-					blockType = 3;
-				}
+					float caveNoise = Noise.Perlin( x * 1.0f, y * 1.0f, z * 1.0f );
 
-				for ( int y = 0; y < height; y++ )
-				{
+					if ( caveNoise < 0.4f )
+						continue;
+
+					byte blockType;
+
+					if ( y < surfaceHeight - 4 )
+					{
+						blockType = 2;
+					}
+					else if ( y < surfaceHeight - 1 )
+					{
+						blockType = 1;
+					}
+					else
+					{
+						blockType = 3;
+					}
+
 					Model.AddVoxel( z, y, x, blockType );
 				}
 			}
@@ -46,7 +54,7 @@ public class VoxelRenderer : Component, Component.ExecuteInEditor
 
 		var transform = Transform.World;
 
-		foreach ( var mesh in Model.meshChunks )
+		foreach ( var mesh in Model.MeshChunks )
 		{
 			MeshChunk( mesh, transform );
 		}
@@ -66,7 +74,7 @@ public class VoxelRenderer : Component, Component.ExecuteInEditor
 	{
 		var transform = Transform.World;
 
-		foreach ( var mesh in Model.meshChunks )
+		foreach ( var mesh in Model.MeshChunks )
 		{
 			if ( mesh == null )
 				continue;
@@ -97,7 +105,7 @@ public class VoxelRenderer : Component, Component.ExecuteInEditor
 
 public partial class VoxelModel
 {
-	public ChunkMesh[] meshChunks = new ChunkMesh[Constants.MaxChunkAmountCubed];
+	public ChunkMesh[] MeshChunks = new ChunkMesh[Constants.MaxChunkAmountCubed];
 
 	public int SizeX;
 	public int SizeY;
@@ -113,10 +121,10 @@ public partial class VoxelModel
 
 	public Chunk[] Chunks;
 
-	public bool ShouldMeshExterior = true;
-
 	public static readonly Chunk EmptyChunk;
 	public static readonly Chunk FullChunk;
+
+	public bool ShouldMeshExterior = true;
 
 	static VoxelModel()
 	{
@@ -155,7 +163,7 @@ public partial class VoxelModel
 
 	public void Destroy()
 	{
-		foreach ( var chunk in meshChunks )
+		foreach ( var chunk in MeshChunks )
 		{
 			if ( chunk == null )
 				continue;
@@ -200,7 +208,7 @@ public partial class VoxelModel
 
 		if ( chunk.Allocated )
 		{
-			Assert.True( meshChunks[chunkAccess] != null );
+			Assert.True( MeshChunks[chunkAccess] != null );
 			return chunk;
 		}
 
@@ -209,7 +217,7 @@ public partial class VoxelModel
 		chunk.Reset( f, g, h, false );
 		Assert.True( chunk.Allocated );
 
-		meshChunks[chunkAccess] = new ChunkMesh( this, chunk );
+		MeshChunks[chunkAccess] = new ChunkMesh( this, chunk );
 
 		Assert.True( chunk.Voxels != null );
 

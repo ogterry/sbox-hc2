@@ -46,11 +46,11 @@ VS
 		int normal = int((i.vData >> 21) & 7); 
 		float brightness = float((i.vData >> 18) & 7) / 7.0;
 
-		float3 color = float3( 0.75, 0.25, 0.25 );
-		if ( texindex == 1 ) color = float3( 0.25, 0.75, 0.25 );
-		else if ( texindex == 2 ) color = float3( 0.25, 0.25, 0.75 );
-		else if ( texindex == 3 ) color = float3( 0.25, 0.75, 0.75 );
-		else if ( texindex == 4 ) color = float3( 0.75, 0.75, 0.25 );
+		float3 color = float3(0.35, 0.16, 0.07);
+		if ( texindex == 1 ) color = float3(0.3, 0.3, 0.3);
+		else if ( texindex == 2 ) color = float3(0.0, 0.3, 0.0);
+		else if ( texindex == 3 ) color = float3(0.25, 0.75, 0.75);
+		else if ( texindex == 4 ) color = float3(0.75, 0.75, 0.25);
 
 		i.vPositionOs = position;
 
@@ -105,6 +105,7 @@ PS
 
 		Material m = Material::From( i );
 		m.Albedo = i.vVertexColor.rgb;
+		m.Roughness = 1;
 		return ShadingModelStandard::Shade( i, m );
 	}
 }
