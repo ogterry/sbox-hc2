@@ -1,0 +1,173 @@
+{
+  "RootObject": {
+    "__guid": "428544c1-ffd3-4a74-8117-54a26c9f5fd0",
+    "Flags": 0,
+    "Name": "leggy",
+    "Enabled": true,
+    "Components": [
+      {
+        "__type": "HC2.Mobs.Mob",
+        "__guid": "b2e11a2c-001a-4aef-8168-1fa3ec9ff862",
+        "DamageScale": 1,
+        "ExperienceYield": 40
+      },
+      {
+        "__type": "HealthComponent",
+        "__guid": "c4ca3076-330c-4ab5-ba3b-e0492c19292b",
+        "DamageEffectPrefab": {
+          "_type": "gameobject",
+          "prefab": "prefabs/damage/dmgnumber.prefab"
+        },
+        "MaxHealth": 1000
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "79a9fa35-e6fa-4faa-aeb9-883efc884edc",
+        "Flags": 0,
+        "Name": "Body",
+        "Position": "0,0,100",
+        "Enabled": true,
+        "Children": [
+          {
+            "__guid": "18ae40dd-5899-43a2-a914-00de2b6ee048",
+            "Flags": 0,
+            "Name": "Cube (2)",
+            "Position": "-225,0,25",
+            "Scale": "4,5,3",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.ModelRenderer",
+                "__guid": "ed85dbbd-ed4e-49d2-bf63-8d1737dc3099",
+                "BodyGroups": 18446744073709551615,
+                "Model": "models/dev/box.vmdl",
+                "RenderType": "On",
+                "Tint": "1,1,1,1"
+              },
+              {
+                "__type": "Sandbox.BoxCollider",
+                "__guid": "15d19cb4-5f6f-4045-9f11-f2add5aba87d",
+                "Center": "0,0,0",
+                "IsTrigger": false,
+                "Scale": "50,50,50",
+                "Static": false
+              }
+            ]
+          },
+          {
+            "__guid": "0e153eb3-add2-4519-abdb-af0537b21eed",
+            "Flags": 0,
+            "Name": "Cube",
+            "Position": "25,0,0",
+            "Scale": "4,3,2",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.ModelRenderer",
+                "__guid": "8a8d1333-eb00-4bdb-9fde-92ec840b8abc",
+                "BodyGroups": 18446744073709551615,
+                "Model": "models/dev/box.vmdl",
+                "RenderType": "On",
+                "Tint": "1,1,1,1"
+              },
+              {
+                "__type": "Sandbox.BoxCollider",
+                "__guid": "9827bd45-cd22-47ce-a95b-4264497b7130",
+                "Center": "0,0,0",
+                "IsTrigger": false,
+                "Scale": "50,50,50",
+                "Static": false
+              }
+            ]
+          },
+          {
+            "__guid": "c807285a-5edd-4dfb-8266-9d05688201ad",
+            "Flags": 0,
+            "Name": "Cube (1)",
+            "Position": "-100,0,0",
+            "Scale": "1,2.5,1",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.ModelRenderer",
+                "__guid": "321bb6d3-df94-457e-b876-8f37309c1f7d",
+                "BodyGroups": 18446744073709551615,
+                "Model": "models/dev/box.vmdl",
+                "RenderType": "On",
+                "Tint": "1,1,1,1"
+              }
+            ]
+          },
+          {
+            "__guid": "c74a2297-1fce-40c4-b73e-fa100cbe1743",
+            "Flags": 0,
+            "Name": "LeftLeg1",
+            "Position": "75,75.00003,0",
+            "Rotation": "0,0,0.6087614,0.7933533",
+            "Enabled": true,
+            "__Prefab": "prefabs/mobs/parts/leg.prefab",
+            "__PrefabVariables": {}
+          },
+          {
+            "__guid": "793cc52e-802b-4693-b810-7439f50cb7d9",
+            "Flags": 0,
+            "Name": "RightLeg3",
+            "Position": "-25,-75.00002,0",
+            "Rotation": "0,0,-0.7933532,0.6087616",
+            "Enabled": true,
+            "__Prefab": "prefabs/mobs/parts/leg.prefab",
+            "__PrefabVariables": {}
+          },
+          {
+            "__guid": "7f0983ad-5cb8-47f3-b336-fe4fa72bd6ff",
+            "Flags": 0,
+            "Name": "LeftLeg2",
+            "Position": "25,75,0",
+            "Rotation": "0,0,0.7071068,0.7071068",
+            "Enabled": true,
+            "__Prefab": "prefabs/mobs/parts/leg.prefab",
+            "__PrefabVariables": {}
+          },
+          {
+            "__guid": "aab4e643-f26e-4ea0-b17c-8c9e44a9315b",
+            "Flags": 0,
+            "Name": "RightLeg2",
+            "Position": "25,-75,0",
+            "Rotation": "0,0,-0.7071067,0.7071069",
+            "Enabled": true,
+            "__Prefab": "prefabs/mobs/parts/leg.prefab",
+            "__PrefabVariables": {}
+          },
+          {
+            "__guid": "fa237f9a-2083-4515-a656-b8f595cdf107",
+            "Flags": 0,
+            "Name": "LeftLeg3",
+            "Position": "-25,75.00003,0",
+            "Rotation": "0,0,0.7933533,0.6087614",
+            "Enabled": true,
+            "__Prefab": "prefabs/mobs/parts/leg.prefab",
+            "__PrefabVariables": {}
+          },
+          {
+            "__guid": "279edf84-fe4c-433c-8951-68a9a8686522",
+            "Flags": 0,
+            "Name": "RightLeg3",
+            "Position": "75,-74.99998,0",
+            "Rotation": "0,0,-0.6087613,0.7933534",
+            "Enabled": true,
+            "__Prefab": "prefabs/mobs/parts/leg.prefab",
+            "__PrefabVariables": {}
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

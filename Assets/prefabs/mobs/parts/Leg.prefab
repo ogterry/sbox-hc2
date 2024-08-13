@@ -1,0 +1,89 @@
+{
+  "RootObject": {
+    "__guid": "7f0983ad-5cb8-47f3-b336-fe4fa72bd6ff",
+    "Flags": 0,
+    "Name": "Leg",
+    "Position": "0,75,0",
+    "Rotation": "0,0,0.7071068,0.7071068",
+    "Enabled": true,
+    "Children": [
+      {
+        "__guid": "deca9e45-537c-4064-b037-1f15fc33d6ab",
+        "Flags": 0,
+        "Name": "Model",
+        "Position": "75,0,0",
+        "Scale": "3,0.5,0.5",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "a23cee60-000c-4fb9-95fd-7013d9f2115e",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/dev/box.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "32bd6809-6b9f-4586-b4b6-f433d5ca76e5",
+        "Flags": 0,
+        "Name": "Lower",
+        "Position": "150,-0.00005028021,0",
+        "Enabled": true,
+        "Children": [
+          {
+            "__guid": "28972fdb-48f2-4c1f-b97f-50388b36f680",
+            "Flags": 0,
+            "Name": "Model",
+            "Position": "75,0.00005028021,0",
+            "Scale": "3,0.5,0.5",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.ModelRenderer",
+                "__guid": "8d4c9f3d-0e3a-42a2-a596-0b476ecf7828",
+                "BodyGroups": 18446744073709551615,
+                "Model": "models/dev/box.vmdl",
+                "RenderType": "On",
+                "Tint": "1,1,1,1"
+              }
+            ]
+          },
+          {
+            "__guid": "401c001d-4163-4dc8-9116-d780a57020f6",
+            "Flags": 0,
+            "Name": "Foot",
+            "Position": "150,-0.0000268221,0",
+            "Enabled": true,
+            "Children": [
+              {
+                "__guid": "dca703fd-daa1-4107-abe6-67a15cec59e4",
+                "Flags": 0,
+                "Name": "Model",
+                "Position": "0,0,0",
+                "Enabled": true,
+                "Components": [
+                  {
+                    "__type": "Sandbox.ModelRenderer",
+                    "__guid": "0cbe808a-c903-4fbf-97a1-fdcdac7d3553",
+                    "BodyGroups": 18446744073709551615,
+                    "Model": "models/dev/sphere.vmdl",
+                    "RenderType": "On",
+                    "Tint": "1,1,1,1"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

@@ -505,6 +505,15 @@
       "Enabled": true,
       "__Prefab": "prefabs/hud.prefab",
       "__PrefabVariables": {}
+    },
+    {
+      "__guid": "d87b1018-2125-46f5-9486-fb95bf91e0d9",
+      "Flags": 0,
+      "Name": "leggy",
+      "Position": "-343.4939,-690.2849,50",
+      "Enabled": true,
+      "__Prefab": "prefabs/mobs/leggy.prefab",
+      "__PrefabVariables": {}
     }
   ],
   "SceneProperties": {
