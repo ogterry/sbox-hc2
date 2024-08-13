@@ -13,6 +13,8 @@
 
 @code
 {
-    public Item Item { get; set; }                                  
+    public Item Item { get; set; }
     public int SlotIndex { get; set; }
+
+    protected override int BuildHash() => System.HashCode.Combine(Item?.Amount);
 }

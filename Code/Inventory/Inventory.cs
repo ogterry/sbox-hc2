@@ -18,7 +18,7 @@ public class Inventory : Component, ISaveData
 	/// <summary>
 	/// If set, if this inventory can't hold any more items, it will overflow into this container.
 	/// </summary>
-	public InventoryContainer OverflowContainer { get; set; }
+	[Sync] public InventoryContainer OverflowContainer { get; set; }
 
 	protected override void OnAwake()
 	{
@@ -39,6 +39,30 @@ public class Inventory : Component, ISaveData
 
 		var item = Container.Items[slot];
 		return item;
+	}
+
+	/// <summary>
+	/// Try to give an item to this inventory. This can only be performed as the host as it requires network authority.
+	/// </summary>
+	/// <param name="item"></param>
+	/// <returns></returns>
+	public bool TryGiveItem(Item item)
+	{
+		if (!Container.Inventory.IsValid())
+			return false;
+
+		if (Container.CanGiveItem(item))
+		{
+			Container.TryGiveItem(item);
+			return true;
+		}
+		else if (OverflowContainer.IsValid() && OverflowContainer.CanGiveItem(item))
+		{
+			OverflowContainer.TryGiveItem(item);
+			return true;
+		}
+
+		return false;
 	}
 
 	/// <summary>

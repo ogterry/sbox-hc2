@@ -20,6 +20,23 @@ public struct InventoryContainer
 		}
 	}
 
+	public bool CanGiveItem(Item item)
+	{
+		if (!Inventory.IsValid()) return false;
+		for (int i = 0; i < MaxSlots; i++)
+		{
+			if (Items[i] == null)
+			{
+				return true;
+			}
+			else if (Items[i].Resource == item.Resource)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public bool TryGiveItem(Item item)
 	{
 		if (!Inventory.IsValid()) return false;

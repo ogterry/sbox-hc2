@@ -42,9 +42,22 @@
 	protected override int BuildHash()
 	{
 		var hc = new HashCode();
-		var inventory = Hotbar;
 
 		hc.Add(InventoryOpen);
+
+		var hotbar = Hotbar;
+		hc.Add(hotbar);
+
+		if (hotbar.IsValid())
+		{
+			foreach (var item in hotbar.GetAllItems())
+			{
+				hc.Add(item);
+				hc.Add(item.Amount);
+			}
+		}
+
+		var inventory = Inventory;
 		hc.Add(inventory);
 
 		if (inventory.IsValid())
@@ -55,6 +68,8 @@
 				hc.Add(item.Amount);
 			}
 		}
+
+
 
 		return hc.ToHashCode();
 	}
