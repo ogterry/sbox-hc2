@@ -130,8 +130,7 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 	/// <summary>
 	/// How much do we wish to move by? (Normal)
 	/// </summary>
-	[Sync]
-	private Vector3 WishMove { get; set; }
+	private Vector3 WishMove;
 
 	/// <summary>
 	/// How sticky are we to the ground?
@@ -323,8 +322,7 @@ public partial class Player : Component, IDamage, IGameEventHandler<KilledEvent>
 
 	protected override void OnUpdate()
 	{
-		// Only rotate the model if we're in motion
-		if ( ModelRenderer.IsValid() && WishMove.Length > 0f )
+		if ( ModelRenderer.IsValid() )
 		{
 			ModelRenderer.Transform.Rotation = Rotation.FromYaw( EyeAngles.yaw );
 		}
