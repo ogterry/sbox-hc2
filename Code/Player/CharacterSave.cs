@@ -49,6 +49,7 @@ public sealed class CharacterSave
 	public void Load( Player player )
 	{
 		var data = Json.Deserialize<Dictionary<string, string>>( SaveData );
+		if ( data is null ) return;
 		foreach ( var component in player.Components.GetAll<ISaveData>() )
 		{
 			var type = component.GetType().FullName;
