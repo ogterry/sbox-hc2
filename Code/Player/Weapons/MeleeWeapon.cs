@@ -1,6 +1,10 @@
 	public partial class MeleeWeapon : WeaponComponent
 {
-	[Property] public float AttackRange { get; set; } = 512f;
+	[Property, Group( "Melee" )] 
+	public float AttackRange { get; set; } = 512f;
+
+	[Property, Group( "Melee" )]
+	public float Thickness { get; set; } = 5f;
 
 	/// <summary>
 	/// This is a method because the player could have buffs / stats that increase their attack range.
@@ -15,8 +19,9 @@
 	{
 		base.Attack();
 
-		var tr = Scene.Trace.Ray( Player.CameraController.AimRay, GetAttackRange() )
+		var tr = Scene.Trace.Ray( GameObject.Transform.Position, GameObject.Transform.Position + Player.CameraController.AimRay.Forward * GetAttackRange() )
 			.IgnoreGameObjectHierarchy( Player.GameObject )
+			.Size( Thickness )
 			.Run();
 
 		if ( tr.Hit )
