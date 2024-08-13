@@ -1,0 +1,11 @@
+{
+  "Name": "Tree Branch",
+  "Description": "You can craft stuff with it.. or can you?",
+  "Icon": "item_icons/tree_branch.png",
+  "Tags": null,
+  "Prefab": null,
+  "ItemPrefab": null,
+  "WorldModel": "models/mobs/roller/roller_ball.vmdl",
+  "__references": [],
+  "__version": 0
+}

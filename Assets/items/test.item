@@ -1,11 +1,11 @@
 {
   "Name": "Cookie",
   "Description": "It\u0027s a cookie, yum.",
-  "Icon": "items/cookie.png",
+  "Icon": "item_icons/test.png",
   "Tags": "cookie",
   "Prefab": null,
   "ItemPrefab": null,
-  "WorldModel": null,
+  "WorldModel": "models/weapons/assault_rifle/assault_rifle.vmdl",
   "__references": [],
   "__version": 0
 }

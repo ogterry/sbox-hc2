@@ -516,42 +516,6 @@
       "__PrefabVariables": {}
     },
     {
-      "__guid": "829ac5e8-3acf-4e2e-8c03-d228cf21ab0a",
-      "Flags": 0,
-      "Name": "RubyNode (3)",
-      "Position": "605.2561,9.842957,-0.0000161021",
-      "Enabled": true,
-      "__Prefab": "prefabs/resources/rubynode.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "ff587d50-50e4-4399-90fa-c54ee671625a",
-      "Flags": 0,
-      "Name": "RubyNode (2)",
-      "Position": "233.3345,392.1332,-0.000005880452",
-      "Enabled": true,
-      "__Prefab": "prefabs/resources/rubynode.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "037dfbff-592b-4ffd-8ad3-3ede12afd77c",
-      "Flags": 0,
-      "Name": "RubyNode (1)",
-      "Position": "460.4574,283.9472,0.000006809026",
-      "Enabled": true,
-      "__Prefab": "prefabs/resources/rubynode.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "ea865760-495e-4ea4-8b9b-da5017d4b3b3",
-      "Flags": 0,
-      "Name": "RubyNode",
-      "Position": "346.2209,115.7421,0",
-      "Enabled": true,
-      "__Prefab": "prefabs/resources/rubynode.prefab",
-      "__PrefabVariables": {}
-    },
-    {
       "__guid": "3e74ef41-9f6e-4166-9e23-176ba29a940a",
       "Flags": 0,
       "Name": "rock_sharp_01",
@@ -584,6 +548,24 @@
           "Tint": "1,1,1,1"
         }
       ]
+    },
+    {
+      "__guid": "6cda134c-ec4e-4a51-88f5-086498577cb4",
+      "Flags": 0,
+      "Name": "node_tree",
+      "Position": "665.8662,275.8308,-113.8945",
+      "Enabled": true,
+      "__Prefab": "prefabs/resources/node_tree.prefab",
+      "__PrefabVariables": {}
+    },
+    {
+      "__guid": "50c68220-b5e3-4bf0-b59f-6ba01ded4800",
+      "Flags": 0,
+      "Name": "node_tree (1)",
+      "Position": "272.7562,516.9243,-106.7467",
+      "Enabled": true,
+      "__Prefab": "prefabs/resources/node_tree.prefab",
+      "__PrefabVariables": {}
     }
   ],
   "SceneProperties": {
