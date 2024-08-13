@@ -2,15 +2,13 @@
   "RootObject": {
     "__guid": "9717e1a7-9ef9-46ff-bc8b-a6cb8f69e239",
     "Flags": 0,
-    "Name": "Water",
-    "Position": "0,0,-64",
+    "Name": "water_plane",
     "Enabled": true,
     "Children": [
       {
         "__guid": "df88f7b3-7311-4738-8098-edb9bc24eddf",
         "Flags": 0,
         "Name": "Planar Reflections",
-        "Position": "0,0,0",
         "Tags": "maincamera",
         "Enabled": true,
         "Components": [
@@ -31,7 +29,6 @@
         "__guid": "5b6f6f6a-876d-47a4-9edf-379db5db6654",
         "Flags": 0,
         "Name": "Plane",
-        "Position": "0,0,0",
         "Scale": "1000,1000,1",
         "Enabled": true,
         "Components": [
@@ -43,10 +40,19 @@
             "Model": "models/dev/plane.vmdl",
             "RenderType": "On",
             "Tint": "1,1,1,1"
+          },
+          {
+            "__type": "Sandbox.PlaneCollider",
+            "__guid": "3d8e8d66-0f12-43e1-8731-90cdfa18cc59",
+            "Center": "0,0,0",
+            "IsTrigger": false,
+            "Scale": "100,100",
+            "Static": true
           }
         ]
       }
-    ]
+    ],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,
