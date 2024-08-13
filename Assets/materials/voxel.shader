@@ -39,6 +39,8 @@ VS
 
 	float g_flVoxelSize < Attribute( "VoxelSize" ); Default( 16.0 ); >;
 
+	StructuredBuffer<float4> g_ColorPalette < Attribute( "ColorPalette" ); >;
+
 	static const float3 normalVectors[6] =
 	{
 		float3( 0, 0, 1 ),
@@ -62,15 +64,10 @@ VS
 	PixelInput MainVs( VertexInput i )
 	{
 		float3 position = float3(float(i.vData & 63), float((i.vData >> 6) & 63), float((i.vData >> 12) & 63)) * g_flVoxelSize;
-		int texindex = int((i.vData >> 24) & 255);
+		int textureId = int((i.vData >> 24) & 255);
 		int normal = int((i.vData >> 21) & 7); 
 		float brightness = float((i.vData >> 18) & 7) / 7.0;
-
-		float3 color = float3(0.35, 0.16, 0.07);
-		if ( texindex == 1 ) color = float3(0.3, 0.3, 0.3);
-		else if ( texindex == 2 ) color = float3(0.0, 0.3, 0.0);
-		else if ( texindex == 3 ) color = float3(0.25, 0.75, 0.75);
-		else if ( texindex == 4 ) color = float3(0.75, 0.75, 0.25);
+		float3 color = g_ColorPalette[textureId];
 
 		i.vPositionOs = position;
 

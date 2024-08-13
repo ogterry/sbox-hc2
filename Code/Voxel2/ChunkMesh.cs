@@ -101,6 +101,7 @@ public partial class ChunkMesh
 				SceneObject.Flags.IsOpaque = true;
 				SceneObject.Flags.IsTranslucent = false;
 				SceneObject.Attributes.Set( "VoxelSize", Constants.VoxelSize );
+				SceneObject.Attributes.Set( "ColorPalette", Model.PaletteBuffer );
 			}
 		}
 	}

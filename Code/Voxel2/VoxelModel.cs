@@ -126,6 +126,8 @@ public partial class VoxelModel
 
 	public bool ShouldMeshExterior = true;
 
+	public ComputeBuffer<Color> PaletteBuffer;
+
 	static VoxelModel()
 	{
 		EmptyChunk = new Chunk();
@@ -139,6 +141,16 @@ public partial class VoxelModel
 
 	public VoxelModel( int mx, int my, int mz )
 	{
+		var palette = new Color[256];
+		palette[0] = new Color( 1.0f, 0.35f, 0.16f );
+		palette[1] = new Color( 0.3f, 0.3f, 0.3f );
+		palette[2] = new Color( 0.0f, 0.3f, 0.0f );
+		palette[3] = new Color( 0.25f, 0.75f, 0.75f );
+		palette[4] = new Color( 0.75f, 0.75f, 0.25f );
+
+		PaletteBuffer = new ComputeBuffer<Color>( 256 );
+		PaletteBuffer.SetData( palette );
+
 		Chunks = new Chunk[Constants.MaxChunkAmountCubed];
 		for ( int i = 0; i < Chunks.Length; i++ )
 		{
