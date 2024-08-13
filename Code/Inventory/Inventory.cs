@@ -25,22 +25,6 @@ public class Inventory : Component, ISaveData
 		Container = new( this, MaxSlots );
 	}
 
-	RealTimeSince timeSinceTest = 0;
-	protected override void OnFixedUpdate()
-	{
-		if ( !IsProxy ) return;
-		if ( timeSinceTest > 1f )
-		{
-			timeSinceTest = 0f;
-			Log.Info( $"Inventory has {Container.Items.Count} items" );
-			foreach ( var item in Container.Items )
-			{
-				if ( item is not null )
-					Log.Info( $"Item: {item.Resource.ResourceName} x{item.Amount}" );
-			}
-		}
-	}
-
 	/// <summary>
 	/// Get an item in the specified slot.
 	/// </summary>
