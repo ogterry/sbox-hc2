@@ -48,8 +48,9 @@ class CompassItem : Panel
 
 	public override void Tick()
 	{
-		const float maxAngle = 110;
+		if ( !Player.Local.IsValid() ) return;
 
+		const float maxAngle = 110;
 		var relativeAngle = Player.Local.CameraController.CalcRelativeYaw( Angle );
 		var halfMaxAngle = maxAngle / 2.0f;
 		var position = relativeAngle.LerpInverse( -halfMaxAngle, halfMaxAngle );
