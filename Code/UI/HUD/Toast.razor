@@ -9,20 +9,10 @@
         <divider class="divider-left"></divider>
 
         <column>
-            <label class="small">Location discovered</label>
+            <label class="small">LOCATION DISCOVERED</label>
             <label class="large">Location Name</label>
         </column>
 
         <divider class="divider-right"></divider>
     </div>
 </root>
-
-@code {
-    private TimeSince Alive = 0;
-
-    public override void Tick()
-    {
-        if (Alive > 3)
-            Delete();
-    }
-}

@@ -53,9 +53,13 @@ Chat {
         padding: $item-padding;
         width: 100%;
 
+        border-image: url( /ui/Panel/panel-001.png ) 11 fill;
+        border-image-tint: $background;
+
         .placeholder {
             padding: 0;
         }
+
         .label {
             padding: 0;
         }

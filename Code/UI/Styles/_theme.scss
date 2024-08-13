@@ -14,10 +14,12 @@ $text-sm: 12px;
 $text-lg: 20px;
 
 $background: rgba( black, 0.5 );
-$blur: blur( 25px );
+$blur: blur( 0 );
 $rounding: 4px;
 $border: 0px solid rgba( black, 0.1 );
 $shadow: 0 5px 50px rgba( black, 0.25 );
+
+$fade-horizontal: linear-gradient(to right, #ffffff00, #ffffffbb 20%, #ffffffee 40%, #ffffffee 60%, #ffffffbb 80%, #ffffff00 ) alpha;
 
 .glass-panel {
     background-color: $background;
@@ -37,4 +39,8 @@ label, text {
     &.large {
         font-size: 20px;
     }
+}
+
+.glass-panel.fade {
+    mask: $fade-horizontal;
 }
