@@ -1,0 +1,36 @@
+@using Sandbox.UI
+@using HC2
+@inherits Panel
+
+<root>
+    @if ( Resource is not null )
+    {
+        <div class="item" style="background-image: url(@Resource.Icon);">
+
+        </div>
+    }
+</root>
+
+@code
+{
+    public ItemAsset Resource { get; set; }
+
+    public override void Tick()
+    {
+        var DMousePos = Mouse.Position / Screen.Size;
+        var left = DMousePos.x;
+        var top = DMousePos.y;
+
+        Style.Left = Length.Fraction( left );
+        Style.Top = Length.Fraction( top );
+
+        // var transform = new PanelTransform();
+        // transform.AddTranslateY( Length.Fraction( -0.5f ) );
+        // transform.AddTranslateX( Length.Fraction( -0.5f ) );
+
+        // Style.Transform = transform;
+        Style.PointerEvents = PointerEvents.None;
+    }
+
+    protected override int BuildHash() => System.HashCode.Combine(Resource);
+}

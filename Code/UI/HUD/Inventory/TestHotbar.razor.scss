@@ -53,7 +53,7 @@ TestHotbar
         }
     }
 
-    ItemSlot
+    ItemSlot, DummyItem
     {
         cursor: pointer;
         background-color: gray;
@@ -93,5 +93,10 @@ TestHotbar
             border-image-tint: darken( red, 0.7 );
             background-color: rgba( red, 1 );
         }
+    }
+
+    DummyItem
+    {
+        position: absolute;
     }
 }

@@ -46,7 +46,9 @@
 
     ItemSlot DraggingItem { get; set; }
 
-    protected override void OnMouseDown(MousePanelEvent e)
+    public DummyItem Dummy { get; set; }
+
+    protected override void OnMouseDown( MousePanelEvent e )
     {
         if (e.MouseButton == MouseButtons.Left)
         {
@@ -76,19 +78,21 @@
         if (!DraggingItem.IsValid())
             return;
 
+        if (DraggingItem.Item.Resource is null)
+            return;
+
         IsDragging = true;
 
-        // Dummy = new DraggedItem()
-        // {
-        // Item = DraggingItem.Item,
-        // Slot = DraggingItem.Slot
-        // };
+        Dummy = new DummyItem()
+        {
+            Resource = DraggingItem.Item.Resource
+        };
 
         DraggingItem.SetClass("being-dragged", true);
 
         SetClass("dragging-active", true);
 
-        // AddChild( Dummy );
+        AddChild( Dummy );
 
         Log.Info($"Started dragging {DraggingItem}");
     }
@@ -117,11 +121,11 @@
             return;
         }
 
-        // if ( !Dummy.IsValid() )
-        // return;
+        if ( !Dummy.IsValid() )
+            return;
 
-        // Dummy.Delete( true );
-
+        Dummy.Delete( true );
+        
         // TODO: Improve this
         var slotA = item;
         var slotB = HoveredSlot;
