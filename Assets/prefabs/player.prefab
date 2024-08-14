@@ -178,6 +178,17 @@
         "__type": "HC2.Hotbar",
         "__guid": "a080aa62-f755-4b7f-b18e-71402eae3534",
         "MaxSlots": 9
+      },
+      {
+        "__type": "Sandbox.Voice",
+        "__guid": "60eb9c4b-7820-4fa1-9459-c0fe60e62fd6",
+        "Loopback": false,
+        "Mode": "PushToTalk",
+        "MorphScale": 3,
+        "MorphSmoothTime": 0.1,
+        "PushToTalkInput": "voice",
+        "Volume": 1,
+        "WorldspacePlayback": true
       }
     ],
     "Children": [
