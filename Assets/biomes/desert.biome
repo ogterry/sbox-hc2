@@ -1,9 +1,9 @@
 {
   "Name": "Desert",
   "Temperature": 0.8,
-  "SurfaceBlockId": 7,
-  "UnderSurfaceId": 8,
-  "DeepBlockId": 9,
+  "SurfaceBlockId": 1,
+  "UnderSurfaceId": 2,
+  "DeepBlockId": 3,
   "__references": [],
   "__version": 0
 }

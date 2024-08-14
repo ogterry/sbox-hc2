@@ -1,9 +1,9 @@
 {
   "Name": "Snow",
   "Temperature": 0.2,
-  "SurfaceBlockId": 4,
-  "UnderSurfaceId": 5,
-  "DeepBlockId": 6,
+  "SurfaceBlockId": 1,
+  "UnderSurfaceId": 2,
+  "DeepBlockId": 3,
   "__references": [],
   "__version": 0
 }
