@@ -113,19 +113,22 @@ public class Inventory : Component, ISaveData
 		{
 			return;
 		}
+		var itemResource = item.Resource;
 		var otherInventory = item.Container;
 		var oldIndex = item.SlotIndex;
+		var amount = item.Amount;
 		var currentItemInSlot = GetItemInSlot( slotIndex );
 
 		otherInventory?.ClearItemSlot( oldIndex );
 
-		if ( currentItemInSlot?.IsValid() ?? false )
+		if ( currentItemInSlot is not null )
 		{
 			if ( otherInventory is not null )
 			{
 				if ( currentItemInSlot?.Resource != item.Resource )
 				{
 					otherInventory?.TryGiveItemSlot( currentItemInSlot, oldIndex );
+					Container.ClearItemSlot( slotIndex );
 				}
 				else
 				{
@@ -134,6 +137,7 @@ public class Inventory : Component, ISaveData
 						var diff = currentItemInSlot.Resource.MaxStack - currentItemInSlot.Amount;
 						currentItemInSlot.Amount = currentItemInSlot.Resource.MaxStack;
 						TryGiveItem( Item.Create( item.Resource, item.Amount - diff ) );
+						return;
 					}
 					else
 					{
@@ -150,7 +154,6 @@ public class Inventory : Component, ISaveData
 		}
 
 		Container.TryGiveItemSlot( item, slotIndex );
-		Container = Container; // Refresh the container
 	}
 
 	/// <summary>
