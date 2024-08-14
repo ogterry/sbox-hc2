@@ -22,6 +22,10 @@
           "_type": "gameobject",
           "go": "99705985-0f19-444c-9d48-0fdbe9b8aa05"
         },
+        "MuzzleFlashPrefab": {
+          "_type": "gameobject",
+          "prefab": "prefabs/weapons/muzzle-flash-smg.prefab"
+        },
         "ProjectilePrefab": {
           "_type": "gameobject",
           "go": "ed8d5c90-52c7-4715-b1e7-7a7cb8ae4128"

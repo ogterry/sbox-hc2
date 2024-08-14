@@ -15,6 +15,11 @@ public partial class ProjectileWeapon : WeaponComponent
 	/// </summary>
 	[Property, Group( "Projectile Weapon" )] public float EjectSpeed { get; set; } = 1024000f;
 
+	///<summary>
+	/// Muzzle flash prefab
+	/// </summary>
+	[Property, Group( "Visuals" )] public GameObject MuzzleFlashPrefab { get; set; }
+
 	protected override void Attack()
 	{
 		base.Attack();
@@ -32,6 +37,16 @@ public partial class ProjectileWeapon : WeaponComponent
 			StartEnabled = true,
 			Name = $"Projectile from {this}"
 		} ) ;
+
+		if ( MuzzleFlashPrefab.IsValid() )
+		{
+			var muzzle = MuzzleFlashPrefab.Clone( new CloneConfig()
+			{
+				Parent = null,
+				Transform = Muzzle.Transform.World.WithScale( 1f ).WithRotation( Rotation.From( Muzzle.Transform.Rotation * Rotation.FromPitch(90) ) ),
+				StartEnabled = true
+			} );
+		}
 
 		// Make projectiles ignore players!
 		go.Tags.Add( "ignore_players" );
