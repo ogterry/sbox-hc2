@@ -115,7 +115,21 @@ public sealed class HealthComponent : Component
 			text.Outline.Color = Color.Black;
 			text.Outline.Size = 8;
 
+			text.FontItalic = instance.Type == DamageType.Sharp && instance.Damage > 0;  
+
 			textRenderer.Text = text;
+		}
+
+		if(instance.Type == DamageType.Heal)
+		{
+			var particleEffect = particle.Components.Get<ParticleEffect>();
+			if(particleEffect != null)
+			{
+				particleEffect.StartVelocity = Game.Random.Float(20f, 40f);
+				particleEffect.ForceDirection = new Vector3( 0f, 0f, 50f );
+				particleEffect.Damping = 0.35f;
+				particleEffect.Stretch = 0f;
+			}
 		}
 	}
 

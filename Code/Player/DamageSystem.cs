@@ -31,16 +31,16 @@ public static class DamageTypeExtensions
 	{
 		return type switch
 		{
-			DamageType.Blunt => Color.White,
-			DamageType.Sharp => Color.Red,
+			DamageType.Blunt => new Color(0.7f, 0.7f, 0.7f),
+			DamageType.Sharp => new Color(1f, 0.7f, 0.2f),
 			DamageType.Explosive => Color.Yellow,
-			DamageType.Fire => Color.Orange,
-			DamageType.Freeze => Color.Blue,
+			DamageType.Fire => Color.Red,
+			DamageType.Freeze => new Color(0.5f, 0.6f, 1f),
 			DamageType.Poison => Color.Green,
-			DamageType.Electric => Color.Cyan,
-			DamageType.Radiation => Color.Magenta,
-			DamageType.Acid => Color.Yellow,
-			DamageType.Heal => Color.Green,
+			DamageType.Electric => new Color(1f, 1f, 0.8f),
+			DamageType.Radiation => new Color(0.7f, 0.2f, 0.5f),
+			DamageType.Acid => new Color(0.8f, 1f, 0f),
+			DamageType.Heal => new Color(1f, 0.5f, 0.5f),
 			_ => Color.White,
 		};
 	}
@@ -49,8 +49,8 @@ public static class DamageTypeExtensions
 	{
 		return type switch
 		{
-			DamageType.Blunt => "🏏",
-			DamageType.Sharp => "⚔️",
+			DamageType.Blunt => "",
+			DamageType.Sharp => "",
 			DamageType.Explosive => "💥",
 			DamageType.Fire => "🔥",
 			DamageType.Freeze => "❄️",
