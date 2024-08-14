@@ -326,20 +326,6 @@ public partial class Player : Component, IDamage,
 		Character.Move();
 		// Apply the second half
 		ApplyHalfGravity();
-
-		if (Input.Released("attack2"))
-		{
-			GiveRandomItemOnHost();
-		}
-	}
-
-	[Broadcast]
-	private void GiveRandomItemOnHost()
-	{
-		if (!Sandbox.Networking.IsHost) return;
-		var itemType = Game.Random.Float() > 0.5f ? "gem" : "test";
-		var item = Item.Create(itemType);
-		Hotbar.GiveItem(item);
 	}
 
 	private void ApplyAnimation()
