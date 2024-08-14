@@ -75,13 +75,12 @@ public class Inventory : Component, ISaveData
 	/// </summary>
 	/// <param name="item">This item must already exist on the host.</param>
 	/// <param name="slotIndex"></param>
-	[Authority]
 	public void MoveItem( Item item, int slotIndex )
 	{
 		var oldInventory = item.Container;
 		var otherItem = GetItemInSlot( slotIndex );
 
-		if ( otherItem.IsValid() )
+		if ( otherItem?.IsValid() ?? false )
 		{
 			if ( oldInventory?.IsValid() ?? false )
 			{

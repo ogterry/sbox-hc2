@@ -121,8 +121,12 @@
         //     return;
 
         // Dummy.Delete( true );
+        
+        // TODO: Improve this
+        var slotA = item;
+        var slotB = HoveredSlot;
 
-        // TODO: Move the item
+        slotA.Item.Container.Value.Inventory.MoveItem( slotA.Item, slotB.SlotIndex );
     }
 
     public override void Tick()
