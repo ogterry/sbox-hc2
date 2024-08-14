@@ -21,7 +21,7 @@ public record struct WorldGenModification( int Seed, Vector3Int Min, Vector3Int 
 		stream.Write( Max );
 	}
 
-	private static Transform GetRandomNoiseTransform( Random random )
+	private static Transform GetRandomNoiseTransform( Random random, float scale )
 	{
 		var pos = new Vector3(
 			random.Float( -32_768f, 32_768f ),
@@ -30,7 +30,7 @@ public record struct WorldGenModification( int Seed, Vector3Int Min, Vector3Int 
 
 		var rotation = random.Rotation();
 
-		return new Transform( pos, rotation );
+		return new Transform( pos, rotation, scale );
 	}
 
 	public void Apply( Chunk chunk )
@@ -38,13 +38,13 @@ public record struct WorldGenModification( int Seed, Vector3Int Min, Vector3Int 
 		var min = chunk.WorldMin;
 		var random = new Random( Seed );
 
-		const int minHeight = 32;
-		const int maxHeight = 128;
-
-		var surfaceNoiseTransform = GetRandomNoiseTransform( random );
-		var caveNoiseTransform = GetRandomNoiseTransform( random );
+		var surfaceNoiseTransform = GetRandomNoiseTransform( random, 0.4f );
+		var biomeNoiseTransform = GetRandomNoiseTransform( random, 0.1f );
+		var caveNoiseTransform = GetRandomNoiseTransform( random, 1f );
 
 		chunk.Clear();
+
+		var voxels = chunk.Voxels;
 
 		for ( var x = 0; x < Constants.ChunkSize; x++ )
 		{
@@ -53,12 +53,23 @@ public record struct WorldGenModification( int Seed, Vector3Int Min, Vector3Int 
 				var worldX = min.x + x;
 				var worldZ = min.z + z;
 
-				var surfaceNoisePos = surfaceNoiseTransform.PointToWorld( new Vector3( worldX, 0f, worldZ ) * 0.4f );
-				var surfaceNoise = Math.Clamp( Noise.Fbm( 8, surfaceNoisePos.x, surfaceNoisePos.y, surfaceNoisePos.z ), 0f, 1f );
+				var surfaceNoisePos = surfaceNoiseTransform.PointToWorld( new Vector3( worldX, 0f, worldZ ) );
+				var surfaceNoise = Math.Clamp( Noise.Fbm( 4, surfaceNoisePos.x, surfaceNoisePos.y, surfaceNoisePos.z ), 0f, 1f );
+				var biomeNoisePos = biomeNoiseTransform.PointToWorld( new Vector3( worldX, 0f, worldZ ) );
+				var biomeNoise = Math.Clamp( Noise.Fbm( 3, biomeNoisePos.x, biomeNoisePos.y, biomeNoisePos.z ), 0f, 1f );
 
-				surfaceNoise = MathF.Pow( surfaceNoise, 4f );
+				surfaceNoise = MathF.Pow( surfaceNoise, 2f + biomeNoise * 2f );
+
+				var minHeight = 16f + biomeNoise * 32f;
+				var maxHeight = 24f + biomeNoise * 256f;
 
 				var surfaceHeight = Math.Clamp( (int)(surfaceNoise * (maxHeight - minHeight)) + minHeight, minHeight, maxHeight - 1 ) - min.y;
+
+				var i = Chunk.WorldToLocal( x );
+				var k = Chunk.WorldToLocal( z );
+
+				var minJ = int.MaxValue;
+				var maxJ = int.MinValue;
 
 				for ( var y = 0; y < Constants.ChunkSize && y < surfaceHeight; y++ )
 				{
@@ -67,7 +78,7 @@ public record struct WorldGenModification( int Seed, Vector3Int Min, Vector3Int 
 					var caveNoisePos = caveNoiseTransform.PointToWorld( new Vector3( worldX, worldY, worldZ ) );
 					var caveNoise = Noise.Perlin( caveNoisePos.x, caveNoisePos.y, caveNoisePos.z );
 
-					if ( caveNoise < 0.4f )
+					if ( caveNoise < biomeNoise * 0.4f )
 						continue;
 
 					byte blockType;
@@ -85,8 +96,20 @@ public record struct WorldGenModification( int Seed, Vector3Int Min, Vector3Int 
 						blockType = 3;
 					}
 
-					chunk.SetVoxel( x, y, z, blockType );
+					var j = Chunk.WorldToLocal( y );
+
+					voxels[Chunk.GetAccessLocal( i, j, k )] = blockType;
+
+					minJ = Math.Min( j, minJ );
+					maxJ = Math.Max( j, maxJ );
 				}
+
+				if ( maxJ < 0 || minJ > 255 ) continue;
+
+				var heightmapAccess = Chunk.GetHeightmapAccess( i, k );
+
+				chunk.MinAltitude[heightmapAccess] = (byte)minJ;
+				chunk.MaxAltitude[heightmapAccess] = (byte)maxJ;
 			}
 		}
 	}
