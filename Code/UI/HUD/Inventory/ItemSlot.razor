@@ -3,10 +3,10 @@
 @inherits Panel
 
 <root>
-    @if ( Item?.IsValid() ?? false )
+    @if (Item?.IsValid() ?? false)
     {
-        <div class="item" style="background-image: url(@Item.Resource.Icon);">
-            @if ( Item.Resource.MaxStack > 1 )
+        <div class="item" style="background-image: url(@(Item?.Resource?.Icon ?? ""));">
+            @if (Item.Resource.MaxStack > 1)
             {
                 <label class="amount">@Item.Amount</label>
             }
@@ -20,25 +20,25 @@
     public int SlotIndex { get; set; }
     public Inventory Inventory { get; set; }
 
-    protected override void OnMouseOver( MousePanelEvent e )
+    protected override void OnMouseOver(MousePanelEvent e)
     {
-        base.OnMouseOver( e );
+        base.OnMouseOver(e);
 
-        AddClass( "hovered-item" );
+        AddClass("hovered-item");
 
-        if ( InventoryUI.HoveredSlot != this )
+        if (InventoryUI.HoveredSlot != this)
             InventoryUI.HoveredSlot = this;
     }
 
-    protected override void OnMouseOut( MousePanelEvent e) 
+    protected override void OnMouseOut(MousePanelEvent e)
     {
         base.OnMouseOut(e);
 
-        RemoveClass( "hovered-item" );
+        RemoveClass("hovered-item");
 
-        if ( InventoryUI.HoveredSlot == this )
+        if (InventoryUI.HoveredSlot == this)
             InventoryUI.HoveredSlot = null;
     }
 
-    protected override int BuildHash() => System.HashCode.Combine( Item?.Amount );
+    protected override int BuildHash() => System.HashCode.Combine(Item?.Amount);
 }
