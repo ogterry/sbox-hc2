@@ -1,6 +1,5 @@
 ﻿using Sandbox.UI;
 using Sandbox.UI.Construct;
-using System;
 
 public class Compass : Panel
 {
@@ -10,12 +9,14 @@ public class Compass : Panel
 	{
 		StyleSheet.Load( "/UI/HUD/Compass.scss" ); // [StyleSheet] doesn't work here?
 
+		var inner = AddChild<Panel>( "inner" );
+
 		//
 		// North/south/east/west
 		//
 		for ( int i = 0; i < 8; i++ )
 		{
-			var label = new CompassLabel( this, i );
+			var label = new CompassLabel( inner, i );
 			label.Angle = i * 45f;
 			CompassItems.Add( label );
 		}
@@ -29,7 +30,7 @@ public class Compass : Panel
 			if ( i % (360 / (8 * angleIncrement)) == 0 )
 				continue;
 
-			var label = new CompassLabel( this, i, "small" );
+			var label = new CompassLabel( inner, i, "small" );
 			label.Label.Text = (360 - (i * angleIncrement)).CeilToInt().ToString();
 			label.Angle = i * angleIncrement;
 			CompassItems.Add( label );
