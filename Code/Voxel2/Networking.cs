@@ -6,6 +6,7 @@ namespace Voxel;
 [Icon( "cell_tower" )]
 public sealed class VoxelNetworking : Component, Component.ExecuteInEditor
 {
+	// TODO: Send history to late joiners
 	// TODO: Spatial partitioning? only send nearby modifications?
 	// TODO: Erase redundant modifications from history?
 
@@ -21,20 +22,26 @@ public sealed class VoxelNetworking : Component, Component.ExecuteInEditor
 	public void Modify<T>( T modification )
 		where T : struct, IModification
 	{
-		if ( IsProxy ) throw new Exception( "Can't modify proxies." );
-
 		var writer = ByteStream.Create( 64 );
 
 		try
 		{
 			modification.Write( ref writer );
 
-			var serialized = new Modification( _nextIndex++,
+			var index = IsProxy ? -1 : _nextIndex++;
+			var serialized = new Modification( index,
 				modification.Kind, modification.Min, modification.Max,
 				writer.ToArray() );
 
-			_history.Add( serialized );
-			_toApply.Enqueue( serialized );
+			if ( !IsProxy )
+			{
+				_history.Add( serialized );
+				BroadcastSingle( serialized );
+			}
+			else
+			{
+				_toApply.Enqueue( serialized );
+			}
 		}
 		finally
 		{
@@ -111,5 +118,16 @@ public sealed class VoxelNetworking : Component, Component.ExecuteInEditor
 		{
 			ApplyPending();
 		}
+	}
+
+	private void BroadcastSingle( Modification modification )
+	{
+		BroadcastSingle( modification.Index, modification.Kind, modification.Min, modification.Max, modification.Data );
+	}
+
+	[Broadcast( NetPermission.HostOnly )]
+	private void BroadcastSingle( int index, ModificationKind kind, Vector3Int min, Vector3Int max, byte[] data )
+	{
+		_toApply.Enqueue( new Modification( index, kind, min, max, data ) );
 	}
 }

@@ -111,8 +111,6 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 
 	protected override void OnEnabled()
 	{
-		if ( IsProxy ) return;
-
 		Regenerate();
 	}
 }
