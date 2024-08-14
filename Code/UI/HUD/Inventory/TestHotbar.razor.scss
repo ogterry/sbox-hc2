@@ -1,3 +1,6 @@
+
+@import "../../Styles/_theme.scss";
+
 TestHotbar
 {
     position: absolute;
@@ -10,7 +13,6 @@ TestHotbar
 
     .container
     {
-        background-color: black;
         padding: 8px;
         position: absolute;
         flex-direction: row;
@@ -40,7 +42,7 @@ TestHotbar
             opacity: 1;
         }
 
-        ItemSlot 
+        ItemSlot
         {
             pointer-events: all;
         }
@@ -54,6 +56,10 @@ TestHotbar
         align-items: center;
         width: 64px;
         height: 64px;
+        backdrop-filter: $blur;
+        border-image-tint: $background;
+        border-image: url( /ui/Panel/panel-001.png ) 11 fill;
+        position: relative;
 
         &.hovered-item
         {
@@ -66,6 +72,14 @@ TestHotbar
             width: 48px;
             height: 48px;
             pointer-events: none;
+        }
+
+        .amount {
+            left: -4px;
+            top: -10px;
+            position: absolute;
+            color: white;
+            text-shadow: 1px 1px 1px black;
         }
 
         &.active
