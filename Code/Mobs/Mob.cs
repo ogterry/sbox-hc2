@@ -139,7 +139,7 @@ public sealed class Mob : Component,
 
 			var gib = go.Clone( go.Transform.Position, go.Transform.Rotation );
 			var rb = gib.Components.GetOrCreate<Rigidbody>();
-			rb.Velocity = force * Random.Shared.Float( 0.6f, 1f );
+			rb.Velocity = force * Random.Shared.Float( 0.7f, 0.9f );
 			gib.Components.Create<MobGib>();
 		}
 	}
