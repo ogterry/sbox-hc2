@@ -496,18 +496,18 @@ public partial class Player : Component, IDamage,
 		{
 			Character.IsOnGround = false;
 
-			Character.Velocity = Vector3.Zero;
-
 			Vector3 movement = Input.AnalogMove;
 
-			float speed = 250.0f;
+			float speed = 350.0f;
 
 			if(Input.Down("run"))
 			{
-				speed = 500.0f;
+				speed = 750.0f;
 			}
 
 			GameObject.Transform.Position += EyeAngles.ToRotation() * movement * speed * Time.Delta;
+
+			Character.Velocity = EyeAngles.ToRotation() * movement * speed;
 
 			return;
 		}
