@@ -282,7 +282,7 @@
         {
           "__type": "Sandbox.SkyBox2D",
           "__guid": "817e73e7-3e97-44d4-a1ca-006276a6d8fc",
-          "SkyMaterial": "materials/skybox/skybox_overcast_01.vmat",
+          "SkyMaterial": "materials/skybox/skybox_overcast_02.vmat",
           "Tint": "1,1,1,1"
         },
         {
@@ -590,6 +590,47 @@
       "Flags": 0,
       "Name": "GameObject",
       "Enabled": true
+    },
+    {
+      "__guid": "b169374b-0997-4fd9-b6bf-d31d7b1ad933",
+      "Flags": 0,
+      "Name": "Gradient Fog",
+      "Position": "-2983.949,-3350.317,3417.716",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.GradientFog",
+          "__guid": "5bf01ea6-c871-48fd-b571-a9b75ac11584",
+          "Color": "0.48545,0.63115,0.76744,1",
+          "EndDistance": 8192,
+          "FalloffExponent": 2,
+          "Height": 0,
+          "StartDistance": 0,
+          "VerticalFalloffExponent": 2
+        }
+      ]
+    },
+    {
+      "__guid": "dac1593f-f328-4f62-8b43-2c49c388d24d",
+      "Flags": 0,
+      "Name": "Cubemap Fog",
+      "Position": "766.071,-860.8685,424.8543",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.CubemapFog",
+          "__guid": "5fe9fb9a-0541-4ae1-883c-f03f4e7617cd",
+          "Blur": 0.77,
+          "EndDistance": 8192,
+          "FalloffExponent": 2,
+          "HeightExponent": 2,
+          "HeightStart": 2000,
+          "HeightWidth": 0,
+          "Sky": "materials/skybox/skybox_overcast_01.vmat",
+          "StartDistance": 0,
+          "Tint": "1,1,1,1"
+        }
+      ]
     }
   ],
   "SceneProperties": {
