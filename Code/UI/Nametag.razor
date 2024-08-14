@@ -2,31 +2,45 @@
 @using Sandbox.UI;
 @inherits PanelComponent
 
+@{
+    var experience = Player?.Experience;
+    if (!experience.IsValid()) return;
+
+    float experiencePerc = 100f * (experience.Points / (float)experience.MaxPoints);
+
+    var health = Player?.HealthComponent;
+    if (!health.IsValid()) return;
+
+    float healthPerc = 100f * (health.Health / (float)health.MaxHealth);
+}
+
 <root>
-	@if (!Player.IsValid()) return;
-	<div class="header">
-		<label class="name">@Player.CharacterName</label>
-	</div>
-	<div class="line" />
-	<div class="footer">
-		<label class="level">LVL @Player.Experience.Level</label>
-		<label class="health">HP: @Player.HealthComponent.Health</label>
-	</div>
+    @if (!Player.IsValid()) return;
+
+    <column>
+        <row>
+            <label>@PlayerName.ToUpper()</label>
+            <Donut Value="@(experiencePerc)" size="32" InnerText="@($"{experience.Level}")" />
+        </row>
+
+        <ProgressBar Value="@(healthPerc)" />
+    </column>
 </root>
 
-@code
-{
+@code {
+    private Connection Connection => Player?.Network.OwnerConnection;
+    public string PlayerName => Player?.CharacterName ?? "";
 
-	[Property] public Player Player { get; set; }
+    [Property] public Player Player { get; set; }
 
-	protected override void OnUpdate()
-	{
-		if (!Scene.Camera.IsValid()) return;
-		Transform.Rotation = Scene.Camera.Transform.Rotation * new Angles(0, 180, 0);
-		var distance = (Scene.Camera.Transform.Position - Transform.Position).Length;
-		var opacity = MathX.Clamp(1.0f - (distance / 1000.0f), 0.0f, 1.0f);
-		Panel.Style.Opacity = opacity;
-	}
+    protected override void OnUpdate()
+    {
+        if (!Scene.Camera.IsValid()) return;
+        Transform.Rotation = Scene.Camera.Transform.Rotation * new Angles(0, 180, 0);
+        var distance = (Scene.Camera.Transform.Position - Transform.Position).Length;
+        var opacity = MathX.Clamp(1.0f - (distance / 1000.0f), 0.0f, 1.0f);
+        Panel.Style.Opacity = opacity;
+    }
 
-	protected override int BuildHash() => System.HashCode.Combine(Player?.CharacterName, Player?.Experience?.Level, Player?.HealthComponent?.Health);
+    protected override int BuildHash() => System.HashCode.Combine(Player?.CharacterName, Player?.Experience?.Level, Player?.HealthComponent?.Health);
 }

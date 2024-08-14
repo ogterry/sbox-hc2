@@ -1,11 +1,12 @@
+@import "Styles/_theme.scss";
+
 RootPanel
 {
 	justify-content: center;
 	align-items: center;
 }
 
-Nametag
-{
+Nametag {
 	position: absolute;
 	top: 0;
 	bottom: 0;
@@ -13,20 +14,33 @@ Nametag
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+	font-family: $font;
+	color: white;
 
-	font-family: Glegoo;
-	font-size: 32px;
-	.line
-	{
-		width: 100%;
-		height: 4px;
-		background-color: black;
-		flex-shrink: 0;
+	label {
+		font-size: 24px;
 	}
 
-	.footer
-	{
+	row {
+		flex-direction: row;
+		align-items: center;
 		width: 100%;
+		justify-content: flex-start;
+		gap: 8px;
+
+		label.small {
+			margin-bottom: 4px;
+		}
+	}
+
+	column {
+		flex-direction: column;
+		backdrop-filter: $blur;
+		border-image-tint: $background;
+		border-image: url( /ui/Transparent center/panel-transparent-center-015.png ) fill;
+		mask: $fade-to-black;
+		padding-right: 64px;
 		justify-content: space-between;
+		gap: 8px;
 	}
 }
