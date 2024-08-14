@@ -38,7 +38,7 @@ public record struct WorldGenModification( int Seed, Vector3Int Min, Vector3Int 
 		var min = chunk.WorldMin;
 		var random = new Random( Seed );
 
-		const int height = 32;
+		const int height = 128;
 
 		var surfaceNoiseTransform = GetRandomNoiseTransform( random );
 		var caveNoiseTransform = GetRandomNoiseTransform( random );

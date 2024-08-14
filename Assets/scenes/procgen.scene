@@ -549,7 +549,7 @@
         {
           "__type": "Voxel.VoxelRenderer",
           "__guid": "f3f4364a-d9c4-4c59-8c63-24b74d8f5684",
-          "Size": "512,32,512"
+          "Size": "512,128,512"
         },
         {
           "__type": "Voxel.VoxelNetworking",
