@@ -14,7 +14,10 @@
     "Nodes": [
       {
         "Id": 0,
-        "Type": "input"
+        "Type": "input",
+        "UserData": {
+          "Position": "-16,-64"
+        }
       },
       {
         "Id": 1,
@@ -25,7 +28,7 @@
           "_name": "SpawnPrefab"
         },
         "UserData": {
-          "Position": "272,0"
+          "Position": "288,32"
         }
       },
       {
@@ -48,7 +51,18 @@
           "_name": "SpawnFeatures"
         },
         "UserData": {
-          "Position": "672,0"
+          "Position": "624,-128"
+        }
+      },
+      {
+        "Id": 16,
+        "Type": "resource.ref",
+        "Properties": {
+          "T": "Voxel.Modifications.WorldGenFeature",
+          "value": "worlds/rock_fragment.feature"
+        },
+        "UserData": {
+          "Position": "176,-192"
         }
       }
     ],
@@ -90,7 +104,8 @@
         "DstName": "_target"
       },
       {
-        "Value": "worlds/rock_fragment.feature",
+        "SrcId": 16,
+        "SrcName": "_result",
         "DstId": 6,
         "DstName": "features",
         "DstIndex": 0

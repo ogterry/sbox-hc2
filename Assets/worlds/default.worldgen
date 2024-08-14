@@ -38,7 +38,10 @@
     ]
   },
   "Features": [
-    "worlds/dead_tree.feature"
+    "worlds/dead_tree.feature",
+    "worlds/single_rock.feature",
+    "worlds/bothy.feature",
+    "worlds/standing_stone.feature"
   ],
   "__references": [],
   "__version": 0
