@@ -11,7 +11,8 @@
         "__type": "HC2.Mobs.Mob",
         "__guid": "f87dcfd7-78a3-4a06-a1d9-5b927d74d0b1",
         "DamageScale": 1,
-        "ExperienceYield": 6
+        "ExperienceYield": 6,
+        "ItemDrops": []
       },
       {
         "__type": "HealthComponent",
@@ -1029,6 +1030,32 @@
             "__guid": "5e75fdb8-c0b8-4c4b-b0fa-82e428ca8f68",
             "Angle": 90,
             "MaxRange": 512
+          }
+        ]
+      },
+      {
+        "__guid": "f524a19a-1dee-4080-b4e0-bb0098e4650d",
+        "Flags": 0,
+        "Name": "Hurtbox",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.BoxCollider",
+            "__guid": "1ac8b431-86fb-48e9-aebd-604c1c8e1ade",
+            "Center": "-0.5000001,0.6999999,1.1",
+            "IsTrigger": true,
+            "Scale": "31.00006,45.09994,20.40001",
+            "Static": false
+          },
+          {
+            "__type": "HC2.DamageTrigger",
+            "__guid": "e6ba57ab-96c5-4cf2-a863-0881c728913a",
+            "CanDamageMobs": false,
+            "CanDamagePlayers": true,
+            "CanDamageWorld": false,
+            "Damage": 10,
+            "DamageType": "Blunt",
+            "Knockback": 0
           }
         ]
       }

@@ -451,10 +451,16 @@
           "__type": "HC2.Mobs.MobSpawner",
           "__guid": "a8a874fb-386f-4e7e-9c3b-e0e2baca973f",
           "MaxAlive": 10,
-          "Prefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/mobs/roller.prefab"
-          },
+          "Prefabs": [
+            {
+              "_type": "gameobject",
+              "prefab": "prefabs/mobs/roller.prefab"
+            },
+            {
+              "_type": "gameobject",
+              "prefab": "prefabs/mobs/drone.prefab"
+            }
+          ],
           "Radius": 256,
           "SpawnPeriod": "5.00,10.00,0"
         }

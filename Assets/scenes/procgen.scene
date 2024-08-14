@@ -30,10 +30,16 @@
           "__type": "HC2.Mobs.MobSpawner",
           "__guid": "ed7c9ed1-c1aa-4566-83c1-c84e1148797a",
           "MaxAlive": 10,
-          "Prefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/mobs/roller.prefab"
-          },
+          "Prefabs": [
+            {
+              "_type": "gameobject",
+              "prefab": "prefabs/mobs/roller.prefab"
+            },
+            {
+              "_type": "gameobject",
+              "prefab": "prefabs/mobs/drone.prefab"
+            }
+          ],
           "Radius": 256,
           "SpawnPeriod": "5.00,10.00,0"
         }
@@ -51,10 +57,16 @@
           "__type": "HC2.Mobs.MobSpawner",
           "__guid": "fb9c403e-baf9-4ee7-ac2e-02a8a2efd54c",
           "MaxAlive": 1,
-          "Prefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/mobs/leggy.prefab"
-          },
+          "Prefabs": [
+            {
+              "_type": "gameobject",
+              "prefab": "prefabs/mobs/roller.prefab"
+            },
+            {
+              "_type": "gameobject",
+              "prefab": "prefabs/mobs/drone.prefab"
+            }
+          ],
           "Radius": 256,
           "SpawnPeriod": "60.00,10.00,0"
         }
@@ -72,10 +84,16 @@
           "__type": "HC2.Mobs.MobSpawner",
           "__guid": "a8a874fb-386f-4e7e-9c3b-e0e2baca973f",
           "MaxAlive": 10,
-          "Prefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/mobs/roller.prefab"
-          },
+          "Prefabs": [
+            {
+              "_type": "gameobject",
+              "prefab": "prefabs/mobs/roller.prefab"
+            },
+            {
+              "_type": "gameobject",
+              "prefab": "prefabs/mobs/drone.prefab"
+            }
+          ],
           "Radius": 256,
           "SpawnPeriod": "5.00,10.00,0"
         }

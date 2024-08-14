@@ -5,10 +5,10 @@ namespace HC2.Mobs;
 
 #nullable enable
 
-[Icon( "accessibility_new" )]
+[Icon("accessibility_new")]
 public sealed class MobSpawner : Component
 {
-	[Property] public GameObject? Prefab { get; set; }
+	[Property] public List<GameObject> Prefabs { get; set; }
 
 	[Property] public int MaxAlive { get; set; } = 1;
 
@@ -28,17 +28,17 @@ public sealed class MobSpawner : Component
 
 	protected override void OnFixedUpdate()
 	{
-		if ( IsProxy || !Prefab.IsValid() ) return;
+		if (IsProxy || (Prefabs?.Count ?? 0) == 0) return;
 
 		UpdateSpawnedList();
 
-		if ( SpawnedCount >= MaxAlive )
+		if (SpawnedCount >= MaxAlive)
 		{
 			_nextSpawn = SpawnPeriod.GetValue();
 			return;
 		}
 
-		if ( _nextSpawn < 0f )
+		if (_nextSpawn < 0f)
 		{
 			Spawn();
 		}
@@ -46,36 +46,38 @@ public sealed class MobSpawner : Component
 
 	private void UpdateSpawnedList()
 	{
-		for ( var i = _spawned.Count - 1; i >= 0; i-- )
+		for (var i = _spawned.Count - 1; i >= 0; i--)
 		{
-			if ( !_spawned[i].IsValid() )
+			if (!_spawned[i].IsValid())
 			{
-				_spawned.RemoveAt( i );
+				_spawned.RemoveAt(i);
 			}
 		}
 	}
 
 	public void Spawn()
 	{
-		if ( Prefab is null ) return;
+		if ((Prefabs?.Count ?? 0) == 0) return;
+
+		var prefab = Prefabs[Random.Shared.Int(0, Prefabs.Count - 1)];
 
 		_nextSpawn = SpawnPeriod.GetValue();
 
-		var pos = MobHelpers.GetNearbyPosition( Transform.Position, 0f, Radius, 128f );
-		var inst = Prefab.Clone( pos, Rotation.FromYaw( Random.Shared.Float( 0f, 360f ) ) );
+		var pos = MobHelpers.GetNearbyPosition(Transform.Position, 0f, Radius, 128f);
+		var inst = prefab.Clone(pos, Rotation.FromYaw(Random.Shared.Float(0f, 360f)));
 
-		_spawned.Add( inst );
+		_spawned.Add(inst);
 
 		inst.NetworkSpawn();
 	}
 
 	protected override void DrawGizmos()
 	{
-		if ( !Gizmo.IsSelected ) return;
+		if (!Gizmo.IsSelected) return;
 
-		Gizmo.Transform = new Transform( Transform.Position, Rotation.FromPitch( 90f ) );
-		Gizmo.Draw.Color = Color.Red.WithAlpha( 0.25f );
-		Gizmo.Draw.SolidCircle( Vector3.Zero, Radius, sections: 12 );
+		Gizmo.Transform = new Transform(Transform.Position, Rotation.FromPitch(90f));
+		Gizmo.Draw.Color = Color.Red.WithAlpha(0.25f);
+		Gizmo.Draw.SolidCircle(Vector3.Zero, Radius, sections: 12);
 	}
 }
 
