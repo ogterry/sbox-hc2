@@ -1,0 +1,18 @@
+{
+  "Materials": [
+    {
+      "Color": "0.32093,0.32093,0.32093,1",
+      "Texture": "textures/gray_grid_4_color.vtex"
+    },
+    {
+      "Color": "0.60465,0.56622,0.37404,1",
+      "Texture": "textures/graygrid_color.vtex"
+    },
+    {
+      "Color": "0.30287,0.52093,0.23018,1",
+      "Texture": "textures/gray_grid_4_color.vtex"
+    }
+  ],
+  "__references": [],
+  "__version": 0
+}

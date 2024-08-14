@@ -1,5 +1,5 @@
 {
-  "__guid": "722a49d2-8e67-469b-86dd-425e3eaf83a6",
+  "__guid": "affcbcdf-2ec5-4c08-a938-97bc6f565bb2",
   "GameObjects": [
     {
       "__guid": "fcd503d0-cd29-4b20-8f5b-91de13e90aaf",
@@ -565,6 +565,7 @@
         {
           "__type": "Voxel.VoxelRenderer",
           "__guid": "f3f4364a-d9c4-4c59-8c63-24b74d8f5684",
+          "Palette": "palettes/basic.palette",
           "Size": "512,128,512"
         },
         {

@@ -10,6 +10,8 @@ public partial class VoxelRenderer : Component, Component.ExecuteInEditor
 
 	[Property] public Vector3Int Size { get; set; } = new( 256, 32, 256 );
 
+	[Property] public Palette Palette { get; set; }
+
 	public bool IsReady => Enabled && Model is not null;
 
 	protected override void OnEnabled()
@@ -18,6 +20,7 @@ public partial class VoxelRenderer : Component, Component.ExecuteInEditor
 
 		Model?.Destroy();
 		Model = new VoxelModel( Size.x, Size.y, Size.z );
+		Model.SetPalette( Palette );
 	}
 
 	protected override void OnDisabled()
@@ -90,7 +93,7 @@ public partial class VoxelRenderer : Component, Component.ExecuteInEditor
 
 		var localPos = Transform.World.PointToLocal( worldPos );
 
-		return new ((int)MathF.Floor( localPos.y / voxelSize ), (int)MathF.Floor( localPos.z / voxelSize ), (int)MathF.Floor( localPos.x / voxelSize ));
+		return new( (int)MathF.Floor( localPos.y / voxelSize ), (int)MathF.Floor( localPos.z / voxelSize ), (int)MathF.Floor( localPos.x / voxelSize ) );
 	}
 }
 
@@ -128,10 +131,29 @@ public partial class VoxelModel
 	}
 
 	public ComputeBuffer<PaletteMaterial> PaletteBuffer;
+	private readonly PaletteMaterial[] Palette = new PaletteMaterial[256];
 
 	static readonly Texture WhiteTexture;
-	static Texture DevTexture1;
-	static Texture DevTexture2;
+
+	public void SetPalette( Palette palette )
+	{
+		if ( palette == null )
+			return;
+
+		for ( var i = 0; i < palette.Materials.Count; ++i )
+		{
+			var material = palette.Materials[i];
+			material.Texture?.MarkUsed( int.MaxValue );
+
+			Palette[i] = new PaletteMaterial
+			{
+				Color = material.Color,
+				TextureIndex = material.Texture != null ? material.Texture.Index : WhiteTexture.Index
+			};
+		}
+
+		PaletteBuffer.SetData( Palette );
+	}
 
 	static VoxelModel()
 	{
@@ -152,20 +174,11 @@ public partial class VoxelModel
 
 	public VoxelModel( int mx, int my, int mz )
 	{
-		DevTexture1 = Texture.Load( "textures/gray_grid_4_color.vtex" );
-		DevTexture2 = Texture.Load( "textures/graygrid_color.vtex" );
-
-		DevTexture1?.MarkUsed( int.MaxValue );
-		DevTexture2?.MarkUsed( int.MaxValue );
-
-		var palette = new PaletteMaterial[256];
-		Array.Fill( palette, new PaletteMaterial { Color = Color.White, TextureIndex = WhiteTexture.Index } );
-		palette[0] = new PaletteMaterial { Color = new Color( 0.1f, 0.05f, 0.0f ), TextureIndex = DevTexture1 != null ? DevTexture1.Index : WhiteTexture.Index };
-		palette[1] = new PaletteMaterial { Color = new Color( 0.05f, 0.05f, 0.05f ), TextureIndex = DevTexture2 != null ? DevTexture2.Index : WhiteTexture.Index };
-		palette[2] = new PaletteMaterial { Color = new Color( 0.1f, 0.1f, 0.1f ), TextureIndex = DevTexture1 != null ? DevTexture1.Index : WhiteTexture.Index };
+		WhiteTexture.MarkUsed( int.MaxValue );
+		Array.Fill( Palette, new PaletteMaterial { Color = Color.White, TextureIndex = WhiteTexture.Index } );
 
 		PaletteBuffer = new ComputeBuffer<PaletteMaterial>( 256 );
-		PaletteBuffer.SetData( palette );
+		PaletteBuffer.SetData( Palette );
 
 		Chunks = new Chunk[Constants.MaxChunkAmountCubed];
 		for ( int i = 0; i < Chunks.Length; i++ )
@@ -256,14 +269,14 @@ public partial class VoxelModel
 		var chunkMax = ClampChunkCoords( GetChunkCoords( max + 1 ) );
 
 		for ( var f = chunkMin.x; f <= chunkMax.x; f++ )
-		for ( var g = chunkMin.y; g <= chunkMax.y; g++ )
-		for ( var h = chunkMin.z; h <= chunkMax.z; h++ )
-		{
-			var chunkAccess = GetAccessLocal( f, g, h );
-			var chunk = Chunks[chunkAccess];
+			for ( var g = chunkMin.y; g <= chunkMax.y; g++ )
+				for ( var h = chunkMin.z; h <= chunkMax.z; h++ )
+				{
+					var chunkAccess = GetAccessLocal( f, g, h );
+					var chunk = Chunks[chunkAccess];
 
-			chunk?.SetDirty();
-		}
+					chunk?.SetDirty();
+				}
 	}
 
 	public Chunk InitChunk( int x, int y, int z )
