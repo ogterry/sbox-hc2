@@ -5,13 +5,13 @@ namespace HC2.Mobs;
 
 #nullable enable
 
-[Icon( "adjust" )]
+[Icon("adjust")]
 public sealed class MobTarget : Component
 {
 
 }
 
-[Icon( "mood_bad" )]
+[Icon("mood_bad")]
 public sealed class Mob : Component,
 	IGameEventHandler<ModifyDamageEvent>,
 	IGameEventHandler<DamageTakenEvent>,
@@ -28,7 +28,7 @@ public sealed class Mob : Component,
 	[Property]
 	public TextRenderer? FaceText { get; set; }
 
-	[Property, Range( 0f, 4f )] public float DamageScale { get; set; } = 1f;
+	[Property, Range(0f, 4f)] public float DamageScale { get; set; } = 1f;
 
 	[Property] public int ExperienceYield { get; set; } = 6;
 
@@ -41,6 +41,9 @@ public sealed class Mob : Component,
 	[Property]
 	SoundEvent HitSound { get; set; }
 
+	[Property]
+	public List<MobDrop> ItemDrops { get; set; } = new();
+
 	private DamageTakenEvent? _lastDamageEvent;
 	private TimeSince _sinceLastDamage;
 
@@ -52,7 +55,7 @@ public sealed class Mob : Component,
 		SpawnTransform = Transform.World;
 	}
 
-	public void SetMoveTarget( Vector3 position )
+	public void SetMoveTarget(Vector3 position)
 	{
 		MoveTarget = position;
 	}
@@ -62,7 +65,7 @@ public sealed class Mob : Component,
 		MoveTarget = null;
 	}
 
-	public void SetAimTarget( MobTarget target )
+	public void SetAimTarget(MobTarget target)
 	{
 		AimTarget = target;
 	}
@@ -74,73 +77,92 @@ public sealed class Mob : Component,
 
 	void GiveNearbyPlayersExperience()
 	{
-		if ( !Sandbox.Networking.IsHost ) return;
+		if (!Sandbox.Networking.IsHost) return;
 
 		// TODO: Determine if we want larger enemies (bosses) to have a larger yield range
-		var players = Scene.GetAllComponents<PlayerExperience>().Where( x => x.Transform.Position.Distance( Transform.Position ) < 2500f );
-		foreach ( var player in players )
+		var players = Scene.GetAllComponents<PlayerExperience>().Where(x => x.Transform.Position.Distance(Transform.Position) < 2500f);
+		foreach (var player in players)
 		{
-			player.GivePoints( ExperienceYield );
+			player.GivePoints(ExperienceYield);
 		}
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
-	public void SetFace( string value )
+	[Broadcast(NetPermission.HostOnly)]
+	public void SetFace(string value)
 	{
-		if ( FaceText is not null )
+		if (FaceText is not null)
 		{
 			FaceText.Text = value;
 		}
 	}
 
-	void IGameEventHandler<ModifyDamageEvent>.OnGameEvent( ModifyDamageEvent eventArgs )
+	void IGameEventHandler<ModifyDamageEvent>.OnGameEvent(ModifyDamageEvent eventArgs)
 	{
 		eventArgs.DamageInstance.Damage *= DamageScale;
 	}
 
-	void IGameEventHandler<DamageTakenEvent>.OnGameEvent( DamageTakenEvent eventArgs )
+	void IGameEventHandler<DamageTakenEvent>.OnGameEvent(DamageTakenEvent eventArgs)
 	{
-		DamageTaken?.Invoke( eventArgs );
+		DamageTaken?.Invoke(eventArgs);
 
 		_lastDamageEvent = eventArgs;
 		_sinceLastDamage = 0f;
 
-		if ( HitSound != null )
+		if (HitSound != null)
 		{
-			Sound.Play( HitSound, Transform.Position );
+			Sound.Play(HitSound, Transform.Position);
 		}
 	}
 
 	bool isDead = false;
-	void IGameEventHandler<KilledEvent>.OnGameEvent( KilledEvent eventArgs )
+	void IGameEventHandler<KilledEvent>.OnGameEvent(KilledEvent eventArgs)
 	{
 		// Needed to add this because the event was getting called 3 times -Carson
-		if ( isDead ) return;
+		if (isDead) return;
 		isDead = true;
 
 		GiveNearbyPlayersExperience();
-		Killed?.Invoke( eventArgs );
+		Killed?.Invoke(eventArgs);
 
-		BroadcastCreateGibs( eventArgs.LastDamage.Force );
+		if ((ItemDrops?.Count ?? 0) > 0)
+		{
+			foreach (var drop in ItemDrops)
+			{
+				if (Random.Shared.Float(0f, 100f) <= drop.Chance)
+				{
+					var amount = Random.Shared.Int(drop.AmountRange.x, drop.AmountRange.y);
+					var item = WorldItem.CreateInstance(drop.Item, Transform.Position + Vector3.Up * 16f);
+				}
+			}
+		}
+
+		BroadcastCreateGibs(eventArgs.LastDamage.Force);
 
 		GameObject.Destroy();
 	}
 
-	[Broadcast( NetPermission.OwnerOnly )]
-	void BroadcastCreateGibs( Vector3 force )
+	[Broadcast(NetPermission.OwnerOnly)]
+	void BroadcastCreateGibs(Vector3 force)
 	{
-		foreach ( var go in GameObject.GetAllObjects( true ) )
+		foreach (var go in GameObject.GetAllObjects(true))
 		{
-			if ( !go.Tags.Has( "bodypart" ) )
+			if (!go.Tags.Has("bodypart"))
 				continue;
 
-			if ( go.Parent?.Tags?.Has( "bodypart" ) ?? false )
+			if (go.Parent?.Tags?.Has("bodypart") ?? false)
 				continue;
 
-			var gib = go.Clone( go.Transform.Position, go.Transform.Rotation );
+			var gib = go.Clone(go.Transform.Position, go.Transform.Rotation);
 			var rb = gib.Components.GetOrCreate<Rigidbody>();
-			rb.Velocity = force * Random.Shared.Float( 0.7f, 0.9f );
+			rb.Velocity = force * Random.Shared.Float(0.7f, 0.9f);
 			gib.Components.Create<MobGib>();
 		}
 	}
+}
+
+public class MobDrop
+{
+	[KeyProperty] public ItemAsset Item { get; set; }
+	[KeyProperty] public Vector2Int AmountRange { get; set; } = 1;
+	public float Chance { get; set; } = 100f;
 }
