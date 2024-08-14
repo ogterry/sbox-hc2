@@ -7,6 +7,9 @@ public partial class WorldItem : Component, Component.ITriggerListener
 	[Property]
 	public ItemAsset Resource { get; set; }
 
+	[Sync]
+	public int Amount { get; set; } = 1;
+
 	[RequireComponent]
 	public Rigidbody Rigidbody { get; set; }
 
@@ -62,7 +65,7 @@ public partial class WorldItem : Component, Component.ITriggerListener
 	[Broadcast]
 	void TryPickup( Player player )
 	{
-		if ( player.Hotbar.TryGiveItem( HC2.Item.Create( Resource ) ) )
+		if ( player.Hotbar.TryGiveItem( HC2.Item.Create( Resource, Amount ) ) )
 		{
 			Pickup();
 		}
@@ -79,8 +82,9 @@ public partial class WorldItem : Component, Component.ITriggerListener
 	/// </summary>
 	/// <param name="itemAsset"></param>
 	/// <param name="worldPosition"></param>
+	/// <param name="amount"></param>
 	/// <returns></returns>
-	public static WorldItem CreateInstance( ItemAsset itemAsset, Vector3 worldPosition )
+	public static WorldItem CreateInstance( ItemAsset itemAsset, Vector3 worldPosition, int amount = 1 )
 	{
 		// Push the active scene
 		using var _ = Game.ActiveScene.Push();
@@ -94,6 +98,7 @@ public partial class WorldItem : Component, Component.ITriggerListener
 
 		var worldItem = go.Components.Create<WorldItem>();
 		worldItem.Resource = itemAsset;
+		worldItem.Amount = amount;
 		worldItem.Rigidbody.LinearDamping = 1f;
 
 		var spinningItem = new GameObject();

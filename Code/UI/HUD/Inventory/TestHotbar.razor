@@ -66,6 +66,25 @@
 
             StopDragging();
         }
+
+        if ( e.MouseButton == MouseButtons.Right )
+        {
+            TryDropHoveredItem();
+        }
+    }
+
+    void TryDropHoveredItem()
+    {
+        if (!HoveredSlot.IsValid())
+            return;
+
+        if (HoveredSlot.Item is null)
+            return;
+
+        if (HoveredSlot.Item.Resource is null)
+            return;
+
+        HoveredSlot.Inventory.DropItem(HoveredSlot.SlotIndex);
     }
 
     void StartDragging()

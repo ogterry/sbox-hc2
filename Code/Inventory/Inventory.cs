@@ -1,4 +1,5 @@
 ﻿using System;
+using Sandbox;
 using Sandbox.Diagnostics;
 
 namespace HC2;
@@ -86,6 +87,19 @@ public class Inventory : Component, ISaveData
 	public bool HasItem( Item item )
 	{
 		return Container.HasItem( item ) || OverflowContainer.HasItem( item );
+	}
+
+	public void DropItem( int slotIndex )
+	{
+		var item = GetItemInSlot( slotIndex );
+
+		if ( item?.IsValid() ?? false )
+		{
+			Container.ClearItemSlot( slotIndex );
+
+			var aimRay = Player.Local.CameraController.AimRay;
+			WorldItem.CreateInstance( item.Resource, aimRay.Position + aimRay.Forward * 128f, item.Amount );
+		}
 	}
 
 	/// <summary>
