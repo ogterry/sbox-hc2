@@ -28,6 +28,7 @@ partial class VoxelRenderer
 			Model.AddVoxel( x + dx, y + dy, z + dz, 0 );
 		}
 
+		Model.SetRegionDirty( x - 1, y - 1, z - 1, x + 1, y + 1, z + 1 );
 		MeshChunks();
 	}
 }

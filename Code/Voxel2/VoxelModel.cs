@@ -278,6 +278,30 @@ public partial class VoxelModel
 		chunk.SetVoxel( x, y, z, index );
 	}
 
+	public void SetRegionDirty( int xMin, int yMin, int zMin, int xMax, int yMax, int zMax )
+	{
+		// Extend by 1 each direction to allow neighbouring chunks to update
+		// I'm probably off by 1 here somewhere ;)
+
+		var fMin = (xMin - 1) >> Constants.ChunkShift;
+		var gMin = (yMin - 1) >> Constants.ChunkShift;
+		var hMin = (zMin - 1) >> Constants.ChunkShift;
+
+		var fMax = (xMax + 1) >> Constants.ChunkShift;
+		var gMax = (yMax + 1) >> Constants.ChunkShift;
+		var hMax = (zMax + 1) >> Constants.ChunkShift;
+
+		for ( var f = fMin; f <= fMax; f++ )
+		for ( var g = gMin; g <= gMax; g++ )
+		for ( var h = hMin; h <= hMax; h++ )
+		{
+			var chunkAccess = GetAccessLocal( f, g, h );
+			var chunk = Chunks[chunkAccess];
+
+			chunk?.SetDirty();
+		}
+	}
+
 	public Chunk InitChunk( int x, int y, int z )
 	{
 		var f = x >> Constants.ChunkShift;
