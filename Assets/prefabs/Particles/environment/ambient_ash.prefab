@@ -1,36 +1,48 @@
 {
   "RootObject": {
-    "__guid": "4cfa1dd2-e229-4852-ab96-bb5b0600f484",
+    "__guid": "196625c6-5853-4814-a973-8503a8f6ff7f",
     "Flags": 0,
-    "Name": "fog_rolling_01",
+    "Name": "ambient_ash",
     "Enabled": true,
     "Children": [
       {
-        "__guid": "ac873b6f-2f6a-4f31-a86b-8d344d8a75f0",
+        "__guid": "333a4d72-5257-4896-94bf-2d47086c2ee6",
         "Flags": 0,
-        "Name": "Smoke",
+        "Name": "Spray",
+        "Rotation": "0,0.7071067,0,0.7071068",
         "Tags": "particles",
         "Enabled": true,
         "Components": [
           {
             "__type": "Sandbox.ParticleEffect",
-            "__guid": "86090f35-671b-4ca5-8307-fefb985c529e",
+            "__guid": "c17ff23a-0d02-41d8-8e09-57c8e710216e",
             "Alpha": {
               "Type": "Curve",
               "CurveA": [
-                {},
                 {
-                  "x": 0.26488096,
-                  "y": 0.050531916
+                  "in": -0.05479436,
+                  "out": 0.05479436
                 },
                 {
-                  "x": 1
+                  "x": 0.21726191,
+                  "y": 0.28115976
+                },
+                {
+                  "x": 0.49964082,
+                  "y": 0.27393618,
+                  "in": -1.7484555E-07,
+                  "out": 1.7484555E-07
+                },
+                {
+                  "x": 1,
+                  "in": 0.025641177,
+                  "out": -0.025641177
                 }
               ],
               "Constants": "1,0,0,0"
             },
             "ApplyColor": true,
-            "ApplyRotation": true,
+            "ApplyRotation": false,
             "ApplyShape": true,
             "Bounce": {
               "Constants": "1,0,0,0"
@@ -41,12 +53,10 @@
             "Bumpiness": {},
             "Collision": false,
             "CollisionRadius": 1,
-            "Damping": {
-              "Constants": "1,0,0,0"
-            },
+            "Damping": {},
             "DieOnCollisionChance": {},
             "Force": true,
-            "ForceDirection": "100,100,15",
+            "ForceDirection": "0,0,-70",
             "ForceScale": {
               "Constants": "1,0,0,0"
             },
@@ -54,7 +64,6 @@
               "Constants": "1,0,0,0"
             },
             "Gradient": {
-              "Type": "Range",
               "GradientA": {
                 "color": [
                   {
@@ -73,20 +82,16 @@
                 ],
                 "alpha": []
               },
-              "ConstantA": "0.18317,0.18317,0.18317,1",
+              "ConstantA": "1,0.83155,0.75349,1",
               "ConstantB": "1,1,1,1"
             },
             "Lifetime": {
               "Type": "Range",
               "Evaluation": "Particle",
-              "Constants": "7,20,0,0"
+              "Constants": "3,6,0,0"
             },
-            "MaxParticles": 8,
-            "OrbitalForce": {
-              "X": {
-                "Constants": "140,0,0,0"
-              }
-            },
+            "MaxParticles": 2500,
+            "OrbitalForce": {},
             "OrbitalPull": {},
             "PerParticleTimeScale": {
               "Constants": "1,0.4,0,0"
@@ -96,29 +101,47 @@
             "PushStrength": {},
             "Roll": {
               "Type": "Range",
-              "Constants": "-25,20,0,0"
+              "Evaluation": "Particle",
+              "Constants": "0,360,0,0"
             },
             "Scale": {
-              "Type": "Range",
-              "CurveA": [
-                {}
-              ],
-              "Constants": "200,1200,0,0"
+              "Type": "Curve",
+              "CurveA": {
+                "rangey": "0,4",
+                "frames": [
+                  {
+                    "in": -9.333329,
+                    "out": 9.333329
+                  },
+                  {
+                    "x": 0.03325123,
+                    "y": 1,
+                    "in": -0.056075174,
+                    "out": 0.056075174
+                  },
+                  {
+                    "x": 1,
+                    "in": 2.9152544,
+                    "out": -2.9152544
+                  }
+                ]
+              },
+              "Constants": "1,0,0,0"
             },
             "SequenceId": {},
             "SequenceSpeed": {
-              "Constants": "0.5,0,0,0"
+              "Constants": "1,0,0,0"
             },
             "SequenceTime": {
               "Constants": "1,0,0,0"
             },
-            "SheetSequence": true,
+            "SheetSequence": false,
             "Space": "World",
             "StartDelay": {},
             "StartVelocity": {
               "Type": "Range",
               "Evaluation": "Particle",
-              "Constants": "15,250,0,0"
+              "Constants": "25,90,0,0"
             },
             "Stretch": {},
             "TimeScale": 1,
@@ -127,38 +150,37 @@
           },
           {
             "__type": "Sandbox.ParticleSpriteRenderer",
-            "__guid": "2d9e49a4-8819-4f87-8807-c5b246c6d909",
+            "__guid": "e3ee4ee4-b0a7-4386-9d68-2881a7849742",
             "Additive": true,
             "Alignment": "LookAtCamera",
-            "BlurAmount": 0.5,
-            "BlurOpacity": 0.91,
-            "BlurSpacing": 0.73,
-            "DepthFeather": 49.65,
-            "FaceVelocity": false,
+            "BlurAmount": 0.05,
+            "BlurOpacity": 0.39,
+            "BlurSpacing": 1,
+            "DepthFeather": 8.25,
+            "FaceVelocity": true,
             "FogStrength": 1,
             "LeadingTrail": true,
-            "Lighting": true,
-            "MotionBlur": false,
+            "Lighting": false,
+            "MotionBlur": true,
             "Opaque": false,
             "RotationOffset": 0,
-            "Scale": 1.9,
+            "Scale": 2,
             "Shadows": false,
             "SortMode": "Unsorted",
-            "Texture": "materials/particles/smoke/smoke.vtex"
+            "Texture": "materials/particles/particle_glow_05.vtex"
           },
           {
-            "__type": "Sandbox.ParticleSphereEmitter",
-            "__guid": "544987a1-785f-4415-ac55-10ff26d3a0a8",
+            "__type": "Sandbox.ParticleBoxEmitter",
+            "__guid": "f1c4c990-c35f-4f49-a1c4-761d816d4455",
             "Burst": 0,
             "Delay": 0,
             "DestroyOnEnd": false,
-            "Duration": 5,
+            "Duration": 10,
             "Loop": true,
             "OnEdge": false,
-            "Radius": 100,
-            "Rate": 4,
+            "Rate": 18,
             "RateOverDistance": 0,
-            "Velocity": 0
+            "Size": "600,600,600"
           }
         ]
       }
