@@ -134,13 +134,13 @@ public partial class VoxelRenderer : Component, Component.ExecuteInEditor
 		}
 	}
 
-	public (int X, int Y, int Z) WorldToVoxelCoords( Vector3 worldPos )
+	public Vector3Int WorldToVoxelCoords( Vector3 worldPos )
 	{
 		var voxelSize = Constants.VoxelSize;
 
 		var localPos = Transform.World.PointToLocal( worldPos );
 
-		return ((int)MathF.Floor( localPos.y / voxelSize ), (int)MathF.Floor( localPos.z / voxelSize ), (int)MathF.Floor( localPos.x / voxelSize ));
+		return new ((int)MathF.Floor( localPos.y / voxelSize ), (int)MathF.Floor( localPos.z / voxelSize ), (int)MathF.Floor( localPos.x / voxelSize ));
 	}
 }
 

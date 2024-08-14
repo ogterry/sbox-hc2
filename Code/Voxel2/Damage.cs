@@ -11,7 +11,8 @@ partial class VoxelRenderer
 	{
 		if ( Model is null ) return;
 
-		var (x, y, z) = WorldToVoxelCoords( eventArgs.Damage.Position );
+		var coords = WorldToVoxelCoords( eventArgs.Damage.Position );
+		var (x, y, z) = (coords.x, coords.y, coords.z);
 
 		if ( Model.OutOfBounds( x, y, z ) ) return;
 
@@ -32,4 +33,3 @@ partial class VoxelRenderer
 		MeshChunks();
 	}
 }
-
