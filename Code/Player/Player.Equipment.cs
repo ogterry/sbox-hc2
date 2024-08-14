@@ -4,6 +4,12 @@ using Sandbox.Events;
 public partial class Player
 {
 	/// <summary>
+	/// What should be our carriable if we aren't holding anything? Think hands..
+	/// </summary>
+	[Property, Group( "Equipment" ), Sync] 
+	public Carriable FallbackCarriable { get; set; }
+
+	/// <summary>
 	/// The player's main weapon, the one we're using right now
 	/// </summary>
 	[Property, Group( "Equipment" ), Sync]
@@ -38,31 +44,6 @@ public partial class Player
 	public GameObject OffHandBone { get; set; }
 
 	/// <summary>
-	/// Something to spawn automatically..
-	/// </summary>
-	[Property, Group( "Equipment" )]
-	public GameObject DefaultMainHandPrefab { get; set; }
-
-	/// <summary>
-	/// Something to spawn automatically..
-	/// </summary>
-	[Property, Group( "Equipment" )]
-	public GameObject DefaultOffHandPrefab { get; set; }
-
-	private void InitEquipment()
-	{
-		if ( DefaultMainHandPrefab.IsValid() )
-		{
-			SetMainHand( DefaultMainHandPrefab );
-		}
-
-		if ( DefaultOffHandPrefab.IsValid() )
-		{
-			SetOffHand( DefaultOffHandPrefab );
-		}
-	}
-
-	/// <summary>
 	/// Sets the main hand carriable to something, handles destruction of the old carriable.
 	/// </summary>
 	/// <param name="carriable"></param>
@@ -80,6 +61,8 @@ public partial class Player
 		// TODO: Events
 		MainHand = null;
 		MainHand = carriable;
+
+		FallbackCarriable.GameObject.Enabled = false;
 	}
 
 	/// <summary>
@@ -114,6 +97,8 @@ public partial class Player
 
 		HoldType = Sandbox.Citizen.CitizenAnimationHelper.HoldTypes.None;
 		MainHand = null;
+
+		FallbackCarriable.GameObject.Enabled = true;
 	}
 
 	/// <summary>

@@ -25,6 +25,12 @@
         },
         "DuckHeight": 36,
         "DuckSpeed": 128,
+        "FallbackCarriable": {
+          "_type": "component",
+          "component_id": "3ec8839d-f222-4516-bc76-a3e088b71ccd",
+          "go": "7a1b2a79-56af-4a76-bd17-90b065ebc948",
+          "component_type": "MeleeWeapon"
+        },
         "Hotbar": {
           "_type": "component",
           "component_id": "a080aa62-f755-4b7f-b18e-71402eae3534",
@@ -608,7 +614,39 @@
                                             "Name": "hold_R",
                                             "Position": "5.361085,0.621902,-3.394508",
                                             "Rotation": "-0.5764739,0.3928987,0.1704146,0.695893",
-                                            "Enabled": true
+                                            "Enabled": true,
+                                            "Children": [
+                                              {
+                                                "__guid": "7a1b2a79-56af-4a76-bd17-90b065ebc948",
+                                                "Flags": 0,
+                                                "Name": "Fallback Hands",
+                                                "Position": "0,0,0",
+                                                "Scale": "0.2,0.2,0.2",
+                                                "Components": [
+                                                  {
+                                                    "__type": "MeleeWeapon",
+                                                    "__guid": "3ec8839d-f222-4516-bc76-a3e088b71ccd",
+                                                    "AimingEnabled": false,
+                                                    "AimingFOVOffset": 0,
+                                                    "AttackDelay": 1,
+                                                    "AttackRange": 128,
+                                                    "Damage": 50,
+                                                    "DamageType": "Blunt",
+                                                    "Hand": "MainHand",
+                                                    "HoldType": "Punch",
+                                                    "InputAction": "Attack1",
+                                                    "SwingDelay": 0.25,
+                                                    "Thickness": 5
+                                                  },
+                                                  {
+                                                    "__type": "HC2.ResourceGatherer",
+                                                    "__guid": "5b9ec711-d1cb-4072-9a2f-4370bb43fe4a",
+                                                    "Effectiveness": 1,
+                                                    "SourceKind": "Wood"
+                                                  }
+                                                ]
+                                              }
+                                            ]
                                           },
                                           {
                                             "__guid": "3751858b-bf7d-4a96-bdc2-54c520a21209",

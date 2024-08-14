@@ -370,8 +370,6 @@ public partial class Player : Component, IDamage,
 		Inventory.OverflowContainer = Hotbar.Container;
 		Hotbar.OverflowContainer = Inventory.Container;
 
-		InitEquipment();
-
 		// Load the character data
 		if (CharacterSave.Current is not null)
 		{
@@ -391,6 +389,9 @@ public partial class Player : Component, IDamage,
 				Hotbar.GiveItem(swordItem);
 			}
 		}
+
+		// Select first slot
+		Hotbar.SelectSlot( 0 );
 	}
 
 	protected override void OnUpdate()
