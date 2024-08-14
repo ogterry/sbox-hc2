@@ -91,7 +91,7 @@ public partial class HomingMissile : Component, Component.ICollisionListener
 		//Rigidbody.Velocity = new Vector3( 50f, 0f, 0f );
 		if ( Target.IsValid() )
 		{
-			var targetPos = TimeSinceSpawn < 1f ? ( Transform.Position + Vector3.Up * 100f ): ( Target.Transform.Position + Vector3.Up * MathX.Remap( TimeSinceSpawn, 0f, 8f, 60f, 0f ) );
+			var targetPos = TimeSinceSpawn < 1f ? (Transform.Position + Vector3.Up * 100f) : (Target.Transform.Position + Vector3.Up * MathX.Remap( TimeSinceSpawn, 0f, 8f, 60f, 0f ));
 
 			var smoothTime = MathX.Remap( TimeSinceSpawn, 0f, 10f, 1f, 2f );
 			Rigidbody.PhysicsBody.SmoothRotate( Rotation.LookAt( targetPos - Transform.Position ), smoothTime, Time.Delta );
@@ -113,7 +113,7 @@ public partial class HomingMissile : Component, Component.ICollisionListener
 
 	public void OnCollisionStart( Collision other )
 	{
-		 Log.Info( $"{GameObject.Name} Collided with {other.Other.GameObject}" );
+		Log.Info( $"{GameObject.Name} Collided with {other.Other.GameObject}" );
 
 		if ( IsProxy )
 		{
@@ -122,6 +122,9 @@ public partial class HomingMissile : Component, Component.ICollisionListener
 			Rigidbody.Enabled = false;
 			return;
 		}
+
+		var contactPoint = other.Contact.Point;
+		if ( contactPoint == Vector3.Zero ) contactPoint = Transform.Position;
 
 		var healthComponent = other.Other.GameObject.Root.Components.Get<HealthComponent>();
 		if ( healthComponent.IsValid() )
@@ -133,12 +136,12 @@ public partial class HomingMissile : Component, Component.ICollisionListener
 				Damage = Damage,
 				Type = DamageType,
 				Force = Rigidbody.Velocity,
-				Position = other.Contact.Point,
+				Position = contactPoint,
 				Victim = healthComponent
 			} );
 		}
 
-		InternalDestroy( other.Contact.Point );
+		InternalDestroy( contactPoint );
 	}
 
 	void InternalDestroy( Vector3 position = default )

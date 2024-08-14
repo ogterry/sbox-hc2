@@ -67,6 +67,9 @@ public partial class Projectile : Component, Component.ICollisionListener
 			return;
 		}
 
+		var contactPoint = other.Contact.Point;
+		if ( contactPoint == Vector3.Zero ) contactPoint = Transform.Position;
+
 		if ( other.Other.Shape.Tags.Has( "voxel" ) )
 		{
 			var damage = new DamageInstance()
@@ -76,7 +79,7 @@ public partial class Projectile : Component, Component.ICollisionListener
 				Damage = Damage,
 				Type = DamageType,
 				Force = Rigidbody.Velocity,
-				Position = other.Contact.Point + Rigidbody.Velocity.Normal * 8f
+				Position = contactPoint + Rigidbody.Velocity.Normal * 8f
 			};
 
 			Scene.Dispatch( new DamageWorldEvent( damage ) );
@@ -92,7 +95,7 @@ public partial class Projectile : Component, Component.ICollisionListener
 				Damage = Damage,
 				Type = DamageType,
 				Force = Rigidbody.Velocity,
-				Position = other.Contact.Point,
+				Position = contactPoint,
 				Victim = healthComponent
 			} );
 		}
