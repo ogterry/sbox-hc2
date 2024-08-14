@@ -1,7 +1,7 @@
 @import "../Styles/_theme.scss";
 
 $height: 96px;
-$height-small: 80px;
+$height-small: 72px;
 
 Vitals {
     backdrop-filter: $blur;
@@ -42,7 +42,7 @@ column {
 .avatar-container {
     height: $height;
     aspect-ratio: 1;
-    border-image: url( /ui/Panel/panel-009.png ) 16 fill;
+    border-image: url( /ui/Panel/panel-001.png ) 16 fill;
     border-image-tint: $background;
 }
 
