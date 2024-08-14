@@ -1,0 +1,32 @@
+@using Sandbox;
+@using Sandbox.UI;
+@inherits PanelComponent
+
+<root>
+	@if (!Player.IsValid()) return;
+	<div class="header">
+		<label class="name">@Player.CharacterName</label>
+	</div>
+	<div class="line" />
+	<div class="footer">
+		<label class="level">LVL @Player.Experience.Level</label>
+		<label class="health">HP: @Player.HealthComponent.Health</label>
+	</div>
+</root>
+
+@code
+{
+
+	[Property] public Player Player { get; set; }
+
+	protected override void OnUpdate()
+	{
+		if (!Scene.Camera.IsValid()) return;
+		Transform.Rotation = Scene.Camera.Transform.Rotation * new Angles(0, 180, 0);
+		var distance = (Scene.Camera.Transform.Position - Transform.Position).Length;
+		var opacity = MathX.Clamp(1.0f - (distance / 1000.0f), 0.0f, 1.0f);
+		Panel.Style.Opacity = opacity;
+	}
+
+	protected override int BuildHash() => System.HashCode.Combine(Player?.CharacterName, Player?.Experience?.Level, Player?.HealthComponent?.Health);
+}

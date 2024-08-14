@@ -23,10 +23,8 @@
           "go": "1ae189d1-c127-4cc0-9d74-447ba0c42c09",
           "component_type": "CameraController"
         },
-        "DefaultMainHandPrefab": {
-          "_type": "gameobject",
-          "go": "b7c98c4e-8217-4956-a6a1-87559ffe2b98"
-        },
+        "DuckHeight": 36,
+        "DuckSpeed": 128,
         "Hotbar": {
           "_type": "component",
           "component_id": "a080aa62-f755-4b7f-b18e-71402eae3534",
@@ -53,6 +51,12 @@
           "component_type": "SkinnedModelRenderer"
         },
         "MovementSpeed": 256,
+        "Nametag": {
+          "_type": "component",
+          "component_id": "4669d59f-0144-4584-af96-e606fe3ff10a",
+          "go": "e5633017-4d7b-4e5c-a6ee-be2cc1439172",
+          "component_type": "Nametag"
+        },
         "OffHandBone": {
           "_type": "gameobject",
           "go": "dc140d6e-7d3f-498d-9f5e-750e5364f6df"
@@ -297,6 +301,36 @@
                                     "Position": "6.908859,5.140497,-3.234591",
                                     "Rotation": "0.7071079,0.7071056,0.000003464245,-0.000004183565",
                                     "Enabled": true
+                                  },
+                                  {
+                                    "__guid": "e5633017-4d7b-4e5c-a6ee-be2cc1439172",
+                                    "Flags": 0,
+                                    "Name": "Nametag",
+                                    "Position": "25.79082,0,0.0001982249",
+                                    "Rotation": "0.500002,0.4999969,0.5000015,0.4999992",
+                                    "Enabled": true,
+                                    "Components": [
+                                      {
+                                        "__type": "Sandbox.WorldPanel",
+                                        "__guid": "ed7196be-f48f-4736-88b6-2f70bee47b73",
+                                        "HorizontalAlign": "Center",
+                                        "InteractionRange": 1000,
+                                        "LookAtCamera": false,
+                                        "PanelSize": "1024,281.8997",
+                                        "RenderScale": 1,
+                                        "VerticalAlign": "Center"
+                                      },
+                                      {
+                                        "__type": "Nametag",
+                                        "__guid": "4669d59f-0144-4584-af96-e606fe3ff10a",
+                                        "Player": {
+                                          "_type": "component",
+                                          "component_id": "1456c9e9-1a19-4961-a21c-99e56a8c8741",
+                                          "go": "1ae189d1-c127-4cc0-9d74-447ba0c42c09",
+                                          "component_type": "Player"
+                                        }
+                                      }
+                                    ]
                                   }
                                 ]
                               }
