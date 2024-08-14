@@ -1,4 +1,5 @@
-﻿
+﻿using System;
+
 namespace Voxel;
 
 [GameResource( "Palette", "palette", "Palette" )]
@@ -11,4 +12,13 @@ public partial class Palette : GameResource
 	}
 
 	public List<Material> Materials { get; set; }
+
+	public static Action OnReload { get; set; }
+
+	protected override void PostReload()
+	{
+		base.PostReload();
+
+		OnReload?.Invoke();
+	}
 }

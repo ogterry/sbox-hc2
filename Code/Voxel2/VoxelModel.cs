@@ -25,6 +25,8 @@ public partial class VoxelRenderer : Component, Component.ExecuteInEditor
 	{
 		Transform.OnTransformChanged += OnLocalTransformChanged;
 
+		Palette.OnReload += OnDirty;
+
 		Model?.Destroy();
 		Model = new VoxelModel( Size.x, Size.y, Size.z );
 		Model.SetPalette( Palette );
@@ -44,6 +46,8 @@ public partial class VoxelRenderer : Component, Component.ExecuteInEditor
 
 	private void DestroyInternal()
 	{
+		Palette.OnReload -= OnDirty;
+
 		Model?.Destroy();
 		Model = null;
 	}
