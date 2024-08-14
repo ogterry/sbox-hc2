@@ -7,25 +7,25 @@
 @inherits Panel
 
 @{
-	if (!Hotbar.IsValid()) return;
+    if (!Hotbar.IsValid()) return;
 }
 
 <root class="@(InventoryOpen ? "visible" : "")">
-	<div class="inventory">
-		@for (var i = 0; i < Inventory.MaxSlots; i++)
-		{
-			var item = Inventory.GetItemInSlot(i);
-			<ItemSlot Item=@item SlotIndex=@i />
-		}
-	</div>
+    <div class="inventory">
+        @for (var i = 0; i < Inventory.MaxSlots; i++)
+        {
+            var item = Inventory.GetItemInSlot(i);
+            <ItemSlot Item=@item Inventory=@Inventory SlotIndex=@i />
+        }
+    </div>
 
-	<div class="container">
-		@for (var i = 0; i < Hotbar.MaxSlots; i++)
-		{
-			var item = Hotbar.GetItemInSlot(i);
-			<ItemSlot class="@(Hotbar.SelectedSlot == i ? "active" : "")" Item=@item SlotIndex=@i />
-		}
-	</div>
+    <div class="container">
+        @for (var i = 0; i < Hotbar.MaxSlots; i++)
+        {
+            var item = Hotbar.GetItemInSlot(i);
+            <ItemSlot class="@(Hotbar.SelectedSlot == i ? "active" : "")" Item=@item Inventory=@Hotbar SlotIndex=@i />
+        }
+    </div>
 </root>
 
 @code
@@ -46,9 +46,9 @@
 
     ItemSlot DraggingItem { get; set; }
 
-    protected override void OnMouseDown( MousePanelEvent e )
+    protected override void OnMouseDown(MousePanelEvent e)
     {
-        if ( e.MouseButton == MouseButtons.Left )
+        if (e.MouseButton == MouseButtons.Left)
         {
             IsDragging = false;
             WantsToDrag = true;
@@ -56,9 +56,9 @@
         }
     }
 
-    protected override void OnMouseUp( MousePanelEvent e )
+    protected override void OnMouseUp(MousePanelEvent e)
     {
-        if ( e.MouseButton == MouseButtons.Left )
+        if (e.MouseButton == MouseButtons.Left)
         {
             var mousePos = Mouse.Position / Screen.Size;
 
@@ -68,29 +68,29 @@
 
     void StartDragging()
     {
-        if ( IsDragging )
+        if (IsDragging)
             return;
 
         DraggingItem = HoveredSlot;
 
-        if ( !DraggingItem.IsValid() )
+        if (!DraggingItem.IsValid())
             return;
 
         IsDragging = true;
 
         // Dummy = new DraggedItem()
         // {
-        //     Item = DraggingItem.Item,
-        //     Slot = DraggingItem.Slot
+        // Item = DraggingItem.Item,
+        // Slot = DraggingItem.Slot
         // };
 
-        DraggingItem.SetClass( "being-dragged", true );
+        DraggingItem.SetClass("being-dragged", true);
 
-        SetClass( "dragging-active", true );
+        SetClass("dragging-active", true);
 
         // AddChild( Dummy );
 
-        Log.Info( $"Started dragging {DraggingItem}" );
+        Log.Info($"Started dragging {DraggingItem}");
     }
 
     void StopDragging()
@@ -100,33 +100,33 @@
 
         var item = DraggingItem;
 
-        if ( item.IsValid() )
+        if (item.IsValid())
         {
-            item.SetClass( "being-dragged", false );
+            item.SetClass("being-dragged", false);
         }
 
         DraggingItem = null;
 
-        SetClass( "dragging-active", false );
+        SetClass("dragging-active", false);
 
-        Log.Info( $"Stop dragging {item}" );
+        Log.Info($"Stop dragging {item}");
 
 
-        if ( HoveredSlot == null )
+        if (HoveredSlot == null)
         {
             return;
         }
 
         // if ( !Dummy.IsValid() )
-        //     return;
+        // return;
 
         // Dummy.Delete( true );
-        
+
         // TODO: Improve this
         var slotA = item;
         var slotB = HoveredSlot;
 
-        slotA.Item.Container.Value.Inventory.MoveItem( slotA.Item, slotB.SlotIndex );
+        slotB.Inventory.MoveItem(slotA.Item, slotB.SlotIndex);
     }
 
     public override void Tick()
@@ -136,58 +136,58 @@
             InventoryOpen = !InventoryOpen;
         }
 
-        if ( InventoryOpen )
+        if (InventoryOpen)
         {
             var mousePos = Mouse.Position / Screen.Size;
 
-            if ( DraggingItem is null && IsDragging )
+            if (DraggingItem is null && IsDragging)
             {
                 StopDragging();
                 return;
             }
 
             // Have we moved a little, and are not dragging already?
-            if ( mousePos.Distance( StartMousePos ) > .005 && WantsToDrag )
+            if (mousePos.Distance(StartMousePos) > .005 && WantsToDrag)
                 StartDragging();
         }
     }
 
-	protected override int BuildHash()
-	{
-		var hc = new HashCode();
+    protected override int BuildHash()
+    {
+        var hc = new HashCode();
 
-		hc.Add(InventoryOpen);
+        hc.Add(InventoryOpen);
 
-		if (!Hotbar.IsValid()) return hc.ToHashCode();
+        if (!Hotbar.IsValid()) return hc.ToHashCode();
 
-		hc.Add(Hotbar.SelectedSlot);
+        hc.Add(Hotbar.SelectedSlot);
 
-		var hotbar = Hotbar;
-		hc.Add(hotbar);
+        var hotbar = Hotbar;
+        hc.Add(hotbar);
 
-		if (hotbar.IsValid())
-		{
-			foreach (var item in hotbar.GetAllItems())
-			{
-				hc.Add(item);
-				hc.Add(item.Amount);
-			}
-		}
+        if (hotbar.IsValid())
+        {
+            foreach (var item in hotbar.GetAllItems())
+            {
+                hc.Add(item);
+                hc.Add(item.Amount);
+            }
+        }
 
-		var inventory = Inventory;
-		hc.Add(inventory);
+        var inventory = Inventory;
+        hc.Add(inventory);
 
-		if (inventory.IsValid())
-		{
-			foreach (var item in inventory.GetAllItems())
-			{
-				hc.Add(item);
-				hc.Add(item.Amount);
-			}
-		}
+        if (inventory.IsValid())
+        {
+            foreach (var item in inventory.GetAllItems())
+            {
+                hc.Add(item);
+                hc.Add(item.Amount);
+            }
+        }
 
 
 
-		return hc.ToHashCode();
-	}
+        return hc.ToHashCode();
+    }
 }

@@ -18,32 +18,33 @@
 {
     public Item Item { get; set; }
     public int SlotIndex { get; set; }
+    public Inventory Inventory { get; set; }
 
-    
-    protected override void OnMouseOver( MousePanelEvent e )
+
+    protected override void OnMouseOver(MousePanelEvent e)
     {
-        base.OnMouseOver( e );
+        base.OnMouseOver(e);
 
-        AddClass( "hovered-item" );
+        AddClass("hovered-item");
 
-        if ( TestHotbar.HoveredSlot != this )
+        if (TestHotbar.HoveredSlot != this)
         {
             TestHotbar.HoveredSlot = this;
         }
     }
 
 
-    protected override void OnMouseOut( MousePanelEvent e )
+    protected override void OnMouseOut(MousePanelEvent e)
     {
-        base.OnMouseOut( e );
+        base.OnMouseOut(e);
 
-        RemoveClass( "hovered-item" );
+        RemoveClass("hovered-item");
 
-        if ( TestHotbar.HoveredSlot == this )
+        if (TestHotbar.HoveredSlot == this)
         {
             TestHotbar.HoveredSlot = null;
         }
-	}
+    }
 
     protected override int BuildHash() => System.HashCode.Combine(Item?.Amount);
 }

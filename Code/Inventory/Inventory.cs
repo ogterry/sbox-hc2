@@ -78,14 +78,16 @@ public class Inventory : Component, ISaveData
 	public void MoveItem( Item item, int slotIndex )
 	{
 		var oldInventory = item.Container;
+		var oldIndex = item.SlotIndex;
 		var otherItem = GetItemInSlot( slotIndex );
+
+		oldInventory?.ClearItemSlot( oldIndex );
 
 		if ( otherItem?.IsValid() ?? false )
 		{
-			if ( oldInventory?.IsValid() ?? false )
+			if ( oldInventory is not null && otherItem?.Resource != item.Resource )
 			{
-				oldInventory?.TakeItem( item );
-				oldInventory.Value.Inventory.Container = oldInventory.Value;
+				oldInventory?.TryGiveItemSlot( otherItem, oldIndex );
 			}
 			else
 			{

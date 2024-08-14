@@ -55,6 +55,17 @@ public struct InventoryContainer
 		return false;
 	}
 
+	public void ClearItemSlot( int slotIndex )
+	{
+		if ( !Inventory.IsValid() ) return;
+		if ( slotIndex < 0 || slotIndex >= MaxSlots )
+		{
+			throw new ArgumentOutOfRangeException( nameof( slotIndex ) );
+		}
+
+		Items[slotIndex] = null;
+	}
+
 	public bool TryGiveItem( Item item )
 	{
 		if ( !Inventory.IsValid() ) return false;
