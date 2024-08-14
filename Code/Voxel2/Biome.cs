@@ -14,7 +14,7 @@ public partial class Biome : GameResource
 	/// The temperature of this biome (0 is very cold, 1 is very hot). This will be used to
 	/// determine which biome is selected for an area during world generation.
 	/// </summary>
-	[Range( 0f, 1f )] public float Temperature { get; set; } = 0f;
+	[Range( 0f, 1f )] public float Temperature { get; set; } = 0.5f;
 
 	/// <summary>
 	/// The block type to use for the surface.
