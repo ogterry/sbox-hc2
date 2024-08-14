@@ -10,9 +10,16 @@ public partial class VoxelRenderer : Component, Component.ExecuteInEditor
 
 	[Property] public Vector3Int Size { get; set; } = new( 256, 32, 256 );
 
-	[Property] public Palette Palette { get; set; }
+	[Property, MakeDirty] public Palette Palette { get; set; }
 
 	public bool IsReady => Enabled && Model is not null;
+
+	protected override void OnDirty()
+	{
+		base.OnDirty();
+
+		Model?.SetPalette( Palette );
+	}
 
 	protected override void OnEnabled()
 	{
@@ -138,7 +145,14 @@ public partial class VoxelModel
 	public void SetPalette( Palette palette )
 	{
 		if ( palette == null )
+		{
+			WhiteTexture.MarkUsed( int.MaxValue );
+			Array.Fill( Palette, new PaletteMaterial { Color = Color.White, TextureIndex = WhiteTexture.Index } );
+
+			PaletteBuffer.SetData( Palette );
+
 			return;
+		}
 
 		for ( var i = 0; i < palette.Materials.Count; ++i )
 		{
