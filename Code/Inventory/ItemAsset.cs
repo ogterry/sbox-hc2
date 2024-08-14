@@ -39,8 +39,11 @@ public class ItemAsset : GameResource
 	/// </summary>
 	public Model WorldModel { get; set; }
 
+	[Category( "Crafting" )]
+	public List<Item> CraftingRequirements { get; set; }
 	/// <summary>
 	/// A list of status effects that this item applies to the player when equipped/consumed.
 	/// </summary>
-	List<StatusEffect> StatusEffects { get; set; } = new();
+	[Category( "Effects" )]
+	public List<StatusEffect> StatusEffects { get; set; } = new();
 }

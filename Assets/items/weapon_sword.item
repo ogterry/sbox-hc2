@@ -6,6 +6,19 @@
   "Tags": "weapon,melee",
   "Prefab": "prefabs/weapons/sword.prefab",
   "WorldModel": "models/sword/sword.vmdl",
+  "CraftingRequirements": [
+    {
+      "Resource": "items/tree_branch.item",
+      "Amount": 1,
+      "Durability": 1
+    },
+    {
+      "Resource": "items/rock.item",
+      "Amount": 4,
+      "Durability": 1
+    }
+  ],
+  "StatusEffects": [],
   "__references": [
     "hecker.sword"
   ],

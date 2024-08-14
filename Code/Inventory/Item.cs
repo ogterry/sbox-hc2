@@ -6,8 +6,8 @@ namespace HC2;
 
 public class Item
 {
-	public ItemAsset Resource { get; set; }
-	public int Amount { get; set; } = 1;
+	[KeyProperty] public ItemAsset Resource { get; set; }
+	[KeyProperty] public int Amount { get; set; } = 1;
 	public float Durability { get; set; } = 1f;
 
 	[JsonIgnore, Hide] public InventoryContainer? Container;
