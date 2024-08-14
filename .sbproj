@@ -5,7 +5,7 @@
   "Ident": "hc2",
   "Schema": 1,
   "IncludeSourceFiles": false,
-  "Resources": "*.ttf\n/items/*.png\n/item_icons/*.png",
+  "Resources": "*.ttf\n/items/*.png\n/item_icons/*.png\nui/Border/*\nui/Panel/*\nui/Transparent border/*\nui/Transparent center/*",
   "PackageReferences": [],
   "EditorReferences": null,
   "Metadata": {
