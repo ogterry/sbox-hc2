@@ -37,7 +37,10 @@
 		{
 			if (Input.Pressed("Jump"))
 			{
-				Networking.Instance.SpawnLocalPlayer();
+				using (Rpc.FilterInclude(Connection.Local))
+				{
+					Networking.Instance.SpawnLocalPlayer();
+				}
 			}
 		}
 	}
