@@ -2,9 +2,8 @@
   "RootObject": {
     "__guid": "70818148-0689-41d7-a059-1216c8afd3cd",
     "Flags": 0,
-    "Name": "SMG",
-    "Position": "-0.000008602085,0.000007232561,-4.653377",
-    "Scale": "0.1,0.1,0.6",
+    "Name": "smg",
+    "Enabled": true,
     "Components": [
       {
         "__type": "ProjectileWeapon",
@@ -40,7 +39,6 @@
         "__guid": "ed8d5c90-52c7-4715-b1e7-7a7cb8ae4128",
         "Flags": 0,
         "Name": "SMG Projectile",
-        "Position": "0,0,0",
         "Components": [
           {
             "__type": "Projectile",
@@ -91,7 +89,6 @@
             "__guid": "19541090-abb4-4d18-8ebd-ccc227e00db6",
             "Flags": 0,
             "Name": "Sphere",
-            "Position": "0,0,0",
             "Scale": "0.1,0.1,0.1",
             "Enabled": true,
             "Components": [
@@ -119,20 +116,21 @@
         "__guid": "e5de3e9c-bf8d-4c62-8544-fa2f80d8d9de",
         "Flags": 0,
         "Name": "Object",
-        "Position": "5,0,0",
-        "Rotation": "0,0.7071068,0,0.7071068",
+        "Position": "3.684802,0,-9.175667",
         "Enabled": true,
         "Components": [
           {
             "__type": "Sandbox.ModelRenderer",
             "__guid": "ecff1592-6daf-4ebd-ac33-54af0abdce29",
             "BodyGroups": 18446744073709551615,
+            "Model": "models/weapons/assault_rifle/assault_rifle.vmdl",
             "RenderType": "On",
-            "Tint": "1,0.33488,0.33488,1"
+            "Tint": "1,1,1,1"
           }
         ]
       }
-    ]
+    ],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,
