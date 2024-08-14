@@ -44,7 +44,7 @@
             "__type": "Sandbox.ModelRenderer",
             "__guid": "77074f13-86cf-4825-bcdc-913380ce8c3e",
             "BodyGroups": 18446744073709551615,
-            "Model": "models/props/dead_tree/dead_tree.vmdl",
+            "Model": "models/props/dead_tree/dead_tree_no_foliage.vmdl",
             "RenderType": "On",
             "Tint": "1,0,0,1"
           },
