@@ -138,11 +138,21 @@
           "__type": "Voxel.Modifications.VoxelWorldGen",
           "__guid": "434925b3-6811-498f-b296-a5526f709d93",
           "Parameters": "worlds/default.worldgen",
-          "Seed": 908118796
+          "Seed": 1481100936
         },
         {
           "__type": "Voxel.VoxelDamage",
           "__guid": "07f8f588-42ee-4b5f-92d2-50b2d3a1707b"
+        },
+        {
+          "__type": "Voxel.BiomeSampler",
+          "__guid": "0d64d31f-0f32-4715-8101-b29238e81ae4",
+          "Biomes": [
+            "biomes/default.biome",
+            "biomes/desert.biome",
+            "biomes/snow.biome"
+          ],
+          "BiomeSize": 4
         }
       ]
     },
