@@ -17,7 +17,8 @@
           "component_id": "80c32109-0f5a-4ac3-a53c-b6f1eec8ff8f",
           "go": "9137113a-7bf9-4a60-87d5-8f31c49ba025",
           "component_type": "TextRenderer"
-        }
+        },
+        "HitSound": "sounds/mobs/roller/hit/roller_ball_hit.sound"
       },
       {
         "__type": "Sandbox.CharacterController",
@@ -148,9 +149,9 @@
                         "Id": 46,
                         "Type": "call",
                         "Properties": {
+                          "_isStatic": false,
                           "_type": "HC2.Mobs.Mob",
-                          "_name": "SetFace",
-                          "_isStatic": false
+                          "_name": "SetFace"
                         },
                         "UserData": {
                           "Position": "688,176"
@@ -393,9 +394,9 @@
                         "Id": 18,
                         "Type": "call",
                         "Properties": {
+                          "_isStatic": false,
                           "_type": "HC2.Mobs.Mob",
-                          "_name": "SetFace",
-                          "_isStatic": false
+                          "_name": "SetFace"
                         },
                         "UserData": {
                           "Position": "256,-16"
@@ -563,8 +564,8 @@
                         "Type": "call",
                         "Properties": {
                           "_type": "HC2.Mobs.Mob",
-                          "_name": "SetMoveTarget",
-                          "_isStatic": false
+                          "_isStatic": false,
+                          "_name": "SetMoveTarget"
                         },
                         "UserData": {
                           "Position": "464,64"
@@ -1002,9 +1003,9 @@
                         "Id": 9,
                         "Type": "call",
                         "Properties": {
+                          "_isStatic": false,
                           "_type": "HC2.Mobs.Mob",
-                          "_name": "ClearAimTarget",
-                          "_isStatic": false
+                          "_name": "ClearAimTarget"
                         },
                         "UserData": {
                           "Position": "256,32"
@@ -1207,9 +1208,9 @@
                         "Id": 15,
                         "Type": "call",
                         "Properties": {
+                          "_isStatic": false,
                           "_type": "HC2.Mobs.Mob",
-                          "_name": "SetAimTarget",
-                          "_isStatic": false
+                          "_name": "SetAimTarget"
                         },
                         "UserData": {
                           "Position": "896,96"
@@ -1245,9 +1246,9 @@
                         "Id": 19,
                         "Type": "call",
                         "Properties": {
+                          "_isStatic": false,
                           "_type": "HC2.Mobs.Mob",
-                          "_name": "SetMoveTarget",
-                          "_isStatic": false
+                          "_name": "SetMoveTarget"
                         },
                         "UserData": {
                           "Position": "1200,96"
@@ -1296,9 +1297,9 @@
                         "Id": 28,
                         "Type": "call",
                         "Properties": {
+                          "_isStatic": false,
                           "_type": "HC2.Mobs.Mob",
-                          "_name": "SetFace",
-                          "_isStatic": false
+                          "_name": "SetFace"
                         },
                         "UserData": {
                           "Position": "288,-32"
@@ -1476,9 +1477,9 @@
                         "Id": 8,
                         "Type": "call",
                         "Properties": {
+                          "_isStatic": false,
                           "_type": "HC2.Mobs.Mob",
-                          "_name": "ClearAimTarget",
-                          "_isStatic": false
+                          "_name": "ClearAimTarget"
                         },
                         "UserData": {
                           "Position": "304,-0"
@@ -1488,9 +1489,9 @@
                         "Id": 9,
                         "Type": "call",
                         "Properties": {
+                          "_isStatic": false,
                           "_type": "HC2.Mobs.Mob",
-                          "_name": "ClearMoveTarget",
-                          "_isStatic": false
+                          "_name": "ClearMoveTarget"
                         },
                         "UserData": {
                           "Position": "304,96"
@@ -1500,9 +1501,9 @@
                         "Id": 12,
                         "Type": "call",
                         "Properties": {
+                          "_isStatic": false,
                           "_type": "HC2.Mobs.Mob",
-                          "_name": "SetFace",
-                          "_isStatic": false
+                          "_name": "SetFace"
                         },
                         "UserData": {
                           "Position": "320,-112"
@@ -1930,9 +1931,9 @@
                         "Id": 4,
                         "Type": "call",
                         "Properties": {
+                          "_isStatic": false,
                           "_type": "HC2.Mobs.VisionCone",
-                          "_name": "CanSeeAnyTarget",
-                          "_isStatic": false
+                          "_name": "CanSeeAnyTarget"
                         },
                         "UserData": {
                           "Position": "48,160"
@@ -1957,9 +1958,9 @@
                         "Id": 7,
                         "Type": "call",
                         "Properties": {
+                          "_isStatic": false,
                           "_type": "HC2.Mobs.Mob",
-                          "_name": "SetAimTarget",
-                          "_isStatic": false
+                          "_name": "SetAimTarget"
                         },
                         "UserData": {
                           "Position": "336,-16"

@@ -38,6 +38,9 @@ public sealed class Mob : Component,
 	[Property, KeyProperty]
 	public event Action<KilledEvent>? Killed;
 
+	[Property]
+	SoundEvent HitSound { get; set; }
+
 	private DamageTakenEvent? _lastDamageEvent;
 	private TimeSince _sinceLastDamage;
 
@@ -101,6 +104,11 @@ public sealed class Mob : Component,
 
 		_lastDamageEvent = eventArgs;
 		_sinceLastDamage = 0f;
+
+		if ( HitSound != null )
+		{
+			Sound.Play( HitSound, Transform.Position );
+		}
 	}
 
 	void IGameEventHandler<KilledEvent>.OnGameEvent( KilledEvent eventArgs )

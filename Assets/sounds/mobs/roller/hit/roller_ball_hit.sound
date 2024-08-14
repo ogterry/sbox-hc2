@@ -1,0 +1,26 @@
+{
+  "UI": false,
+  "Volume": "1.00,1.00,0",
+  "Pitch": "0.50,0.75,1",
+  "Decibels": 70,
+  "SelectionMode": "Random",
+  "Sounds": [
+    "sounds/mobs/roller/hit/roller_ball_hit_01.vsnd",
+    "sounds/mobs/roller/hit/roller_ball_hit_02.vsnd",
+    "sounds/mobs/roller/hit/roller_ball_hit_03.vsnd",
+    "sounds/mobs/roller/hit/roller_ball_hit_04.vsnd",
+    "sounds/mobs/roller/hit/roller_ball_hit_05.vsnd",
+    "sounds/mobs/roller/hit/roller_ball_hit_06.vsnd",
+    "sounds/mobs/roller/hit/roller_ball_hit_07.vsnd",
+    "sounds/mobs/roller/hit/roller_ball_hit_08.vsnd",
+    "sounds/mobs/roller/hit/roller_ball_hit_09.vsnd",
+    "sounds/mobs/roller/hit/roller_ball_hit_010.vsnd"
+  ],
+  "Occlusion": true,
+  "AirAbsorption": true,
+  "Transmission": true,
+  "OcclusionRadius": 64,
+  "DistanceAttenuation": true,
+  "__references": [],
+  "__version": 0
+}
