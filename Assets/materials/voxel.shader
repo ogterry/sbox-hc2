@@ -97,7 +97,7 @@ VS
 		o.vTangentVWs = vTangentOs;
 		o.vVertexColor = float4( material.Color.rgb * brightness, 1.0 );
 		o.TextureIndex = material.TextureIndex.x + 1;
-		o.Height = o.vPositionWs.z / 512;
+		o.Height = o.vPositionWs.z / 128;
 		return FinalizeVertex( o );
 	}
 }
