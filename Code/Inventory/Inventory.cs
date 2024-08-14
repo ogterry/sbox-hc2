@@ -85,9 +85,26 @@ public class Inventory : Component, ISaveData
 
 		if ( otherItem?.IsValid() ?? false )
 		{
-			if ( oldInventory is not null && otherItem?.Resource != item.Resource )
+			if ( oldInventory is not null )
 			{
-				oldInventory?.TryGiveItemSlot( otherItem, oldIndex );
+				if ( otherItem?.Resource != item.Resource )
+				{
+					oldInventory?.TryGiveItemSlot( otherItem, oldIndex );
+				}
+				else
+				{
+					if ( otherItem.Amount + item.Amount > otherItem.Resource.MaxStack )
+					{
+						var diff = otherItem.Resource.MaxStack - otherItem.Amount;
+						otherItem.Amount = otherItem.Resource.MaxStack;
+						TryGiveItem( Item.Create( item.Resource, item.Amount - diff ) );
+					}
+					else
+					{
+						otherItem.Amount += item.Amount;
+						item.Amount = 0;
+					}
+				}
 			}
 			else
 			{
