@@ -116,10 +116,10 @@
         IsDragging = false;
         WantsToDrag = false;
 
-        var item = DraggingItem;
+        var slotA = DraggingItem;
 
-        if ( item.IsValid() )
-            item.SetClass( "being-dragged", false );
+        if ( slotA.IsValid() )
+            slotA.SetClass( "being-dragged", false );
 
         DraggingItem = null;
         SetClass( "dragging-active", false );
@@ -137,17 +137,16 @@
             return;
         }
 
-        if ( !item.IsValid() )
+        if ( !slotA.IsValid() )
             return;
-
-        var slotA = item;
+        
         var slotB = HoveredSlot;
         var itemInSlotB = slotB.Item;
         var itemInSlotA = slotA.Item;
 
         if ( DragType == ItemDragType.MoveAll )
         {
-	        slotB.Inventory.MoveItem( slotA.Item, slotB.SlotIndex );
+	        slotB.Inventory.MoveItem( itemInSlotA, slotB.SlotIndex );
 	        return;
         }
         
@@ -163,7 +162,13 @@
 	        }
 	        else
 	        {
-		        var newItem = Item.Create( itemInSlotA.Resource, 1 );
+		        if ( itemInSlotA.Amount == 1 )
+		        {
+			        slotB.Inventory.MoveItem( itemInSlotA, slotB.SlotIndex );
+			        return;
+		        }
+		        
+		        var newItem = Item.Create( itemInSlotA.Resource );
 		        slotB.Inventory.TryGiveItemSlot( newItem, slotB.SlotIndex );
 		        itemInSlotA.Amount--;
 	        }
