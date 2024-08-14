@@ -312,6 +312,10 @@ public partial class Player : Component, IDamage,
 			CharacterSave.Current?.Save( Player.Local );
 		}
 
+		DoFlyMode();
+
+		if ( FlyMode ) return;
+
 		BuildWishVelocity();
 		ApplyAcceleration();
 		ApplyJump();
@@ -407,6 +411,16 @@ public partial class Player : Component, IDamage,
 		if ( IsProxy )
 			return;
 
+		if(Game.IsEditor)
+		{
+			if ( Input.Pressed("flymode" ) )
+			{
+				FlyMode = !FlyMode;
+			}
+
+			Log.Info( FlyMode );
+		}
+
 		CameraController.UpdateFromPlayer();
 	}
 
@@ -474,4 +488,31 @@ public partial class Player : Component, IDamage,
 
 		RemoveMainHand();
 	}
+
+
+	void DoFlyMode()
+	{
+		if ( FlyMode )
+		{
+			Character.IsOnGround = false;
+
+			Character.Velocity = Vector3.Zero;
+
+			Vector3 movement = Input.AnalogMove;
+
+			float speed = 250.0f;
+
+			if(Input.Down("run"))
+			{
+				speed = 500.0f;
+			}
+
+			GameObject.Transform.Position += EyeAngles.ToRotation() * movement * speed * Time.Delta;
+
+			return;
+		}
+	}
+
+	[Sync]
+	bool FlyMode { get; set; }
 }
