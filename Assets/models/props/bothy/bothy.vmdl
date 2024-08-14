@@ -14,7 +14,7 @@
 						filename = "models/props/bothy/bothy.vox"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
-						import_scale = 0.3937
+						import_scale = 1.0
 						align_origin_x_type = "None"
 						align_origin_y_type = "None"
 						align_origin_z_type = "None"
@@ -32,139 +32,26 @@
 				children = 
 				[
 					{
-						_class = "PhysicsShapeBox"
+						_class = "PhysicsMeshFile"
+						name = "bothy"
 						parent_bone = ""
 						surface_prop = "default"
 						collision_tags = "solid"
-						origin = [ 92.928284, 94.176208, 12.611038 ]
-						angles = [ 0.0, 0.0, 0.0 ]
-						dimensions = [ 10.0, 71.286865, 35.222076 ]
-					},
-					{
-						_class = "PhysicsShapeBox"
-						parent_bone = ""
-						surface_prop = "default"
-						collision_tags = "solid"
-						origin = [ 92.928284, -72.925003, 12.611038 ]
-						angles = [ 0.0, 0.0, 0.0 ]
-						dimensions = [ 10.0, 121.684235, 35.222076 ]
-					},
-					{
-						_class = "PhysicsShapeBox"
-						parent_bone = ""
-						surface_prop = "default"
-						collision_tags = "solid"
-						origin = [ 92.928284, -89.303429, 46.210678 ]
-						angles = [ 0.0, 0.0, 0.0 ]
-						dimensions = [ 10.0, 88.927383, 35.222076 ]
-					},
-					{
-						_class = "PhysicsShapeBox"
-						parent_bone = ""
-						surface_prop = "default"
-						collision_tags = "solid"
-						origin = [ 92.928284, -101.089859, 85.993698 ]
-						angles = [ 0.0, 0.0, 0.0 ]
-						dimensions = [ 10.0, 65.354485, 35.222076 ]
-					},
-					{
-						_class = "PhysicsShapeBox"
-						parent_bone = ""
-						surface_prop = "default"
-						collision_tags = "solid"
-						origin = [ -1.962517, -131.432556, 51.562691 ]
-						angles = [ 0.0, -88.572456, 0.0 ]
-						dimensions = [ 10.0, 199.316711, 104.084091 ]
-					},
-					{
-						_class = "PhysicsShapeBox"
-						parent_bone = ""
-						surface_prop = "default"
-						collision_tags = "solid"
-						origin = [ -90.733543, -76.688049, 9.863171 ]
-						angles = [ 0.0, 0.0, 0.0 ]
-						dimensions = [ 16.100998, 113.768921, 23.193077 ]
-					},
-					{
-						_class = "PhysicsShapeBox"
-						parent_bone = ""
-						surface_prop = "default"
-						collision_tags = "solid"
-						origin = [ -90.733543, -3.359222, 88.195953 ]
-						angles = [ 0.0, 0.0, 0.0 ]
-						dimensions = [ 16.100998, 260.426575, 23.193077 ]
-					},
-					{
-						_class = "PhysicsShapeBox"
-						parent_bone = ""
-						surface_prop = "default"
-						collision_tags = "solid"
-						origin = [ -90.733543, -31.673252, 47.426151 ]
-						angles = [ 0.0, 0.0, 0.0 ]
-						dimensions = [ 16.100998, 23.739326, 52.492973 ]
-					},
-					{
-						_class = "PhysicsShapeBox"
-						parent_bone = ""
-						surface_prop = "default"
-						collision_tags = "solid"
-						origin = [ -90.733543, -106.157349, 47.426151 ]
-						angles = [ 0.0, 0.0, 0.0 ]
-						dimensions = [ 16.100998, 55.380371, 52.492973 ]
-					},
-					{
-						_class = "PhysicsShapeBox"
-						parent_bone = ""
-						surface_prop = "default"
-						collision_tags = "solid"
-						origin = [ -90.733543, 27.02914, 47.426151 ]
-						angles = [ 0.0, 0.0, 0.0 ]
-						dimensions = [ 16.100998, 23.739326, 52.492973 ]
-					},
-					{
-						_class = "PhysicsShapeBox"
-						parent_bone = ""
-						surface_prop = "default"
-						collision_tags = "solid"
-						origin = [ -90.733543, 72.540375, 9.863171 ]
-						angles = [ 0.0, 0.0, 0.0 ]
-						dimensions = [ 16.100998, 113.768921, 23.193077 ]
-					},
-					{
-						_class = "PhysicsShapeBox"
-						parent_bone = ""
-						surface_prop = "default"
-						collision_tags = "solid"
-						origin = [ -90.733543, 99.617538, 48.56041 ]
-						angles = [ 0.0, 0.0, 0.0 ]
-						dimensions = [ 16.100998, 59.614571, 57.407104 ]
-					},
-					{
-						_class = "PhysicsShapeBox"
-						parent_bone = ""
-						surface_prop = "default"
-						collision_tags = "solid"
-						origin = [ -1.962517, 124.157715, 51.562691 ]
-						angles = [ 0.0, -88.572456, 0.0 ]
-						dimensions = [ 10.0, 199.316711, 104.084091 ]
-					},
-					{
-						_class = "PhysicsShapeBox"
-						parent_bone = ""
-						surface_prop = "default"
-						collision_tags = "solid"
-						origin = [ 0.164262, -121.2565, 109.948387 ]
-						angles = [ 0.0, -88.572456, 0.0 ]
-						dimensions = [ 29.606125, 24.39748, 223.765488 ]
-					},
-					{
-						_class = "PhysicsShapeBox"
-						parent_bone = ""
-						surface_prop = "default"
-						collision_tags = "solid"
-						origin = [ 91.78968, -101.315079, 49.474274 ]
-						angles = [ 0.0, 0.0, 0.0 ]
-						dimensions = [ 16.100998, 59.614571, 105.08963 ]
+						recenter_on_parent_bone = false
+						offset_origin = [ 0.0, 0.0, 0.0 ]
+						offset_angles = [ 0.0, 0.0, 0.0 ]
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						filename = "models/props/bothy/bothy.vox"
+						import_scale = 1.0
+						maxMeshVertices = 5
+						qemError = 0.0
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
 					},
 				]
 			},
