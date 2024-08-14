@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Sandbox.Events;
 
 public partial class Projectile : Component, Component.ICollisionListener
 {
@@ -66,7 +67,22 @@ public partial class Projectile : Component, Component.ICollisionListener
 			return;
 		}
 
-		var healthComponent = other.Other.GameObject.Root.Components.Get<HealthComponent>();
+		if ( other.Other.Shape.Tags.Has( "voxel" ) )
+		{
+			var damage = new DamageInstance()
+			{
+				Attacker = Weapon?.Player,
+				Inflictor = this,
+				Damage = Damage,
+				Type = DamageType,
+				Force = Rigidbody.Velocity,
+				Position = other.Contact.Point + Rigidbody.Velocity.Normal * 8f
+			};
+
+			Scene.Dispatch( new DamageWorldEvent( damage ) );
+		}
+
+		var healthComponent = other.Other.GameObject?.Root.Components.Get<HealthComponent>();
 		if ( healthComponent.IsValid() )
 		{
 			healthComponent.TakeDamage( new DamageInstance()
