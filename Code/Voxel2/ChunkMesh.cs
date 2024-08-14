@@ -38,6 +38,7 @@ public partial class ChunkMesh
 	public SceneObject SceneObject { get; private set; }
 	public PhysicsBody PhysicsBody { get; private set; }
 	public Mesh Mesh { get; private set; }
+	public PhysicsShape PhysicsShape { get; private set; }
 
 	private static readonly VertexAttribute[] Layout =
 	{
@@ -85,6 +86,10 @@ public partial class ChunkMesh
 		var size = BufferWrite;
 		if ( size > 0 )
 		{
+			var indices = new int[size];
+			for ( int i = 0; i < size; i++ )
+				indices[i] = i;
+
 			if ( !SceneObject.IsValid() )
 			{
 				var modelBuilder = new ModelBuilder();
@@ -106,22 +111,30 @@ public partial class ChunkMesh
 				SceneObject.Attributes.Set( "VoxelSize", Constants.VoxelSize );
 				SceneObject.Attributes.Set( "ColorPalette", Model.PaletteBuffer );
 
-				var indices = new int[size];
-				for ( int i = 0; i < size; i++ )
-					indices[i] = i;
-
 				PhysicsBody = new PhysicsBody( world );
 				PhysicsBody.Transform = transform.ToWorld( Transform );
 
-				var shape = PhysicsBody.AddMeshShape( Vertices, indices );
-
-				shape.Tags.Add( "voxel" );
+				PhysicsShape = PhysicsBody.AddMeshShape( Vertices, indices );
+				PhysicsShape.Tags.Add( "voxel" );
 			}
 			else
 			{
 				Mesh.SetVertexBufferSize( size );
 				Mesh.SetVertexBufferData( Buffer.AsSpan().Slice( 0, size ) );
+
+				PhysicsShape.UpdateMesh( Vertices, indices );
 			}
+		}
+		else
+		{
+			SceneObject?.Delete();
+			SceneObject = null;
+
+			Mesh = null;
+
+			PhysicsBody?.Remove();
+			PhysicsBody = null;
+			PhysicsShape = null;
 		}
 	}
 
