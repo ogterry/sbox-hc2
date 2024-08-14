@@ -1,0 +1,322 @@
+{
+  "__guid": "9b222d03-061a-4fd1-acf2-af04cec851c4",
+  "GameObjects": [
+    {
+      "__guid": "823cbf42-7d5e-4b36-bc03-f3c1ee4ae964",
+      "Flags": 0,
+      "Name": "2D Skybox",
+      "Tags": "skybox",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SkyBox2D",
+          "__guid": "45ab466e-f12a-4f05-b8c8-f071aa374b02",
+          "SkyMaterial": "materials/skybox/skybox_overcast_02.vmat",
+          "Tint": "0.15187,0.18936,0.24186,1"
+        }
+      ]
+    },
+    {
+      "__guid": "614881c7-dea8-43ad-b273-a9e0c14db9a2",
+      "Flags": 0,
+      "Name": "Sun",
+      "Position": "149.3263,149.3264,1479.661",
+      "Rotation": "0.2500001,-0.8623723,-0.3623726,-0.25",
+      "Tags": "light_directional,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DirectionalLight",
+          "__guid": "60f96d2e-0370-4bc2-81fa-ca7357794e5f",
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.83256,0.96093,1,1",
+          "Shadows": true,
+          "SkyColor": "1,1,1,0.25"
+        }
+      ]
+    },
+    {
+      "__guid": "2fd8558a-89a2-4e57-8d94-f179999e6ea4",
+      "Flags": 0,
+      "Name": "Envmap Probe",
+      "Position": "0,0,1348.558",
+      "Scale": "-2.702776,-2.702776,-1.033005",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.EnvmapProbe",
+          "__guid": "13529eeb-0b05-46f0-8b4b-fd2469aad57a",
+          "Texture": "textures/cubemaps/default2.vtex",
+          "Bounds": {
+            "Mins": "-2000,-2000,-2000",
+            "Maxs": "2000,2000,2000"
+          },
+          "DelayBetweenUpdates": 0.1,
+          "Feathering": 0.02,
+          "FrameInterval": 5,
+          "MaxDistance": 4096,
+          "Projection": "Box",
+          "RenderDynamically": true,
+          "TintColor": "1,1,1,1",
+          "UpdateStrategy": "OnEnabled",
+          "ZFar": 4096,
+          "ZNear": 16
+        }
+      ]
+    },
+    {
+      "__guid": "31f5a5da-8142-4a92-93ba-232347328a13",
+      "Flags": 0,
+      "Name": "Cubemap Fog",
+      "Position": "0,0,371.0556",
+      "Components": [
+        {
+          "__type": "Sandbox.CubemapFog",
+          "__guid": "9009004b-69ff-4f5a-b13c-c7c1e3bc7290",
+          "Blur": 0,
+          "EndDistance": 4096,
+          "FalloffExponent": 2,
+          "HeightExponent": 2,
+          "HeightStart": 4096,
+          "HeightWidth": 0,
+          "Sky": "materials/skybox/skybox_overcast_01.vmat",
+          "StartDistance": 0,
+          "Tint": "0.28556,0.30876,0.34884,1"
+        }
+      ]
+    },
+    {
+      "__guid": "6deb7eae-bdff-4351-9cd2-63ed438be9ba",
+      "Flags": 0,
+      "Name": "Gradient Fog",
+      "Position": "0,0,371.0556",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.GradientFog",
+          "__guid": "9c4aae16-84b1-4cab-ac9d-91309e1ac047",
+          "Color": "0.147,0.17504,0.2093,1",
+          "EndDistance": 4096,
+          "FalloffExponent": 1,
+          "Height": 4096,
+          "StartDistance": 0,
+          "VerticalFalloffExponent": 1
+        }
+      ]
+    },
+    {
+      "__guid": "ee71bb31-4315-408a-a0d1-83c68802b5c5",
+      "Flags": 0,
+      "Name": "terrain_test_02",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "9d304a24-c2e4-44b6-86d1-42d2f7d47a50",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/terrain_test/terrain_test_02.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "790ec1c0-0b64-4a2b-aacc-186634d6bbac",
+      "Flags": 0,
+      "Name": "terrain_test_02 (1)",
+      "Position": "0,-4958.403,-30.85868",
+      "Rotation": "0,0,-0.7071068,0.7071068",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "a469ac82-4789-4650-90bc-05e6e37dd2be",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/terrain/terrain_test/terrain_test_02.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "4eb2aac7-a81c-4140-9da5-50b4df97df23",
+      "Flags": 0,
+      "Name": "Camera",
+      "Position": "-1725.21,1989.354,390.31",
+      "Rotation": "0,0.7071067,0,0.7071068",
+      "Tags": "maincamera",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.CameraComponent",
+          "__guid": "fbbdb159-6953-4e62-b253-d18949ef7ef4",
+          "BackgroundColor": "0.33333,0.46275,0.52157,1",
+          "ClearFlags": "All",
+          "FieldOfView": 60,
+          "IsMainCamera": true,
+          "Orthographic": false,
+          "OrthographicHeight": 1204,
+          "Priority": 1,
+          "RenderExcludeTags": "",
+          "RenderTags": "",
+          "TargetEye": "None",
+          "Viewport": "0,0,1,1",
+          "ZFar": 10000,
+          "ZNear": 10
+        },
+        {
+          "__type": "Sandbox.Sharpen",
+          "__guid": "a2122174-9ce6-4645-b344-57442182ffb6",
+          "Scale": 0.15
+        },
+        {
+          "__type": "Sandbox.Tonemapping",
+          "__guid": "312fbae9-966f-49bf-9d31-d4165db9f1d1",
+          "__version": 1,
+          "ExposureBias": 2,
+          "ExposureCompensation": 0,
+          "ExposureMethod": "RGB",
+          "MaximumExposure": 2,
+          "MinimumExposure": 1,
+          "Mode": "ACES",
+          "Rate": 1
+        },
+        {
+          "__type": "Sandbox.Bloom",
+          "__guid": "056a1703-7b60-4418-849a-c061288eec38",
+          "BloomColor": {
+            "color": [
+              {
+                "c": "1,1,1,1"
+              },
+              {
+                "t": 1,
+                "c": "1,1,1,1"
+              }
+            ]
+          },
+          "BloomCurve": [
+            {
+              "y": 0.5
+            },
+            {
+              "x": 1,
+              "y": 1
+            }
+          ],
+          "Mode": "Additive",
+          "Strength": 1.46,
+          "Threshold": 0.04,
+          "ThresholdWidth": 0.27
+        },
+        {
+          "__type": "Sandbox.Vignette",
+          "__guid": "ac48e295-54b3-49c5-af30-6c5bff671b3b",
+          "Center": "0.5,0.5",
+          "Color": "0,0,0,1",
+          "Intensity": 0.34,
+          "Roundness": 1,
+          "Smoothness": 1
+        },
+        {
+          "__type": "Sandbox.AmbientOcclusion",
+          "__guid": "8e602920-b6a4-4815-9bc2-33ac2ce050e1",
+          "FalloffDistance": 1,
+          "Intensity": 16,
+          "Quality": "High",
+          "Radius": 19
+        },
+        {
+          "__type": "Sandbox.ColorGrading",
+          "__guid": "07754bab-042c-4ac3-80bc-d70a6b5faca5",
+          "BlendFactor": 1,
+          "BlueCurve": [
+            {
+              "y": 0.5
+            },
+            {
+              "x": 1,
+              "y": 1
+            }
+          ],
+          "ColorSpace": "None",
+          "ColorTempK": 8312.5,
+          "GradingMethod": "TemperatureControl",
+          "GreenCurve": [
+            {
+              "y": 0.5
+            },
+            {
+              "x": 1,
+              "y": 1
+            }
+          ],
+          "HueCurve": [
+            {
+              "y": 0.5
+            },
+            {
+              "x": 1,
+              "y": 1
+            }
+          ],
+          "LookupTexture": null,
+          "RedCurve": [
+            {
+              "y": 0.5
+            },
+            {
+              "x": 1,
+              "y": 1
+            }
+          ],
+          "SaturationCurve": [
+            {
+              "y": 0.5
+            },
+            {
+              "x": 1,
+              "y": 1
+            }
+          ],
+          "ValueCurve": [
+            {
+              "y": 0.5
+            },
+            {
+              "x": 1,
+              "y": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "SceneProperties": {
+    "FixedUpdateFrequency": 50,
+    "MaxFixedUpdates": 5,
+    "NetworkFrequency": 30,
+    "NetworkInterpolation": true,
+    "ThreadedAnimation": true,
+    "TimeScale": 1,
+    "UseFixedUpdate": true,
+    "NavMesh": {
+      "Enabled": false,
+      "IncludeStaticBodies": true,
+      "IncludeKeyframedBodies": true,
+      "EditorAutoUpdate": true,
+      "AgentHeight": 64,
+      "AgentRadius": 16,
+      "AgentStepSize": 18,
+      "AgentMaxSlope": 40,
+      "ExcludedBodies": "",
+      "IncludedBodies": ""
+    }
+  },
+  "Title": "terrain_lookdev_02",
+  "Description": "",
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}
