@@ -1,0 +1,43 @@
+{
+  "RootObject": {
+    "__guid": "551197c6-bc4c-4237-b408-f581ece66630",
+    "Flags": 0,
+    "Name": "water_plane_cheap",
+    "Enabled": true,
+    "Children": [
+      {
+        "__guid": "458c67a5-8daf-40ad-bfaa-12a9fa43ae1b",
+        "Flags": 0,
+        "Name": "Plane",
+        "Scale": "100,100,1",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "2f2f7f77-406a-45da-8374-e7d9d3c5e3fd",
+            "BodyGroups": 18446744073709551615,
+            "MaterialOverride": "materials/water/water_cheap.vmat",
+            "Model": "models/dev/plane.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          },
+          {
+            "__type": "Sandbox.PlaneCollider",
+            "__guid": "81fb0fd6-ab5f-439d-a584-b68576264294",
+            "Center": "0,0,0",
+            "IsTrigger": false,
+            "Scale": "100,100",
+            "Static": true
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}
