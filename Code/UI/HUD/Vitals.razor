@@ -32,8 +32,8 @@
 </root>
 
 @code {
-    private Connection Connection => Player.Local.Network.OwnerConnection;
-    public string PlayerName => Connection.DisplayName;
+    private Connection Connection => Player.Local?.Network.OwnerConnection;
+    public string PlayerName => Connection?.DisplayName ?? "";
     public string AvatarUrl => $"avatar:{Connection.SteamId}";
 
     protected override int BuildHash() => System.HashCode.Combine(Player.Local?.Experience?.Points, PlayerName, Player.Local?.HealthComponent?.Health);
