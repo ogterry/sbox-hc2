@@ -7,7 +7,7 @@ namespace Voxel;
 
 public partial class VoxelRenderer : Component, Component.ExecuteInEditor
 {
-	VoxelModel Model;
+	internal VoxelModel Model { get; private set; }
 
 	[Property] public Vector3Int Size { get; set; } = new( 256, 32, 256 );
 
@@ -251,6 +251,7 @@ public partial class VoxelModel
 	}
 
 	public bool OutOfBounds( int x, int y, int z ) => (uint)x >= SizeX || (uint)y >= SizeY || (uint)z >= SizeZ;
+	public bool OutOfBounds( Vector3Int voxelCoords ) => (uint)voxelCoords.x >= SizeX || (uint)voxelCoords.y >= SizeY || (uint)voxelCoords.z >= SizeZ;
 	public int GetAccess( int x, int y, int z ) => GetAccessLocal( x >> Constants.ChunkShift, y >> Constants.ChunkShift, z >> Constants.ChunkShift );
 	public int GetAccessLocal( int f, int g, int h )
 	{
@@ -266,6 +267,27 @@ public partial class VoxelModel
 		return y0 | x0 | z0;
 	}
 
+	public Vector3Int GetChunkCoords( Vector3Int voxelCoords )
+	{
+		return new Vector3Int( voxelCoords.x >> Constants.ChunkShift, voxelCoords.y >> Constants.ChunkShift, voxelCoords.z >> Constants.ChunkShift );
+	}
+
+	public Vector3Int ClampVoxelCoords( Vector3Int voxelCoords )
+	{
+		return new Vector3Int(
+			Math.Clamp( voxelCoords.x, 0, SizeX ),
+			Math.Clamp( voxelCoords.y, 0, SizeY ),
+			Math.Clamp( voxelCoords.z, 0, SizeZ ) );
+	}
+
+	public Vector3Int ClampChunkCoords( Vector3Int chunkCoords )
+	{
+		return new Vector3Int(
+			Math.Clamp( chunkCoords.x, 0, ChunkAmountX ),
+			Math.Clamp( chunkCoords.y, 0, ChunkAmountY ),
+			Math.Clamp( chunkCoords.z, 0, ChunkAmountZ ) );
+	}
+
 	public void AddVoxel( int x, int y, int z, byte index )
 	{
 		if ( OutOfBounds( x, y, z ) )
@@ -275,22 +297,17 @@ public partial class VoxelModel
 		chunk.SetVoxel( x, y, z, index );
 	}
 
-	public void SetRegionDirty( int xMin, int yMin, int zMin, int xMax, int yMax, int zMax )
+	public void SetRegionDirty( Vector3Int min, Vector3Int max )
 	{
 		// Extend by 1 each direction to allow neighbouring chunks to update
 		// I'm probably off by 1 here somewhere ;)
 
-		var fMin = (xMin - 1) >> Constants.ChunkShift;
-		var gMin = (yMin - 1) >> Constants.ChunkShift;
-		var hMin = (zMin - 1) >> Constants.ChunkShift;
+		var chunkMin = GetChunkCoords( min - 1 );
+		var chunkMax = GetChunkCoords( max + 1 );
 
-		var fMax = (xMax + 1) >> Constants.ChunkShift;
-		var gMax = (yMax + 1) >> Constants.ChunkShift;
-		var hMax = (zMax + 1) >> Constants.ChunkShift;
-
-		for ( var f = fMin; f <= fMax; f++ )
-		for ( var g = gMin; g <= gMax; g++ )
-		for ( var h = hMin; h <= hMax; h++ )
+		for ( var f = chunkMin.x; f <= chunkMax.x; f++ )
+		for ( var g = chunkMin.y; g <= chunkMax.y; g++ )
+		for ( var h = chunkMin.z; h <= chunkMax.z; h++ )
 		{
 			var chunkAccess = GetAccessLocal( f, g, h );
 			var chunk = Chunks[chunkAccess];
@@ -305,6 +322,11 @@ public partial class VoxelModel
 		var g = y >> Constants.ChunkShift;
 		var h = z >> Constants.ChunkShift;
 
+		return InitChunkLocal( f, g, h, true );
+	}
+
+	public Chunk InitChunkLocal( int f, int g, int h, bool create )
+	{
 		var chunkAccess = GetAccessLocal( f, g, h );
 		var chunk = Chunks[chunkAccess];
 
@@ -312,6 +334,11 @@ public partial class VoxelModel
 		{
 			Assert.True( MeshChunks[chunkAccess] != null );
 			return chunk;
+		}
+
+		if ( !create )
+		{
+			return null;
 		}
 
 		Assert.True( !chunk.Fake );

@@ -26,6 +26,9 @@ public partial class Chunk
 	public static int WorldToLocal( int a ) => a & Constants.ChunkMask;
 	public static int GetHeightmapAccess( int i, int k ) => i | (k * Constants.ChunkSize);
 
+	public Vector3Int WorldMin => new( ChunkPosX << Constants.ChunkShift, ChunkPosY << Constants.ChunkShift, ChunkPosZ << Constants.ChunkShift );
+	public Vector3Int WorldMax => WorldMin + Constants.ChunkSize;
+
 	public void Reset( int cx, int cy, int cz, bool fake )
 	{
 		Assert.True( !Allocated );

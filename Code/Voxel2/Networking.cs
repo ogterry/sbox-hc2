@@ -20,6 +20,8 @@ public interface IModification
 	Vector3Int Min { get; }
 	Vector3Int Max { get; }
 
+	bool CreateChunks { get; }
+
 	void Write( ref ByteStream stream );
 	void Apply( Chunk chunk );
 }
@@ -58,11 +60,32 @@ public sealed class VoxelNetworking : Component
 		{
 			writer.Dispose();
 		}
+
+		Apply( modification );
 	}
 
 	public void Apply<T>( T modification )
 		where T : struct, IModification
 	{
+		var model = Renderer.Model;
 
+		var chunkMin = model.ClampChunkCoords( model.GetChunkCoords( modification.Min ) );
+		var chunkMax = model.ClampChunkCoords( model.GetChunkCoords( modification.Max - 1 ) );
+
+		var createChunks = modification.CreateChunks;
+
+		for ( var f = chunkMin.x; f <= chunkMax.x; ++f )
+		for ( var g = chunkMin.y; g <= chunkMax.y; ++g )
+		for ( var h = chunkMin.z; h <= chunkMax.z; ++h )
+		{
+			if ( model.InitChunkLocal( f, g, h, createChunks ) is not { } chunk )
+			{
+				continue;
+			}
+
+			modification.Apply( chunk );
+		}
+
+		model.SetRegionDirty( modification.Min, modification.Max );
 	}
 }

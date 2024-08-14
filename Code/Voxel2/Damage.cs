@@ -12,9 +12,8 @@ partial class VoxelRenderer
 		if ( Model is null ) return;
 
 		var coords = WorldToVoxelCoords( eventArgs.Damage.Position );
-		var (x, y, z) = (coords.x, coords.y, coords.z);
 
-		if ( Model.OutOfBounds( x, y, z ) ) return;
+		if ( Model.OutOfBounds( coords ) ) return;
 
 		for ( var dx = -1; dx <= 1; ++dx )
 		for ( var dy = -1; dy <= 1; ++dy )
@@ -26,10 +25,10 @@ partial class VoxelRenderer
 				continue;
 			}
 
-			Model.AddVoxel( x + dx, y + dy, z + dz, 0 );
+			Model.AddVoxel( coords.x + dx, coords.y + dy, coords.z + dz, 0 );
 		}
 
-		Model.SetRegionDirty( x - 1, y - 1, z - 1, x + 1, y + 1, z + 1 );
+		Model.SetRegionDirty( coords - 1, coords + 1);
 		MeshChunks();
 	}
 }
