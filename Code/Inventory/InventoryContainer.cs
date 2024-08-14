@@ -23,6 +23,9 @@ public struct InventoryContainer
 		}
 	}
 
+	/// <summary>
+	/// <inheritdoc cref="Inventory.CanGiveItem"/>
+	/// </summary>
 	public bool CanGiveItem( Item item )
 	{
 		if ( !Inventory.IsValid() ) return false;
@@ -39,6 +42,9 @@ public struct InventoryContainer
 		return false;
 	}
 
+	/// <summary>
+	/// <inheritdoc cref="Inventory.HasItem"/>
+	/// </summary>
 	public bool HasItem( Item item )
 	{
 		if ( !Inventory.IsValid() ) return false;
@@ -58,6 +64,7 @@ public struct InventoryContainer
 		
 		return false;
 	}
+	
 	/// <summary>
 	/// <inheritdoc cref="Inventory.ClearItemSlot"/>
 	/// </summary>

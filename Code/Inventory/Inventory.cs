@@ -44,6 +44,16 @@ public class Inventory : Component, ISaveData
 		var item = Container.Items[slot];
 		return item;
 	}
+	
+	/// <summary>
+	/// Can this inventory be given the specified item?
+	/// </summary>
+	/// <param name="item"></param>
+	/// <returns></returns>
+	public bool CanGiveItem( Item item )
+	{
+		return Container.CanGiveItem( item );
+	}
 
 	/// <summary>
 	/// Try to give an item to this inventory. This can only be performed as the owner as it requires network authority.
