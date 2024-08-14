@@ -1,0 +1,261 @@
+@using System
+@using Sandbox
+@using Sandbox.UI
+@namespace HC2
+@attribute [StyleSheet]
+
+@inherits Panel
+
+@{
+    if (!Hotbar.IsValid()) return;
+}
+
+<root class="@(InventoryOpen ? "visible" : "")">
+    <div class="inventory">
+        @for (var i = 0; i < Inventory.MaxSlots; i++)
+        {
+            var item = Inventory.GetItemInSlot(i);
+            <ItemSlot Item=@item Inventory=@Inventory SlotIndex=@i />
+        }
+    </div>
+
+    <div class="container">
+        @for (var i = 0; i < Hotbar.MaxSlots; i++)
+        {
+            var item = Hotbar.GetItemInSlot(i);
+            <ItemSlot class="@(Hotbar.SelectedSlot == i ? "active" : "")" Item=@item Inventory=@Hotbar SlotIndex=@i />
+        }
+    </div>
+</root>
+
+@code
+{
+    public Inventory Inventory => Player.Local?.Inventory;
+    public Hotbar Hotbar => Player.Local?.Hotbar;
+
+    private bool InventoryOpen { get; set; }
+    private bool IsDragging { get; set; }
+    private bool WantsToDrag { get; set; }
+    private Vector2 StartMousePos { get; set; }
+    private ItemSlot DraggingItem { get; set; }
+    private ItemDragType DragType { get; set; }
+    private DummyItem Dummy { get; set; }
+
+    /// <summary>
+    /// The current hovered slot we'll use to do stuff with.
+    /// </summary>
+    public static ItemSlot HoveredSlot { get; set; }
+
+    protected override void OnMouseDown( MousePanelEvent e )
+    {
+        if ( e.MouseButton == MouseButtons.Left )
+	        InitiateDrag( ItemDragType.MoveAll );
+        else if ( e.MouseButton == MouseButtons.Right )
+	        InitiateDrag( ItemDragType.MoveOne );
+        else if ( e.MouseButton == MouseButtons.Middle )
+	        InitiateDrag( ItemDragType.Split );
+    }
+
+    protected override void OnMouseUp( MousePanelEvent e )
+    {
+        if ( ( e.MouseButton == MouseButtons.Left && DragType == ItemDragType.MoveAll )
+        || ( e.MouseButton == MouseButtons.Right && DragType == ItemDragType.MoveOne )
+        || ( e.MouseButton == MouseButtons.Middle && DragType == ItemDragType.Split ) )
+        {
+            StopDragging();
+        }
+    }
+
+    void InitiateDrag( ItemDragType type )
+    {
+	    DragType = type;
+	    IsDragging = false;
+	    WantsToDrag = true;
+	    StartMousePos = Mouse.Position / Screen.Size;
+    }
+
+    void TryDropHoveredItem()
+    {
+        if ( !HoveredSlot.IsValid() )
+            return;
+
+        if ( HoveredSlot.Item?.Resource is null )
+            return;
+
+        HoveredSlot.Inventory.DropItem( HoveredSlot.SlotIndex );
+    }
+
+    void StartDragging()
+    {
+        if ( IsDragging )
+            return;
+
+        DraggingItem = HoveredSlot;
+
+        if ( !DraggingItem.IsValid() )
+            return;
+
+        if ( DraggingItem.Item?.Resource is null )
+            return;
+
+        IsDragging = true;
+
+        Dummy = new DummyItem()
+        {
+            Resource = DraggingItem.Item.Resource
+        };
+
+        DraggingItem.SetClass( "being-dragged", true );
+
+        SetClass( "dragging-active", true );
+        AddChild( Dummy );
+    }
+
+    void StopDragging()
+    {
+        IsDragging = false;
+        WantsToDrag = false;
+
+        var item = DraggingItem;
+
+        if ( item.IsValid() )
+            item.SetClass( "being-dragged", false );
+
+        DraggingItem = null;
+        SetClass( "dragging-active", false );
+
+        if ( !Dummy.IsValid() )
+            return;
+
+        Dummy.Delete( true );
+
+        if ( !HoveredSlot.IsValid() )
+        {
+	        if ( DragType == ItemDragType.MoveAll )
+		        TryDropHoveredItem();
+	        
+            return;
+        }
+
+        if ( !item.IsValid() )
+            return;
+
+        var slotA = item;
+        var slotB = HoveredSlot;
+        var itemInSlotB = slotB.Item;
+        var itemInSlotA = slotA.Item;
+
+        if ( DragType == ItemDragType.MoveAll )
+        {
+	        slotB.Inventory.MoveItem( slotA.Item, slotB.SlotIndex );
+	        return;
+        }
+        
+		if ( DragType == ItemDragType.MoveOne )
+        {
+	        if ( itemInSlotB.IsValid() )
+	        {
+		        if ( itemInSlotB.Amount < itemInSlotB.MaxStack )
+		        {
+			        itemInSlotB.Amount++;
+			        itemInSlotA.Amount--;
+		        }
+	        }
+	        else
+	        {
+		        var newItem = Item.Create( itemInSlotA.Resource, 1 );
+		        slotB.Inventory.TryGiveItemSlot( newItem, slotB.SlotIndex );
+		        itemInSlotA.Amount--;
+	        }
+	        
+	        if ( itemInSlotA.Amount <= 0 )
+		        slotA.Inventory.ClearItemSlot( slotA.SlotIndex );
+        }
+        else if ( DragType == ItemDragType.Split )
+        {
+	        if ( itemInSlotA.Amount == 1 )
+		        return;
+
+	        var splitAmount = itemInSlotA.Amount / 2;
+	        
+	        if ( itemInSlotB.IsValid() )
+	        {
+		        if ( itemInSlotB.Amount < itemInSlotB.MaxStack )
+		        {
+			        var amountAvailableToStack = itemInSlotB.MaxStack - itemInSlotB.Amount;
+			        splitAmount = Math.Min( splitAmount, amountAvailableToStack );
+
+			        itemInSlotB.Amount += splitAmount;
+			        itemInSlotA.Amount -= splitAmount;
+		        }
+	        }
+	        else
+	        {
+		        var newItem = Item.Create( itemInSlotA.Resource, splitAmount );
+		        slotB.Inventory.TryGiveItemSlot( newItem, slotB.SlotIndex );
+		        itemInSlotA.Amount -= splitAmount;
+	        }
+	        
+	        if ( itemInSlotA.Amount <= 0 )
+		        slotA.Inventory.ClearItemSlot( slotA.SlotIndex );
+        }
+    }
+
+    public override void Tick()
+    {
+        if ( Input.Pressed( "Score" ) )
+            InventoryOpen = !InventoryOpen;
+
+        if ( !InventoryOpen ) return;
+        
+        var mousePos = Mouse.Position / Screen.Size;
+
+        if ( DraggingItem is null && IsDragging )
+        {
+	        StopDragging();
+	        return;
+        }
+
+        // Have we moved a little, and are not dragging already?
+        if ( mousePos.Distance( StartMousePos ) > .005f && WantsToDrag )
+	        StartDragging();
+    }
+
+    protected override int BuildHash()
+    {
+        var hc = new HashCode();
+
+        hc.Add( InventoryOpen );
+
+        if ( !Hotbar.IsValid() )
+	        return hc.ToHashCode();
+
+        hc.Add( Hotbar.SelectedSlot );
+
+        var hotbar = Hotbar;
+        hc.Add(hotbar);
+
+        if ( hotbar.IsValid() )
+        {
+            foreach ( var item in hotbar.GetAllItems() )
+            {
+                hc.Add( item );
+                hc.Add( item.Amount );
+            }
+        }
+
+        var inventory = Inventory;
+        hc.Add(inventory);
+
+        if ( !inventory.IsValid() )
+	        return hc.ToHashCode();
+        
+        foreach ( var item in inventory.GetAllItems() )
+        {
+	        hc.Add( item );
+	        hc.Add( item.Amount );
+        }
+
+        return hc.ToHashCode();
+    }
+}

@@ -1,17 +1,31 @@
-﻿using System;
-using System.Text.Json.Serialization;
-using Sandbox.Diagnostics;
+﻿using System.Text.Json.Serialization;
 
 namespace HC2;
 
 public class Item
 {
+	/// <summary>
+	/// Get the item's resource asset.
+	/// </summary>
 	[KeyProperty] public ItemAsset Resource { get; init; }
+	
+	/// <summary>
+	/// What is the current stack size of this item?
+	/// </summary>
 	[KeyProperty] public int Amount { get; set; } = 1;
+	
+	/// <summary>
+	/// What is this item's current durability?
+	/// </summary>
 	public float Durability { get; set; } = 1f;
 
 	[JsonIgnore, Hide] public Inventory Container;
 	[JsonIgnore, Hide] public int SlotIndex => Container?.Items.IndexOf( this ) ?? -1;
+
+	/// <summary>
+	/// Get the max stack size for this item according to its resource asset.
+	/// </summary>
+	public int MaxStack => Resource?.MaxStack ?? 1;
 
 	public static Item Create( ItemAsset resource, int amount = 1 )
 	{
