@@ -1,3 +1,6 @@
+	using HC2;
+	using Sandbox.Events;
+
 	public partial class MeleeWeapon : WeaponComponent
 {
 	[Property, Group( "Melee" )] 
@@ -72,12 +75,18 @@
 			Log.Info( "Swing!" );
 
 			var tr = Scene.Trace.Ray( GameObject.Transform.Position, GameObject.Transform.Position + Player.CameraController.AimRay.Forward * GetAttackRange() )
-			.IgnoreGameObjectHierarchy( Player.GameObject )
-			.Size( Thickness )
-			.Run();
+				.IgnoreGameObjectHierarchy( Player.GameObject )
+				.Size( Thickness )
+				.Run();
 
 			if ( tr.Hit )
 			{
+				if ( tr.Shape.Tags.Has( "voxel" ) )
+				{
+					Scene.Dispatch( new DamageWorldEvent( ConstructDamage( tr ) ) );
+					return;
+				}
+
 				foreach ( var damageable in tr.GameObject.Root.Components.GetAll<HealthComponent>() )
 				{
 					damageable.TakeDamage( ConstructDamage( tr ) );

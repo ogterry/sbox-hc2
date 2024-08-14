@@ -4,6 +4,7 @@ using System.Text.Json.Serialization;
 
 public record DamageTakenEvent( DamageInstance Instance ) : IGameEvent;
 public record KilledEvent( DamageInstance LastDamage ) : IGameEvent;
+public record DamageWorldEvent( DamageInstance Damage ) : IGameEvent;
 
 /// <summary>
 /// Event dispatched on the host when something takes damage, so it can be modified.

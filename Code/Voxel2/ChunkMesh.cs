@@ -37,6 +37,7 @@ public partial class ChunkMesh
 
 	public SceneObject SceneObject { get; private set; }
 	public PhysicsBody PhysicsBody { get; private set; }
+	public Mesh Mesh { get; private set; }
 
 	private static readonly VertexAttribute[] Layout =
 	{
@@ -88,14 +89,14 @@ public partial class ChunkMesh
 			{
 				var modelBuilder = new ModelBuilder();
 				var material = Material.Load( "materials/voxel.vmat" );
-				var mesh = new Mesh( material );
+				Mesh = new Mesh( material );
 
 				var boundsMin = Vector3.Zero;
 				var boundsMax = boundsMin + (Constants.ChunkSize * Constants.VoxelSize);
-				mesh.Bounds = new BBox( boundsMin, boundsMax );
+				Mesh.Bounds = new BBox( boundsMin, boundsMax );
 
-				mesh.CreateVertexBuffer( size, Layout, Buffer.AsSpan() );
-				modelBuilder.AddMesh( mesh );
+				Mesh.CreateVertexBuffer( size, Layout, Buffer.AsSpan() );
+				modelBuilder.AddMesh( Mesh );
 				var model = modelBuilder.Create();
 
 				SceneObject = new SceneObject( scene, model, transform.ToWorld( Transform ) );
@@ -111,7 +112,15 @@ public partial class ChunkMesh
 
 				PhysicsBody = new PhysicsBody( world );
 				PhysicsBody.Transform = transform.ToWorld( Transform );
-				PhysicsBody.AddMeshShape( Vertices, indices );
+
+				var shape = PhysicsBody.AddMeshShape( Vertices, indices );
+
+				shape.Tags.Add( "voxel" );
+			}
+			else
+			{
+				Mesh.SetVertexBufferSize( Buffer.Length );
+				Mesh.SetVertexBufferData( Buffer.AsSpan() );
 			}
 		}
 	}

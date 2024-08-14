@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace Voxel;
 
-public class VoxelRenderer : Component, Component.ExecuteInEditor
+public partial class VoxelRenderer : Component, Component.ExecuteInEditor
 {
 	VoxelModel Model;
 
@@ -117,9 +117,33 @@ public class VoxelRenderer : Component, Component.ExecuteInEditor
 
 		Assert.True( !c.Chunk.Fake );
 
+		Log.Info( "Meshing chunk!" );
+
 		c.PreMeshing();
 		c.GenerateMesh();
 		c.PostMeshing( Scene.SceneWorld, Scene.PhysicsWorld, transform );
+	}
+
+	public void MeshChunks()
+	{
+		// TODO: have a set of dirty ones?
+
+		var transform = Transform.World;
+
+		foreach ( var mesh in Model.MeshChunks )
+		{
+			MeshChunk( mesh, transform );
+		}
+	}
+
+	public (int X, int Y, int Z) WorldToVoxelCoords( Vector3 worldPos )
+	{
+		// TODO: Where is this defined?
+		const float voxelSize = 16;
+
+		var localPos = Transform.World.PointToLocal( worldPos );
+
+		return ((int)MathF.Floor( localPos.y / voxelSize ), (int)MathF.Floor( localPos.z / voxelSize ), (int)MathF.Floor( localPos.x / voxelSize ));
 	}
 }
 
