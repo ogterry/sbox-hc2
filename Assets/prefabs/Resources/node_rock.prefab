@@ -43,7 +43,7 @@
             "__type": "Sandbox.ModelRenderer",
             "__guid": "77074f13-86cf-4825-bcdc-913380ce8c3e",
             "BodyGroups": 18446744073709551615,
-            "Model": "models/terrain/boulders/boulder_01.vmdl",
+            "Model": "models/props/rocks/rock_large.vmdl",
             "RenderType": "On",
             "Tint": "1,1,1,1"
           },
@@ -51,97 +51,6 @@
             "__type": "HC2.ResourceDepletionStage",
             "__guid": "b46c2f60-46bd-4c6d-89bd-954ceceeb62f",
             "Fraction": 1
-          }
-        ]
-      },
-      {
-        "__guid": "6cbeef77-ee56-48d7-b84c-7b312a63cadc",
-        "Flags": 0,
-        "Name": "75%",
-        "Position": "0,0,-10.78839",
-        "Rotation": "0,0,0.1566176,0.9876593",
-        "Components": [
-          {
-            "__type": "Sandbox.ModelRenderer",
-            "__guid": "681b436d-08cd-4b56-a597-8f0fbba44456",
-            "BodyGroups": 18446744073709551615,
-            "Model": "models/terrain/boulders/boulder_01.vmdl",
-            "RenderType": "On",
-            "Tint": "0.8093,0.8093,0.8093,1"
-          },
-          {
-            "__type": "HC2.ResourceDepletionStage",
-            "__guid": "256a5101-45d7-4cd5-935a-262ee0f9aa4b",
-            "Fraction": 0.75
-          }
-        ]
-      },
-      {
-        "__guid": "3c42f9be-9e79-4cef-9e49-42aa5f11f3bb",
-        "Flags": 0,
-        "Name": "50%",
-        "Position": "0,0,-16.33334",
-        "Rotation": "0,0,-0.0255588,0.9996734",
-        "Scale": "0.9,0.9,0.9",
-        "Components": [
-          {
-            "__type": "Sandbox.ModelRenderer",
-            "__guid": "3f236343-e6f3-48dc-b405-d59b9a4e6b13",
-            "BodyGroups": 18446744073709551615,
-            "Model": "models/terrain/boulders/boulder_01.vmdl",
-            "RenderType": "On",
-            "Tint": "0.66047,0.66047,0.66047,1"
-          },
-          {
-            "__type": "HC2.ResourceDepletionStage",
-            "__guid": "b92c578b-0e90-41eb-87d7-9c7440b1dcb8",
-            "Fraction": 0.5
-          }
-        ]
-      },
-      {
-        "__guid": "4fd60dfc-aa46-4e8f-a027-18ffa193820a",
-        "Flags": 0,
-        "Name": "25%",
-        "Position": "0,0,-4.092017",
-        "Rotation": "0,0,-0.0255588,0.9996734",
-        "Scale": "0.65,0.65,0.65",
-        "Components": [
-          {
-            "__type": "Sandbox.ModelRenderer",
-            "__guid": "f78ef6ef-7ec5-4dc4-99bc-e56ca3c432d8",
-            "BodyGroups": 18446744073709551615,
-            "Model": "models/terrain/boulders/boulder_01.vmdl",
-            "RenderType": "On",
-            "Tint": "0.66047,0.66047,0.66047,1"
-          },
-          {
-            "__type": "HC2.ResourceDepletionStage",
-            "__guid": "15cdcd5a-13a3-443b-a21e-2cd419c31e89",
-            "Fraction": 0.25
-          }
-        ]
-      },
-      {
-        "__guid": "e10d5dcc-a146-48e8-8a38-ebc0cf66ff5c",
-        "Flags": 0,
-        "Name": "0%",
-        "Position": "0,0,-4.092017",
-        "Rotation": "0,0,-0.0255588,0.9996734",
-        "Scale": "0.6,0.6,0.1",
-        "Components": [
-          {
-            "__type": "Sandbox.ModelRenderer",
-            "__guid": "7503a31d-2766-4932-bc96-f176c28f33be",
-            "BodyGroups": 18446744073709551615,
-            "Model": "models/terrain/boulders/boulder_01.vmdl",
-            "RenderType": "On",
-            "Tint": "0.66047,0.66047,0.66047,1"
-          },
-          {
-            "__type": "HC2.ResourceDepletionStage",
-            "__guid": "c6bb4bfb-f7ba-4acd-9780-18a58282d532",
-            "Fraction": 0
           }
         ]
       }

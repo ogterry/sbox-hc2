@@ -6,7 +6,7 @@
   "Icon": "item_icons/rock.png",
   "Tags": null,
   "Prefab": null,
-  "WorldModel": "models/terrain/boulders/boulder_02.vmdl",
+  "WorldModel": "models/props/rocks/rock_fragment.vmdl",
   "CraftingRequirements": [],
   "StatusEffects": [],
   "__references": [],
