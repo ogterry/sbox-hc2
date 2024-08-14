@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using Sandbox.Events;
+using Voxel;
 
 public partial class Projectile : Component, Component.ICollisionListener
 {
@@ -57,7 +58,7 @@ public partial class Projectile : Component, Component.ICollisionListener
 
 	public void OnCollisionStart( Collision other )
 	{
-		// Log.Info( $"Collided with {other.Other.GameObject}" );
+		Log.Info( $"Collided with {other.Other.GameObject}" );
 
 		if ( IsProxy )
 		{
@@ -72,17 +73,10 @@ public partial class Projectile : Component, Component.ICollisionListener
 
 		if ( other.Other.Shape.Tags.Has( "voxel" ) )
 		{
-			var damage = new DamageInstance()
+			using ( Rpc.FilterInclude( Connection.Host ) )
 			{
-				Attacker = Weapon?.Player,
-				Inflictor = this,
-				Damage = Damage,
-				Type = DamageType,
-				Force = Rigidbody.Velocity,
-				Position = contactPoint + Rigidbody.Velocity.Normal * 8f
-			};
-
-			Scene.Dispatch( new DamageWorldEvent( damage ) );
+				BroadcastDamageWorld( contactPoint + Rigidbody.Velocity.Normal * 8f, Rigidbody.Velocity.Normal, Damage );
+			}
 		}
 
 		var healthComponent = other.Other.GameObject?.Root.Components.Get<HealthComponent>();
@@ -119,5 +113,11 @@ public partial class Projectile : Component, Component.ICollisionListener
 		await GameTask.DelaySeconds( time );
 		if ( !GameObject.IsValid() ) return;
 		InternalDestroy();
+	}
+
+	[Broadcast]
+	private void BroadcastDamageWorld( Vector3 pos, Vector3 dir, float damage )
+	{
+		Scene.Dispatch( new DamageWorldEvent( pos, dir, damage ) );
 	}
 }

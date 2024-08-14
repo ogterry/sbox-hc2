@@ -5,6 +5,8 @@ using Voxel.Modifications;
 
 namespace Voxel;
 
+public record DamageWorldEvent( Vector3 Position, Vector3 Direction, float Damage ) : IGameEvent;
+
 [Icon( "healing" )]
 public sealed class VoxelDamage : Component,
 	IGameEventHandler<DamageWorldEvent>
@@ -16,7 +18,7 @@ public sealed class VoxelDamage : Component,
 	{
 		if ( IsProxy ) return;
 
-		var coords = Renderer.WorldToVoxelCoords( eventArgs.Damage.Position );
+		var coords = Renderer.WorldToVoxelCoords( eventArgs.Position );
 
 		if ( Renderer.Model.OutOfBounds( coords ) ) return;
 

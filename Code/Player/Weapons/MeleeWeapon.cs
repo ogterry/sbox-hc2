@@ -1,5 +1,6 @@
 	using HC2;
 	using Sandbox.Events;
+	using Voxel;
 
 	public partial class MeleeWeapon : WeaponComponent
 {
@@ -85,9 +86,10 @@
 				{
 					var damage = ConstructDamage( tr );
 
-					damage.Position = tr.HitPosition + tr.Normal * 8f;
-
-					Scene.Dispatch( new DamageWorldEvent( damage ) );
+					using ( Rpc.FilterInclude( Connection.Host ) )
+					{
+						BroadcastDamageWorld( tr.HitPosition + tr.Normal * 8f, tr.Normal, damage.Damage );
+					}
 					return;
 				}
 
@@ -99,5 +101,11 @@
 				BroadcastHitEffects( tr.EndPosition );
 			}
 		}
+	}
+
+	[Broadcast]
+	private void BroadcastDamageWorld( Vector3 pos, Vector3 dir, float damage )
+	{
+		Scene.Dispatch( new DamageWorldEvent( pos, dir, damage ) );
 	}
 }
