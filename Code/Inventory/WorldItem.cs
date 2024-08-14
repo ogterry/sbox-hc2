@@ -30,8 +30,8 @@ public partial class WorldItem : Component, Component.ITriggerListener
 
 	protected override void OnStart()
 	{
-		Tags.Add( "pickup" );
-		Trigger.Scale = new( 16, 16, 16 );
+		Tags.Add("pickup");
+		Trigger.Scale = new(16, 16, 16);
 		Trigger.IsTrigger = true;
 	}
 
@@ -43,38 +43,38 @@ public partial class WorldItem : Component, Component.ITriggerListener
 
 	void Spin()
 	{
-		if ( !SpinningItem.IsValid() )
+		if (!SpinningItem.IsValid())
 			return;
 
 		var newYaw = SpinningItem.Transform.Rotation.Yaw() + 50f * Time.Delta;
-		SpinningItem.Transform.Rotation = Rotation.From( 0, newYaw, 0 );
-		SpinningItem.Transform.LocalPosition = Vector3.Up * MathF.Sin( Time.Now * 3f ) * 2;
+		SpinningItem.Transform.Rotation = Rotation.From(0, newYaw, 0);
+		SpinningItem.Transform.LocalPosition = Vector3.Up * MathF.Sin(Time.Now * 3f) * 2;
 	}
 
-	void ITriggerListener.OnTriggerEnter( Collider other )
+	void ITriggerListener.OnTriggerEnter(Collider other)
 	{
-		if ( !Sandbox.Networking.IsHost )
+		if (!Sandbox.Networking.IsHost)
 			return;
 
-		if ( other.GameObject.Root.Components.Get<Player>() is not { IsValid: true } player )
+		if (other.GameObject.Root.Components.Get<Player>() is not { IsValid: true } player)
 			return;
 
-		if ( LastPickupAttempt < 3f )
+		if (LastPickupAttempt < 3f)
 			return;
 
-		using ( Rpc.FilterInclude( player.Network.OwnerConnection ) )
+		using (Rpc.FilterInclude(player.Network.OwnerConnection))
 		{
 			LastPickupAttempt = 0f;
-			Pickup( player );
+			Pickup(player);
 		}
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
-	void Pickup( Player player )
+	[Broadcast(NetPermission.HostOnly)]
+	void Pickup(Player player)
 	{
-		var item = Item.Create( Resource, Amount );
+		var item = Item.Create(Resource, Amount);
 
-		if ( player.Hotbar.TryGiveItem( item ) )
+		if (player.Hotbar.TryGiveItem(item))
 		{
 			DestroyOnAuthority();
 		}
@@ -93,7 +93,7 @@ public partial class WorldItem : Component, Component.ITriggerListener
 	/// <param name="worldPosition"></param>
 	/// <param name="amount"></param>
 	/// <returns></returns>
-	public static WorldItem CreateInstance( ItemAsset itemAsset, Vector3 worldPosition, int amount = 1 )
+	public static WorldItem CreateInstance(ItemAsset itemAsset, Vector3 worldPosition, int amount = 1)
 	{
 		// Push the active scene
 		using var _ = Game.ActiveScene.Push();
@@ -104,6 +104,7 @@ public partial class WorldItem : Component, Component.ITriggerListener
 
 		var sphereCollider = go.Components.Create<SphereCollider>();
 		sphereCollider.Radius = 16;
+		sphereCollider.IsTrigger = true;
 
 		var worldItem = go.Components.Create<WorldItem>();
 		worldItem.Resource = itemAsset;

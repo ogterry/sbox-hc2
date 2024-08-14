@@ -152,9 +152,14 @@ public sealed class Mob : Component,
 			if (go.Parent?.Tags?.Has("bodypart") ?? false)
 				continue;
 
-			var gib = go.Clone(go.Transform.Position, go.Transform.Rotation);
+			var gib = go.Clone(new CloneConfig()
+			{
+				Transform = go.Transform.World,
+				StartEnabled = true
+			});
 			var rb = gib.Components.GetOrCreate<Rigidbody>();
-			rb.Velocity = force * Random.Shared.Float(0.7f, 0.9f);
+			rb.Velocity = (force * Random.Shared.Float(0.8f, 1.2f) * 150f) / rb.PhysicsBody.Mass;
+			rb.AngularVelocity = Vector3.Random * Random.Shared.Float(0.8f, 1.2f) * 10f;
 			gib.Components.Create<MobGib>();
 		}
 	}

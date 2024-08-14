@@ -6,7 +6,6 @@ public sealed class MobGib : Component, Component.ICollisionListener
     public ModelRenderer ModelRenderer { get; set; }
 
     TimeSince timeSinceSpawn = 0;
-    int collisions = 0;
     TimeSince timeSinceCreated = 0;
 
     protected override void OnFixedUpdate()
@@ -20,9 +19,7 @@ public sealed class MobGib : Component, Component.ICollisionListener
     public void OnCollisionStart(Collision collision)
     {
         if (collision.Other.GameObject?.Tags?.Has("bodypart") ?? false) return;
-
-        collisions++;
-        if (collisions < 3) return;
+        if (collision.Other.GameObject?.Tags?.Has("projectile") ?? false) return;
 
         Break();
     }
