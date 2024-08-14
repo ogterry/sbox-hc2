@@ -163,7 +163,8 @@
 		{
 	        if ( itemInSlotB.IsValid() )
 	        {
-		        if ( itemInSlotB.Amount < itemInSlotB.MaxStack )
+		        if ( itemInSlotA.Resource == itemInSlotB.Resource
+		             && itemInSlotB.Amount < itemInSlotB.MaxStack )
 		        {
 			        itemInSlotB.Amount++;
 			        itemInSlotA.Amount--;
@@ -194,7 +195,8 @@
 	        
 	        if ( itemInSlotB.IsValid() )
 	        {
-		        if ( itemInSlotB.Amount < itemInSlotB.MaxStack )
+		        if ( itemInSlotA.Resource == itemInSlotB.Resource
+		             && itemInSlotB.Amount < itemInSlotB.MaxStack )
 		        {
 			        var amountAvailableToStack = itemInSlotB.MaxStack - itemInSlotB.Amount;
 			        splitAmount = Math.Min( splitAmount, amountAvailableToStack );
