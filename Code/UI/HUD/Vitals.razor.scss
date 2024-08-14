@@ -52,5 +52,9 @@ img.avatar {
 }
 
 ProgressBar {
-    width: 128px;
+    width: 164px;
+
+    .inner {
+        background-color: rgba(black, 0.2);
+    }
 }

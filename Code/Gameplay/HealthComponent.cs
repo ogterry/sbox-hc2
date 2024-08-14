@@ -128,7 +128,7 @@ public sealed class HealthComponent : Component
 
 		if ( GameObject.Root.Components.TryGet<StatModifier>( out var modifier ) )
 		{
-			modifyEvent.ScaleDamage( 1f - modifier.DamageMultiplier );
+			modifyEvent.ScaleDamage( modifier.DamageMultiplier );
 		}
 
 		GameObject.Dispatch( modifyEvent );

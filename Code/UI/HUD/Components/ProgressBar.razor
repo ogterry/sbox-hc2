@@ -5,7 +5,7 @@
 
 <root>
     <div class="inner">
-        <div class="fill" style="width: @(CurrentFill * 100f)%;" />
+        <div class="fill" style="width: @(CurrentFill)%;" />
 
         @if (!string.IsNullOrEmpty(Text))
         {
@@ -20,6 +20,7 @@
 {
     protected float CurrentFill = 0f;
 
+    public bool ResetOnDeplete { get; set; } = false;
     public float Value { get; set; }
     public string Text { get; set; }
 
@@ -27,12 +28,12 @@
     {
         var previousValue = CurrentFill;
         CurrentFill = CurrentFill.LerpTo(Value, Time.Delta * 10f);
-        if (CurrentFill < previousValue)
+        if (ResetOnDeplete && CurrentFill < previousValue)
             CurrentFill = 0;
     }
 
     protected override int BuildHash()
     {
-        return System.HashCode.Combine(Value, CurrentFill, Text);
+        return System.HashCode.Combine(CurrentFill, Text);
     }
 }
