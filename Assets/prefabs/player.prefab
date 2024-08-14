@@ -73,9 +73,8 @@
       {
         "__type": "CameraController",
         "__guid": "4a1c1b2a-6dec-4285-9978-d607b5688476",
-        "BobIntensity": 1,
-        "BobSideToSideIntensity": 0.5,
-        "BobSpeed": 5,
+        "BobCycleTime": 8,
+        "BobDirection": "0,0.25,0.125",
         "Boom": {
           "_type": "gameobject",
           "go": "78e6f20a-7308-41b9-8091-6c46e1fc8b97"
