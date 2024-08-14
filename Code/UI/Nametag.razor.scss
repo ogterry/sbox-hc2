@@ -18,7 +18,11 @@ Nametag {
 	color: white;
 
 	label {
-		font-size: 24px;
+		font-size: 38px;
+		max-width: 380px;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
 	}
 
 	row {
@@ -42,6 +46,6 @@ Nametag {
 		padding-right: 64px;
 		justify-content: space-between;
 		gap: 8px;
-		height: 72px;
+		height: auto;
 	}
 }

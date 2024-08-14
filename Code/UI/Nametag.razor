@@ -20,7 +20,7 @@
     <column>
         <row>
             <label>@PlayerName.ToUpper()</label>
-            <Donut Value="@(experiencePerc)" size="32" InnerText="@($"{experience.Level}")" />
+            <Donut Value="@(experiencePerc)" size="48" InnerText="@($"{experience.Level}")" />
         </row>
 
         <ProgressBar Value="@(healthPerc)" />
@@ -37,8 +37,9 @@
     {
         if (!Scene.Camera.IsValid()) return;
         Transform.Rotation = Scene.Camera.Transform.Rotation * new Angles(0, 180, 0);
+        Transform.Position = GameObject.Parent.Transform.Position + Vector3.Up * 24f;
         var distance = (Scene.Camera.Transform.Position - Transform.Position).Length;
-        var opacity = MathX.Clamp(1.0f - (distance / 1000.0f), 0.0f, 1.0f);
+        var opacity = MathX.Clamp(1.0f - ((distance - 512f) / 1000.0f), 0.0f, 1.0f);
         Panel.Style.Opacity = opacity;
     }
 
