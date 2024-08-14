@@ -15,9 +15,16 @@ public class Hotbar : Inventory
     public int SelectedSlot { get; private set; } = 0;
     public Item SelectedItem => GetItemInSlot( SelectedSlot );
 
+    ItemAsset LastEquippedItem;
+
     protected override void OnUpdate()
     {
         base.OnUpdate();
+
+        if ( SelectedItem?.Resource != LastEquippedItem )
+        {
+            SelectSlot( SelectedSlot, true );
+        }
 
         for ( int i = 1; i <= MaxSlots; i++ )
         {
@@ -37,13 +44,13 @@ public class Hotbar : Inventory
         }
     }
 
-    public void SelectSlot( int slot )
+    public void SelectSlot( int slot, bool force = false )
     {
         if ( slot < 0 || slot >= MaxSlots )
         {
             throw new ArgumentOutOfRangeException( nameof( slot ) );
         }
-        if ( slot == SelectedSlot )
+        if ( slot == SelectedSlot && !force )
         {
             return;
         }
@@ -59,6 +66,15 @@ public class Hotbar : Inventory
         if ( newItem is not null )
         {
             GameObject.Dispatch( new ItemEquipEvent( newItem ) );
+            LastEquippedItem = newItem.Resource;
+        }
+        else
+        {
+            if ( LastEquippedItem is not null )
+            {
+                GameObject.Dispatch( new ItemUnequipEvent( Item.Create( LastEquippedItem, 1 ) ) );
+            }
+            LastEquippedItem = null;
         }
     }
 
