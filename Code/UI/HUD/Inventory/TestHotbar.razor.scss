@@ -80,8 +80,13 @@ TestHotbar
         }
 
         opacity: 1;
-        &.being-dragged {
-            opacity: 0.1;
+
+        &.being-dragged
+        {
+            .item
+            {
+                opacity: 0.15;
+            }
         }
 
         .amount
@@ -103,6 +108,9 @@ TestHotbar
 
     DummyItem
     {
+        transform: scale( 2 );
         position: absolute;
+        border-image-tint: transparent;
+        background-color: rgba( white, 0 );
     }
 }

@@ -24,11 +24,12 @@
         Style.Left = Length.Fraction( left );
         Style.Top = Length.Fraction( top );
 
-        // var transform = new PanelTransform();
-        // transform.AddTranslateY( Length.Fraction( -0.5f ) );
-        // transform.AddTranslateX( Length.Fraction( -0.5f ) );
+        var transform = new PanelTransform();
+        transform.AddTranslateY( Length.Fraction( -0.5f ) );
+        transform.AddTranslateX( Length.Fraction( -0.5f ) );
+        transform.AddScale(2f);
 
-        // Style.Transform = transform;
+        Style.Transform = transform;
         Style.PointerEvents = PointerEvents.None;
     }
 
