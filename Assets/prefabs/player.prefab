@@ -649,10 +649,6 @@
                                                     "HitSound": "sounds/weapons/sword_metallic_hit.sound",
                                                     "HoldType": "Punch",
                                                     "InputAction": "Attack1",
-                                                    "PrefabToSpawn": {
-                                                      "_type": "gameobject",
-                                                      "prefab": "prefabs/particles/footstep/footstepeffect.prefab"
-                                                    },
                                                     "SwingDelay": 0.25,
                                                     "Thickness": 5
                                                   },

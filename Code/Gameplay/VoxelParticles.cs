@@ -40,8 +40,6 @@ public static class VoxelParticles
 			return;
 		}
 
-		Log.Info( renderer.GameObject );
-
 		var material = renderer.MaterialOverride ?? renderer.Model.Materials.FirstOrDefault();
 		Spawn( position, material, renderer.Tint, count );
 	}

@@ -7,19 +7,33 @@ public sealed class MobGib : Component, Component.ICollisionListener
 
     TimeSince timeSinceSpawn = 0;
     int collisions = 0;
+    TimeSince timeSinceCreated = 0;
 
-    public void OnCollisionStart( Collision collision )
+    protected override void OnFixedUpdate()
     {
-        if ( collision.Other.GameObject?.Tags?.Has( "bodypart" ) ?? false ) return;
+        if (timeSinceCreated > 2f)
+        {
+            Break();
+        }
+    }
+
+    public void OnCollisionStart(Collision collision)
+    {
+        if (collision.Other.GameObject?.Tags?.Has("bodypart") ?? false) return;
 
         collisions++;
-        if ( collisions < 3 ) return;
+        if (collisions < 3) return;
 
-        var killPrefab = ResourceLibrary.Get<PrefabFile>( "prefabs/particles/KillEffect.prefab" );
-        var killParticle = SceneUtility.GetPrefabScene( killPrefab ).Clone( Transform.Position );
+        Break();
+    }
+
+    void Break()
+    {
+        var killPrefab = ResourceLibrary.Get<PrefabFile>("prefabs/particles/KillEffect.prefab");
+        var killParticle = SceneUtility.GetPrefabScene(killPrefab).Clone(Transform.Position);
 
         var material = ModelRenderer.Model.Materials.FirstOrDefault();
-        var particleRenderer = killParticle.Components.Get<ParticleModelRenderer>( FindMode.EnabledInSelfAndChildren );
+        var particleRenderer = killParticle.Components.Get<ParticleModelRenderer>(FindMode.EnabledInSelfAndChildren);
         particleRenderer.MaterialOverride = material;
 
         GameObject.Destroy();

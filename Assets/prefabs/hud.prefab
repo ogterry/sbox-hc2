@@ -20,6 +20,10 @@
       {
         "__type": "HC2.PauseMenu",
         "__guid": "2dce7504-3ac4-461f-bc46-193fdad112d2"
+      },
+      {
+        "__type": "SpectatorHud",
+        "__guid": "74d9b77e-f727-4481-87c5-b7cf8f5c72da"
       }
     ],
     "Children": [],

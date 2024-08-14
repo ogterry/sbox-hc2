@@ -1,0 +1,35 @@
+SpectatorHud
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	font-family: Glegoo;
+	font-size: 48px;
+	color: white;
+
+	.container
+	{
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		justify-content: flex-end;
+		align-items: center;
+		flex-direction: column;
+
+		.footer
+		{
+			width: 100%;
+			padding: 42px;
+			background-color: rgba(black, 0.5);
+			justify-content: center;
+			> div
+			{
+				gap: 16px;
+			}
+		}
+	}
+}

@@ -1,0 +1,46 @@
+@using Sandbox;
+@using Sandbox.UI;
+@using HC2;
+@inherits PanelComponent
+
+<root>
+	@if (CharacterSave.Current is null) return;
+	@if (Player.Local?.IsValid() ?? false) return;
+
+	<div class="container">
+		<div class="footer">
+			@if (TimeSinceDeath > 5)
+			{
+				<div>Press <span class="key">[SPACE]</span> to respawn</div>
+			}
+			else
+			{
+				<label>You can respawn in @(RespawnTime)s</label>
+			}
+		</div>
+	</div>
+</root>
+
+@code
+{
+	TimeSince TimeSinceDeath { get; set; }
+	int RespawnTime => (int)System.Math.Round(5f - TimeSinceDeath);
+
+	protected override void OnFixedUpdate()
+	{
+		if (Player.Local?.IsValid() ?? false)
+		{
+			TimeSinceDeath = 0;
+		}
+
+		if (TimeSinceDeath > 5f)
+		{
+			if (Input.Pressed("Jump"))
+			{
+				Networking.Instance.SpawnLocalPlayer();
+			}
+		}
+	}
+
+	protected override int BuildHash() => System.HashCode.Combine(Player.Local?.IsValid(), RespawnTime);
+}
