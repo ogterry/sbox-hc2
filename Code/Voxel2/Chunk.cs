@@ -68,6 +68,15 @@ public partial class Chunk
 		SetDirty();
 	}
 
+	public byte GetVoxel( int x, int y, int z )
+	{
+		var i = WorldToLocal( x );
+		var j = WorldToLocal( y );
+		var k = WorldToLocal( z );
+
+		return Voxels[GetAccessLocal( i, j, k )];
+	}
+
 	public void Clear()
 	{
 		Array.Fill( Voxels, (byte)0 );

@@ -278,6 +278,15 @@ public partial class VoxelModel
 		chunk.SetVoxel( x, y, z, index );
 	}
 
+	public byte GetVoxel( int x, int y, int z )
+	{
+		if ( OutOfBounds( x, y, z ) )
+			return 0;
+
+		var chunk = Chunks[GetAccess( x, y, z )];
+		return chunk.GetVoxel( x, y, z );
+	}
+
 	public void SetRegionDirty( Vector3Int min, Vector3Int max )
 	{
 		// Extend by 1 each direction to allow neighbouring chunks to update
