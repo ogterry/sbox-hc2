@@ -1,14 +1,17 @@
 {
   "Materials": [
     {
+      "Name": "Grass",
       "Color": "0.32093,0.32093,0.32093,1",
       "Texture": "textures/ground_texture_02.vtex"
     },
     {
+      "Name": "Dirt",
       "Color": "0.63256,0.63256,0.63256,1",
       "Texture": "textures/ground_texture_02.vtex"
     },
     {
+      "Name": "Stone",
       "Color": "1,1,1,1",
       "Texture": "textures/ground_texture_02.vtex"
     }
