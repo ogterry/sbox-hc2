@@ -16,11 +16,11 @@ public class VoxelRenderer : Component, Component.ExecuteInEditor
 		Transform.OnTransformChanged += OnLocalTransformChanged;
 
 		Model?.Destroy();
-		Model = new VoxelModel( 32, 32, 32 );
+		Model = new VoxelModel( 256, 32, 256 );
 
-		for ( int x = 0; x < 32; x++ )
+		for ( int x = 0; x < 256; x++ )
 		{
-			for ( int z = 0; z < 32; z++ )
+			for ( int z = 0; z < 256; z++ )
 			{
 				float noiseValue = Noise.Fbm( 8, x * 0.4f, z * 0.4f );
 				int surfaceHeight = (int)(noiseValue * 32);
@@ -169,13 +169,13 @@ public partial class VoxelModel
 
 	public VoxelModel( int mx, int my, int mz )
 	{
-		texture = Texture.Create( 1, 1 ).WithData( new byte[] { 255, 0, 0, 255 } ).Finish();
-		texture2 = Texture.Create( 1, 1 ).WithData( new byte[] { 0, 255, 0, 255 } ).Finish();
+		//texture = Texture.Create( 1, 1 ).WithData( new byte[] { 255, 0, 0, 255 } ).Finish();
+		//texture2 = Texture.Create( 1, 1 ).WithData( new byte[] { 0, 255, 0, 255 } ).Finish();
 
 		var palette = new PaletteMaterial[256];
-		palette[0] = new PaletteMaterial { Color = new Color( 1.0f, 1.0f, 1.0f ), TextureIndex = texture.Index };
-		palette[1] = new PaletteMaterial { Color = new Color( 0.9f, 0.5f, 0.0f ), TextureIndex = texture2.Index };
-		palette[2] = new PaletteMaterial { Color = new Color( 1.0f, 1.0f, 1.0f ), TextureIndex = texture2.Index };
+		//palette[0] = new PaletteMaterial { Color = new Color( 1.0f, 1.0f, 1.0f ), TextureIndex = texture.Index };
+		//palette[1] = new PaletteMaterial { Color = new Color( 0.9f, 0.5f, 0.0f ), TextureIndex = texture2.Index };
+		//palette[2] = new PaletteMaterial { Color = new Color( 1.0f, 1.0f, 1.0f ), TextureIndex = texture2.Index };
 
 		PaletteBuffer = new ComputeBuffer<PaletteMaterial>( 256 );
 		PaletteBuffer.SetData( palette );

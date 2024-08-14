@@ -122,11 +122,12 @@ PS
 			return float4( 0.0, 0.0, 0.0, 1.0 );
 		#endif
 
-		Texture2D texture = GetBindlessTexture2D( i.TextureIndex );
-		float4 textureSample = texture.Sample( g_sAniso, i.vTextureCoords.xy );
+		//Texture2D texture = GetBindlessTexture2D( i.TextureIndex );
+		//float4 textureSample = texture.Sample( g_sAniso, i.vTextureCoords.xy );
 
 		Material m = Material::From( i );
-		m.Albedo = i.vVertexColor.rgb * textureSample.rgb;
+		//m.Albedo = i.vVertexColor.rgb * textureSample.rgb;
+		m.Albedo = float4( 0.4, 0.4, 0.4, 1 );
 		m.Roughness = 1;
 		return ShadingModelStandard::Shade( i, m );
 	}
