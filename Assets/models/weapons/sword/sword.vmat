@@ -1,0 +1,16 @@
+// THIS FILE IS AUTO-GENERATED
+
+Layer0
+{
+	shader "shaders/pixel_shader.shader"
+
+	AO "[1.000000 1.000000 1.000000 0.000000]"
+	Color "models/weapons/sword/sword_color.png"
+	Metal "[0.000000 0.000000 0.000000 0.000000]"
+	Normal "materials/default/default_normal.tga"
+	Rough "[1.000000 1.000000 1.000000 0.000000]"
+	SelfIllum "materials/default/default_selfillum.tga"
+
+	//---- Fog ----
+	g_bFogEnabled "1"
+}

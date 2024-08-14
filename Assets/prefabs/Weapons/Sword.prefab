@@ -2,16 +2,17 @@
   "RootObject": {
     "__guid": "b7c98c4e-8217-4956-a6a1-87559ffe2b98",
     "Flags": 0,
-    "Name": "Sword",
-    "Position": "-0.000007148182,0.00001070521,2.330258",
-    "Scale": "0.1,0.1,1",
+    "Name": "sword",
+    "Rotation": "0,0,-0.7071067,0.7071068",
+    "Enabled": true,
     "Components": [
       {
         "__type": "Sandbox.ModelRenderer",
         "__guid": "a4c4a786-2487-473c-9e41-620967dc5df9",
+        "__enabled": false,
         "BodyGroups": 18446744073709551615,
         "RenderType": "On",
-        "Tint": "0.33488,0.49008,1,1"
+        "Tint": "1,1,1,1"
       },
       {
         "__type": "MeleeWeapon",
@@ -40,7 +41,29 @@
         "Effectiveness": 1,
         "SourceKind": "Wood"
       }
-    ]
+    ],
+    "Children": [
+      {
+        "__guid": "06cbfd22-5ca8-41e0-80ba-735bd5c800c6",
+        "Flags": 0,
+        "Name": "sword",
+        "Position": "2.285936,-4.462226,14.17199",
+        "Rotation": "-0.3060121,-0.6374609,-0.3060121,0.6374609",
+        "Scale": "1.2,1.2,1.2",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "908c6b61-7b2d-4ed0-b43c-d3f49d365bf4",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/weapons/sword/sword.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      }
+    ],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,
