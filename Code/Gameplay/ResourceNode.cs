@@ -85,7 +85,7 @@ public sealed class ResourceNode : Component,
 		{
 			_spareDamage -= DamagePerItem;
 
-			var inst = WorldItem.CreateInstance( Item, Transform.Position + Vector3.Up * 64f );
+			var inst = WorldItem.CreateInstance( Item, Transform.Position + Vector3.Up * 200f );
 			inst.Rigidbody.MassOverride = 10;
 
 			var randomYaw = Rotation.FromYaw( Game.Random.Int( 0, 360 ) );
