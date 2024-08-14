@@ -1,0 +1,69 @@
+{
+  "RootObject": {
+    "__guid": "1682e63e-8c0d-4a68-b4fd-d8bac6ff10c6",
+    "Flags": 0,
+    "Name": "node_metal",
+    "Position": "-1692.051,482.8387,136.8192",
+    "Rotation": "0,0,0.258819,0.9659258",
+    "Enabled": true,
+    "NetworkMode": 1,
+    "Components": [
+      {
+        "__type": "HC2.ResourceNode",
+        "__guid": "37231ae4-2b4d-4a1d-adb0-614f31e84319",
+        "DamagePerItem": 100,
+        "Item": "items/metal_piece.item",
+        "RegenerateDelay": 60,
+        "RegenerateRate": 1,
+        "SourceKind": "Wood"
+      },
+      {
+        "__type": "HealthComponent",
+        "__guid": "4d87c58c-3c10-4db9-94f2-0c776a33a737",
+        "DamageEffectPrefab": {
+          "_type": "gameobject",
+          "prefab": "prefabs/damage/dmgnumber.prefab"
+        },
+        "MaxHealth": 500
+      },
+      {
+        "__type": "Sandbox.ModelCollider",
+        "__guid": "0b966b3b-4cb2-4b2e-8e90-94162da59b34",
+        "IsTrigger": false,
+        "Model": "models/props/metal_pile/metal_pile.vmdl",
+        "Static": false,
+        "Surface": "surfaces/metal.sheet.surface"
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "8690e87e-2c9e-4a10-8df2-27d935dd57d4",
+        "Flags": 0,
+        "Name": "100%",
+        "Position": "0,0,0",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "74f4fbed-f24f-445f-8cb6-9f4de1aff020",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/props/metal_pile/metal_pile.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          },
+          {
+            "__type": "HC2.ResourceDepletionStage",
+            "__guid": "bf878887-8db3-42b4-9315-3cf23253d432",
+            "Fraction": 1
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

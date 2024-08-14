@@ -1,0 +1,11 @@
+{
+  "Name": "Metal Fragment",
+  "Description": "You can craft stuff with it.. or can you?",
+  "MaxStack": 99,
+  "Icon": "item_icons/metal_piece.png",
+  "Tags": null,
+  "Prefab": null,
+  "WorldModel": "models/props/metal_pile/metal_fragment.vmdl",
+  "__references": [],
+  "__version": 0
+}

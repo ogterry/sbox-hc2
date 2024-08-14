@@ -5,7 +5,7 @@
       "__guid": "fcd503d0-cd29-4b20-8f5b-91de13e90aaf",
       "Flags": 0,
       "Name": "Networking",
-      "Position": "0,0,207.6329",
+      "Position": "-1601.657,298.1925,207.6332",
       "Enabled": true,
       "Components": [
         {
@@ -456,6 +456,17 @@
       "__PrefabVariables": {}
     },
     {
+      "__guid": "1682e63e-8c0d-4a68-b4fd-d8bac6ff10c6",
+      "Flags": 0,
+      "Name": "node_metal",
+      "Position": "-1692.051,482.8387,136.8192",
+      "Rotation": "0,0,0.258819,0.9659258",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "__Prefab": "prefabs/resources/node_metal.prefab",
+      "__PrefabVariables": {}
+    },
+    {
       "__guid": "1712e57e-a2bc-4f2c-88ff-718f96f541a3",
       "Flags": 0,
       "Name": "node_rock (7)",
@@ -559,6 +570,12 @@
           "SkyColor": "0.2532,0.32006,0.35349,1"
         }
       ]
+    },
+    {
+      "__guid": "d2720357-1429-48ec-9977-e74d053b0197",
+      "Flags": 0,
+      "Name": "GameObject",
+      "Enabled": true
     }
   ],
   "SceneProperties": {
