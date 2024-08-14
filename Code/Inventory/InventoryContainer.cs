@@ -8,7 +8,7 @@ public struct InventoryContainer
 	public List<Item> Items { get; set; } = new();
 	public int MaxSlots { get; set; } = 9;
 	public Inventory Inventory { get; set; }
-	
+
 	private Guid Id { get; } = Guid.NewGuid();
 
 	public InventoryContainer( Inventory inventory, int maxSlots = 9 )
@@ -16,7 +16,7 @@ public struct InventoryContainer
 		Inventory = inventory;
 		Items = new();
 		MaxSlots = maxSlots;
-		
+
 		for ( int i = 0; i < MaxSlots; i++ )
 		{
 			Items.Add( null );
@@ -29,7 +29,7 @@ public struct InventoryContainer
 	public bool CanGiveItem( Item item )
 	{
 		if ( !Inventory.IsValid() ) return false;
-		
+
 		for ( var i = 0; i < MaxSlots; i++ )
 		{
 			if ( Items[i] == null )
@@ -38,7 +38,7 @@ public struct InventoryContainer
 			if ( Items[i].Resource == item.Resource )
 				return true;
 		}
-		
+
 		return false;
 	}
 
@@ -48,30 +48,50 @@ public struct InventoryContainer
 	public bool HasItem( Item item )
 	{
 		if ( !Inventory.IsValid() ) return false;
-		
+
 		var amount = item.Amount;
-		
+
 		for ( var i = 0; i < MaxSlots; i++ )
 		{
 			if ( Items[i]?.Resource != item.Resource )
 				continue;
 
 			amount -= Items[i].Amount;
-			
+
 			if ( amount <= 0 )
 				return true;
 		}
-		
+
 		return false;
 	}
-	
+
+	/// <summary>
+	/// <inheritdoc cref="Inventory.CanCraftItem"/>
+	/// </summary>
+	public bool CanCraftItem( ItemAsset resource, int amount = 1 )
+	{
+		if ( !Inventory.IsValid() ) return false;
+
+		if ( (resource?.CraftingRequirements?.Count ?? 0) == 0 )
+			return false;
+
+		var requirements = resource.CraftingRequirements;
+		foreach ( var requirement in requirements )
+		{
+			if ( !HasItem( Item.Create( requirement.Resource, requirement.Amount * amount ) ) )
+				return false;
+		}
+
+		return true;
+	}
+
 	/// <summary>
 	/// <inheritdoc cref="Inventory.ClearItemSlot"/>
 	/// </summary>
 	public void ClearItemSlot( int slotIndex )
 	{
 		if ( !Inventory.IsValid() ) return;
-		
+
 		if ( slotIndex < 0 || slotIndex >= MaxSlots )
 		{
 			throw new ArgumentOutOfRangeException( nameof( slotIndex ) );
@@ -86,16 +106,16 @@ public struct InventoryContainer
 	public bool TryGiveItem( Item item )
 	{
 		if ( !Inventory.IsValid() ) return false;
-		
+
 		var amount = item.Amount;
-		
+
 		for ( var i = 0; i < MaxSlots; i++ )
 		{
 			if ( Items[i] == null )
 			{
 				Items[i] = item;
 				item.Container = Inventory;
-				
+
 				if ( amount > item.Resource.MaxStack )
 				{
 					Items[i].Amount = item.Resource.MaxStack;
@@ -120,7 +140,7 @@ public struct InventoryContainer
 				}
 			}
 		}
-		
+
 		return false;
 	}
 
@@ -189,7 +209,7 @@ public struct InventoryContainer
 			if ( Items[i].Resource == item.Resource )
 			{
 				Items[i].Amount -= item.Amount;
-				
+
 				if ( Items[i].Amount > 0 )
 					continue;
 
@@ -213,7 +233,7 @@ public struct InventoryContainer
 		var item = Items[slot];
 		return item;
 	}
-	
+
 	public bool IsValid()
 	{
 		return Inventory.IsValid();

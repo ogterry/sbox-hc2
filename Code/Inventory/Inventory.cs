@@ -44,7 +44,7 @@ public class Inventory : Component, ISaveData
 		var item = Container.Items[slot];
 		return item;
 	}
-	
+
 	/// <summary>
 	/// Can this inventory be given the specified item?
 	/// </summary>
@@ -52,7 +52,17 @@ public class Inventory : Component, ISaveData
 	/// <returns></returns>
 	public bool CanGiveItem( Item item )
 	{
-		return Container.CanGiveItem( item );
+		return Container.CanGiveItem( item ) || (OverflowContainer.IsValid() && OverflowContainer.CanGiveItem( item ));
+	}
+
+	/// <summary>
+	/// Can this inventory craft the specified item?
+	/// </summary>
+	/// <param name="item"></param>
+	/// <returns></returns>
+	public bool CanCraftItem( Item item )
+	{
+		return Container.CanCraftItem( item.Resource, item.Amount );
 	}
 
 	/// <summary>
@@ -77,7 +87,7 @@ public class Inventory : Component, ISaveData
 		OverflowContainer.TryGiveItem( item );
 		return true;
 	}
-	
+
 	/// <summary>
 	/// Take the specified item from the inventory.
 	/// </summary>
@@ -86,7 +96,7 @@ public class Inventory : Component, ISaveData
 	{
 		Container.TakeItem( item );
 	}
-	
+
 	/// <summary>
 	/// Try to give an item to the specified slot.
 	/// </summary>
@@ -147,7 +157,7 @@ public class Inventory : Component, ISaveData
 	{
 		if ( item.Container == this && slotIndex == item.SlotIndex )
 			return;
-		
+
 		var oldInventory = item.Container;
 		var oldIndex = item.SlotIndex;
 		var currentItemInSlot = GetItemInSlot( slotIndex );
@@ -170,10 +180,10 @@ public class Inventory : Component, ISaveData
 						var diff = currentItemInSlot.Resource.MaxStack - currentItemInSlot.Amount;
 						currentItemInSlot.Amount = currentItemInSlot.Resource.MaxStack;
 						TryGiveItem( Item.Create( item.Resource, item.Amount - diff ) );
-						
+
 						return;
 					}
-					
+
 					currentItemInSlot.Amount += item.Amount;
 					item.Amount = 0;
 				}
@@ -187,7 +197,7 @@ public class Inventory : Component, ISaveData
 
 		Container.TryGiveItemSlot( item, slotIndex );
 	}
-	
+
 	/// <summary>
 	/// Clear the item in the specified slot.
 	/// </summary>
@@ -243,7 +253,7 @@ public class Inventory : Component, ISaveData
 		for ( var i = 0; i < MaxSlots; i++ )
 		{
 			var item = Container.Items[i];
-			
+
 			if ( item is not null )
 				yield return item;
 		}
@@ -252,7 +262,7 @@ public class Inventory : Component, ISaveData
 	public string Save()
 	{
 		var itemString = "";
-		
+
 		foreach ( var item in Container.Items )
 		{
 			if ( item is null )
@@ -260,7 +270,7 @@ public class Inventory : Component, ISaveData
 			else
 				itemString += $"{item.Resource.ResourceName}:{item.Amount},";
 		}
-		
+
 		if ( itemString.EndsWith( "," ) )
 			itemString = itemString.Substring( 0, itemString.Length - 1 );
 
@@ -272,17 +282,17 @@ public class Inventory : Component, ISaveData
 		var allItems = ResourceLibrary.GetAll<ItemAsset>();
 		var items = data.Split( ',' );
 		var i = 0;
-		
+
 		foreach ( var item in items )
 		{
 			i++;
-			
+
 			if ( item == "null" )
 				continue;
-			
+
 			var itemData = item.Split( ':' );
 			var itemResource = allItems.FirstOrDefault( x => x.ResourceName == itemData[0] );
-			
+
 			if ( itemResource is null )
 			{
 				Log.Warning( $"Couldn't find item resource {itemData[0]}" );
@@ -291,7 +301,7 @@ public class Inventory : Component, ISaveData
 
 			var itemAmount = int.Parse( itemData[1] );
 			var it = Item.Create( itemResource, itemAmount );
-			
+
 			TryGiveItemSlot( it, i - 1 );
 		}
 	}
