@@ -91,6 +91,12 @@ public partial class Player : Component, IDamage,
 	[Property, Group( "Movement Config" )]
 	public float MovementSpeed { get; set; } = 256f;
 
+	///<summary>
+	/// Base Walk speed, can possibly change
+	/// </summary>
+	[Property, Group( "Movement Config" )]
+	public float WalkMovementSpeed { get; set; } = 128f;
+
 	/// <summary>
 	/// Base Run speed, can possibly change
 	/// </summary>
@@ -184,6 +190,9 @@ public partial class Player : Component, IDamage,
 	[Sync]
 	bool IsDucking { get; set; }
 
+	[Sync]
+	bool IsWalking { get; set; }
+
 	/// <summary>
 	/// How fast can we move?
 	/// I've made this a method as I assume we'll want to adjust this with levels, skills, armors, etc.
@@ -193,6 +202,8 @@ public partial class Player : Component, IDamage,
 	{
 		if ( IsDucking )
 			return DuckSpeed;
+		else if ( IsWalking )
+			return WalkMovementSpeed;
 		else if ( Input.Down( "run" ) )
 			return RunMovementSpeed;
 		return MovementSpeed;
@@ -319,6 +330,8 @@ public partial class Player : Component, IDamage,
 
 		IsDucking = Input.Down( "duck" ) || Character.TraceDirection( Vector3.Up * 72 ).Hit;
 
+		IsWalking = Input.Down( "walk" );
+
 		Character.Height = IsDucking ? DuckHeight : 72f;
 
 		Character.Accelerate( WishVelocity.ClampLength( GetMaxAcceleration() ) );
@@ -340,6 +353,7 @@ public partial class Player : Component, IDamage,
 			AnimationHelper.HoldType = HoldType;
 			AnimationHelper.Handedness = CitizenAnimationHelper.Hand.Right;
 			AnimationHelper.AimBodyWeight = 0.1f;
+			AnimationHelper.MoveStyle = IsWalking ? CitizenAnimationHelper.MoveStyles.Walk : CitizenAnimationHelper.MoveStyles.Run;
 		}
 	}
 
