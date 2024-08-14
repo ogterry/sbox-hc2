@@ -58,8 +58,6 @@ public partial class Projectile : Component, Component.ICollisionListener
 
 	public void OnCollisionStart( Collision other )
 	{
-		Log.Info( $"Collided with {other.Other.GameObject}" );
-
 		if ( IsProxy )
 		{
 			// Disable it locally, wait for an authoritative figure to tell you what to do.

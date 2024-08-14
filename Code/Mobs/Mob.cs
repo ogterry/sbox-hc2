@@ -111,11 +111,36 @@ public sealed class Mob : Component,
 		}
 	}
 
+	bool isDead = false;
 	void IGameEventHandler<KilledEvent>.OnGameEvent( KilledEvent eventArgs )
 	{
+		// Needed to add this because the event was getting called 3 times -Carson
+		if ( isDead ) return;
+		isDead = true;
+
 		GiveNearbyPlayersExperience();
 		Killed?.Invoke( eventArgs );
 
+		BroadcastCreateGibs( eventArgs.LastDamage.Force );
+
 		GameObject.Destroy();
+	}
+
+	[Broadcast( NetPermission.OwnerOnly )]
+	void BroadcastCreateGibs( Vector3 force )
+	{
+		foreach ( var go in GameObject.GetAllObjects( true ) )
+		{
+			if ( !go.Tags.Has( "bodypart" ) )
+				continue;
+
+			if ( go.Parent?.Tags?.Has( "bodypart" ) ?? false )
+				continue;
+
+			var gib = go.Clone( go.Transform.Position, go.Transform.Rotation );
+			var rb = gib.Components.GetOrCreate<Rigidbody>();
+			rb.Velocity = force * Random.Shared.Float( 0.6f, 1f );
+			gib.Components.Create<MobGib>();
+		}
 	}
 }

@@ -564,8 +564,8 @@
                         "Type": "call",
                         "Properties": {
                           "_type": "HC2.Mobs.Mob",
-                          "_name": "SetMoveTarget",
-                          "_isStatic": false
+                          "_isStatic": false,
+                          "_name": "SetMoveTarget"
                         },
                         "UserData": {
                           "Position": "464,64"
@@ -2169,6 +2169,7 @@
             "Name": "Cube",
             "Position": "1.57333,0,-24.15794",
             "Scale": "0.309483,0.309483,0.309483",
+            "Tags": "bodypart",
             "Enabled": true,
             "Components": [
               {
@@ -2178,6 +2179,14 @@
                 "Model": "models/mobs/roller/roller_head.vmdl",
                 "RenderType": "On",
                 "Tint": "1,1,1,1"
+              },
+              {
+                "__type": "Sandbox.BoxCollider",
+                "__guid": "c17159cc-3a96-4c25-be26-a961ee20dcc5",
+                "Center": "1.2,0,25.40001",
+                "IsTrigger": false,
+                "Scale": "68.20016,59.50007,80.59998",
+                "Static": false
               }
             ],
             "Children": [
@@ -2230,6 +2239,7 @@
             "Name": "Sphere",
             "Position": "0,0,0",
             "Scale": "0.163401,0.163401,0.163401",
+            "Tags": "bodypart",
             "Enabled": true,
             "Components": [
               {
@@ -2239,6 +2249,14 @@
                 "Model": "models/mobs/roller/roller_ball.vmdl",
                 "RenderType": "On",
                 "Tint": "1,1,1,1"
+              },
+              {
+                "__type": "Sandbox.SphereCollider",
+                "__guid": "d9c817c2-4485-45e7-b117-1b125de6effb",
+                "Center": "0,0,0",
+                "IsTrigger": false,
+                "Radius": 90.50015,
+                "Static": false
               }
             ]
           }
