@@ -1,6 +1,7 @@
 {
   "Name": "SMG",
   "Description": "Shoots bullets quickly",
+  "Category": "Weapon",
   "MaxStack": 1,
   "Icon": "item_icons/weapon_smg.png",
   "Tags": "weapon",

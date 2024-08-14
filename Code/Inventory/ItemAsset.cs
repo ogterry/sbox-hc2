@@ -1,5 +1,25 @@
 ﻿namespace HC2;
 
+public enum ItemCategory
+{
+	[Icon( "token" )]
+	Resource,
+	[Icon( "restaurant" )]
+	Consumable,
+	[Icon( "checkroom" )]
+	Equipment,
+	[Icon( "carpenter" )]
+	Weapon,
+	[Icon( "token" )]
+	Armor,
+	[Icon( "hardware" )]
+	Tool,
+	[Icon( "construction" )]
+	Building,
+	[Icon( "category" )]
+	Other
+}
+
 [GameResource( "Item", "item", "An item definition.", Icon = "token" )]
 public class ItemAsset : GameResource
 {
@@ -11,7 +31,9 @@ public class ItemAsset : GameResource
 	/// <summary>
 	/// What does the item do?
 	/// </summary>
-	public string Description { get; set; }
+	[TextArea] public string Description { get; set; }
+
+	public ItemCategory Category { get; set; }
 
 	/// <summary>
 	/// The maximum amount that can be stacked in a single slot.
