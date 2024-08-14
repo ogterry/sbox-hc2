@@ -160,9 +160,9 @@ public partial class VoxelModel
 
 		var palette = new PaletteMaterial[256];
 		Array.Fill( palette, new PaletteMaterial { Color = Color.White, TextureIndex = WhiteTexture.Index } );
-		palette[0] = new PaletteMaterial { Color = new Color( 0.9f, 0.5f, 0.0f ), TextureIndex = DevTexture1 != null ? DevTexture1.Index : WhiteTexture.Index };
-		palette[1] = new PaletteMaterial { Color = new Color( 1.0f, 1.0f, 1.0f ), TextureIndex = DevTexture2 != null ? DevTexture2.Index : WhiteTexture.Index };
-		palette[2] = new PaletteMaterial { Color = new Color( 1.0f, 1.0f, 1.0f ), TextureIndex = DevTexture1 != null ? DevTexture1.Index : WhiteTexture.Index };
+		palette[0] = new PaletteMaterial { Color = new Color( 0.1f, 0.05f, 0.0f ), TextureIndex = DevTexture1 != null ? DevTexture1.Index : WhiteTexture.Index };
+		palette[1] = new PaletteMaterial { Color = new Color( 0.05f, 0.05f, 0.05f ), TextureIndex = DevTexture2 != null ? DevTexture2.Index : WhiteTexture.Index };
+		palette[2] = new PaletteMaterial { Color = new Color( 0.1f, 0.1f, 0.1f ), TextureIndex = DevTexture1 != null ? DevTexture1.Index : WhiteTexture.Index };
 
 		PaletteBuffer = new ComputeBuffer<PaletteMaterial>( 256 );
 		PaletteBuffer.SetData( palette );
