@@ -44,6 +44,9 @@
 		var hc = new HashCode();
 
 		hc.Add(InventoryOpen);
+
+		if (!Hotbar.IsValid()) return hc.ToHashCode();
+
 		hc.Add(Hotbar.SelectedSlot);
 
 		var hotbar = Hotbar;
