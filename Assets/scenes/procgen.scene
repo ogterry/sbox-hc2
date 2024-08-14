@@ -111,6 +111,7 @@
       "__guid": "551197c6-bc4c-4237-b408-f581ece66630",
       "Flags": 0,
       "Name": "Water_Cheap",
+      "Position": "0,0,72",
       "Enabled": true,
       "__Prefab": "prefabs/world/water_plane_cheap.prefab",
       "__PrefabVariables": {}
@@ -119,7 +120,7 @@
       "__guid": "e6aafaa4-54a5-466b-8c87-938b3aa7854e",
       "Flags": 0,
       "Name": "Terrain",
-      "Position": "-4096,-4096,-72",
+      "Position": "-4096,-4096,0",
       "Tags": "terrain",
       "Enabled": true,
       "NetworkMode": 1,
