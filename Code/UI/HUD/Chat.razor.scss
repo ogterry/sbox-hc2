@@ -10,7 +10,6 @@ Chat {
     font-size: $text-md;
     font-family: $font;
     justify-content: flex-end;
-    padding: 4px;
     gap: 4px;
 
     .output {
@@ -52,8 +51,6 @@ Chat {
         height: $item-height;
         padding: $item-padding;
         width: 100%;
-        border-image: url( /ui/Panel/panel-009.png ) 12 fill;
-        border-image-tint: $background;
 
         .placeholder {
             padding: 0;
@@ -66,6 +63,11 @@ Chat {
     }
 
     &.open {
+        .input {
+            border-image: url( /ui/Transparent center/panel-transparent-center-009.png ) 11 fill;
+            border-image-tint: $background;
+        }
+
         pointer-events: all;
     }
 }
