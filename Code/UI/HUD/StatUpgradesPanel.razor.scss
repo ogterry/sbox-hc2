@@ -1,3 +1,5 @@
+@import "../Styles/_theme.scss";
+
 .stats-menu {
     position: absolute;
     top: 0;
@@ -10,13 +12,15 @@
     pointer-events: none;
     font-family: Glegoo;
     font-size: 18px;
+    padding: $safe-zone-y $safe-zone-x;
 
     .stats-panel {
         position: relative;
         flex-direction: column;
         padding: 8px 12px;
-        background-color: rgba(white, 0.2);
-        backdrop-filter: blur(4px);
+        color: white;
+        border-image-tint: $background;
+        border-image: url( /ui/Transparent center/panel-transparent-center-001.png ) 16 fill;
         gap: 2px;
         transition: all 0.1s;
         min-width: 300px;
@@ -32,8 +36,8 @@
             width: 100%;
             flex-direction: column;
             height: 300px;
-            background-color: rgba(white, 0.2);
-            padding: 8px;
+            border-image-tint: $background;
+            border-image: url( /ui/border/panel-border-012.png ) fill;
 
             .stat {
                 width: 100%;
