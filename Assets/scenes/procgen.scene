@@ -40,6 +40,27 @@
       ]
     },
     {
+      "__guid": "0d35861a-dfbe-4d70-8287-4bf02f45f1c3",
+      "Flags": 0,
+      "Name": "Spawner (2)",
+      "Position": "-864.0496,-803.7552,487.4795",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "Components": [
+        {
+          "__type": "HC2.Mobs.MobSpawner",
+          "__guid": "fb9c403e-baf9-4ee7-ac2e-02a8a2efd54c",
+          "MaxAlive": 1,
+          "Prefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/mobs/leggy.prefab"
+          },
+          "Radius": 256,
+          "SpawnPeriod": "60.00,10.00,0"
+        }
+      ]
+    },
+    {
       "__guid": "4bae457a-8bd2-4648-ac58-b9eb6b9e758d",
       "Flags": 0,
       "Name": "Spawner",
@@ -66,16 +87,6 @@
       "Name": "hud",
       "Enabled": true,
       "__Prefab": "prefabs/hud.prefab",
-      "__PrefabVariables": {}
-    },
-    {
-      "__guid": "d87b1018-2125-46f5-9486-fb95bf91e0d9",
-      "Flags": 0,
-      "Name": "leggy",
-      "Position": "-3948.278,-1405.961,457.513",
-      "Tags": "mob",
-      "Enabled": true,
-      "__Prefab": "prefabs/mobs/leggy.prefab",
       "__PrefabVariables": {}
     },
     {
