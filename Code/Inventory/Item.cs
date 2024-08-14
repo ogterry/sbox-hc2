@@ -2,7 +2,7 @@
 
 namespace HC2;
 
-public class Item
+public class Item : IValid
 {
 	/// <summary>
 	/// Get the item's resource asset.
@@ -21,6 +21,11 @@ public class Item
 
 	[JsonIgnore, Hide] public Inventory Container;
 	[JsonIgnore, Hide] public int SlotIndex => Container?.Items.IndexOf( this ) ?? -1;
+	
+	/// <summary>
+	/// Is this item valid? Does it have a valid resource and inventory container.
+	/// </summary>
+	public bool IsValid => Resource != null && (Container?.IsValid() ?? false);
 
 	/// <summary>
 	/// Get the max stack size for this item according to its resource asset.
@@ -42,14 +47,5 @@ public class Item
 		};
 		
 		return item;
-	}
-
-	/// <summary>
-	/// Is this item valid? Does it have a valid resource and inventory container.
-	/// </summary>
-	/// <returns></returns>
-	public bool IsValid()
-	{
-		return Resource != null && (Container?.IsValid() ?? false);
 	}
 }
