@@ -76,9 +76,9 @@
     &.visible {
         left: 0%;
         opacity: 1;
-        pointer-events: all;
 
         .stats-panel {
+            pointer-events: all;
             left: 0%;
         }
     }
