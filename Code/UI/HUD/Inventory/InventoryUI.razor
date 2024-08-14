@@ -65,6 +65,24 @@
             StopDragging();
         }
     }
+    
+    bool IsHoveringBackground { get; set; }
+    
+    protected override void OnMouseOver( MousePanelEvent e )
+    {
+	    if ( e.Target is InventoryUI )
+		    IsHoveringBackground = true;
+	    
+	    base.OnMouseOver( e );
+    }
+
+    protected override void OnMouseOut( MousePanelEvent e )
+    {
+	    if ( e.Target is InventoryUI )
+		    IsHoveringBackground = false;
+	    
+	    base.OnMouseOut( e );
+    }
 
     void InitiateDrag( ItemDragType type )
     {
@@ -120,7 +138,7 @@
 
         if ( !HoveredSlot.IsValid() )
         {
-	        if ( DragType == ItemDragType.MoveAll )
+	        if ( IsHoveringBackground && DragType == ItemDragType.MoveAll )
 		        slotA.Inventory.DropItem( slotA.SlotIndex );
 	        
             return;
