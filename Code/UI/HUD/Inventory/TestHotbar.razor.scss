@@ -67,8 +67,8 @@ TestHotbar
 
         &.hovered-item
         {
-            border-image-tint: darken( green, 0.7 );
-            background-color: rgba( green, 1 );
+            border-image-tint: darken( white, 0.6 );
+            background-color: rgba( white, 0.7 );
         }
 
         .item
@@ -77,6 +77,11 @@ TestHotbar
             width: 48px;
             height: 48px;
             pointer-events: none;
+        }
+
+        opacity: 1;
+        &.being-dragged {
+            opacity: 0.1;
         }
 
         .amount
@@ -90,8 +95,9 @@ TestHotbar
 
         &.active
         {
-            border-image-tint: darken( red, 0.7 );
-            background-color: rgba( red, 1 );
+            border-image-tint: darken( white, 0.7 );
+            background-color: rgba( white, 0.5 );
+            transform: scale( 1.1 );
         }
     }
 
