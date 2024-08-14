@@ -111,22 +111,21 @@
 
         DraggingItem = null;
 
-        SetClass("dragging-active", false);
+        SetClass( "dragging-active", false );
 
-        Log.Info($"Stop dragging {item}");
-
-
-        if (HoveredSlot == null)
-        {
-            return;
-        }
+        Log.Info( $"Stop dragging {item}" );
 
         if ( !Dummy.IsValid() )
             return;
 
         Dummy.Delete( true );
-        
-        // TODO: Improve this
+
+        if ( HoveredSlot == null )
+            return;
+
+        if (!item.IsValid())
+            return;
+
         var slotA = item;
         var slotB = HoveredSlot;
 
