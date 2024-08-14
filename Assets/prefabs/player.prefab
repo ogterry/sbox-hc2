@@ -1212,7 +1212,7 @@
                 "ExposureMethod": "RGB",
                 "MaximumExposure": 2,
                 "MinimumExposure": 1,
-                "Mode": "HableFilmic",
+                "Mode": "ACES",
                 "Rate": 1
               },
               {
@@ -1223,6 +1223,69 @@
                 "Intensity": 0.15,
                 "Roundness": 1,
                 "Smoothness": 1
+              },
+              {
+                "__type": "Sandbox.ColorGrading",
+                "__guid": "07754bab-042c-4ac3-80bc-d70a6b5faca5",
+                "BlendFactor": 1,
+                "BlueCurve": [
+                  {
+                    "y": 0.5
+                  },
+                  {
+                    "x": 1,
+                    "y": 1
+                  }
+                ],
+                "ColorSpace": "None",
+                "ColorTempK": 8312.5,
+                "GradingMethod": "TemperatureControl",
+                "GreenCurve": [
+                  {
+                    "y": 0.5
+                  },
+                  {
+                    "x": 1,
+                    "y": 1
+                  }
+                ],
+                "HueCurve": [
+                  {
+                    "y": 0.5
+                  },
+                  {
+                    "x": 1,
+                    "y": 1
+                  }
+                ],
+                "LookupTexture": null,
+                "RedCurve": [
+                  {
+                    "y": 0.5
+                  },
+                  {
+                    "x": 1,
+                    "y": 1
+                  }
+                ],
+                "SaturationCurve": [
+                  {
+                    "y": 0.5
+                  },
+                  {
+                    "x": 1,
+                    "y": 1
+                  }
+                ],
+                "ValueCurve": [
+                  {
+                    "y": 0.5
+                  },
+                  {
+                    "x": 1,
+                    "y": 1
+                  }
+                ]
               }
             ]
           }

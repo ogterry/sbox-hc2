@@ -19,39 +19,6 @@
       ]
     },
     {
-      "__guid": "76397bcc-599f-480e-b1e2-11efc10b7ba4",
-      "Flags": 0,
-      "Name": "2D Skybox",
-      "Tags": "skybox",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.SkyBox2D",
-          "__guid": "817e73e7-3e97-44d4-a1ca-006276a6d8fc",
-          "SkyMaterial": "materials/skybox/skybox_overcast_02.vmat",
-          "Tint": "1,1,1,1"
-        },
-        {
-          "__type": "Sandbox.EnvmapProbe",
-          "__guid": "aed94bba-2294-4d34-a663-35742bc3d351",
-          "Bounds": {
-            "Mins": "-5120,-5120,-5120",
-            "Maxs": "5120,5120,5120"
-          },
-          "DelayBetweenUpdates": 0.1,
-          "Feathering": 0.25,
-          "FrameInterval": 5,
-          "MaxDistance": 512,
-          "Projection": "Sphere",
-          "RenderDynamically": true,
-          "TintColor": "1,1,1,1",
-          "UpdateStrategy": "OnEnabled",
-          "ZFar": 4096,
-          "ZNear": 16
-        }
-      ]
-    },
-    {
       "__guid": "9635000b-bbc1-498b-8cc4-7d8c4c222a6e",
       "Flags": 0,
       "Name": "Spawner (1)",
@@ -641,47 +608,6 @@
       "Enabled": true
     },
     {
-      "__guid": "b169374b-0997-4fd9-b6bf-d31d7b1ad933",
-      "Flags": 0,
-      "Name": "Gradient Fog",
-      "Position": "-2983.949,-3350.317,3417.716",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.GradientFog",
-          "__guid": "5bf01ea6-c871-48fd-b571-a9b75ac11584",
-          "Color": "0.48545,0.63115,0.76744,1",
-          "EndDistance": 8192,
-          "FalloffExponent": 2,
-          "Height": 0,
-          "StartDistance": 0,
-          "VerticalFalloffExponent": 2
-        }
-      ]
-    },
-    {
-      "__guid": "dac1593f-f328-4f62-8b43-2c49c388d24d",
-      "Flags": 0,
-      "Name": "Cubemap Fog",
-      "Position": "766.071,-860.8685,424.8543",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.CubemapFog",
-          "__guid": "5fe9fb9a-0541-4ae1-883c-f03f4e7617cd",
-          "Blur": 0.77,
-          "EndDistance": 8192,
-          "FalloffExponent": 2,
-          "HeightExponent": 2,
-          "HeightStart": 2000,
-          "HeightWidth": 0,
-          "Sky": "materials/skybox/skybox_overcast_01.vmat",
-          "StartDistance": 0,
-          "Tint": "1,1,1,1"
-        }
-      ]
-    },
-    {
       "__guid": "a5a01cda-da1c-443c-ae92-308d1b82dfac",
       "Flags": 0,
       "Name": "node_rock (9)",
@@ -1044,6 +970,89 @@
       "NetworkMode": 1,
       "__Prefab": "prefabs/resources/node_metal.prefab",
       "__PrefabVariables": {}
+    },
+    {
+      "__guid": "7402818f-8a69-49f6-be83-27b994600951",
+      "Flags": 0,
+      "Name": "Sun (1)",
+      "Position": "149.3263,149.3264,1479.661",
+      "Rotation": "0.2500001,-0.8623723,-0.3623726,-0.25",
+      "Tags": "light_directional,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DirectionalLight",
+          "__guid": "02cb2335-9d5a-4003-bf88-a15793a75fa8",
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.83256,0.96093,1,1",
+          "Shadows": true,
+          "SkyColor": "1,1,1,0.25"
+        }
+      ]
+    },
+    {
+      "__guid": "caa32428-97e2-473c-a804-673b1dcb6d36",
+      "Flags": 0,
+      "Name": "2D Skybox",
+      "Tags": "skybox",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SkyBox2D",
+          "__guid": "f024e7a6-3c22-4035-ad1e-6de2132da558",
+          "SkyMaterial": "materials/skybox/skybox_overcast_02.vmat",
+          "Tint": "0.15187,0.18936,0.24186,1"
+        }
+      ]
+    },
+    {
+      "__guid": "a6cddb6f-8cae-4a6b-8b39-7b3a8c997ceb",
+      "Flags": 0,
+      "Name": "Gradient Fog",
+      "Position": "0,0,371.0556",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.GradientFog",
+          "__guid": "98d0309c-0d2c-4a63-8b45-d932c6c605ff",
+          "Color": "0.147,0.17504,0.2093,1",
+          "EndDistance": 4096,
+          "FalloffExponent": 1,
+          "Height": 4096,
+          "StartDistance": 0,
+          "VerticalFalloffExponent": 1
+        }
+      ]
+    },
+    {
+      "__guid": "7961f861-7f14-4f11-be4f-8a7ba3ffc03d",
+      "Flags": 0,
+      "Name": "Envmap Probe",
+      "Position": "0,0,1348.558",
+      "Scale": "-2.702776,-2.702776,-1.033005",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.EnvmapProbe",
+          "__guid": "8166ac5f-2655-4470-8b01-9dc56e1b9eee",
+          "Texture": "textures/cubemaps/default2.vtex",
+          "Bounds": {
+            "Mins": "-2000,-2000,-2000",
+            "Maxs": "2000,2000,2000"
+          },
+          "DelayBetweenUpdates": 0.1,
+          "Feathering": 0.02,
+          "FrameInterval": 5,
+          "MaxDistance": 4096,
+          "Projection": "Box",
+          "RenderDynamically": true,
+          "TintColor": "1,1,1,1",
+          "UpdateStrategy": "OnEnabled",
+          "ZFar": 4096,
+          "ZNear": 16
+        }
+      ]
     }
   ],
   "SceneProperties": {
