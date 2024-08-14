@@ -88,6 +88,20 @@ public class Inventory : Component, ISaveData
 		return true;
 	}
 
+	public void CraftItem( Item item )
+	{
+		if ( !CanCraftItem( item ) )
+			return;
+
+		foreach ( var requirement in item.Resource.CraftingRequirements )
+		{
+			var reqItem = Item.Create( requirement.Resource, requirement.Amount * item.Amount );
+			TakeItem( reqItem );
+		}
+
+		TryGiveItem( item );
+	}
+
 	/// <summary>
 	/// Try to give an item to this inventory. This can only be performed as the owner as it requires network authority.
 	/// </summary>

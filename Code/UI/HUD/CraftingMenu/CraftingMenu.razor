@@ -44,7 +44,9 @@
                     </div>
                 }
             </div>
-            <div class="button" onclick=@CraftSelected>Craft</div>
+            <div class="button" onclick=@CraftSelected>
+                @(Player.Local?.Inventory?.CanCraftItem(SelectedItem) ?? false ? "Craft" : "Not enough resources")
+            </div>
         </div>
     }
 </root>
@@ -62,5 +64,7 @@
     {
         if (SelectedItem is null) return;
 
+        // This will fail if !CanCraftItem
+        Player.Local.Inventory.CraftItem(Item.Create(SelectedItem));
     }
 }

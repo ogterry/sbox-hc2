@@ -199,6 +199,9 @@ public struct InventoryContainer
 	{
 		for ( var i = MaxSlots - 1; i >= 0; i-- )
 		{
+			if ( Items[i] == null )
+				continue;
+
 			if ( Items[i] == item )
 			{
 				Items[i] = null;
