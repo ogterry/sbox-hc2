@@ -1,6 +1,4 @@
 ﻿using System;
-using Sandbox;
-using Sandbox.Diagnostics;
 
 namespace HC2;
 
@@ -12,14 +10,19 @@ public class Inventory : Component, ISaveData
 	[Property] public int MaxSlots { get; set; } = 9;
 
 	/// <summary>
-	/// The Container that this Inventory references/networks
+	/// Get the items this Inventory holds.
 	/// </summary>
-	[Sync] public InventoryContainer Container { get; private set; }
+	public List<Item> Items => Container.Items;
 
 	/// <summary>
-	/// If set, if this inventory can't hold any more items, it will overflow into this container.
+	/// The container that this Inventory references.
 	/// </summary>
-	[Sync] public InventoryContainer OverflowContainer { get; set; }
+	public InventoryContainer Container { get; private set; }
+
+	/// <summary>
+	/// If set and this inventory can't hold any more items, it will overflow into this container.
+	/// </summary>
+	public InventoryContainer OverflowContainer { get; set; }
 
 	protected override void OnAwake()
 	{
@@ -57,13 +60,21 @@ public class Inventory : Component, ISaveData
 			Container.TryGiveItem( item );
 			return true;
 		}
-		else if ( OverflowContainer.IsValid() && OverflowContainer.CanGiveItem( item ) )
-		{
-			OverflowContainer.TryGiveItem( item );
-			return true;
-		}
 
-		return false;
+		if ( !OverflowContainer.IsValid() || !OverflowContainer.CanGiveItem( item ) )
+			return false;
+
+		OverflowContainer.TryGiveItem( item );
+		return true;
+	}
+	
+	/// <summary>
+	/// Take the specified item from the inventory.
+	/// </summary>
+	/// <param name="item"></param>
+	public void TakeItem( Item item )
+	{
+		Container.TakeItem( item );
 	}
 
 	public bool TryGiveItemSlot( Item item, int slotIndex )
@@ -75,20 +86,29 @@ public class Inventory : Component, ISaveData
 		{
 			return true;
 		}
-		else if ( OverflowContainer.IsValid() && OverflowContainer.CanGiveItem( item ) )
-		{
-			OverflowContainer.TryGiveItem( item );
-			return true;
-		}
 
-		return false;
+		if ( !OverflowContainer.IsValid() || !OverflowContainer.CanGiveItem( item ) )
+			return false;
+
+		OverflowContainer.TryGiveItem( item );
+		return true;
+
 	}
 
+	/// <summary>
+	/// Does this inventory have the specified item?
+	/// </summary>
+	/// <param name="item"></param>
+	/// <returns></returns>
 	public bool HasItem( Item item )
 	{
 		return Container.HasItem( item ) || OverflowContainer.HasItem( item );
 	}
 
+	/// <summary>
+	/// Drop the item in the specified slot.
+	/// </summary>
+	/// <param name="slotIndex"></param>
 	public void DropItem( int slotIndex )
 	{
 		var item = GetItemInSlot( slotIndex );
@@ -109,25 +129,22 @@ public class Inventory : Component, ISaveData
 	/// <param name="slotIndex"></param>
 	public void MoveItem( Item item, int slotIndex )
 	{
-		if ( item.Container.Value == Container && slotIndex == item.SlotIndex )
-		{
+		if ( item.Container == this && slotIndex == item.SlotIndex )
 			return;
-		}
-		var itemResource = item.Resource;
-		var otherInventory = item.Container;
+		
+		var oldInventory = item.Container;
 		var oldIndex = item.SlotIndex;
-		var amount = item.Amount;
 		var currentItemInSlot = GetItemInSlot( slotIndex );
 
-		otherInventory?.ClearItemSlot( oldIndex );
+		oldInventory?.ClearItemSlot( oldIndex );
 
 		if ( currentItemInSlot is not null )
 		{
-			if ( otherInventory is not null )
+			if ( oldInventory is not null )
 			{
 				if ( currentItemInSlot?.Resource != item.Resource )
 				{
-					otherInventory?.TryGiveItemSlot( currentItemInSlot, oldIndex );
+					oldInventory?.TryGiveItemSlot( currentItemInSlot, oldIndex );
 					Container.ClearItemSlot( slotIndex );
 				}
 				else
@@ -137,13 +154,12 @@ public class Inventory : Component, ISaveData
 						var diff = currentItemInSlot.Resource.MaxStack - currentItemInSlot.Amount;
 						currentItemInSlot.Amount = currentItemInSlot.Resource.MaxStack;
 						TryGiveItem( Item.Create( item.Resource, item.Amount - diff ) );
+						
 						return;
 					}
-					else
-					{
-						currentItemInSlot.Amount += item.Amount;
-						item.Amount = 0;
-					}
+					
+					currentItemInSlot.Amount += item.Amount;
+					item.Amount = 0;
 				}
 			}
 			else
@@ -155,29 +171,36 @@ public class Inventory : Component, ISaveData
 
 		Container.TryGiveItemSlot( item, slotIndex );
 	}
+	
+	/// <summary>
+	/// Clear the item in the specified slot.
+	/// </summary>
+	/// <param name="slotIndex"></param>
+	/// <exception cref="ArgumentOutOfRangeException"></exception>
+	public void ClearItemSlot( int slotIndex )
+	{
+		if ( slotIndex < 0 || slotIndex >= MaxSlots )
+		{
+			throw new ArgumentOutOfRangeException( nameof( slotIndex ) );
+		}
+
+		Items[slotIndex] = null;
+	}
 
 	/// <summary>
 	/// Give an item to this inventory.
 	/// </summary>
 	/// <param name="item">This item must already exist on the host.</param>
-	[Authority]
 	public void GiveItem( Item item )
 	{
 		var oldContainer = item.Container;
 		oldContainer?.TakeItem( item );
-		if ( oldContainer?.Inventory?.IsValid() ?? false )
-		{
-			oldContainer.Value.Inventory.Container = oldContainer.Value;
-		}
 
 		if ( Container.TryGiveItem( item ) )
-		{
-			Container = Container; // Refresh the container
-		}
-		else if ( OverflowContainer.TryGiveItem( item ) )
-		{
-			OverflowContainer.Inventory.Container = OverflowContainer;
-		}
+			return;
+
+		if ( OverflowContainer.IsValid() )
+			OverflowContainer.TryGiveItem( item );
 	}
 
 	/// <summary>
@@ -204,6 +227,7 @@ public class Inventory : Component, ISaveData
 		for ( var i = 0; i < MaxSlots; i++ )
 		{
 			var item = Container.Items[i];
+			
 			if ( item is not null )
 				yield return item;
 		}
@@ -212,6 +236,7 @@ public class Inventory : Component, ISaveData
 	public string Save()
 	{
 		var itemString = "";
+		
 		foreach ( var item in Container.Items )
 		{
 			if ( item is null )
@@ -219,6 +244,7 @@ public class Inventory : Component, ISaveData
 			else
 				itemString += $"{item.Resource.ResourceName}:{item.Amount},";
 		}
+		
 		if ( itemString.EndsWith( "," ) )
 			itemString = itemString.Substring( 0, itemString.Length - 1 );
 
@@ -229,14 +255,18 @@ public class Inventory : Component, ISaveData
 	{
 		var allItems = ResourceLibrary.GetAll<ItemAsset>();
 		var items = data.Split( ',' );
-		int i = 0;
+		var i = 0;
+		
 		foreach ( var item in items )
 		{
 			i++;
+			
 			if ( item == "null" )
 				continue;
+			
 			var itemData = item.Split( ':' );
 			var itemResource = allItems.FirstOrDefault( x => x.ResourceName == itemData[0] );
+			
 			if ( itemResource is null )
 			{
 				Log.Warning( $"Couldn't find item resource {itemData[0]}" );
@@ -245,6 +275,7 @@ public class Inventory : Component, ISaveData
 
 			var itemAmount = int.Parse( itemData[1] );
 			var it = Item.Create( itemResource, itemAmount );
+			
 			TryGiveItemSlot( it, i - 1 );
 		}
 	}

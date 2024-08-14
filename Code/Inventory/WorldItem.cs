@@ -24,6 +24,9 @@ public partial class WorldItem : Component, Component.ITriggerListener
 
 	[Property]
 	public GameObject SpinningItem { get; set; }
+	
+	[Sync]
+	public TimeSince LastPickupAttempt { get; set; }
 
 	protected override void OnStart()
 	{
@@ -53,32 +56,52 @@ public partial class WorldItem : Component, Component.ITriggerListener
 		if ( !Sandbox.Networking.IsHost )
 			return;
 
-		if ( other.GameObject.Root.Components.Get<Player>() is { IsValid: true } player )
+		if ( other.GameObject.Root.Components.Get<Player>() is not { IsValid: true } player )
+			return;
+
+		if ( player.IsProxy )
+			return;
+
+		if ( LastPickupAttempt < 3f )
+			return;
+
+		TryPickupOnAuthority( player );
+	}
+
+	[Authority]
+	void TryPickupOnAuthority( Player player )
+	{
+		if ( LastPickupAttempt < 3f )
+			return;
+		
+		using ( Rpc.FilterInclude( player.Network.OwnerConnection ) )
 		{
-			using ( Rpc.FilterInclude( player.Network.OwnerConnection ) )
-			{
-				TryPickup( player );
-			}
+			LastPickupAttempt = 0f;
+			Pickup( player );
 		}
 	}
 
-	[Broadcast]
-	void TryPickup( Player player )
+	[Broadcast( NetPermission.OwnerOnly )]
+	void Pickup( Player player )
 	{
-		if ( player.Hotbar.TryGiveItem( HC2.Item.Create( Resource, Amount ) ) )
+		if ( player.IsProxy ) return;
+		
+		var item = Item.Create( Resource, Amount );
+		
+		if ( player.Hotbar.TryGiveItem( item ) )
 		{
-			Pickup();
+			DestroyOnAuthority();
 		}
 	}
 
 	[Authority]
-	void Pickup()
+	void DestroyOnAuthority()
 	{
 		GameObject.Destroy();
 	}
 
 	/// <summary>
-	/// Quick and nasty accessor for creating a world item. This could be loads better
+	/// Quick and nasty accessor for creating a world item. This could be loads better.
 	/// </summary>
 	/// <param name="itemAsset"></param>
 	/// <param name="worldPosition"></param>
