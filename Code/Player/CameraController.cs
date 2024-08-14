@@ -89,7 +89,7 @@ public sealed class CameraController : Component
 			bobSpeed = bobSpeed.LerpTo( Player.Character.Velocity.WithZ( 0 ).Length, Time.Delta * 10 );
 		}
 
-		Boom.Transform.Position += CalcBobbingOffset( Player.Character.Velocity.Length ) * Boom.Transform.Rotation;
+		Boom.Transform.Position += CalcBobbingOffset( Player.Character.Velocity.Length ) * Boom.Transform.Rotation * Time.Delta * 100f;
 
 		var targetFov = Preferences.FieldOfView + Player.Character.Velocity.Length / VelocityFOVScale;
 
