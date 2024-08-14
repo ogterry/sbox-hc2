@@ -79,7 +79,16 @@ public sealed class CameraController : Component
 
 		Boom.Transform.Position = Boom.Transform.Position.LerpTo( Player.Character.Transform.Position + Vector3.Up * Player.GetDuckHeight() * 0.8f, Time.Delta * 10 );
 
-		bobSpeed = bobSpeed.LerpTo( Player.Character.Velocity.WithZ(0).Length, Time.Delta * 10 );;
+		
+		if ( !Player.Character.IsOnGround)
+		{
+			bobSpeed = bobSpeed.LerpTo( 0, Time.Delta * 10 );
+		}
+		else
+		{
+			bobSpeed = bobSpeed.LerpTo( Player.Character.Velocity.WithZ( 0 ).Length, Time.Delta * 10 );
+		}
+
 		Boom.Transform.Position += CalcBobbingOffset( Player.Character.Velocity.Length ) * Boom.Transform.Rotation;
 
 		var targetFov = Preferences.FieldOfView + Player.Character.Velocity.Length / VelocityFOVScale;
