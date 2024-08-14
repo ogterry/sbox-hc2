@@ -24,6 +24,8 @@ public class Inventory : Component, ISaveData
 	/// </summary>
 	public InventoryContainer OverflowContainer { get; set; }
 
+	public List<Item> CombinedItems => Container.Items.Concat( OverflowContainer.Items ?? new List<Item>() ).ToList();
+
 	protected override void OnAwake()
 	{
 		Container = new( this, MaxSlots );
@@ -62,7 +64,28 @@ public class Inventory : Component, ISaveData
 	/// <returns></returns>
 	public bool CanCraftItem( Item item )
 	{
-		return Container.CanCraftItem( item.Resource, item.Amount );
+		return CanCraftItem( item.Resource, item.Amount );
+	}
+
+	/// <summary>
+	/// Can this inventory craft the specified item?
+	/// </summary>
+	/// <param name="item"></param>
+	/// <param name="amount"></param>
+	/// <returns></returns>
+	public bool CanCraftItem( ItemAsset item, int amount = 1 )
+	{
+		if ( (item?.CraftingRequirements?.Count ?? 0) == 0 )
+			return false;
+
+		var requirements = item.CraftingRequirements;
+		foreach ( var requirement in requirements )
+		{
+			if ( !HasItem( Item.Create( requirement.Resource, requirement.Amount * amount ) ) )
+				return false;
+		}
+
+		return true;
 	}
 
 	/// <summary>
@@ -128,7 +151,22 @@ public class Inventory : Component, ISaveData
 	/// <returns></returns>
 	public bool HasItem( Item item )
 	{
-		return Container.HasItem( item ) || OverflowContainer.HasItem( item );
+		var items = CombinedItems;
+		var amount = item.Amount;
+
+		foreach ( var i in items )
+		{
+			if ( i is null ) continue;
+			if ( i.Resource == item.Resource )
+			{
+				amount -= i.Amount;
+
+				if ( amount <= 0 )
+					return true;
+			}
+		}
+
+		return false;
 	}
 
 	/// <summary>

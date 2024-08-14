@@ -18,7 +18,7 @@
                 <div class="recipes column">
                     @foreach (var item in group)
                     {
-                        <CraftingMenuEntry Item=@item onclick=@(() => SelectItem(item)) />
+                        <CraftingMenuEntry class=@(((Player.Local?.Inventory?.CanCraftItem(item) ?? false) ? "" : "disabled") + (item == SelectedItem ? " active" : "")) Item=@item onclick=@(() => SelectItem(item)) />
                     }
                 </div>
             </div>

@@ -66,7 +66,7 @@ public struct InventoryContainer
 	}
 
 	/// <summary>
-	/// <inheritdoc cref="Inventory.CanCraftItem"/>
+	/// Can this inventory craft the specified item?
 	/// </summary>
 	public bool CanCraftItem( ItemAsset resource, int amount = 1 )
 	{
