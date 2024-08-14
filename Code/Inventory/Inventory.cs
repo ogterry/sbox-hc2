@@ -65,6 +65,24 @@ public class Inventory : Component, ISaveData
 		return false;
 	}
 
+	public bool TryGiveItemSlot( Item item, int slotIndex )
+	{
+		if ( !Container.Inventory.IsValid() )
+			return false;
+
+		if ( Container.TryGiveItemSlot( item, slotIndex ) )
+		{
+			return true;
+		}
+		else if ( OverflowContainer.IsValid() && OverflowContainer.CanGiveItem( item ) )
+		{
+			OverflowContainer.TryGiveItem( item );
+			return true;
+		}
+
+		return false;
+	}
+
 	public bool HasItem( Item item )
 	{
 		return Container.HasItem( item ) || OverflowContainer.HasItem( item );
@@ -173,9 +191,12 @@ public class Inventory : Component, ISaveData
 	public string Save()
 	{
 		var itemString = "";
-		foreach ( var item in GetAllItems() )
+		foreach ( var item in Container.Items )
 		{
-			itemString += $"{item.Resource.ResourceName}:{item.Amount},";
+			if ( item is null )
+				itemString += "null,";
+			else
+				itemString += $"{item.Resource.ResourceName}:{item.Amount},";
 		}
 		if ( itemString.EndsWith( "," ) )
 			itemString = itemString.Substring( 0, itemString.Length - 1 );
@@ -187,8 +208,12 @@ public class Inventory : Component, ISaveData
 	{
 		var allItems = ResourceLibrary.GetAll<ItemAsset>();
 		var items = data.Split( ',' );
+		int i = 0;
 		foreach ( var item in items )
 		{
+			i++;
+			if ( item == "null" )
+				continue;
 			var itemData = item.Split( ':' );
 			var itemResource = allItems.FirstOrDefault( x => x.ResourceName == itemData[0] );
 			if ( itemResource is null )
@@ -199,7 +224,7 @@ public class Inventory : Component, ISaveData
 
 			var itemAmount = int.Parse( itemData[1] );
 			var it = Item.Create( itemResource, itemAmount );
-			GiveItem( it );
+			TryGiveItemSlot( it, i - 1 );
 		}
 	}
 }
