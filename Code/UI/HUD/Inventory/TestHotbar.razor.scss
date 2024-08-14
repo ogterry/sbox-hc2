@@ -13,10 +13,8 @@ TestHotbar
 
     .container
     {
-        padding: 16px;
         position: absolute;
         flex-direction: row;
-        background-color: rgba( black, 0.5 );
         backdrop-filter: blur(4px);
         justify-content: space-evenly;
         gap: 16px;
@@ -56,19 +54,17 @@ TestHotbar
     ItemSlot, DummyItem
     {
         cursor: pointer;
-        background-color: gray;
         justify-content: center;
         align-items: center;
         width: 64px;
         height: 64px;
-        border-image-tint: rgba( black, 0.5 );
-        border-image: url( /ui/Panel/panel-001.png ) 11 fill;
+        border-image-tint: $background;
+        border-image: url( /ui/Panel/panel-007.png ) 11 fill;
         position: relative;
 
         &.hovered-item
         {
             border-image-tint: darken( white, 0.6 );
-            background-color: rgba( white, 0.7 );
         }
 
         .item
@@ -100,8 +96,7 @@ TestHotbar
 
         &.active
         {
-            border-image-tint: darken( white, 0.7 );
-            background-color: rgba( white, 0.5 );
+            border-image-tint: rgba( white, 1 );
             transform: scale( 1.1 );
         }
     }
