@@ -68,12 +68,61 @@
 
     void StartDragging()
     {
+        if ( IsDragging )
+            return;
 
+        DraggingItem = HoveredSlot;
+
+        if ( !DraggingItem.IsValid() )
+            return;
+
+        IsDragging = true;
+
+        // Dummy = new DraggedItem()
+        // {
+        //     Item = DraggingItem.Item,
+        //     Slot = DraggingItem.Slot
+        // };
+
+        DraggingItem.SetClass( "being-dragged", true );
+
+        SetClass( "dragging-active", true );
+
+        // AddChild( Dummy );
+
+        Log.Info( $"Started dragging {DraggingItem}" );
     }
 
     void StopDragging()
     {
-        
+        IsDragging = false;
+        WantsToDrag = false;
+
+        var item = DraggingItem;
+
+        if ( item.IsValid() )
+        {
+            item.SetClass( "being-dragged", false );
+        }
+
+        DraggingItem = null;
+
+        SetClass( "dragging-active", false );
+
+        Log.Info( $"Stop dragging {item}" );
+
+
+        if ( HoveredSlot == null )
+        {
+            return;
+        }
+
+        // if ( !Dummy.IsValid() )
+        //     return;
+
+        // Dummy.Delete( true );
+
+        // TODO: Move the item
     }
 
     public override void Tick()

@@ -4,30 +4,33 @@
 TestHotbar
 {
     position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
+    bottom: $safe-zone-y;
+    left: $safe-zone-x;
+    right: $safe-zone-x;
+    top: 0;
     justify-content: center;
     align-items: flex-end;
 
     .container
     {
-        padding: 8px;
+        padding: 16px;
         position: absolute;
         flex-direction: row;
+        background-color: rgba( black, 0.5 );
+        backdrop-filter: blur(4px);
+        justify-content: space-evenly;
         gap: 16px;
     }
 
     .inventory
     {
         position: absolute;
-        background-color: rgba(white, 0.2);
+        background-color: rgba( black, 0.5 );
         backdrop-filter: blur(4px);
         width: 800px;
         height: 270px;
         flex-wrap: wrap;
-        top: 40%;
+        top: 60%;
         opacity: 0;
         gap: 16px;
         padding: 16px;
@@ -37,6 +40,8 @@ TestHotbar
 
     &.visible
     {
+        pointer-events: all;
+
         .inventory
         {
             opacity: 1;
@@ -56,14 +61,14 @@ TestHotbar
         align-items: center;
         width: 64px;
         height: 64px;
-        backdrop-filter: $blur;
-        border-image-tint: $background;
+        border-image-tint: rgba( black, 0.5 );
         border-image: url( /ui/Panel/panel-001.png ) 11 fill;
         position: relative;
 
         &.hovered-item
         {
-            background-color: green;
+            border-image-tint: darken( green, 0.7 );
+            background-color: rgba( green, 1 );
         }
 
         .item
@@ -74,7 +79,8 @@ TestHotbar
             pointer-events: none;
         }
 
-        .amount {
+        .amount
+        {
             left: -4px;
             top: -10px;
             position: absolute;
@@ -84,7 +90,8 @@ TestHotbar
 
         &.active
         {
-            background-color: red;
+            border-image-tint: darken( red, 0.7 );
+            background-color: rgba( red, 1 );
         }
     }
 }
