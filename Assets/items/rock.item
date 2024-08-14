@@ -1,11 +1,14 @@
 {
   "Name": "Rock",
   "Description": "You can craft stuff with it.. or can you?",
+  "Category": "Resources",
+  "MaxStack": 99,
   "Icon": "item_icons/rock.png",
   "Tags": null,
   "Prefab": null,
-  "ItemPrefab": null,
   "WorldModel": "models/terrain/boulders/boulder_02.vmdl",
+  "CraftingRequirements": [],
+  "StatusEffects": [],
   "__references": [],
   "__version": 0
 }

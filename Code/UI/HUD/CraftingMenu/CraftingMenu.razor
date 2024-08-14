@@ -1,0 +1,66 @@
+@using System
+@using Sandbox
+@using Sandbox.UI
+@using HC2
+@attribute [StyleSheet]
+
+@inherits Panel
+
+<root>
+    <div class="list column">
+        @foreach (var group in ItemAsset.GetRecipeGroups())
+        {
+            <div class="group column">
+                <div class="header">
+                    @* <i>@group.Key.GetIcon()</i> *@
+                    <label>@(group.Key)</label>
+                </div>
+                <div class="recipes column">
+                    @foreach (var item in group)
+                    {
+                        <CraftingMenuEntry Item=@item onclick=@(() => SelectItem(item)) />
+                    }
+                </div>
+            </div>
+        }
+    </div>
+    @if (SelectedItem is not null)
+    {
+        <div class="selected-item column">
+            <div class="header">
+                <img src="@SelectedItem.Icon" />
+                <div class="info column">
+                    <label class="name">@SelectedItem.Name</label>
+                    <label class="desc">@SelectedItem.Description</label>
+                </div>
+            </div>
+            <div class="requirements column">
+                @foreach (var entry in SelectedItem.CraftingRequirements)
+                {
+                    <div class="entry">
+                        <img src="@entry.Resource.Icon" />
+                        <label>@entry.Resource.Name</label>
+                        <label>x@(entry.Amount)</label>
+                    </div>
+                }
+            </div>
+            <div class="button" onclick=@CraftSelected>Craft</div>
+        </div>
+    }
+</root>
+
+@code
+{
+    ItemAsset SelectedItem = null;
+
+    void SelectItem(ItemAsset item)
+    {
+        SelectedItem = item;
+    }
+
+    void CraftSelected()
+    {
+        if (SelectedItem is null) return;
+
+    }
+}

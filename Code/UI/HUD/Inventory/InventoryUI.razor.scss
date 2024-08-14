@@ -32,6 +32,12 @@ InventoryUI
         align-items: center;
     }
 
+    CraftingMenu
+    {
+        opacity: 0;
+        pointer-events: none;
+    }
+
     &.visible
     {
         pointer-events: all;
@@ -43,6 +49,12 @@ InventoryUI
 
         ItemSlot
         {
+            pointer-events: all;
+        }
+
+        CraftingMenu
+        {
+            opacity: 1;
             pointer-events: all;
         }
     }

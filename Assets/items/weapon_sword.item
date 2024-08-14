@@ -1,7 +1,7 @@
 {
   "Name": "Sword",
   "Description": "Hack n slash!",
-  "Category": "Weapon",
+  "Category": "Weapons",
   "MaxStack": 1,
   "Icon": "item_icons/weapon_sword.png",
   "Tags": "weapon,melee",

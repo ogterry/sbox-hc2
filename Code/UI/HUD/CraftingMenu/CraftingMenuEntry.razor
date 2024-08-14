@@ -1,0 +1,22 @@
+@using System
+@using Sandbox
+@using Sandbox.UI
+@using HC2
+@attribute [StyleSheet]
+
+@inherits Panel
+
+<root>
+    <img src="@Item.Icon" />
+    <div class="info">
+        <label class="name">@Item.Name</label>
+        <label class="desc">@Item.Description</label>
+    </div>
+</root>
+
+@code
+{
+    public ItemAsset Item { get; set; }
+    public Action<ItemAsset> OnSelect { get; set; }
+
+}

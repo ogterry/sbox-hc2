@@ -2,25 +2,25 @@
 
 public enum ItemCategory
 {
-	[Icon( "token" )]
-	Resource,
-	[Icon( "restaurant" )]
-	Consumable,
-	[Icon( "checkroom" )]
-	Equipment,
-	[Icon( "carpenter" )]
-	Weapon,
-	[Icon( "token" )]
-	Armor,
-	[Icon( "hardware" )]
-	Tool,
-	[Icon( "construction" )]
+	[Icon("token")]
+	Resources,
+	[Icon("restaurant")]
+	Consumables,
+	[Icon("checkroom")]
+	Equipments,
+	[Icon("carpenter")]
+	Weapons,
+	[Icon("token")]
+	Armors,
+	[Icon("hardware")]
+	Tools,
+	[Icon("construction")]
 	Building,
-	[Icon( "category" )]
+	[Icon("category")]
 	Other
 }
 
-[GameResource( "Item", "item", "An item definition.", Icon = "token" )]
+[GameResource("Item", "item", "An item definition.", Icon = "token")]
 public class ItemAsset : GameResource
 {
 	/// <summary>
@@ -61,11 +61,17 @@ public class ItemAsset : GameResource
 	/// </summary>
 	public Model WorldModel { get; set; }
 
-	[Category( "Crafting" )]
+	[Category("Crafting")]
 	public List<Item> CraftingRequirements { get; set; }
 	/// <summary>
 	/// A list of status effects that this item applies to the player when equipped/consumed.
 	/// </summary>
-	[Category( "Effects" )]
+	[Category("Effects")]
 	public List<StatusEffect> StatusEffects { get; set; } = new();
+
+	public static List<IGrouping<ItemCategory, ItemAsset>> GetRecipeGroups()
+	{
+		var items = ResourceLibrary.GetAll<ItemAsset>();
+		return items.Where(x => (x?.CraftingRequirements?.Count ?? 0) > 0).GroupBy(x => x.Category).ToList();
+	}
 }
