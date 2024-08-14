@@ -86,7 +86,13 @@ public class Inventory : Component, ISaveData
 	{
 		Container.TakeItem( item );
 	}
-
+	
+	/// <summary>
+	/// Try to give an item to the specified slot.
+	/// </summary>
+	/// <param name="item"></param>
+	/// <param name="slotIndex"></param>
+	/// <returns></returns>
 	public bool TryGiveItemSlot( Item item, int slotIndex )
 	{
 		if ( !Container.Inventory.IsValid() )
