@@ -37,6 +37,9 @@
       }
     ]
   },
+  "Features": [
+    "worlds/dead_tree.feature"
+  ],
   "__references": [],
   "__version": 0
 }
