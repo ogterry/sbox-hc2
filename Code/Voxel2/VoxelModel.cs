@@ -136,8 +136,7 @@ public partial class VoxelRenderer : Component, Component.ExecuteInEditor
 
 	public (int X, int Y, int Z) WorldToVoxelCoords( Vector3 worldPos )
 	{
-		// TODO: Where is this defined?
-		const float voxelSize = 16;
+		var voxelSize = Constants.VoxelSize;
 
 		var localPos = Transform.World.PointToLocal( worldPos );
 
