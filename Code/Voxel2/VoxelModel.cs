@@ -1,6 +1,7 @@
 ﻿using System;
 using Sandbox.Utility;
 using Sandbox.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace Voxel;
 
@@ -15,11 +16,11 @@ public class VoxelRenderer : Component, Component.ExecuteInEditor
 		Transform.OnTransformChanged += OnLocalTransformChanged;
 
 		Model?.Destroy();
-		Model = new VoxelModel( 256, 32, 256 );
+		Model = new VoxelModel( 32, 32, 32 );
 
-		for ( int x = 0; x < 256; x++ )
+		for ( int x = 0; x < 32; x++ )
 		{
-			for ( int z = 0; z < 256; z++ )
+			for ( int z = 0; z < 32; z++ )
 			{
 				float noiseValue = Noise.Fbm( 8, x * 0.4f, z * 0.4f );
 				int surfaceHeight = (int)(noiseValue * 32);
@@ -140,7 +141,20 @@ public partial class VoxelModel
 
 	public bool ShouldMeshExterior = true;
 
-	public ComputeBuffer<Color> PaletteBuffer;
+	[StructLayout( LayoutKind.Sequential, Pack = 0 )]
+	public struct PaletteMaterial
+	{
+		public Color Color;
+		public int TextureIndex;
+		public int Pad1;
+		public int Pad2;
+		public int Pad3;
+	}
+
+	public ComputeBuffer<PaletteMaterial> PaletteBuffer;
+
+	static Texture texture;
+	static Texture texture2;
 
 	static VoxelModel()
 	{
@@ -155,14 +169,15 @@ public partial class VoxelModel
 
 	public VoxelModel( int mx, int my, int mz )
 	{
-		var palette = new Color[256];
-		palette[0] = new Color( 1.0f, 0.35f, 0.16f );
-		palette[1] = new Color( 0.3f, 0.3f, 0.3f );
-		palette[2] = new Color( 0.0f, 0.3f, 0.0f );
-		palette[3] = new Color( 0.25f, 0.75f, 0.75f );
-		palette[4] = new Color( 0.75f, 0.75f, 0.25f );
+		texture = Texture.Create( 1, 1 ).WithData( new byte[] { 255, 0, 0, 255 } ).Finish();
+		texture2 = Texture.Create( 1, 1 ).WithData( new byte[] { 0, 255, 0, 255 } ).Finish();
 
-		PaletteBuffer = new ComputeBuffer<Color>( 256 );
+		var palette = new PaletteMaterial[256];
+		palette[0] = new PaletteMaterial { Color = new Color( 1.0f, 1.0f, 1.0f ), TextureIndex = texture.Index };
+		palette[1] = new PaletteMaterial { Color = new Color( 0.9f, 0.5f, 0.0f ), TextureIndex = texture2.Index };
+		palette[2] = new PaletteMaterial { Color = new Color( 1.0f, 1.0f, 1.0f ), TextureIndex = texture2.Index };
+
+		PaletteBuffer = new ComputeBuffer<PaletteMaterial>( 256 );
 		PaletteBuffer.SetData( palette );
 
 		Chunks = new Chunk[Constants.MaxChunkAmountCubed];
