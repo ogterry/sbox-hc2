@@ -78,7 +78,10 @@
         if (!DraggingItem.IsValid())
             return;
 
-        if (DraggingItem.Item.Resource is null)
+        if ( DraggingItem.Item is null )
+            return;
+
+        if ( DraggingItem.Item.Resource is null )
             return;
 
         IsDragging = true;
