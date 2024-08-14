@@ -1,0 +1,40 @@
+@using Sandbox
+@using Sandbox.UI
+
+@inherits Panel
+@attribute [StyleSheet]
+
+@{
+    var experience = Player.Local?.Experience;
+    if (!experience.IsValid()) return;
+
+    float experiencePerc = 100f * (experience.Points / (float)experience.MaxPoints);
+
+    var health = Player.Local?.HealthComponent;
+    if (!health.IsValid()) return;
+
+    float healthPerc = 100f * (health.Health / (float)health.MaxHealth);
+}
+
+<root>
+    <div class="avatar-container">
+        <img class="avatar" src="@AvatarUrl" />
+    </div>
+
+    <column>
+        <row>
+            <label>@PlayerName.ToUpper()</label>
+            <Donut Value="@(experiencePerc)" size="24" InnerText="@($"{experience.Level}")" />
+        </row>
+
+        <ProgressBar Value="@(healthPerc)" />
+    </column>
+</root>
+
+@code {
+    private Connection Connection => Player.Local.Network.OwnerConnection;
+    public string PlayerName => Connection.DisplayName;
+    public string AvatarUrl => $"avatar:{Connection.SteamId}";
+
+    protected override int BuildHash() => System.HashCode.Combine(Player.Local?.Experience?.Points, PlayerName, Player.Local?.HealthComponent?.Health);
+}

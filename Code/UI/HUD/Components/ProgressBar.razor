@@ -1,0 +1,38 @@
+@using Sandbox;
+@using Sandbox.UI;
+@inherits Panel
+@attribute [StyleSheet]
+
+<root>
+    <div class="inner">
+        <div class="fill" style="width: @(CurrentFill * 100f)%;" />
+
+        @if (!string.IsNullOrEmpty(Text))
+        {
+            <div class="inner-text">
+                <label>@Text</label>
+            </div>
+        }
+    </div>
+</root>
+
+@code
+{
+    protected float CurrentFill = 0f;
+
+    public float Value { get; set; }
+    public string Text { get; set; }
+
+    public override void Tick()
+    {
+        var previousValue = CurrentFill;
+        CurrentFill = CurrentFill.LerpTo(Value, Time.Delta * 10f);
+        if (CurrentFill < previousValue)
+            CurrentFill = 0;
+    }
+
+    protected override int BuildHash()
+    {
+        return System.HashCode.Combine(Value, CurrentFill, Text);
+    }
+}

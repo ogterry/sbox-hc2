@@ -1,0 +1,56 @@
+@import "../Styles/_theme.scss";
+
+$height: 96px;
+$height-small: 80px;
+
+Vitals {
+    backdrop-filter: $blur;
+    border-image-tint: $background;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 8px;
+    text-shadow: $shadow;
+}
+
+row {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 8px;
+
+    label.small {
+        margin-bottom: 4px;
+    }
+}
+
+column {
+    flex-direction: column;
+    backdrop-filter: $blur;
+    border-image-tint: $background;
+    mask: $fade-to-black;
+    border-image: url( /ui/Panel/panel-015.png ) fill;
+    padding-right: 64px;
+    margin-left: -16px;
+    padding-left: 16px;
+    height: $height-small;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.avatar-container {
+    height: $height;
+    aspect-ratio: 1;
+    border-image: url( /ui/Panel/panel-009.png ) 16 fill;
+    border-image-tint: $background;
+}
+
+img.avatar {
+    overflow: hidden;
+    border: 4px solid black;
+}
+
+ProgressBar {
+    width: 128px;
+}
