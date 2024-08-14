@@ -1,5 +1,5 @@
 {
-  "__guid": "34348e92-dab8-4866-a870-37f11c9e08c9",
+  "__guid": "d895760d-0d09-425d-b953-3548ee7deddc",
   "GameObjects": [
     {
       "__guid": "fcd503d0-cd29-4b20-8f5b-91de13e90aaf",
@@ -338,7 +338,7 @@
       "__guid": "d87b1018-2125-46f5-9486-fb95bf91e0d9",
       "Flags": 0,
       "Name": "leggy",
-      "Position": "-1148.796,-1145.07,98.21879",
+      "Position": "-1645.811,-853.7365,171.4483",
       "Tags": "mob",
       "Enabled": true,
       "__Prefab": "prefabs/mobs/leggy.prefab",
@@ -348,7 +348,7 @@
       "__guid": "501336ac-44c0-45b7-a334-e6f91bfbff8b",
       "Flags": 0,
       "Name": "node_tree (6)",
-      "Position": "983.4567,-1919.139,117.347",
+      "Position": "978.4772,-1742.663,69.43069",
       "Enabled": true,
       "NetworkMode": 1,
       "__Prefab": "prefabs/resources/node_tree.prefab",
@@ -358,7 +358,7 @@
       "__guid": "ff41aa84-9620-4759-a763-8c0044e7b328",
       "Flags": 0,
       "Name": "node_tree (5)",
-      "Position": "559.2329,-1762.317,64.84203",
+      "Position": "737.1172,-1762.317,64.84203",
       "Enabled": true,
       "NetworkMode": 1,
       "__Prefab": "prefabs/resources/node_tree.prefab",
@@ -398,7 +398,7 @@
       "__guid": "1a89c5e0-c020-44ad-8d0b-dd2263564e95",
       "Flags": 0,
       "Name": "node_tree (2)",
-      "Position": "1583.781,-893.7079,125.0763",
+      "Position": "1583.781,-893.7079,62.31505",
       "Enabled": true,
       "NetworkMode": 1,
       "__Prefab": "prefabs/resources/node_tree.prefab",
@@ -428,7 +428,7 @@
       "__guid": "5e38fc45-d39f-421b-867b-f0316c599294",
       "Flags": 0,
       "Name": "node_rock",
-      "Position": "294.9036,386.9606,166.6689",
+      "Position": "294.9036,386.9606,154.9854",
       "Enabled": true,
       "NetworkMode": 1,
       "__Prefab": "prefabs/resources/node_rock.prefab",
@@ -438,7 +438,7 @@
       "__guid": "a6c33cc2-456c-4bfa-b1e3-59ed13ae9698",
       "Flags": 0,
       "Name": "node_rock (1)",
-      "Position": "64.47986,321.8297,189.4231",
+      "Position": "439.0013,170.0077,117.3624",
       "Enabled": true,
       "NetworkMode": 1,
       "__Prefab": "prefabs/resources/node_rock.prefab",
@@ -480,7 +480,7 @@
       "__guid": "719fedf5-2200-496c-b115-81abca9ddffe",
       "Flags": 0,
       "Name": "node_rock (3)",
-      "Position": "1245.407,-1071.788,234.2633",
+      "Position": "1245.407,-1071.788,177.6806",
       "Rotation": "0,0,0.3826834,0.9238796",
       "Enabled": true,
       "NetworkMode": 1,
@@ -491,7 +491,7 @@
       "__guid": "a42e82ca-90c5-4e60-8294-0fd6d2729e3d",
       "Flags": 0,
       "Name": "node_rock (4)",
-      "Position": "1128.534,-926.0536,241.2003",
+      "Position": "1128.534,-926.0536,171.7099",
       "Enabled": true,
       "NetworkMode": 1,
       "__Prefab": "prefabs/resources/node_rock.prefab",
@@ -501,7 +501,7 @@
       "__guid": "519c81a0-c3aa-4085-ad1b-13b843f05fad",
       "Flags": 0,
       "Name": "node_rock (5)",
-      "Position": "1358.958,-860.9227,218.4461",
+      "Position": "1358.958,-860.9227,180.7782",
       "Enabled": true,
       "NetworkMode": 1,
       "__Prefab": "prefabs/resources/node_rock.prefab",
@@ -511,7 +511,7 @@
       "__guid": "04d5b641-ddaa-459f-b6cb-28ac2166ea35",
       "Flags": 0,
       "Name": "node_rock (2)",
-      "Position": "181.3525,176.0951,182.4861",
+      "Position": "542.5092,70.9169,140.0871",
       "Rotation": "0,0,0.3826834,0.9238796",
       "Enabled": true,
       "NetworkMode": 1,
@@ -519,24 +519,25 @@
       "__PrefabVariables": {}
     },
     {
-      "__guid": "5594b67d-0df6-4e41-ad96-010954c3f893",
+      "__guid": "551197c6-bc4c-4237-b408-f581ece66630",
       "Flags": 0,
-      "Name": "Water",
+      "Name": "Water_Cheap",
       "Position": "0,0,102.4062",
       "Enabled": true,
-      "__Prefab": "prefabs/world/water_plane.prefab",
+      "__Prefab": "prefabs/world/water_plane_cheap.prefab",
       "__PrefabVariables": {}
     },
     {
       "__guid": "e6aafaa4-54a5-466b-8c87-938b3aa7854e",
       "Flags": 0,
       "Name": "Terrain",
-      "Position": "-1906.909,-2338.326,-80.0008",
+      "Position": "-4364.363,-3966.073,-80.00082",
       "Enabled": true,
       "Components": [
         {
           "__type": "Voxel.VoxelRenderer",
-          "__guid": "f3f4364a-d9c4-4c59-8c63-24b74d8f5684"
+          "__guid": "f3f4364a-d9c4-4c59-8c63-24b74d8f5684",
+          "Size": "512,32,512"
         }
       ]
     },

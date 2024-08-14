@@ -2,7 +2,6 @@
 using Sandbox.Utility;
 using Sandbox.Diagnostics;
 using System.Runtime.InteropServices;
-using Sandbox;
 
 namespace Voxel;
 
@@ -10,22 +9,24 @@ public class VoxelRenderer : Component, Component.ExecuteInEditor
 {
 	VoxelModel Model;
 
-	protected override void OnEnabled()
+	[Property] public Vector3Int Size { get; set; } = new( 256, 32, 256 );
+
+	/// <summary>
+	/// Regenerates the voxel model
+	/// </summary>
+	[Button( "Regenerate" )]
+	private void Refresh()
 	{
-		base.OnEnabled();
-
-		Transform.OnTransformChanged += OnLocalTransformChanged;
-
 		Model?.Destroy();
-		Model = new VoxelModel( 256, 32, 256 );
+		Model = new VoxelModel( Size.x, Size.y, Size.z );
 
-		for ( int x = 0; x < 256; x++ )
+		for ( int x = 0; x < Size.x; x++ )
 		{
-			for ( int z = 0; z < 256; z++ )
+			for ( int z = 0; z < Size.z; z++ )
 			{
 				float noiseValue = Noise.Fbm( 8, x * 0.4f, z * 0.4f );
-				int surfaceHeight = (int)(noiseValue * 32);
-				surfaceHeight = Math.Clamp( surfaceHeight, 0, 31 );
+				int surfaceHeight = (int)( noiseValue * Size.y );
+				surfaceHeight = Math.Clamp( surfaceHeight, 0, Size.y - 1 );
 
 				for ( int y = 0; y < surfaceHeight; y++ )
 				{
@@ -62,10 +63,15 @@ public class VoxelRenderer : Component, Component.ExecuteInEditor
 		}
 	}
 
+	protected override void OnEnabled()
+	{
+		Transform.OnTransformChanged += OnLocalTransformChanged;
+
+		Refresh();
+	}
+
 	protected override void OnDisabled()
 	{
-		base.OnDisabled();
-
 		Transform.OnTransformChanged -= OnLocalTransformChanged;
 
 		DestroyInternal();
@@ -73,8 +79,6 @@ public class VoxelRenderer : Component, Component.ExecuteInEditor
 
 	protected override void OnDestroy()
 	{
-		base.OnDestroy();
-
 		DestroyInternal();
 	}
 
