@@ -26,7 +26,7 @@
       {
         "__type": "Sandbox.BoxCollider",
         "__guid": "0656d21c-4d57-4c52-8d37-af351a41e8dd",
-        "Center": "0,0,120.7203",
+        "Center": "0,0,71.92049",
         "IsTrigger": false,
         "Scale": "75,75,137.9602",
         "Static": false
@@ -37,7 +37,8 @@
         "__guid": "3b898e1c-846a-4e71-a5fb-81b1f509321b",
         "Flags": 0,
         "Name": "100%",
-        "Position": "-48,-64.00011,-32",
+        "Position": "-24,-32,-32",
+        "Scale": "0.5,0.5,0.5",
         "Enabled": true,
         "Components": [
           {

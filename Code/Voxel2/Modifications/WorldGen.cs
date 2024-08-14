@@ -151,7 +151,7 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 		Random = new Random( Seed );
 		Sampler = new WorldGenSampler( Parameters, Seed, Renderer.Size.x );
 
-		SpawnFeatures( Vector3.Zero, 4096f, Parameters.Features.ToArray() );
+		SpawnFeatures( Vector3.Zero, 4096f, true, Parameters.Features.ToArray() );
 
 		Random = null;
 		Sampler = null;
@@ -183,7 +183,7 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 	public Random Random { get; private set; }
 	public WorldGenSampler Sampler { get; private set; }
 
-	private void SpawnFeatures( Vector3 origin, float radius, params WorldGenFeature[] features )
+	public void SpawnFeatures( Vector3 origin, float radius, bool uniform = false, params WorldGenFeature[] features )
 	{
 		if ( features.Length == 0 ) return;
 
@@ -224,7 +224,7 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 
 		while ( spawned < maxSpawned && attempts++ < maxAttempts )
 		{
-			var pos2d = (Vector2)origin + Random.VectorInCircle( radius - minRadius );
+			var pos2d = (Vector2)origin + (uniform ? Random.VectorInCircle( radius - minRadius ) : Random.Gaussian2D( 0f, radius / 3f ));
 
 			if ( AnyBlocking( new Circle( pos2d, minRadius ), out float minDist ) ) continue;
 
