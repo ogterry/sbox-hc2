@@ -559,6 +559,10 @@
           "__type": "Voxel.Modifications.VoxelWorldGen",
           "__guid": "434925b3-6811-498f-b296-a5526f709d93",
           "Seed": 244452177
+        },
+        {
+          "__type": "Voxel.VoxelDamage",
+          "__guid": "07f8f588-42ee-4b5f-92d2-50b2d3a1707b"
         }
       ]
     },
