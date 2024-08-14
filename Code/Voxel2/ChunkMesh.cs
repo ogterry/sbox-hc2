@@ -119,8 +119,8 @@ public partial class ChunkMesh
 			}
 			else
 			{
-				Mesh.SetVertexBufferSize( Buffer.Length );
-				Mesh.SetVertexBufferData( Buffer.AsSpan() );
+				Mesh.SetVertexBufferSize( size );
+				Mesh.SetVertexBufferData( Buffer.AsSpan().Slice( 0, size ) );
 			}
 		}
 	}

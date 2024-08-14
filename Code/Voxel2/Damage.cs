@@ -1,4 +1,5 @@
 ﻿
+using System;
 using Sandbox.Events;
 
 namespace Voxel;
@@ -18,6 +19,12 @@ partial class VoxelRenderer
 		for ( var dy = -1; dy <= 1; ++dy )
 		for ( var dz = -1; dz <= 1; ++dz )
 		{
+			// Cut off corners randomly
+			if ( Math.Abs( dx ) + Math.Abs( dy ) + Math.Abs( dz ) == 3 && Random.Shared.NextSingle() < 0.5f )
+			{
+				continue;
+			}
+
 			Model.AddVoxel( x + dx, y + dy, z + dz, 0 );
 		}
 

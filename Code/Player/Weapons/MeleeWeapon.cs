@@ -83,7 +83,11 @@
 			{
 				if ( tr.Shape.Tags.Has( "voxel" ) )
 				{
-					Scene.Dispatch( new DamageWorldEvent( ConstructDamage( tr ) ) );
+					var damage = ConstructDamage( tr );
+
+					damage.Position = tr.HitPosition + tr.Normal * 8f;
+
+					Scene.Dispatch( new DamageWorldEvent( damage ) );
 					return;
 				}
 
