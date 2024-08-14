@@ -77,7 +77,6 @@
         base.OnAfterTreeRender(firstTime);
 
         var elementName = FindRootPanel().Children.FirstOrDefault().ElementName;
-        Log.Info(elementName);
         IsModal = elementName == "characterselectmodal";
         IsPause = elementName == "pausemenu";
 
