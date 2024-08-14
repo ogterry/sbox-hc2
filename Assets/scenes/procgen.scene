@@ -1,5 +1,5 @@
 {
-  "__guid": "affcbcdf-2ec5-4c08-a938-97bc6f565bb2",
+  "__guid": "4a064408-0372-4288-81f1-3d6c857ff496",
   "GameObjects": [
     {
       "__guid": "fcd503d0-cd29-4b20-8f5b-91de13e90aaf",
@@ -198,6 +198,7 @@
         {
           "__type": "Sandbox.GradientFog",
           "__guid": "98d0309c-0d2c-4a63-8b45-d932c6c605ff",
+          "__enabled": false,
           "Color": "0.147,0.17504,0.2093,1",
           "EndDistance": 4096,
           "FalloffExponent": 1,
@@ -233,6 +234,28 @@
           "UpdateStrategy": "OnEnabled",
           "ZFar": 4096,
           "ZNear": 16
+        }
+      ]
+    },
+    {
+      "__guid": "93486a67-b5cf-4534-b057-8e127f0e21fd",
+      "Flags": 0,
+      "Name": "Cubemap Fog",
+      "Position": "1908.032,358.2385,214.2911",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.CubemapFog",
+          "__guid": "1f289964-9419-4edb-be64-51ee0d40e399",
+          "Blur": 0.08,
+          "EndDistance": 4096,
+          "FalloffExponent": 1,
+          "HeightExponent": 2,
+          "HeightStart": 2000,
+          "HeightWidth": 0,
+          "Sky": "materials/skybox/skybox_overcast_02.vmat",
+          "StartDistance": 0,
+          "Tint": "0.14902,0.18824,0.23922,1"
         }
       ]
     }
