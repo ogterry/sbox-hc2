@@ -14,8 +14,6 @@ public sealed class DamageTrigger : Component, Component.ITriggerListener
 
     public void OnTriggerEnter( Collider other )
     {
-        Log.Info( $"Colliding with: {other.GameObject}" );
-
         if ( other.GameObject.Root == GameObject.Root )
             return;
 
