@@ -3,13 +3,13 @@ using Sandbox.Utility;
 
 namespace Voxel.Modifications;
 
-public record struct WorldGenModification( int Seed, Vector3Int Min, Vector3Int Max ) : IModification
+public record struct WorldGenModification( int Seed, int ResourceId, Vector3Int Min, Vector3Int Max ) : IModification
 {
 	public ModificationKind Kind => ModificationKind.WorldGen;
 	public bool CreateChunks => true;
 
 	public WorldGenModification( ByteStream stream )
-		: this( stream.Read<int>(), stream.Read<Vector3Int>(), stream.Read<Vector3Int>() )
+		: this( stream.Read<int>(), stream.Read<int>(), stream.Read<Vector3Int>(), stream.Read<Vector3Int>() )
 	{
 
 	}
@@ -17,6 +17,7 @@ public record struct WorldGenModification( int Seed, Vector3Int Min, Vector3Int 
 	public void Write( ref ByteStream stream )
 	{
 		stream.Write( Seed );
+		stream.Write( ResourceId );
 		stream.Write( Min );
 		stream.Write( Max );
 	}
@@ -37,14 +38,20 @@ public record struct WorldGenModification( int Seed, Vector3Int Min, Vector3Int 
 	{
 		var min = chunk.WorldMin;
 		var random = new Random( Seed );
+		var resource = ResourceLibrary.Get<WorldGenParameters>( ResourceId );
 
-		var surfaceNoiseTransform = GetRandomNoiseTransform( random, 0.4f );
 		var biomeNoiseTransform = GetRandomNoiseTransform( random, 0.1f );
-		var caveNoiseTransform = GetRandomNoiseTransform( random, 1f );
+		var surfaceNoiseTransform = GetRandomNoiseTransform( random, 0.4f );
+
+		var center = (Min + Max) / 2;
+		var radius = (Max - Min).x / 2;
 
 		chunk.Clear();
 
 		var voxels = chunk.Voxels;
+
+		var plainsGroundLevel = resource.PlainsHeight;
+		var mountainsGroundLevel = resource.MountainsHeight;
 
 		for ( var x = 0; x < Constants.ChunkSize; x++ )
 		{
@@ -53,17 +60,20 @@ public record struct WorldGenModification( int Seed, Vector3Int Min, Vector3Int 
 				var worldX = min.x + x;
 				var worldZ = min.z + z;
 
+				var centerDistSq = (worldX - center.x) * (worldX - center.x) + (worldZ - center.z) * (worldZ - center.z);
+				var centrality = Math.Clamp( 4f - 4f * MathF.Sqrt( centerDistSq ) / radius, 0f, 1f );
+
 				var surfaceNoisePos = surfaceNoiseTransform.PointToWorld( new Vector3( worldX, 0f, worldZ ) );
-				var surfaceNoise = Math.Clamp( Noise.Fbm( 4, surfaceNoisePos.x, surfaceNoisePos.y, surfaceNoisePos.z ), 0f, 1f );
+				var surfaceNoise = Math.Clamp( Noise.Fbm( 4, surfaceNoisePos.x, surfaceNoisePos.y, surfaceNoisePos.z ), 0f, 1f ) * centrality;
 				var biomeNoisePos = biomeNoiseTransform.PointToWorld( new Vector3( worldX, 0f, worldZ ) );
-				var biomeNoise = Math.Clamp( Noise.Fbm( 3, biomeNoisePos.x, biomeNoisePos.y, biomeNoisePos.z ), 0f, 1f );
+				var biomeNoise = Math.Clamp( Noise.Fbm( 3, biomeNoisePos.x, biomeNoisePos.y, biomeNoisePos.z ) * 2f - 0.5f, 0f, 1f );
 
-				surfaceNoise = MathF.Pow( surfaceNoise, 2f + biomeNoise * 2f );
+				biomeNoise = MathF.Pow( biomeNoise, 4f ) * centrality;
 
-				var minHeight = 16f + biomeNoise * 32f;
-				var maxHeight = 24f + biomeNoise * 256f;
+				var plainsHeight = plainsGroundLevel.Evaluate( surfaceNoise );
+				var mountainsHeight = mountainsGroundLevel.Evaluate( surfaceNoise );
 
-				var surfaceHeight = Math.Clamp( (int)(surfaceNoise * (maxHeight - minHeight)) + minHeight, minHeight, maxHeight - 1 ) - min.y;
+				var height = (int) (plainsHeight + (mountainsHeight - plainsHeight) * biomeNoise) - min.y;
 
 				var i = Chunk.WorldToLocal( x );
 				var k = Chunk.WorldToLocal( z );
@@ -71,23 +81,19 @@ public record struct WorldGenModification( int Seed, Vector3Int Min, Vector3Int 
 				var minJ = int.MaxValue;
 				var maxJ = int.MinValue;
 
-				for ( var y = 0; y < Constants.ChunkSize && y < surfaceHeight; y++ )
+				var soilDepth = (int) (8f - biomeNoise * 16f);
+
+				for ( var y = 0; y < Constants.ChunkSize && y < height; y++ )
 				{
 					var worldY = min.y + y;
 
-					var caveNoisePos = caveNoiseTransform.PointToWorld( new Vector3( worldX, worldY, worldZ ) );
-					var caveNoise = Noise.Perlin( caveNoisePos.x, caveNoisePos.y, caveNoisePos.z );
-
-					if ( caveNoise < biomeNoise * 0.4f )
-						continue;
-
 					byte blockType;
 
-					if ( y < surfaceHeight - 4 )
+					if ( y < height - soilDepth )
 					{
 						blockType = 2;
 					}
-					else if ( y < surfaceHeight - 1 )
+					else if ( soilDepth > 2 && y < height - 1 )
 					{
 						blockType = 1;
 					}
@@ -123,6 +129,9 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 	[Property]
 	public int Seed { get; set; }
 
+	[Property]
+	public WorldGenParameters Parameters { get; set; }
+
 	[Button( "Randomize" )]
 	private void Randomize()
 	{
@@ -133,11 +142,18 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 	[Button( "Regenerate" )]
 	private void Regenerate()
 	{
-		VoxelNetworking.Modify( new WorldGenModification( Seed, 0, VoxelNetworking.Renderer.Size ) );
+		VoxelNetworking.Modify( new WorldGenModification( Seed, Parameters.ResourceId, 0, VoxelNetworking.Renderer.Size ) );
 	}
 
 	protected override void OnEnabled()
 	{
 		Regenerate();
 	}
+}
+
+[GameResource( "World Gen Parameters", "worldgen", "Parameters for the voxel world generator.", Icon = "public" )]
+public sealed class WorldGenParameters : GameResource
+{
+	public Curve PlainsHeight { get; set; }
+	public Curve MountainsHeight { get; set; }
 }
