@@ -39,6 +39,7 @@
         "__guid": "ed8d5c90-52c7-4715-b1e7-7a7cb8ae4128",
         "Flags": 0,
         "Name": "SMG Projectile",
+        "Position": "0,0,15.48442",
         "Components": [
           {
             "__type": "Projectile",
@@ -89,16 +90,105 @@
             "__guid": "19541090-abb4-4d18-8ebd-ccc227e00db6",
             "Flags": 0,
             "Name": "Sphere",
-            "Scale": "0.1,0.1,0.1",
+            "Position": "0,0,0",
+            "Rotation": "0,-0.7071067,0,0.7071068",
+            "Scale": "0.1,0.05,0.05",
             "Enabled": true,
             "Components": [
               {
                 "__type": "Sandbox.ModelRenderer",
                 "__guid": "338aa0ca-2c28-49a8-abe9-0d28681925ef",
                 "BodyGroups": 18446744073709551615,
-                "Model": "models/dev/sphere.vmdl",
+                "MaterialOverride": "materials/projectiles/base_projectile.vmat",
+                "Model": "models/dev/box.vmdl",
                 "RenderType": "On",
                 "Tint": "1,1,1,1"
+              }
+            ]
+          },
+          {
+            "__guid": "5840e660-1b8c-4a5e-b0ed-a9fc0117ae9d",
+            "Flags": 0,
+            "Name": "Object",
+            "Position": "0,0.000003118252,2.515585",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.LineRenderer",
+                "__guid": "2f2da97e-86a3-4ef8-8aae-157fd8416f48",
+                "CastShadows": false,
+                "Color": {
+                  "color": [
+                    {
+                      "t": 0.3580003,
+                      "c": "0.86275,0.23529,0.07843,1"
+                    }
+                  ],
+                  "alpha": []
+                },
+                "EndCap": "Triangle",
+                "Opaque": false,
+                "Points": [
+                  {
+                    "_type": "gameobject",
+                    "go": "19541090-abb4-4d18-8ebd-ccc227e00db6"
+                  },
+                  {
+                    "_type": "gameobject",
+                    "go": "b6ec0221-377c-4700-95b0-56261486be7f"
+                  }
+                ],
+                "SplineBias": 0,
+                "SplineContinuity": 0,
+                "SplineInterpolation": 0,
+                "SplineTension": 0,
+                "StartCap": "None",
+                "UseVectorPoints": false,
+                "VectorPoints": [],
+                "Width": {
+                  "rangey": "0,0.5",
+                  "frames": [
+                    {
+                      "y": 1
+                    },
+                    {
+                      "x": 1,
+                      "y": 0.33333334,
+                      "in": 0.28888893,
+                      "out": -0.28888893
+                    }
+                  ]
+                },
+                "Wireframe": false
+              }
+            ],
+            "Children": [
+              {
+                "__guid": "b6ec0221-377c-4700-95b0-56261486be7f",
+                "Flags": 0,
+                "Name": "Object",
+                "Position": "0,0,12",
+                "Enabled": true
+              }
+            ]
+          },
+          {
+            "__guid": "db7232b6-bbdc-4b0c-8e6f-8afdc7c21bee",
+            "Flags": 0,
+            "Name": "Point Light",
+            "Position": "0,0,0",
+            "Tags": "light_point,light",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.PointLight",
+                "__guid": "1e1070f2-bb42-4195-8ff4-b6764c6fd13a",
+                "Attenuation": 10,
+                "FogMode": "Enabled",
+                "FogStrength": 1,
+                "LightColor": "0.86275,0.07843,0.23529,1",
+                "Radius": 100,
+                "Shadows": false
               }
             ]
           }
