@@ -5,6 +5,7 @@ namespace HC2;
 
 public struct InventoryContainer
 {
+	Guid Id { get; set; } = Guid.NewGuid();
 	public List<Item> Items { get; set; } = new();
 	public int MaxSlots { get; set; } = 9;
 	public Inventory Inventory { get; set; }
@@ -185,5 +186,25 @@ public struct InventoryContainer
 	public bool IsValid()
 	{
 		return Inventory.IsValid();
+	}
+
+	public static bool operator ==( InventoryContainer a, InventoryContainer b )
+	{
+		return a.Id == b.Id;
+	}
+
+	public static bool operator !=( InventoryContainer a, InventoryContainer b )
+	{
+		return a.Id != b.Id;
+	}
+
+	public override bool Equals( object obj )
+	{
+		return obj is InventoryContainer container && Id == container.Id;
+	}
+
+	public override int GetHashCode()
+	{
+		return Id.GetHashCode();
 	}
 }

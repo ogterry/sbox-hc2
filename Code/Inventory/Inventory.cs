@@ -109,31 +109,35 @@ public class Inventory : Component, ISaveData
 	/// <param name="slotIndex"></param>
 	public void MoveItem( Item item, int slotIndex )
 	{
-		var oldInventory = item.Container;
-		var oldIndex = item.SlotIndex;
-		var otherItem = GetItemInSlot( slotIndex );
-
-		oldInventory?.ClearItemSlot( oldIndex );
-
-		if ( otherItem?.IsValid() ?? false )
+		if ( item.Container.Value == Container && slotIndex == item.SlotIndex )
 		{
-			if ( oldInventory is not null )
+			return;
+		}
+		var otherInventory = item.Container;
+		var oldIndex = item.SlotIndex;
+		var currentItemInSlot = GetItemInSlot( slotIndex );
+
+		otherInventory?.ClearItemSlot( oldIndex );
+
+		if ( currentItemInSlot?.IsValid() ?? false )
+		{
+			if ( otherInventory is not null )
 			{
-				if ( otherItem?.Resource != item.Resource )
+				if ( currentItemInSlot?.Resource != item.Resource )
 				{
-					oldInventory?.TryGiveItemSlot( otherItem, oldIndex );
+					otherInventory?.TryGiveItemSlot( currentItemInSlot, oldIndex );
 				}
 				else
 				{
-					if ( otherItem.Amount + item.Amount > otherItem.Resource.MaxStack )
+					if ( currentItemInSlot.Amount + item.Amount > currentItemInSlot.Resource.MaxStack )
 					{
-						var diff = otherItem.Resource.MaxStack - otherItem.Amount;
-						otherItem.Amount = otherItem.Resource.MaxStack;
+						var diff = currentItemInSlot.Resource.MaxStack - currentItemInSlot.Amount;
+						currentItemInSlot.Amount = currentItemInSlot.Resource.MaxStack;
 						TryGiveItem( Item.Create( item.Resource, item.Amount - diff ) );
 					}
 					else
 					{
-						otherItem.Amount += item.Amount;
+						currentItemInSlot.Amount += item.Amount;
 						item.Amount = 0;
 					}
 				}
