@@ -52,7 +52,7 @@ class CompassItem : Panel
 	{
 		if ( !Player.Local.IsValid() ) return;
 
-		const float maxAngle = 360;
+		const float maxAngle = 600;
 
 		var relativeAngle = Player.Local.CameraController.CalcRelativeYaw( Angle );
 		var halfMaxAngle = maxAngle / 2.0f;
