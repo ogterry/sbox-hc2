@@ -10,13 +10,15 @@
   "CraftingRequirements": [
     {
       "Resource": "items/rock.item",
-      "Amount": 5,
-      "Durability": 1
+      "Amount": 8,
+      "Durability": 1,
+      "MaxStack": 99
     },
     {
-      "Resource": "items/gem.item",
+      "Resource": "items/tree_branch.item",
       "Amount": 2,
-      "Durability": 1
+      "Durability": 1,
+      "MaxStack": 99
     }
   ],
   "StatusEffects": [],
