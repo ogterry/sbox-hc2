@@ -153,7 +153,7 @@ public partial class VoxelModel
 
 	public ComputeBuffer<PaletteMaterial> PaletteBuffer;
 
-	static Texture texture;
+	static readonly Texture WhiteTexture;
 	static Texture texture2;
 
 	static VoxelModel()
@@ -165,17 +165,26 @@ public partial class VoxelModel
 		FullChunk.Reset( 0, 0, 0, true );
 
 		Array.Fill( FullChunk.Voxels, (byte)1 );
+
+		WhiteTexture = Texture.Create( 1, 1 ).
+			WithData( new byte[] { 255, 255, 255, 255 } ).
+			Finish();
+
+		WhiteTexture.MarkUsed( int.MaxValue );
 	}
 
 	public VoxelModel( int mx, int my, int mz )
 	{
-		//texture = Texture.Create( 1, 1 ).WithData( new byte[] { 255, 0, 0, 255 } ).Finish();
-		//texture2 = Texture.Create( 1, 1 ).WithData( new byte[] { 0, 255, 0, 255 } ).Finish();
+		texture2 = Texture.Create( 1, 1 )
+			.WithData( new byte[] { 0, 255, 0, 255 } )
+			.Finish();
+
+		texture2.MarkUsed( 4096 );
 
 		var palette = new PaletteMaterial[256];
-		//palette[0] = new PaletteMaterial { Color = new Color( 1.0f, 1.0f, 1.0f ), TextureIndex = texture.Index };
-		//palette[1] = new PaletteMaterial { Color = new Color( 0.9f, 0.5f, 0.0f ), TextureIndex = texture2.Index };
-		//palette[2] = new PaletteMaterial { Color = new Color( 1.0f, 1.0f, 1.0f ), TextureIndex = texture2.Index };
+		Array.Fill( palette, new PaletteMaterial { Color = Color.White, TextureIndex = WhiteTexture.Index } );
+		palette[1] = new PaletteMaterial { Color = new Color( 0.9f, 0.5f, 0.0f ), TextureIndex = texture2.Index };
+		palette[2] = new PaletteMaterial { Color = new Color( 1.0f, 1.0f, 1.0f ), TextureIndex = texture2.Index };
 
 		PaletteBuffer = new ComputeBuffer<PaletteMaterial>( 256 );
 		PaletteBuffer.SetData( palette );
