@@ -544,11 +544,21 @@
       "Name": "Terrain",
       "Position": "-4364.363,-3966.073,-80.00082",
       "Enabled": true,
+      "NetworkMode": 1,
       "Components": [
         {
           "__type": "Voxel.VoxelRenderer",
           "__guid": "f3f4364a-d9c4-4c59-8c63-24b74d8f5684",
           "Size": "512,32,512"
+        },
+        {
+          "__type": "Voxel.VoxelNetworking",
+          "__guid": "8acaa57a-23c1-4932-a2b0-0ae100c5659f"
+        },
+        {
+          "__type": "Voxel.Modifications.VoxelWorldGen",
+          "__guid": "434925b3-6811-498f-b296-a5526f709d93",
+          "Seed": 244452177
         }
       ]
     },

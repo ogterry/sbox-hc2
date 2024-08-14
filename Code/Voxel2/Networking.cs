@@ -1,33 +1,10 @@
-﻿
-using System;
+﻿using System;
+using Voxel.Modifications;
 
 namespace Voxel;
 
-#nullable enable
-
-public enum ModificationKind : byte
-{
-	// TODO: if we move this to a library, need to make this dynamic
-
-	WorldGen,
-	Explode
-}
-
-public interface IModification
-{
-	ModificationKind Kind { get; }
-
-	Vector3Int Min { get; }
-	Vector3Int Max { get; }
-
-	bool CreateChunks { get; }
-
-	void Write( ref ByteStream stream );
-	void Apply( Chunk chunk );
-}
-
 [Icon( "cell_tower" )]
-public sealed class VoxelNetworking : Component
+public sealed class VoxelNetworking : Component, Component.ExecuteInEditor
 {
 	// TODO: Spatial partitioning? only send nearby modifications?
 	// TODO: Erase redundant modifications from history?
@@ -37,6 +14,8 @@ public sealed class VoxelNetworking : Component
 	private record struct Modification( int Index, ModificationKind Kind, Vector3Int Min, Vector3Int Max, byte[] Data );
 
 	private readonly List<Modification> _history = new();
+	private readonly Queue<Modification> _toApply = new();
+
 	private int _nextIndex;
 
 	public void Modify<T>( T modification )
@@ -55,16 +34,53 @@ public sealed class VoxelNetworking : Component
 				writer.ToArray() );
 
 			_history.Add( serialized );
+			_toApply.Enqueue( serialized );
 		}
 		finally
 		{
 			writer.Dispose();
 		}
 
-		Apply( modification );
+		if ( _toApply.Count == 1 && Renderer.IsReady )
+		{
+			ApplyPending();
+		}
 	}
 
-	public void Apply<T>( T modification )
+	private void ApplyPending()
+	{
+		if ( _toApply.Count == 0 ) return;
+
+		while ( _toApply.TryDequeue( out var modification ) )
+		{
+			Apply( modification );
+		}
+
+		Renderer.MeshChunks();
+	}
+
+	private void Apply( Modification modification )
+	{
+		// TODO: reflection
+
+		using var stream = ByteStream.CreateReader( modification.Data );
+
+		switch ( modification.Kind )
+		{
+			case ModificationKind.WorldGen:
+				Apply( new WorldGenModification( stream ) );
+				break;
+
+			case ModificationKind.Carve:
+				Apply( new CarveModification( stream ) );
+				break;
+
+			default:
+				throw new NotImplementedException();
+		}
+	}
+
+	private void Apply<T>( T modification )
 		where T : struct, IModification
 	{
 		var model = Renderer.Model;
@@ -87,5 +103,13 @@ public sealed class VoxelNetworking : Component
 		}
 
 		model.SetRegionDirty( modification.Min, modification.Max );
+	}
+
+	protected override void OnUpdate()
+	{
+		if ( Renderer.IsReady )
+		{
+			ApplyPending();
+		}
 	}
 }

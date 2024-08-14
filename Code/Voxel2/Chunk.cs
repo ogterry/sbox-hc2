@@ -68,6 +68,13 @@ public partial class Chunk
 		SetDirty();
 	}
 
+	public void Clear()
+	{
+		Array.Fill( Voxels, (byte)0 );
+		Array.Fill( MinAltitude, (byte)Constants.ChunkSize );
+		SetDirty();
+	}
+
 	public static int GetAccessLocal( int i, int j, int k )
 	{
 		Assert.True( i >= 0 );

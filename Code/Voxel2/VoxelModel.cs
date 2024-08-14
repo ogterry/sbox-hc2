@@ -1,5 +1,4 @@
 ﻿using System;
-using Sandbox.Utility;
 using Sandbox.Diagnostics;
 using System.Runtime.InteropServices;
 
@@ -11,63 +10,14 @@ public partial class VoxelRenderer : Component, Component.ExecuteInEditor
 
 	[Property] public Vector3Int Size { get; set; } = new( 256, 32, 256 );
 
-	/// <summary>
-	/// Regenerates the voxel model
-	/// </summary>
-	[Button( "Regenerate" )]
-	private void Refresh()
-	{
-		Model?.Destroy();
-		Model = new VoxelModel( Size.x, Size.y, Size.z );
-
-		for ( int x = 0; x < Size.x; x++ )
-		{
-			for ( int z = 0; z < Size.z; z++ )
-			{
-				float noiseValue = Noise.Fbm( 8, x * 0.4f, z * 0.4f );
-				int surfaceHeight = (int)( noiseValue * Size.y );
-				surfaceHeight = Math.Clamp( surfaceHeight, 0, Size.y - 1 );
-
-				for ( int y = 0; y < surfaceHeight; y++ )
-				{
-					float caveNoise = Noise.Perlin( x * 1.0f, y * 1.0f, z * 1.0f );
-
-					if ( caveNoise < 0.4f )
-						continue;
-
-					byte blockType;
-
-					if ( y < surfaceHeight - 4 )
-					{
-						blockType = 2;
-					}
-					else if ( y < surfaceHeight - 1 )
-					{
-						blockType = 1;
-					}
-					else
-					{
-						blockType = 3;
-					}
-
-					Model.AddVoxel( z, y, x, blockType );
-				}
-			}
-		}
-
-		var transform = Transform.World;
-
-		foreach ( var mesh in Model.MeshChunks )
-		{
-			MeshChunk( mesh, transform );
-		}
-	}
+	public bool IsReady => Enabled && Model is not null;
 
 	protected override void OnEnabled()
 	{
 		Transform.OnTransformChanged += OnLocalTransformChanged;
 
-		Refresh();
+		Model?.Destroy();
+		Model = new VoxelModel( Size.x, Size.y, Size.z );
 	}
 
 	protected override void OnDisabled()
@@ -275,17 +225,17 @@ public partial class VoxelModel
 	public Vector3Int ClampVoxelCoords( Vector3Int voxelCoords )
 	{
 		return new Vector3Int(
-			Math.Clamp( voxelCoords.x, 0, SizeX ),
-			Math.Clamp( voxelCoords.y, 0, SizeY ),
-			Math.Clamp( voxelCoords.z, 0, SizeZ ) );
+			Math.Clamp( voxelCoords.x, 0, SizeX - 1 ),
+			Math.Clamp( voxelCoords.y, 0, SizeY - 1 ),
+			Math.Clamp( voxelCoords.z, 0, SizeZ - 1 ) );
 	}
 
 	public Vector3Int ClampChunkCoords( Vector3Int chunkCoords )
 	{
 		return new Vector3Int(
-			Math.Clamp( chunkCoords.x, 0, ChunkAmountX ),
-			Math.Clamp( chunkCoords.y, 0, ChunkAmountY ),
-			Math.Clamp( chunkCoords.z, 0, ChunkAmountZ ) );
+			Math.Clamp( chunkCoords.x, 0, ChunkAmountX - 1 ),
+			Math.Clamp( chunkCoords.y, 0, ChunkAmountY - 1 ),
+			Math.Clamp( chunkCoords.z, 0, ChunkAmountZ - 1 ) );
 	}
 
 	public void AddVoxel( int x, int y, int z, byte index )
@@ -302,8 +252,8 @@ public partial class VoxelModel
 		// Extend by 1 each direction to allow neighbouring chunks to update
 		// I'm probably off by 1 here somewhere ;)
 
-		var chunkMin = GetChunkCoords( min - 1 );
-		var chunkMax = GetChunkCoords( max + 1 );
+		var chunkMin = ClampChunkCoords( GetChunkCoords( min - 1 ) );
+		var chunkMax = ClampChunkCoords( GetChunkCoords( max + 1 ) );
 
 		for ( var f = chunkMin.x; f <= chunkMax.x; f++ )
 		for ( var g = chunkMin.y; g <= chunkMax.y; g++ )
