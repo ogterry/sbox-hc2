@@ -1,0 +1,11 @@
+{
+  "Sequences": [
+    {
+      "Source": "textures/testgrid_color.tga",
+      "IsLooping": true,
+      "Frames": 64
+    }
+  ],
+  "OutputMipAlgorithm": "Box",
+  "OutputTypeString": "2D"
+}

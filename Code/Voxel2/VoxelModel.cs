@@ -2,6 +2,7 @@
 using Sandbox.Utility;
 using Sandbox.Diagnostics;
 using System.Runtime.InteropServices;
+using Sandbox;
 
 namespace Voxel;
 
@@ -154,7 +155,8 @@ public partial class VoxelModel
 	public ComputeBuffer<PaletteMaterial> PaletteBuffer;
 
 	static readonly Texture WhiteTexture;
-	static Texture texture2;
+	static Texture DevTexture1;
+	static Texture DevTexture2;
 
 	static VoxelModel()
 	{
@@ -175,16 +177,17 @@ public partial class VoxelModel
 
 	public VoxelModel( int mx, int my, int mz )
 	{
-		texture2 = Texture.Create( 1, 1 )
-			.WithData( new byte[] { 0, 255, 0, 255 } )
-			.Finish();
+		DevTexture1 = Texture.Load( "textures/gray_grid_4_color.vtex" );
+		DevTexture2 = Texture.Load( "textures/graygrid_color.vtex" );
 
-		texture2.MarkUsed( 4096 );
+		DevTexture1?.MarkUsed( int.MaxValue );
+		DevTexture2?.MarkUsed( int.MaxValue );
 
 		var palette = new PaletteMaterial[256];
 		Array.Fill( palette, new PaletteMaterial { Color = Color.White, TextureIndex = WhiteTexture.Index } );
-		palette[1] = new PaletteMaterial { Color = new Color( 0.9f, 0.5f, 0.0f ), TextureIndex = texture2.Index };
-		palette[2] = new PaletteMaterial { Color = new Color( 1.0f, 1.0f, 1.0f ), TextureIndex = texture2.Index };
+		palette[0] = new PaletteMaterial { Color = new Color( 0.9f, 0.5f, 0.0f ), TextureIndex = DevTexture1 != null ? DevTexture1.Index : WhiteTexture.Index };
+		palette[1] = new PaletteMaterial { Color = new Color( 1.0f, 1.0f, 1.0f ), TextureIndex = DevTexture2 != null ? DevTexture2.Index : WhiteTexture.Index };
+		palette[2] = new PaletteMaterial { Color = new Color( 1.0f, 1.0f, 1.0f ), TextureIndex = DevTexture1 != null ? DevTexture1.Index : WhiteTexture.Index };
 
 		PaletteBuffer = new ComputeBuffer<PaletteMaterial>( 256 );
 		PaletteBuffer.SetData( palette );
