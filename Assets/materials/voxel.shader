@@ -40,6 +40,8 @@ VS
 {
 	#include "common/vertex.hlsl"
 
+	DynamicComboRule( Allow0( D_COMPRESSED_NORMALS_AND_TANGENTS ) );
+
 	float g_flVoxelSize < Attribute( "VoxelSize" ); Default( 16.0 ); >;
 
 	struct PaletteMaterial
@@ -85,19 +87,22 @@ VS
 
 		float3 vNormalOs = normalize( normals[normalIndex] );
 		float3 vTangentOs = normalize( tangents[normalIndex] );
-		float3 vBinormalOs = normalize( cross( vNormalOs, vTangentOs ) );
 
-		float aspect = 3000 / 1980;
-		float scale = 512 * 32;
-		i.vTexCoord = float2( dot( vBinormalOs, position ), dot( vTangentOs, position ) ) * float2( 1.0 / scale, 1.0f / (scale * aspect) );
+		i.vNormalOs = float4( vNormalOs.xyz, 1.0 );
+		i.vTangentUOs_flTangentVSign = float4( vTangentOs.xyz, 1.0 );
 
 		PixelInput o = ProcessVertex( i );
-		o.vNormalWs = vNormalOs;
-		o.vTangentUWs = vBinormalOs;
-		o.vTangentVWs = vTangentOs;
 		o.vVertexColor = float4( material.Color.rgb * brightness, 1.0 );
 		o.TextureIndex = material.TextureIndex.x + 1;
 		o.Height = o.vPositionWs.z / 128;
+
+		float aspect = 3000 / 1980;
+		float scale = 512 * 32;
+
+		o.vTextureCoords = float2( 
+			dot( o.vTangentUWs.xyz, o.vPositionWs.xyz ), 
+			dot( o.vTangentVWs.xyz, o.vPositionWs.xyz ) ) * float2( 1.0 / scale, 1.0f / (scale * aspect) );
+
 		return FinalizeVertex( o );
 	}
 }
@@ -106,7 +111,7 @@ PS
 {
 	StaticCombo( S_MODE_TOOLS_WIREFRAME, 0..1, Sys( ALL ) );
 	StaticCombo( S_MODE_DEPTH, 0..1, Sys( ALL ) );
-
+	
 	#include "common/pixel.hlsl"
 	#include "common/Bindless.hlsl"
 
