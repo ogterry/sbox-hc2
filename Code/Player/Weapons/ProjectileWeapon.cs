@@ -33,26 +33,29 @@ public partial class ProjectileWeapon : WeaponComponent
 			Name = $"Projectile from {this}"
 		} ) ;
 
+		// Make projectiles ignore players!
+		go.Tags.Add( "ignore_players" );
+
 		var projectile = go.Components.Get<Projectile>();
 		var rb = go.Components.Get<Rigidbody>();
-		if ( !projectile.IsValid() || !rb.IsValid() )
+
+		// Spawn over the network using the player as the owner
+		go.NetworkSpawn( Player.Network.OwnerConnection );
+
+		if ( rb.IsValid() )
 		{
-			Log.Warning( $"Tried to create a Projectile from {this}, but something went wrong. Projectile: {projectile}, Rigidbody: {rb}" );
-			go.Destroy();
-			return;
+			// Go far
+			rb.ApplyForce( Player.CameraController.AimRay.Forward * EjectSpeed );
 		}
 
-		// Make projectiles ignore players!
-		projectile.Tags.Add( "ignore_players" );
+		if ( !projectile.IsValid() )
+		{
+			// We're gonna return, but we're gonna spawn it anyway.
+			return;
+		}
 
 		projectile.Weapon = this;
 		projectile.Damage = GetDamage();
 		projectile.DamageType = GetDamageType();
-
-		// Go far
-		rb.ApplyForce( Player.CameraController.AimRay.Forward * EjectSpeed );
-
-		// Spawn over the network using the player as the owner
-		go.NetworkSpawn( Player.Network.OwnerConnection );
 	}
 }
