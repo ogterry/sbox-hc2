@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using HC2;
 using Sandbox.Events;
 using Voxel;
 
@@ -54,6 +55,8 @@ public partial class Projectile : Component, Component.ICollisionListener
 		{
 			PrefabToSpawn.Clone( position );
 		}
+
+		VoxelParticles.Spawn( position, 5 );
 	}
 
 	public void OnCollisionStart( Collision other )

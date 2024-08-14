@@ -1,10 +1,10 @@
-	using HC2;
-	using Sandbox.Events;
-	using Voxel;
+using HC2;
+using Sandbox.Events;
+using Voxel;
 
-	public partial class MeleeWeapon : WeaponComponent
+public partial class MeleeWeapon : WeaponComponent
 {
-	[Property, Group( "Melee" )] 
+	[Property, Group( "Melee" )]
 	public float AttackRange { get; set; } = 512f;
 
 	[Property, Group( "Melee" )]
@@ -47,6 +47,8 @@
 		{
 			PrefabToSpawn.Clone( position );
 		}
+
+		VoxelParticles.Spawn( position, 15 );
 	}
 
 	protected override bool CanAttack()

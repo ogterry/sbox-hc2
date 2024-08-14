@@ -51,10 +51,6 @@
               "component_type": "SphereCollider"
             },
             "LifeTime": 5,
-            "PrefabToSpawn": {
-              "_type": "gameobject",
-              "prefab": "prefabs/particles/footstep/footstepeffect.prefab"
-            },
             "Renderer": {
               "_type": "component",
               "component_id": "338aa0ca-2c28-49a8-abe9-0d28681925ef",

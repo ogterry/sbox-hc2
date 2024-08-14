@@ -3,7 +3,6 @@
     "__guid": "b7c98c4e-8217-4956-a6a1-87559ffe2b98",
     "Flags": 0,
     "Name": "sword",
-    "Rotation": "0,0,-0.7071067,0.7071068",
     "Enabled": true,
     "Components": [
       {
@@ -28,10 +27,6 @@
         "HitSound": "sounds/weapons/sword_metallic_hit.sound",
         "HoldType": "HoldItem",
         "InputAction": "attack1",
-        "PrefabToSpawn": {
-          "_type": "gameobject",
-          "prefab": "prefabs/particles/footstep/footstepeffect.prefab"
-        },
         "SwingDelay": 0.25,
         "Thickness": 5
       },

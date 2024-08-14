@@ -56,8 +56,8 @@ public sealed class PlayerFootsteps : Component
 		var particle = Particle.Clone();
 		particle.Transform.Position = position;
 
-		var effect = particle.Components.Get<ParticleEffect>( FindMode.InChildren );
-		if ( effect is null ) return;
-		effect.Tint = Color.Gray;
+		// var effect = particle.Components.Get<ParticleEffect>( FindMode.InChildren );
+		// if ( effect is null ) return;
+		// effect.Tint = Color.Gray;
 	}
 }

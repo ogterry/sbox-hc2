@@ -2,7 +2,7 @@
   "RootObject": {
     "__guid": "c02715ce-3cc1-49b1-9eb9-97f657a23529",
     "Flags": 0,
-    "Name": "footstepeffect",
+    "Name": "voxeleffect",
     "Tags": "particles",
     "Enabled": true,
     "Components": [
@@ -10,45 +10,13 @@
         "__type": "Destroyer",
         "__guid": "f5061555-a053-48b5-926f-aa00d0e4773a",
         "Time": 2
-      },
-      {
-        "__type": "Sandbox.SphereCollider",
-        "__guid": "ad75f266-2b26-4362-a02c-0ba4cb0fcae9",
-        "__enabled": false,
-        "Center": "0,0,0",
-        "IsTrigger": true,
-        "Radius": 4.600001,
-        "Static": false
-      },
-      {
-        "__type": "HC2.NearestParticleMaterial",
-        "__guid": "c0cd8c06-acdc-403c-b5d6-883e84119100",
-        "__enabled": false,
-        "EnableAfter": {
-          "_type": "component",
-          "component_id": "f5061555-a053-48b5-926f-aa00d0e4773a",
-          "go": "c02715ce-3cc1-49b1-9eb9-97f657a23529",
-          "component_type": "Destroyer"
-        },
-        "ParticleEffect": {
-          "_type": "component",
-          "component_id": "48dde4b0-b18b-4190-9f02-c92032a9c20a",
-          "go": "922b5768-bf65-4716-ae8b-aaa1f84dc8c1",
-          "component_type": "ParticleEffect"
-        },
-        "ParticleRenderer": {
-          "_type": "component",
-          "component_id": "65d80300-a88b-4b54-9d9a-dd133bba1a75",
-          "go": "922b5768-bf65-4716-ae8b-aaa1f84dc8c1",
-          "component_type": "ParticleModelRenderer"
-        }
       }
     ],
     "Children": [
       {
         "__guid": "922b5768-bf65-4716-ae8b-aaa1f84dc8c1",
         "Flags": 0,
-        "Name": "footstepeffect",
+        "Name": "voxeleffect",
         "Rotation": "0,-0.7071068,0,0.7071068",
         "Enabled": true,
         "Components": [
@@ -115,7 +83,7 @@
               "Evaluation": "Particle",
               "Constants": "0,2,0,0"
             },
-            "MaxParticles": 2,
+            "MaxParticles": 80,
             "OnParticleCreated": null,
             "OrbitalForce": {},
             "OrbitalPull": {},
@@ -136,23 +104,26 @@
             },
             "Scale": {
               "Type": "Curve",
-              "CurveA": [
-                {
-                  "in": -9.333329,
-                  "out": 9.333329
-                },
-                {
-                  "x": 0.03325123,
-                  "y": 1,
-                  "in": -0.056075174,
-                  "out": 0.056075174
-                },
-                {
-                  "x": 1,
-                  "in": 2.9152544,
-                  "out": -2.9152544
-                }
-              ],
+              "CurveA": {
+                "rangey": "0,0.5",
+                "frames": [
+                  {
+                    "in": -9.333329,
+                    "out": 9.333329
+                  },
+                  {
+                    "x": 0.03325123,
+                    "y": 1,
+                    "in": -0.056075174,
+                    "out": 0.056075174
+                  },
+                  {
+                    "x": 1,
+                    "in": 2.9152544,
+                    "out": -2.9152544
+                  }
+                ]
+              },
               "Constants": "1,0,0,0"
             },
             "SequenceId": {},
@@ -168,7 +139,7 @@
             "StartVelocity": {
               "Type": "Range",
               "Evaluation": "Particle",
-              "Constants": "100,150,0,0"
+              "Constants": "50,100,0,0"
             },
             "Stretch": {},
             "TimeScale": 1,
@@ -183,7 +154,7 @@
             "__type": "Sandbox.ParticleConeEmitter",
             "__guid": "c474513d-2a46-4f92-b9fe-75fbfbc6c9c5",
             "Burst": 100,
-            "ConeAngle": 25.44,
+            "ConeAngle": 45,
             "ConeFar": 90,
             "ConeNear": 45,
             "Delay": 0,
