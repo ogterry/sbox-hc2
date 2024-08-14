@@ -117,8 +117,6 @@ public partial class VoxelRenderer : Component, Component.ExecuteInEditor
 
 		Assert.True( !c.Chunk.Fake );
 
-		Log.Info( "Meshing chunk!" );
-
 		c.PreMeshing();
 		c.GenerateMesh();
 		c.PostMeshing( Scene.SceneWorld, Scene.PhysicsWorld, transform );
