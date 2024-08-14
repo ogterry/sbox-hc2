@@ -67,11 +67,15 @@
           "_type": "gameobject",
           "go": "dc140d6e-7d3f-498d-9f5e-750e5364f6df"
         },
-        "RunMovementSpeed": 420
+        "RunMovementSpeed": 420,
+        "WalkMovementSpeed": 128
       },
       {
         "__type": "CameraController",
         "__guid": "4a1c1b2a-6dec-4285-9978-d607b5688476",
+        "BobIntensity": 1,
+        "BobSideToSideIntensity": 0.5,
+        "BobSpeed": 5,
         "Boom": {
           "_type": "gameobject",
           "go": "78e6f20a-7308-41b9-8091-6c46e1fc8b97"

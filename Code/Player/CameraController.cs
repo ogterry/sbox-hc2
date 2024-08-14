@@ -32,6 +32,21 @@ public sealed class CameraController : Component
 	[Property, Group( "Config" )]
 	public float VelocityFOVScale { get; set; } = 50f;
 
+	/// <summary>
+	/// Bobbing cycle time
+	/// </summary>
+	[Property, Group( "Config" )]
+	public float BobCycleTime { get; set; } = 5.0f;
+
+	/// <summary>
+	/// Bobbing direction
+	/// </summary>
+	[Property, Group( "Config" )]
+	public Vector3 BobDirection { get; set; } = new Vector3( 0.0f, 1.0f, 0.5f );
+
+	private float bobAnim;
+	private float bobSpeed;
+
 	bool IsAiming => Input.Down( "attack2" ) && Player.MainHandWeapon.IsValid() && Player.MainHandWeapon.AimingEnabled;
 
 	/// <summary>
@@ -64,6 +79,9 @@ public sealed class CameraController : Component
 
 		Boom.Transform.Position = Boom.Transform.Position.LerpTo( Player.Character.Transform.Position + Vector3.Up * Player.GetDuckHeight() * 0.8f, Time.Delta * 10 );
 
+		bobSpeed = bobSpeed.LerpTo( Player.Character.Velocity.WithZ(0).Length, Time.Delta * 10 );;
+		Boom.Transform.Position += CalcBobbingOffset( Player.Character.Velocity.Length ) * Boom.Transform.Rotation;
+
 		var targetFov = Preferences.FieldOfView + Player.Character.Velocity.Length / VelocityFOVScale;
 
 		if ( IsAiming )
@@ -84,5 +102,22 @@ public sealed class CameraController : Component
 		r *= (length >= 0 && length <= 180) || (length <= -180 && length >= -360) ? 1 : -1;
 
 		return r;
+	}
+
+	private Vector3 CalcBobbingOffset( float speed )
+	{
+		bobAnim += Time.Delta * BobCycleTime;
+
+		var twoPI = System.MathF.PI * 2.0f;
+
+		if ( bobAnim > twoPI )
+		{
+			bobAnim -= twoPI;
+		}
+
+		var offset = BobDirection * (speed * 0.005f) * System.MathF.Cos( bobAnim );
+		offset = offset.WithZ( -System.MathF.Abs( offset.z ) );
+
+		return offset;
 	}
 }
