@@ -1,0 +1,155 @@
+{
+  "RootObject": {
+    "__guid": "55553c7c-a8e3-4e22-a0fd-9b43af4c4d40",
+    "Flags": 0,
+    "Name": "Camera",
+    "Position": "-78.14015,-32.58475,2.738846",
+    "Enabled": true,
+    "Components": [
+      {
+        "__type": "Sandbox.CameraComponent",
+        "__guid": "55a9f68b-1b75-4905-bffe-c871b6b8b17a",
+        "BackgroundColor": "0.33333,0.46275,0.52157,1",
+        "ClearFlags": "All",
+        "FieldOfView": 90,
+        "IsMainCamera": true,
+        "Orthographic": false,
+        "OrthographicHeight": 1204,
+        "Priority": 1,
+        "RenderExcludeTags": "",
+        "RenderTags": "",
+        "TargetEye": "None",
+        "Viewport": "0,0,1,1",
+        "ZFar": 10000,
+        "ZNear": 10
+      },
+      {
+        "__type": "Sandbox.AmbientOcclusion",
+        "__guid": "a2bb597d-5254-44a7-83d0-de0518632d52",
+        "FalloffDistance": 1,
+        "Intensity": 8,
+        "Quality": "High",
+        "Radius": 32
+      },
+      {
+        "__type": "Sandbox.Bloom",
+        "__guid": "3be1d1a7-f500-4278-bdad-ae70b00bb782",
+        "BloomColor": {
+          "color": [
+            {
+              "c": "1,1,1,1"
+            },
+            {
+              "t": 1,
+              "c": "1,1,1,1"
+            }
+          ],
+          "alpha": []
+        },
+        "BloomCurve": [
+          {
+            "y": 0.5
+          },
+          {
+            "x": 1,
+            "y": 1
+          }
+        ],
+        "Mode": "Screen",
+        "Strength": 0.53,
+        "Threshold": 0.66,
+        "ThresholdWidth": 0.21
+      },
+      {
+        "__type": "Sandbox.Tonemapping",
+        "__guid": "6dfe34ac-90c6-4c45-85e3-20a3da48333e",
+        "__version": 1,
+        "ExposureBias": 2,
+        "ExposureCompensation": 0,
+        "ExposureMethod": "RGB",
+        "MaximumExposure": 2,
+        "MinimumExposure": 1,
+        "Mode": "ACES",
+        "Rate": 1
+      },
+      {
+        "__type": "Sandbox.Vignette",
+        "__guid": "9b7c48a4-8ad1-44e4-a8b0-20db75e82b60",
+        "Center": "0.5,0.5",
+        "Color": "0,0,0,1",
+        "Intensity": 0.15,
+        "Roundness": 1,
+        "Smoothness": 1
+      },
+      {
+        "__type": "Sandbox.ColorGrading",
+        "__guid": "07754bab-042c-4ac3-80bc-d70a6b5faca5",
+        "BlendFactor": 1,
+        "BlueCurve": [
+          {
+            "y": 0.5
+          },
+          {
+            "x": 1,
+            "y": 1
+          }
+        ],
+        "ColorSpace": "None",
+        "ColorTempK": 8312.5,
+        "GradingMethod": "TemperatureControl",
+        "GreenCurve": [
+          {
+            "y": 0.5
+          },
+          {
+            "x": 1,
+            "y": 1
+          }
+        ],
+        "HueCurve": [
+          {
+            "y": 0.5
+          },
+          {
+            "x": 1,
+            "y": 1
+          }
+        ],
+        "LookupTexture": null,
+        "RedCurve": [
+          {
+            "y": 0.5
+          },
+          {
+            "x": 1,
+            "y": 1
+          }
+        ],
+        "SaturationCurve": [
+          {
+            "y": 0.5
+          },
+          {
+            "x": 1,
+            "y": 1
+          }
+        ],
+        "ValueCurve": [
+          {
+            "y": 0.5
+          },
+          {
+            "x": 1,
+            "y": 1
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

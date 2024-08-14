@@ -15,7 +15,7 @@ public sealed class CameraController : Component
 	/// The camera
 	/// </summary>
 	[Property, Group( "Setup" )]
-	public CameraComponent Camera { get; set; }
+	public GameObject CameraTarget { get; set; }
 
 	/// <summary>
 	/// The boom arm for the character's camera.
@@ -62,8 +62,11 @@ public sealed class CameraController : Component
 
 	protected override void OnStart()
 	{
-		// Turn off the camera if we're not in charge of this player
-		Camera.Enabled = !Player.IsProxy;
+		if ( !(Scene?.Camera?.IsValid() ?? false) )
+		{
+			var prefab = ResourceLibrary.Get<PrefabFile>( "prefabs/camera.prefab" );
+			SceneUtility.GetPrefabScene( prefab ).Clone( position: CameraTarget.Transform.Position, rotation: CameraTarget.Transform.Rotation );
+		}
 	}
 
 	/// <summary>
@@ -79,8 +82,8 @@ public sealed class CameraController : Component
 
 		Boom.Transform.Position = Boom.Transform.Position.LerpTo( Player.Character.Transform.Position + Vector3.Up * Player.GetDuckHeight() * 0.8f, Time.Delta * 10 );
 
-		
-		if ( !Player.Character.IsOnGround)
+
+		if ( !Player.Character.IsOnGround )
 		{
 			bobSpeed = bobSpeed.LerpTo( 0, Time.Delta * 10 );
 		}
@@ -98,13 +101,15 @@ public sealed class CameraController : Component
 			targetFov -= Player.MainHandWeapon.AimingFOVOffset;
 		}
 
-		Camera.FieldOfView = Camera.FieldOfView.LerpTo( targetFov, Time.Delta * 10 );
-
+		Scene.Camera.FieldOfView = Scene.Camera.FieldOfView.LerpTo( targetFov, Time.Delta * 10 );
+		Scene.Camera.Transform.Position = CameraTarget.Transform.Position.WithZ( Scene.Camera.Transform.Position.z );
+		Scene.Camera.Transform.Position = Scene.Camera.Transform.Position.LerpTo( CameraTarget.Transform.Position, Time.Delta * 15 );
+		Scene.Camera.Transform.Rotation = CameraTarget.Transform.Rotation;
 	}
 
 	public float CalcRelativeYaw( float angle )
 	{
-		float length = Camera.Transform.Rotation.Yaw() - angle;
+		float length = CameraTarget.Transform.Rotation.Yaw() - angle;
 
 		float d = MathX.UnsignedMod( Math.Abs( length ), 360 );
 		float r = (d > 180) ? 360 - d : d;
