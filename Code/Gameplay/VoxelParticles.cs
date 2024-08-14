@@ -1,4 +1,5 @@
 using Sandbox;
+using Voxel;
 
 namespace HC2;
 
@@ -12,9 +13,29 @@ public static class VoxelParticles
 
 	public static void Spawn( Vector3 position, int count )
 	{
-		var renderer = Game.ActiveScene.GetAllComponents<ModelRenderer>().Where( x => !(x.Tags.Has( "projectile" ) || x.Tags.Has( "player" )) ).OrderByDescending( x => x.Transform.Position.DistanceSquared( position ) ).FirstOrDefault();
+		var objs = Game.ActiveScene.FindInPhysics( new Sphere( position, 16f ) );
+		var renderer = objs.SelectMany( x => x.Components.GetAll<ModelRenderer>() ).Where( x => !(x.Tags.Has( "projectile" ) || x.Tags.Has( "player" )) ).OrderByDescending( x => x.Transform.Position.DistanceSquared( position ) ).FirstOrDefault();
 		if ( renderer == null )
 		{
+			var voxelRenderer = Game.ActiveScene.GetAllComponents<VoxelRenderer>().FirstOrDefault( x => x.Tags.Has( "terrain" ) );
+			if ( voxelRenderer != null )
+			{
+				var voxelPos = voxelRenderer.WorldToVoxelCoords( position );
+				var voxel = voxelRenderer.Model.GetVoxel( voxelPos.x, voxelPos.y, voxelPos.z );
+				var palette = voxelRenderer.Palette;
+				var paletteMat = palette.Materials[voxel];
+
+				Log.Info( paletteMat );
+
+				// var mat = Material.Create( "voxel_particle", "shaders/pixel_shader.shader" );
+				// mat.Set( "Color", paletteMat.Texture );
+				var mat = Material.Create( "voxel_particle", "complex.shader" );
+				mat.Set( "Color", paletteMat.Texture );
+				Spawn( position, mat, count );
+
+				return;
+			}
+
 			Spawn( position, Color.White, count );
 			return;
 		}

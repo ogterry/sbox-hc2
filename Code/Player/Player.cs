@@ -387,7 +387,7 @@ public partial class Player : Component, IDamage,
 				Log.Info( "giving smg" );
 				Hotbar.GiveItem( smgItem );
 			}
-			
+
 			var swordItem = Item.Create( "weapon_sword" );
 			if ( !Hotbar.HasItem( swordItem ) )
 			{
@@ -411,14 +411,12 @@ public partial class Player : Component, IDamage,
 		if ( IsProxy )
 			return;
 
-		if(Game.IsEditor)
+		if ( Game.IsEditor )
 		{
-			if ( Input.Pressed("flymode" ) )
+			if ( Input.Pressed( "flymode" ) )
 			{
 				FlyMode = !FlyMode;
 			}
-
-			Log.Info( FlyMode );
 		}
 
 		CameraController.UpdateFromPlayer();
@@ -500,7 +498,7 @@ public partial class Player : Component, IDamage,
 
 			float speed = 350.0f;
 
-			if(Input.Down("run"))
+			if ( Input.Down( "run" ) )
 			{
 				speed = 750.0f;
 			}

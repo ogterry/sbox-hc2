@@ -102,6 +102,7 @@
       "Flags": 0,
       "Name": "Terrain",
       "Position": "-4096,-4096,-72",
+      "Tags": "terrain",
       "Enabled": true,
       "NetworkMode": 1,
       "Components": [
