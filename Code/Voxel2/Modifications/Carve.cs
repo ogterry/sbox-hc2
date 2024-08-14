@@ -22,7 +22,7 @@ public record struct CarveModification( Vector3Int Origin, byte Radius, int Seed
 		stream.Write( Seed );
 	}
 
-	public void Apply( Chunk chunk )
+	public void Apply( Scene scene, Chunk chunk )
 	{
 		// TODO: rough sphere
 

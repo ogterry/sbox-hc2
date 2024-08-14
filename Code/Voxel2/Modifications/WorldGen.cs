@@ -34,7 +34,7 @@ public record struct WorldGenModification( int Seed, int ResourceId, Vector3Int 
 		return new Transform( pos, rotation, scale );
 	}
 
-	public void Apply( Chunk chunk )
+	public void Apply( Scene scene, Chunk chunk )
 	{
 		var min = chunk.WorldMin;
 		var random = new Random( Seed );
@@ -42,6 +42,7 @@ public record struct WorldGenModification( int Seed, int ResourceId, Vector3Int 
 
 		var biomeNoiseTransform = GetRandomNoiseTransform( random, 0.1f );
 		var surfaceNoiseTransform = GetRandomNoiseTransform( random, 0.4f );
+		var biomeSampler = scene.GetAllComponents<BiomeSampler>().FirstOrDefault();
 
 		var center = (Min + Max) / 2;
 		var radius = (Max - Min).x / 2;
@@ -70,6 +71,8 @@ public record struct WorldGenModification( int Seed, int ResourceId, Vector3Int 
 
 				biomeNoise = MathF.Pow( biomeNoise, 4f ) * centrality;
 
+				var biome = biomeSampler?.GetBiomeAt( worldX, worldZ );
+
 				var plainsHeight = plainsGroundLevel.Evaluate( surfaceNoise );
 				var mountainsHeight = mountainsGroundLevel.Evaluate( surfaceNoise );
 
@@ -91,15 +94,15 @@ public record struct WorldGenModification( int Seed, int ResourceId, Vector3Int 
 
 					if ( y < height - soilDepth )
 					{
-						blockType = 2;
+						blockType = biome?.UnderSurfaceId ?? 2;
 					}
 					else if ( soilDepth > 2 && y < height - 1 )
 					{
-						blockType = 1;
+						blockType = biome?.SurfaceBlockId ?? 1;
 					}
 					else
 					{
-						blockType = 3;
+						blockType = biome?.DeepBlockId ?? 3;
 					}
 
 					var j = Chunk.WorldToLocal( y );

@@ -20,5 +20,5 @@ public interface IModification
 	bool CreateChunks { get; }
 
 	void Write( ref ByteStream stream );
-	void Apply( Chunk chunk );
+	void Apply( Scene scene, Chunk chunk );
 }
