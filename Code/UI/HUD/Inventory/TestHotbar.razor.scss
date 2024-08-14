@@ -7,16 +7,18 @@ TestHotbar
     height: 100%;
     justify-content: center;
     align-items: flex-end;
-    
-   .container {
-       background-color: black;
-       padding: 8px;
-       position: absolute;
-       flex-direction: row;
-       gap: 16px;
-   }
 
-    .inventory {
+    .container
+    {
+        background-color: black;
+        padding: 8px;
+        position: absolute;
+        flex-direction: row;
+        gap: 16px;
+    }
+
+    .inventory
+    {
         position: absolute;
         background-color: rgba(white, 0.2);
         backdrop-filter: blur(4px);
@@ -29,26 +31,45 @@ TestHotbar
         padding: 16px;
         justify-content: space-evenly;
         align-items: center;
+    }
 
-        &.visible {
+    &.visible
+    {
+        .inventory
+        {
             opacity: 1;
+        }
+
+        ItemSlot 
+        {
+            pointer-events: all;
         }
     }
 
-    ItemSlot {
+    ItemSlot
+    {
+        cursor: pointer;
         background-color: gray;
         justify-content: center;
         align-items: center;
         width: 64px;
         height: 64px;
-        
-        .item {
+
+        &.hovered-item
+        {
+            background-color: green;
+        }
+
+        .item
+        {
             background-size: cover;
             width: 48px;
             height: 48px;
+            pointer-events: none;
         }
 
-        &.active {
+        &.active
+        {
             background-color: red;
         }
     }

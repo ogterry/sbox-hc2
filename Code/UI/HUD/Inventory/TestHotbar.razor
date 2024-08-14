@@ -1,13 +1,17 @@
 @using System
+@using Sandbox
+@using Sandbox.UI
 @using HC2
-@inherits PanelComponent
+@attribute [StyleSheet]
+
+@inherits Panel
 
 @{
 	if (!Hotbar.IsValid()) return;
 }
 
-<root>
-	<div class="inventory @(InventoryOpen ? "visible" : "")">
+<root class="@(InventoryOpen ? "visible" : "")">
+	<div class="inventory">
 		@for (var i = 0; i < Inventory.MaxSlots; i++)
 		{
 			var item = Inventory.GetItemInSlot(i);
@@ -26,18 +30,74 @@
 
 @code
 {
-	public Hotbar Hotbar => Player.Local?.Hotbar;
-	public Inventory Inventory => Player.Local?.Inventory;
+    public Hotbar Hotbar => Player.Local?.Hotbar;
+    public Inventory Inventory => Player.Local?.Inventory;
 
-	bool InventoryOpen { get; set; }
+    bool InventoryOpen { get; set; }
 
-	protected override void OnUpdate()
-	{
-		if (Input.Pressed("Score"))
-		{
-			InventoryOpen = !InventoryOpen;
-		}
-	}
+    bool IsDragging { get; set; }
+    bool WantsToDrag { get; set; }
+    Vector2 StartMousePos { get; set; }
+
+    /// <summary>
+    /// The current hovered slot we'll use to do stuff with
+    /// </summary>
+    public static ItemSlot HoveredSlot { get; set; }
+
+    ItemSlot DraggingItem { get; set; }
+
+    protected override void OnMouseDown( MousePanelEvent e )
+    {
+        if ( e.MouseButton == MouseButtons.Left )
+        {
+            IsDragging = false;
+            WantsToDrag = true;
+            StartMousePos = Mouse.Position / Screen.Size;
+        }
+    }
+
+    protected override void OnMouseUp( MousePanelEvent e )
+    {
+        if ( e.MouseButton == MouseButtons.Left )
+        {
+            var mousePos = Mouse.Position / Screen.Size;
+
+            StopDragging();
+        }
+    }
+
+    void StartDragging()
+    {
+
+    }
+
+    void StopDragging()
+    {
+        
+    }
+
+    public override void Tick()
+    {
+        if (Input.Pressed("Score"))
+        {
+            InventoryOpen = !InventoryOpen;
+        }
+
+        if ( InventoryOpen )
+        {
+            var mousePos = Mouse.Position / Screen.Size;
+
+            if ( DraggingItem is null && IsDragging )
+            {
+                StopDragging();
+                return;
+            }
+
+            // Have we moved a little, and are not dragging already?
+            if ( mousePos.Distance( StartMousePos ) > .005 && WantsToDrag )
+                StartDragging();
+        }
+    }
 
 	protected override int BuildHash()
 	{
