@@ -24,7 +24,7 @@ public partial class WorldItem : Component, Component.ITriggerListener
 
 	[Property]
 	public GameObject SpinningItem { get; set; }
-	
+
 	[Sync]
 	public TimeSince LastPickupAttempt { get; set; }
 
@@ -59,21 +59,9 @@ public partial class WorldItem : Component, Component.ITriggerListener
 		if ( other.GameObject.Root.Components.Get<Player>() is not { IsValid: true } player )
 			return;
 
-		if ( player.IsProxy )
-			return;
-
 		if ( LastPickupAttempt < 3f )
 			return;
 
-		TryPickupOnAuthority( player );
-	}
-
-	[Authority]
-	void TryPickupOnAuthority( Player player )
-	{
-		if ( LastPickupAttempt < 3f )
-			return;
-		
 		using ( Rpc.FilterInclude( player.Network.OwnerConnection ) )
 		{
 			LastPickupAttempt = 0f;
@@ -81,13 +69,11 @@ public partial class WorldItem : Component, Component.ITriggerListener
 		}
 	}
 
-	[Broadcast( NetPermission.OwnerOnly )]
+	[Broadcast( NetPermission.HostOnly )]
 	void Pickup( Player player )
 	{
-		if ( player.IsProxy ) return;
-		
 		var item = Item.Create( Resource, Amount );
-		
+
 		if ( player.Hotbar.TryGiveItem( item ) )
 		{
 			DestroyOnAuthority();
