@@ -38,7 +38,8 @@ public record struct WorldGenModification( int Seed, Vector3Int Min, Vector3Int 
 		var min = chunk.WorldMin;
 		var random = new Random( Seed );
 
-		const int height = 128;
+		const int minHeight = 32;
+		const int maxHeight = 128;
 
 		var surfaceNoiseTransform = GetRandomNoiseTransform( random );
 		var caveNoiseTransform = GetRandomNoiseTransform( random );
@@ -53,8 +54,11 @@ public record struct WorldGenModification( int Seed, Vector3Int Min, Vector3Int 
 				var worldZ = min.z + z;
 
 				var surfaceNoisePos = surfaceNoiseTransform.PointToWorld( new Vector3( worldX, 0f, worldZ ) * 0.4f );
-				var surfaceNoise = Noise.Fbm( 8, surfaceNoisePos.x, surfaceNoisePos.y, surfaceNoisePos.z );
-				var surfaceHeight = Math.Clamp( (int)(surfaceNoise * height), 0, height - 1 ) - min.y;
+				var surfaceNoise = Math.Clamp( Noise.Fbm( 8, surfaceNoisePos.x, surfaceNoisePos.y, surfaceNoisePos.z ), 0f, 1f );
+
+				surfaceNoise = MathF.Pow( surfaceNoise, 4f );
+
+				var surfaceHeight = Math.Clamp( (int)(surfaceNoise * (maxHeight - minHeight)) + minHeight, minHeight, maxHeight - 1 ) - min.y;
 
 				for ( var y = 0; y < Constants.ChunkSize && y < surfaceHeight; y++ )
 				{
