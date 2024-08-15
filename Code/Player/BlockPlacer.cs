@@ -57,21 +57,16 @@ public sealed class BlockPlacer : Carriable
         if ( Player.Hotbar.GetItemInSlot( Player.Hotbar.SelectedSlot ) is Item item )
         {
             if ( item.Amount <= 0 ) return;
-            item.Amount--;
-            if ( item.Amount <= 0 )
-            {
-                Player.Hotbar.TakeItemSlot( Player.Hotbar.SelectedSlot );
-            }
 
             using ( Rpc.FilterInclude( Connection.Host ) )
             {
-                PlaceBlockHost( pos, BlockType );
+                PlaceBlockHost( pos, BlockType, Player.Hotbar.SelectedSlot );
             }
         }
     }
 
     [Broadcast]
-    void PlaceBlockHost( Vector3 pos, Block block )
+    void PlaceBlockHost( Vector3 pos, Block block, int slot )
     {
         if ( !Sandbox.Networking.IsHost )
             return;
@@ -80,11 +75,30 @@ public sealed class BlockPlacer : Carriable
         if ( world is null )
             return;
 
-        Log.Info( block );
-
         var voxelPos = world.Renderer.WorldToVoxelCoords( pos );
-        Log.Info( voxelPos );
+        var voxel = world.Renderer.Model.GetVoxel( voxelPos.x, voxelPos.y, voxelPos.z );
+        if ( voxel != 0 ) return;
 
         world.Modify( new BuildModification( block, voxelPos, voxelPos ) );
+
+        var caller = Rpc.Caller;
+        using ( Rpc.FilterInclude( caller ) )
+        {
+            UseBlock( slot );
+        }
+    }
+
+    [Broadcast( NetPermission.HostOnly )]
+    void UseBlock( int slot )
+    {
+        if ( Player.Hotbar.GetItemInSlot( slot ) is Item item )
+        {
+            if ( item.Amount <= 0 ) return;
+            item.Amount--;
+            if ( item.Amount <= 0 )
+            {
+                Player.Hotbar.TakeItemSlot( slot );
+            }
+        }
     }
 }
