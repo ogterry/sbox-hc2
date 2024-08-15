@@ -12,25 +12,61 @@
                 HC2
             </div>
 
-            <div class="column gap" style="width: 256px;">
-                <div class="button" @onclick="@(() => Play() )">Create New World</div>
+            @if ((MenuRoot.Instance?.IsPauseMenu ?? false) )
+            {
+                @if ( TryGetWorldSave() is { } world )
+                {
+                    <label>This is an existing world.</label>
+                    <label>Creation Time: @(world.CreatedAt.ToString("dd/MM/yyyy HH:mm"))</label>
+                    <label>Last Saved: @(world.LastSaved.ToString("dd/MM/yyyy HH:mm"))</label>
 
-                <div class="worlds column gap">
-                    @foreach ( var save in WorldPersistence.GetWorlds() )
-                    {
-                        <div class="button" @onclick=@(() => LoadWorld(save)) >@(save.Name) @(save.CreatedAt.ToString("dd/MM/yyyy HH:mm")</div>
-                    }
+                    <div class="column gap" style="width: 256px;">
+                        <div class="button">Save Existing World</div>
+                    </div>
+                }
+                else
+                {
+                    <label>This world hasn't been saved yet, save it to ensure you don't lose any progress!</label>
+
+                    <div class="column gap" style="width: 256px;">
+                        <TextEntry placeholder="My World" />
+                        <div class="button">Save World</div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="column gap" style="width: 256px;">
+                    <div class="button" @onclick="@(() => Play() )">Create New World</div>
+
+                    <div class="worlds column gap">
+                        @foreach ( var save in WorldPersistence.GetWorlds() )
+                        {
+                            <div class="button" @onclick=@(() => LoadWorld(save)) >@(save.Name) @(save.CreatedAt.ToString("dd/MM/yyyy HH:mm")</div>
+                        }
+                    </div>
+
+                    <div class="button" @onclick="@(() => JoinSomeoneElse() )">Join a Friend</div>
+                    <a class="button" href="/">Return</a>
                 </div>
-
-                <div class="button" @onclick="@(() => JoinSomeoneElse() )">Join a Friend</div>
-                <a class="button" href="/">Return</a>
-            </div>
+            }
         </div>
     </div>
 </root>
 
 @code
 {
+
+    WorldSave TryGetWorldSave()
+    {
+        if ( !string.IsNullOrEmpty( WorldPersistence.FileToLoad ) )
+        {
+
+        }
+
+        return null;
+    }
+
     void Play()
     {
         var sceneFile = ResourceLibrary.Get<SceneFile>( "scenes/procgen.scene" );

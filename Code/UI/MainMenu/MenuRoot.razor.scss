@@ -117,11 +117,20 @@ MenuRoot {
         left: 0px;
         transition: all 0.1s;
 
-        &:hover
+        &.inactive
         {
-            background-color: rgba( white, 0.1 );
-            left: 8px;
-            sound-in: ui.button.over;
+            opacity: 0.2;
+        }
+
+        &:not( .inactive )
+        {
+
+            &:hover
+            {
+                background-color: rgba( white, 0.1 );
+                left: 8px;
+                sound-in: ui.button.over;
+            }
         }
     }
 }

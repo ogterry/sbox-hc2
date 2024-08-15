@@ -15,6 +15,7 @@
                 @if (MenuRoot.Instance?.IsPauseMenu ?? false)
                 {
                     <div class="button" onclick=@ResumeButton>Resume</div>
+                    <a class="button @(!Sandbox.Networking.IsHost ? "inactive" : "")" href="/worlds">Save World</a>
                 }
                 else
                 {
