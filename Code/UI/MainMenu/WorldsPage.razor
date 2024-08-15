@@ -21,7 +21,7 @@
                     <label>Last Saved: @(world.LastSaved.ToString("dd/MM/yyyy HH:mm"))</label>
 
                     <div class="column gap" style="width: 256px;">
-                        <div class="button">Save Existing World</div>
+                        <div class="button">Save World</div>
                     </div>
                 }
                 else
@@ -59,12 +59,19 @@
 
     WorldSave TryGetWorldSave()
     {
-        if ( !string.IsNullOrEmpty( WorldPersistence.FileToLoad ) )
+        if ( string.IsNullOrEmpty( WorldPersistence.FileToLoad ) )
+            return null;
+
+        try
         {
-
+            var world = FileSystem.Data.ReadJson<WorldSave>( WorldPersistence.FileToLoad );
+            return world;
         }
-
-        return null;
+        catch
+        {
+            Log.Warning( "Couldn't deserialize world for some reason" );
+            return null;
+        }
     }
 
     void Play()
