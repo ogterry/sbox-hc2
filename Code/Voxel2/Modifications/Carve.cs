@@ -58,7 +58,7 @@ public record struct CarveModification( GatherSourceKind SourceKind, byte Damage
 
 				if ( !renderer.IsProxy )
 				{
-					var worldPos = renderer.WorldToVoxelCoords( new Vector3Int( x, y, z ) + chunk.WorldMin );
+					var worldPos = renderer.VoxelToWorldCoords( new Vector3Int( x, y, z ) + chunk.WorldMin );
 					entry.Block.BlockDestroyed( renderer, worldPos );
 				}
 			}
