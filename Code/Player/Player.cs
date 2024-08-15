@@ -458,7 +458,7 @@ public partial class Player : Component, IDamage,
 	[Broadcast( NetPermission.OwnerOnly )]
 	private void BroadcastKillEffect()
 	{
-		VoxelParticles.Spawn( Transform.Position + Vector3.Up * 42f, ModelRenderer.Model.Materials.FirstOrDefault(), 200 );
+		VoxelParticles.SpawnInBounds( GameObject.GetBounds(), 150 );
 	}
 
 	/// <summary>

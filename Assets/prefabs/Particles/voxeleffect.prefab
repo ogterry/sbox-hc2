@@ -153,7 +153,7 @@
           {
             "__type": "Sandbox.ParticleConeEmitter",
             "__guid": "c474513d-2a46-4f92-b9fe-75fbfbc6c9c5",
-            "Burst": 100,
+            "Burst": 500,
             "ConeAngle": 45,
             "ConeFar": 90,
             "ConeNear": 45,
