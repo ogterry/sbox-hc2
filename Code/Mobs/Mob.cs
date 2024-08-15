@@ -152,7 +152,7 @@ public sealed class Mob : Component,
 
 			var gib = go.Clone( new CloneConfig()
 			{
-				Transform = go.Transform.World,
+				Transform = go.Transform.World.WithScale( go.Transform.Parent.Transform.Scale ),
 				StartEnabled = true
 			} );
 			var rb = gib.Components.GetOrCreate<Rigidbody>();

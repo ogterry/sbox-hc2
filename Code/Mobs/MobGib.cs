@@ -10,8 +10,8 @@ public sealed class MobGib : Component, Component.ICollisionListener
     [Property]
     public SoundEvent Sound { get; set; }
 
-    TimeSince timeSinceSpawn = 0;
     TimeSince timeSinceCreated = 0;
+    int collisions = Random.Shared.Int( 1, 3 );
 
     protected override void OnFixedUpdate()
     {
@@ -25,6 +25,9 @@ public sealed class MobGib : Component, Component.ICollisionListener
     {
         if ( collision.Other.GameObject?.Tags?.Has( "bodypart" ) ?? false ) return;
         if ( collision.Other.GameObject?.Tags?.Has( "projectile" ) ?? false ) return;
+
+        collisions--;
+        if ( collisions > 0 ) return;
 
         Break();
     }
