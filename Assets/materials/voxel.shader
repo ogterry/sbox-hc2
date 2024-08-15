@@ -33,7 +33,6 @@ struct PixelInput
 	#include "common/pixelinput.hlsl"
 
 	nointerpolation int TextureIndex : TEXCOORD10;
-	float Height : COLOR0;
 };
 
 VS
@@ -91,9 +90,8 @@ VS
 		i.vTangentUOs_flTangentVSign = float4( vTangentOs.xyz, 1.0 );
 
 		PixelInput o = ProcessVertex( i );
-		o.vVertexColor = float4( material.Color.rgb * brightness, 1.0 );
+		o.vVertexColor = float4( material.Color.rgb * brightness, 0.2 ); // HSV brightness in the alpha (get this from palette)
 		o.TextureIndex = material.TextureIndex.x + 1;
-		o.Height = o.vPositionWs.z / 128;
 
 		float u = dot( o.vTangentUWs.xyz, o.vPositionWs.xyz );
 		float v = dot( o.vTangentVWs.xyz, o.vPositionWs.xyz );
@@ -117,26 +115,6 @@ PS
 		RenderState( DepthBiasClamp, 0.0005 );
 	#endif
 
-	float3 ColorRamp(float factor)
-	{
-		float3 color;
-
-		float3 orangeColor = float3(1.0f, 0.6f, 0.2f);
-		float3 whiteColor = float3(1.0f, 1.0f, 1.0f);
-
-		if (factor <= 0.95f)
-		{
-			color = orangeColor;
-		} 
-		else 
-		{
-			float t = (factor - 0.95f) / (1.0f - 0.95f);
-			color = lerp(orangeColor, whiteColor, t);
-		}
-
-		return color;
-	}
-
 	float4 MainPs( PixelInput i ) : SV_Target0
 	{
 		#if ( S_MODE_TOOLS_WIREFRAME )
@@ -150,16 +128,12 @@ PS
 		Texture2D texture = GetBindlessTexture2D( NonUniformResourceIndex( i.TextureIndex ) );
 		float4 textureSample = texture.Sample( g_sPointWrap, i.vTextureCoords.xy );
 
-		float2 uv = i.vTextureCoords.xy;
-		float gradientFactor = saturate( i.Height );
-		float3 gradientColor = ColorRamp(gradientFactor);
-
       	float3 vHsv = RgbToHsv( textureSample.rgb );
-        vHsv.b *= 0.1;
+        vHsv.b *= i.vVertexColor.a;
         textureSample.rgb = HsvToRgb( vHsv );
 
 		Material m = Material::From( i );
-		m.Albedo = textureSample.rgb * gradientColor.rgb * i.vVertexColor.rgb;
+		m.Albedo = textureSample.rgb * i.vVertexColor.rgb;
 		m.Roughness = 1;
 		return ShadingModelStandard::Shade( i, m );
 	}
