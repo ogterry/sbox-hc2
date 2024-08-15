@@ -27,7 +27,7 @@ public sealed class BlockPlacer : Carriable
         base.OnUpdate();
 
         var tr = Scene.Trace.Ray( Scene.Camera.Transform.Position, Scene.Camera.Transform.Position + Scene.Camera.Transform.Rotation.Forward * 500 )
-            .WithoutTags( "player", "trigger", "mob" )
+            .WithoutTags( "player", "trigger", "mob", "worlditem" )
             .Run();
 
         if ( tr.Hit )
@@ -113,7 +113,7 @@ public sealed class BlockPlacer : Carriable
         if ( !Sandbox.Networking.IsHost )
             return;
 
-        var world = Scene.GetAllComponents<VoxelNetworking>().First();
+        var world = Scene.GetAllComponents<VoxelNetworking>().FirstOrDefault();
         if ( world is null )
             return;
 
