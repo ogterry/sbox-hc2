@@ -17,6 +17,7 @@ public sealed class BlockPlacer : Carriable
 
 
     RealTimeSince timeSinceLastPlace = 0f;
+    Transform lastCamTransform;
 
     protected override void OnUpdate()
     {
@@ -54,6 +55,10 @@ public sealed class BlockPlacer : Carriable
     {
         if ( timeSinceLastPlace < 0.05f )
             return;
+        if ( Scene.Camera.Transform.Position.SnapToGrid( 1 ) == lastCamTransform.Position && Scene.Camera.Transform.Rotation == lastCamTransform.Rotation )
+            return;
+
+        lastCamTransform = Scene.Camera.Transform.World.WithPosition( Scene.Camera.Transform.Position.SnapToGrid( 1 ) );
 
         if ( Player.Hotbar.GetItemInSlot( Player.Hotbar.SelectedSlot ) is Item item )
         {
@@ -98,6 +103,7 @@ public sealed class BlockPlacer : Carriable
         {
             if ( item.Amount <= 0 ) return;
             item.Amount--;
+
             if ( item.Amount <= 0 )
             {
                 Player.Hotbar.TakeItemSlot( slot );
