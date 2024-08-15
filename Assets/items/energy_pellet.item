@@ -1,7 +1,7 @@
 {
   "Name": "Energy Pellet",
   "Description": "Ammo for energy-driven weapons",
-  "Category": "Weapons",
+  "Category": "Ammo",
   "MaxStack": 99,
   "Icon": "item_icons/energy_pellet.png",
   "Tags": "ammo",
