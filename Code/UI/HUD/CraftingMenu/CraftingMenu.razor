@@ -7,15 +7,12 @@
 @inherits Panel
 
 <root>
-    <div class="list column">
+    <div class="column gap">
         @foreach (var group in ItemAsset.GetRecipeGroups())
         {
-            <div class="group column">
-                <div class="header">
-                    @* <i>@group.Key.GetIcon()</i> *@
-                    <label>@(group.Key)</label>
-                </div>
-                <div class="recipes column">
+            <div class="column gap">
+                <label class="large">@group.Key</label>
+                <div class="column gap">
                     @foreach (var item in group)
                     {
                         <CraftingMenuEntry class=@(((Player.Local?.Inventory?.CanCraftItem(item) ?? false) ? "" : "disabled") + (item == SelectedItem ? " active" : "")) Item=@item onclick=@(() => SelectItem(item)) />
@@ -24,14 +21,15 @@
             </div>
         }
     </div>
+
     @if (SelectedItem is not null)
     {
         <div class="selected-item column">
             <div class="header">
                 <img src="@SelectedItem.GetIcon()" />
                 <div class="info column">
-                    <label class="name">@SelectedItem.Name</label>
-                    <label class="desc">@SelectedItem.Description</label>
+                    <label class="large">@SelectedItem.Name</label>
+                    <label class="small">@SelectedItem.Description</label>
                 </div>
             </div>
             <div class="requirements column">
@@ -39,13 +37,15 @@
                 {
                     <div class="entry">
                         <img src="@entry.Resource.GetIcon()" />
-                        <label>@entry.Resource.Name</label>
-                        <label>x@(entry.Amount)</label>
+                        <label class="small">@entry.Resource.Name</label>
+                        <div style="flex-grow: 1;" />
+                        <label class="small">x@(entry.Amount)</label>
                     </div>
                 }
             </div>
             <div class="button" onclick=@CraftSelected>
                 <label>@(Player.Local?.Inventory?.CanCraftItem(SelectedItem) ?? false ? "Craft" : "Not enough resources")</label>
+                <div style="flex-grow: 1;" />
                 <label>x@(SelectedItem.CraftingYield)</label>
             </div>
         </div>
