@@ -31,13 +31,15 @@ CraftingMenu
 
         .group
         {
-
+            flex-shrink: 0;
+            
             .header
             {
                 background-color: rgba(black, 0.2);
                 align-items: center;
                 border-image: url( /ui/Transparent center/panel-transparent-center-001.png ) 16 fill;
                 border-image-tint: rgba( white, 0.02 );
+                flex-shrink: 0;
             }
 
             .recipes
