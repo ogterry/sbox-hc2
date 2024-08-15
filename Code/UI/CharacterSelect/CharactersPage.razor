@@ -6,7 +6,13 @@
 
 <root>
 	<div class="canvas">
-		<CharacterSelect OnSelect=@(() => MenuRoot.Instance.Navigate("/")) />
+        <div class="column justify-center">
+            <label class="title">
+                Characters
+            </label>
+
+		    <CharacterSelect OnSelect=@(() => MenuRoot.Instance.Navigate("/")) />
+        </div>
 	</div>
 </root>
 

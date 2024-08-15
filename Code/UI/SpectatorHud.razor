@@ -11,7 +11,7 @@
 		<div class="footer">
 			@if (TimeSinceDeath > 5)
 			{
-				<div>Press <span class="key">[SPACE]</span> to respawn</div>
+				<div>Press <span class="key">[@Input.GetButtonOrigin("Jump").ToUpperInvariant()]</span> to respawn</div>
 			}
 			else
 			{

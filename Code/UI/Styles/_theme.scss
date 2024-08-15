@@ -30,18 +30,151 @@ $fade-to-black: linear-gradient(to right, #ffffffee, #ffffffee 50%, #ffffffbb 80
     box-shadow: $shadow;
 }
 
-label, text {
-    font-size: 16px;
+label, text, .label
+{
+    font-family: Glegoo;
 
-    &.small {
+    &.small
+    {
         font-size: 12px;
     }
 
-    &.large {
+    &.large
+    {
+        text-shadow: 1px 1px 2px rgba( black, 0.75 );
         font-size: 20px;
+    }
+
+    &.title
+    {
+        font-size: 32px;
+        font-weight: bold;
+        text-shadow: 1px 1px 2px rgba( black, 0.75 );
     }
 }
 
 .glass-panel.fade {
     mask: $fade-horizontal;
+}
+
+.button
+{
+    position: relative;
+    padding-left: 16px;
+    border-left: 2px solid white;
+    cursor: pointer;
+    border-radius: 0px 2px 2px 0px;
+    left: 0px;
+    transition: all 0.1s;
+    border-image: url( /ui/Transparent center/panel-transparent-center-015.png ) 8 fill;
+    border-image-tint: rgba( white, 0.2 );
+
+    label
+    {
+        font-size: 16px;
+        text-shadow: 1px 1px 2px rgba( black, 0.75 );
+    }
+
+    &.active
+    {
+        border-image: url( /ui/Transparent center/panel-transparent-center-010.png ) 8 fill;
+        border-image-tint: rgba( white, 0.2 );
+    }
+
+    &.with-icon
+    {
+        justify-content: space-between;
+    }
+
+    i
+    {
+        font-family: 'Material Icons';
+        font-size: 32px;
+        margin-right: 16px;
+    }
+
+    &.center
+    {
+        justify-content: center;
+        align-items: center;
+    }
+
+    &.inactive
+    {
+        opacity: 0.2;
+    }
+
+    &:not( .inactive )
+    {
+        &:hover
+        {
+            border-image-tint: rgba( white, 0.4 );
+            left: 8px;
+            sound-in: ui.button.over;
+        }
+    }
+}
+
+.canvas
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    flex-grow: 1;
+    color: white;
+}
+
+TextEntry
+{
+    border-image: url( /ui/Transparent center/panel-transparent-center-015.png ) 8 fill;
+    border-image-tint: rgba( white, 0.2 );
+    height: 40px;
+    font-size: 16px;
+}
+
+.column
+{
+    flex-direction: column;
+}
+
+.row
+{
+    flex-direction: row;
+}
+
+.column, .row
+{
+    &.with-padding-vertical
+    {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+
+    &.justify-center
+    {
+        justify-content: center;
+    }
+
+    &.gap
+    {
+        gap: 8px;
+    }
+
+    &.gap-huge
+    {
+        gap: 32px;
+    }
+
+    &.grow
+    {
+        flex-grow: 1;
+    }
+
+    &.center
+    {
+        justify-content: center;
+        align-items: center;
+    }
 }

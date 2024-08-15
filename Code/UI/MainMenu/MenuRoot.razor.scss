@@ -1,3 +1,5 @@
+@import "../Styles/_theme.scss";
+
 MenuRoot
 {
     pointer-events: none;
@@ -12,11 +14,10 @@ MenuRoot
     }
 }
 
-MenuRoot {
+MenuRoot 
+{
     opacity: 1;
     flex-direction: column;
-    font-size: 25px;
-    color: white;
     width: 100%;
     height: 100%;
     position: absolute;
@@ -29,7 +30,7 @@ MenuRoot {
 
     &.pause {
         > .background {
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(10px);
         }
     }
 
@@ -39,7 +40,7 @@ MenuRoot {
         bottom: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(black, 0.6);
+        background-color: rgba(white, 0.02);
         background-size: cover;
         background-position: center;
     }
@@ -80,21 +81,6 @@ MenuRoot {
         margin: 32px;
     }
 
-    .gap
-    {
-        gap: 8px;
-    }
-
-    .column
-    {
-        flex-direction: column;
-    }
-
-    .title
-    {
-        font-size: 64px;
-    }
-
     .grow
     {
         flex-grow: 1;
@@ -104,33 +90,5 @@ MenuRoot {
     {
         justify-content: center;
         align-items: center;
-    }
-
-    .button
-    {
-        position: relative;
-        padding-left: 16px;
-        border-left: 2px solid white;
-        cursor: pointer;
-        background-color: rgba( black, 0.3 );
-        border-radius: 0px 2px 2px 0px;
-        left: 0px;
-        transition: all 0.1s;
-
-        &.inactive
-        {
-            opacity: 0.2;
-        }
-
-        &:not( .inactive )
-        {
-
-            &:hover
-            {
-                background-color: rgba( white, 0.1 );
-                left: 8px;
-                sound-in: ui.button.over;
-            }
-        }
     }
 }
