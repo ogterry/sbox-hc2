@@ -1,10 +1,8 @@
-using Sandbox;
+using Sandbox.Diagnostics;
 using System;
 using System.Text.Json.Serialization;
-using Sandbox.Diagnostics;
 using Voxel;
 using Voxel.Modifications;
-using Sandbox.States;
 
 namespace HC2;
 
@@ -170,26 +168,45 @@ public sealed class WorldPersistence : Component
 	/// <summary>
 	/// This is shitty but should work
 	/// </summary>
-	public static void SendVoxelWorld()
+	public static void TrySendVoxelWorld( Connection channel )
 	{
-		var persistence = Game.ActiveScene.GetAllComponents<WorldPersistence>().FirstOrDefault();
+		// We're not sending this to the host
+		if ( channel.IsHost )
+			return;
 
-		var world = persistence.GetVoxelWorld();
-		var worldGen = world.Components.Get<VoxelWorldGen>();
-		var seed = worldGen?.Seed ?? 0;
-		var path = worldGen?.Parameters?.ResourcePath;
-		var size = world.Size;
-		
-		var chunkArray = world.Model.Chunks.Where( x => x is { Allocated: true } ).Select( persistence.SerializeChunk )
-			.ToArray();
+		// We must BE the host
+		if ( !Sandbox.Networking.IsHost )
+			return;
 
-		Log.Info( $"Sending chunks from host to a client: {chunkArray.Count()}" );
+		// Send to our target
+		using ( Rpc.FilterInclude( channel ) )
+		{
+			var persistence = Game.ActiveScene.GetAllComponents<WorldPersistence>().FirstOrDefault();
 
-		SendVoxelWorldRpc( seed, path, size, chunkArray );
+			var world = persistence.GetVoxelWorld();
+			var worldGen = world.Components.Get<VoxelWorldGen>();
+			var seed = worldGen?.Seed ?? 0;
+			var path = worldGen?.Parameters?.ResourcePath;
+			var size = world.Size;
+
+			var chunkArray = world.Model.Chunks.Where( x => x is { Allocated: true } ).Select( persistence.SerializeChunk )
+				.ToArray();
+
+			Log.Info( $"Sending chunks from host to a client: {chunkArray.Count()}" );
+
+			SendVoxelWorldRpc( seed, path, size, chunkArray );
+		}
 	}
 
+	/// <summary>
+	/// RPC over the voxel world state to a client
+	/// </summary>
+	/// <param name="seed"></param>
+	/// <param name="parametersPath"></param>
+	/// <param name="size"></param>
+	/// <param name="states"></param>
 	[Broadcast]
-	public static void SendVoxelWorldRpc( int seed, string parametersPath, Vector3Int size, ChunkState[] states )
+	private static void SendVoxelWorldRpc( int seed, string parametersPath, Vector3Int size, ChunkState[] states )
 	{
 		var version = VoxelWorldState.CurrentVersion;
 		var persistence = Game.ActiveScene.GetAllComponents<WorldPersistence>().FirstOrDefault();
