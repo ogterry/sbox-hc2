@@ -6,11 +6,11 @@
 
 @inherits Panel
 
-<root>
+<root class="row gap">
     <img src="@Item.Icon" />
-    <div class="info">
-        <label class="name">@Item.Name</label>
-        <label class="desc">@Item.Description</label>
+    <div class="column gap">
+        <label class="large">@Item.Name</label>
+        <label class="small">@Item.Description</label>
     </div>
 </root>
 

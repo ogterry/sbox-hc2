@@ -11,7 +11,7 @@
 }
 <root class="stats-menu @(isStatsMenuOpen ? "visible" : "")">
 	<div class="stats-panel">
-		<label class="header">Stat Upgrades</label>
+		<label class="title">Perks</label>
 		<div class="stats">
 			@foreach(var stat in ResourceLibrary.GetAll<StatusEffect>().Where(x => x.Type == StatusEffect.StatusType.Stat))
 			{
@@ -27,8 +27,8 @@
 				</div>
 			}
 		</div>
-		<label>@(experience.UnspentUpgrades) Unspent Stat Upgrade(s)</label>
-		<label class="footer">Press TAB to close</label>
+		<label class="title">@(experience.UnspentUpgrades) Points</label>
+		<label class="small">Press @Input.GetButtonOrigin( "Score" ).ToUpperInvariant() to close</label>
 	</div>
 </root>
 

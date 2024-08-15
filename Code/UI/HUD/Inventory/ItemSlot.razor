@@ -8,7 +8,7 @@
         <div class="item" style="background-image: url(@(Item?.Resource?.GetIcon() ?? "")); background-tint: @((Item?.Resource?.GetIconColor() ?? Color.White).Hex);">
             @if (Item.Resource.MaxStack > 1)
             {
-                <label class="amount">@Item.Amount</label>
+                <label class="amount small">@Item.Amount</label>
             }
             @if (Item.Durability < Item.Resource.MaxDurability)
             {

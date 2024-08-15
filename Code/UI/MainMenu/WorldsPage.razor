@@ -16,9 +16,9 @@
             {
                 @if ( TryGetWorldSave() is { } world )
                 {
-                    <label>World: @world.Name</label>
-                    <label>Creation Time: @(world.CreatedAt.ToString("dd/MM/yyyy HH:mm"))</label>
-                    <label>Last Saved: @(world.LastSaved.ToString("dd/MM/yyyy HH:mm"))</label>
+                    <label class="large">World: @world.Name</label>
+                    <label class="large">Creation Time: @(world.CreatedAt.ToString("dd/MM/yyyy HH:mm"))</label>
+                    <label class="large">Last Saved: @(world.LastSaved.ToString("dd/MM/yyyy HH:mm"))</label>
 
                     <div class="column gap" style="width: 256px;">
                     <div class="button" onclick=@(() => SaveWorld())>Save World</div>
