@@ -2,7 +2,7 @@
   "Name": "Stone Spear",
   "Description": "Throw Spears",
   "Category": "Weapons",
-  "MaxStack": 1,
+  "MaxStack": 64,
   "Icon": "item_icons/weapon_stone_spear.png",
   "Tags": "weapon",
   "Prefab": "prefabs/weapons/stone_spear.prefab",
@@ -19,6 +19,7 @@
       "Durability": 1
     }
   ],
+  "CraftingYield": 1,
   "StatusEffects": [],
   "__references": [],
   "__version": 0
