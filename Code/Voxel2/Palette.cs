@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 
 namespace Voxel;
 
@@ -15,7 +16,7 @@ public class Palette : GameResource
 		return block is null ? fallbackIndex : CollectionExtensions.GetValueOrDefault( BlockToIndex, block.ResourceId, fallbackIndex );
 	}
 
-	private Dictionary<int, byte> BlockToIndex { get; set; } = new();
+	[JsonIgnore, Hide] private Dictionary<int, byte> BlockToIndex { get; set; } = new();
 	public List<Block> Blocks { get; set; }
 
 	public static Action OnReload { get; set; }
