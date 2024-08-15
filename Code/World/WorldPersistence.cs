@@ -155,10 +155,7 @@ public sealed class WorldPersistence : Component
 
 	protected override void OnStart()
 	{
-		if ( Sandbox.Networking.IsHost )
-		{
-			TryLoadFromSelectedFile();
-		}
+		TryLoadFromSelectedFile();
 	}
 
 	[HostSync]
@@ -193,6 +190,7 @@ public sealed class WorldPersistence : Component
 
 	public void LoadFromFile( string path, bool refreshSnapshot = true )
 	{
+		Log.Info( $"Trying to load world from file {path}" );
 		var worldSave = FileSystem.Data.ReadJson<WorldSave>( path );
 		if ( worldSave is not null )
 		{
@@ -223,7 +221,12 @@ public sealed class WorldPersistence : Component
 	{
 		// Host only
 		if ( !Sandbox.Networking.IsHost )
+		{
+			Log.Info( "Tried to load a world save but we're not the host.." );
 			return;
+		}
+
+		Log.Info( "Trying to load a world save..." );
 
 		DestroyAnyTransientObjects();
 

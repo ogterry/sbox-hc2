@@ -1,5 +1,5 @@
 {
-  "__guid": "4a064408-0372-4288-81f1-3d6c857ff496",
+  "__guid": "20e5286c-014a-4782-8021-7afc05915a89",
   "GameObjects": [
     {
       "__guid": "fcd503d0-cd29-4b20-8f5b-91de13e90aaf",
@@ -154,6 +154,10 @@
             "biomes/snow.biome"
           ],
           "BiomeSize": 4
+        },
+        {
+          "__type": "HC2.WorldPersistence",
+          "__guid": "cbc52e30-d479-4f08-98a5-98238b4730b1"
         }
       ]
     },
