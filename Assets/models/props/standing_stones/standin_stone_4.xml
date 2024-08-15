@@ -1,0 +1,32 @@
+<voxtool version="3">
+	<input_mesh input_file="D:/sbox_assets_cloud/HC2/Assets/Models/standing_stones/standing_stone_4.obj" swap_xy="true" uniform_scale="1.0"/>
+	<input_heightmap input_file="" output_mesh="" normalize_heightmap="false" mesh_res="1">
+		<size x="0" y="0" z="0"/>
+	</input_heightmap>
+	<output_vox output_file="standing_stone_4.vox"/>
+	<color_map input_file="D:/sbox_assets_cloud/HC2/Assets/Models/standing_stones/standing_stone_4_Base_color.png" default_index="0">
+		<default_color r="128" g="128" b="128"/>
+		<mipmap filter="None" bias="0.0"/>
+	</color_map>
+	<material_map input_file="" fixed_palette="false">
+		<red_channel type="0" slots="0" pbr_type="0" pbr_roughness="0.0" pbr_metalness="0.0" pbr_emissive="0.0" tones_balance="0"/>
+		<green_channel type="0" slots="0" pbr_type="0" pbr_roughness="0.0" pbr_metalness="0.0" pbr_emissive="0.0" tones_balance="0"/>
+		<blue_channel type="0" slots="0" pbr_type="0" pbr_roughness="0.0" pbr_metalness="0.0" pbr_emissive="0.0" tones_balance="0"/>
+		<alpha_channel type="0" slots="0" pbr_type="0" pbr_roughness="0.0" pbr_metalness="0.0" pbr_emissive="0.0" tones_balance="0"/>
+	</material_map>
+	<displacement_map input_file="" height="0" signed="false" normalize_disp="false"/>
+	<soil_map input_file="" depth="0" normalize_soil="false"/>
+	<grass_map input_file="" color_file="" height="5" density="0.6" ground_blend="0" normalize_grass="false" heightmap_file="" normalize_heightmap="false" num_colorrows="1">
+		<mat_range max="14"/>
+	</grass_map>
+	<fill_layer num_layers="0">
+		<fill_types flood="false" raster="false"/>
+		<fill_mat type="7"/>
+		<beg_color r="38" g="38" b="38"/>
+		<end_color r="225" g="225" b="225"/>
+	</fill_layer>
+	<solid_fill enable="false"/>
+	<trim negx="0" posx="0" negy="0" posy="0" negz="0" posz="0"/>
+	<misc compress="false" multifiles="false" gamma="false" trans_clip="0" optimize_scene="false" optimize_count="0" optimize_accuracy="Terrain Uniform" connectivity="false"/>
+</voxtool>
+

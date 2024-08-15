@@ -14,7 +14,10 @@
     "Nodes": [
       {
         "Id": 0,
-        "Type": "input"
+        "Type": "input",
+        "UserData": {
+          "Position": "336,-144"
+        }
       },
       {
         "Id": 1,
@@ -67,17 +70,6 @@
         }
       },
       {
-        "Id": 13,
-        "Type": "resource.ref",
-        "Properties": {
-          "T": "Sandbox.Model",
-          "value": "models/props/standing_stones/standing_stone_3.vmdl"
-        },
-        "UserData": {
-          "Position": "-96,560"
-        }
-      },
-      {
         "Id": 14,
         "Type": "call",
         "Properties": {
@@ -86,7 +78,71 @@
           "_name": "SpawnProp"
         },
         "UserData": {
-          "Position": "608,48"
+          "Position": "864,-112"
+        }
+      },
+      {
+        "Id": 20,
+        "Type": "resource.ref",
+        "Properties": {
+          "T": "Sandbox.Model",
+          "value": "models/props/standing_stones/standing_stone_3.vmdl"
+        },
+        "UserData": {
+          "Position": "-96,576"
+        }
+      },
+      {
+        "Id": 21,
+        "Type": "resource.ref",
+        "Properties": {
+          "T": "Sandbox.Model",
+          "value": "models/props/standing_stones/standing_stone_4.vmdl"
+        },
+        "UserData": {
+          "Position": "224,608"
+        }
+      },
+      {
+        "Id": 22,
+        "Type": "random.chance",
+        "UserData": {
+          "Position": "384,336"
+        }
+      },
+      {
+        "Id": 23,
+        "Type": "op.conditional",
+        "UserData": {
+          "Position": "656,400"
+        }
+      },
+      {
+        "Id": 35,
+        "Type": "property",
+        "ParentId": 0,
+        "Properties": {
+          "_type": "Vector3",
+          "_name": "z"
+        }
+      },
+      {
+        "Id": 36,
+        "Type": "call",
+        "Properties": {
+          "_type": "Vector3",
+          "_isStatic": false,
+          "_name": "WithZ"
+        },
+        "UserData": {
+          "Position": "576,-16"
+        }
+      },
+      {
+        "Id": 37,
+        "Type": "op.subtract",
+        "UserData": {
+          "Position": "400,32"
         }
       }
     ],
@@ -121,7 +177,7 @@
         "DstName": "a"
       },
       {
-        "SrcId": 13,
+        "SrcId": 20,
         "SrcName": "_result",
         "DstId": 7,
         "DstName": "b"
@@ -145,21 +201,77 @@
         "DstName": "_target"
       },
       {
-        "SrcId": 6,
+        "SrcId": 23,
         "SrcName": "_result",
         "DstId": 14,
         "DstName": "model"
       },
       {
-        "SrcId": 0,
-        "SrcName": "origin",
+        "SrcId": 36,
+        "SrcName": "_result",
         "DstId": 14,
         "DstName": "position"
       },
       {
-        "Value": 0.4,
+        "Value": 1,
         "DstId": 14,
         "DstName": "scale"
+      },
+      {
+        "Value": 0.33333334,
+        "DstId": 22,
+        "DstName": "probability"
+      },
+      {
+        "SrcId": 21,
+        "SrcName": "_result",
+        "DstId": 23,
+        "DstName": "a"
+      },
+      {
+        "SrcId": 6,
+        "SrcName": "_result",
+        "DstId": 23,
+        "DstName": "b"
+      },
+      {
+        "SrcId": 22,
+        "SrcName": "_result",
+        "DstId": 23,
+        "DstName": "x"
+      },
+      {
+        "SrcId": 0,
+        "SrcName": "origin",
+        "DstId": 35,
+        "DstName": "_target"
+      },
+      {
+        "SrcId": 0,
+        "SrcName": "origin",
+        "DstId": 36,
+        "DstName": "_target"
+      },
+      {
+        "SrcId": 37,
+        "SrcName": "_result",
+        "DstId": 36,
+        "DstName": "z"
+      },
+      {
+        "SrcId": 35,
+        "SrcName": "_result",
+        "DstId": 37,
+        "DstName": "a"
+      },
+      {
+        "Value": {
+          "$type": "Simple",
+          "Type": "System.Single",
+          "Value": 32
+        },
+        "DstId": 37,
+        "DstName": "b"
       }
     ]
   },
