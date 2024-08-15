@@ -109,6 +109,9 @@ public class WorldSave
 	[JsonIgnore]
 	public string FilePath { get; set; } = null;
 
+	[JsonIgnore]
+	public Guid Id { get; set; } = Guid.Empty;
+
 	/// <summary>
 	/// What's the target version?
 	/// </summary>
@@ -171,6 +174,7 @@ public sealed class WorldPersistence : Component
 		{
 			var save = FileSystem.Data.ReadJson<WorldSave>( $"worlds/{file}" );
 			save.FilePath = $"worlds/{file}";
+			save.Id = new Guid( file.Replace( ".json", "" ) );
 			saves.Add( save );
 		}
 
@@ -219,6 +223,10 @@ public sealed class WorldPersistence : Component
 	/// <param name="save"></param>
 	public void Load( WorldSave save )
 	{
+		// Mark as current save
+		CurrentSave = save.Id;
+		WorldName = save.Name;
+
 		// Host only
 		if ( !Sandbox.Networking.IsHost )
 		{
