@@ -180,7 +180,7 @@
                     return;
                 }
 
-                var newItem = Item.Create(itemInSlotA.Resource, itemInSlotA.BlockType);
+                var newItem = Item.Create(itemInSlotA.Resource);
                 slotB.Inventory.TryGiveItemSlot(newItem, slotB.SlotIndex);
                 itemInSlotA.Amount--;
             }
@@ -209,7 +209,7 @@
             }
             else
             {
-                var newItem = Item.Create(itemInSlotA.Resource, itemInSlotA.BlockType, splitAmount);
+                var newItem = Item.Create(itemInSlotA.Resource, splitAmount);
                 slotB.Inventory.TryGiveItemSlot(newItem, slotB.SlotIndex);
                 itemInSlotA.Amount -= splitAmount;
             }

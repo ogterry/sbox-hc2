@@ -6,7 +6,6 @@ namespace HC2;
 public partial class WorldItem : Component, Component.ITriggerListener
 {
 	[Property] public ItemAsset Resource { get; set; }
-	[Property] public Block BlockType { get; set; }
 	[Sync] public int Amount { get; set; } = 1;
 
 	[RequireComponent]
@@ -71,7 +70,7 @@ public partial class WorldItem : Component, Component.ITriggerListener
 	[Broadcast( NetPermission.HostOnly )]
 	void Pickup( Player player )
 	{
-		var item = Item.Create( Resource, BlockType, Amount );
+		var item = Item.Create( Resource, Amount );
 
 		if ( player.Hotbar.TryGiveItem( item ) )
 		{
@@ -83,48 +82,6 @@ public partial class WorldItem : Component, Component.ITriggerListener
 	void DestroyOnAuthority()
 	{
 		GameObject.Destroy();
-	}
-	
-	/// <summary>
-	/// Quick and nasty accessor for creating a world item. This could be loads better.
-	/// </summary>
-	/// <param name="item"></param>
-	/// <param name="worldPosition"></param>
-	/// <returns></returns>
-	public static WorldItem CreateInstance( Item item, Vector3 worldPosition )
-	{
-		// Push the active scene
-		using var _ = Game.ActiveScene.Push();
-
-		var go = new GameObject();
-		go.Name = $"World Item {item.Resource}";
-		go.Transform.Position = worldPosition;
-
-		var sphereCollider = go.Components.Create<SphereCollider>();
-		sphereCollider.Radius = 16;
-
-		var worldItem = go.Components.Create<WorldItem>();
-
-		worldItem.BlockType = item.BlockType;
-		worldItem.Resource = item.Resource;
-		worldItem.Amount = item.Amount;
-		
-		worldItem.Rigidbody.LinearDamping = 1f;
-
-		var spinningItem = new GameObject();
-		spinningItem.Parent = go;
-
-		var mdl = spinningItem.Components.Create<SkinnedModelRenderer>();
-		mdl.Model = item.Resource.WorldModel;
-		worldItem.ModelRenderer = mdl;
-		worldItem.SpinningItem = spinningItem;
-
-		go.NetworkSpawn();
-
-		// Conna: if the Item is a BlockItem we'll handle this differently. We'll wanna
-		// use a custom model with a material override or something for the block texture.
-		
-		return worldItem;
 	}
 
 	/// <summary>
@@ -158,6 +115,9 @@ public partial class WorldItem : Component, Component.ITriggerListener
 		mdl.Model = itemAsset.WorldModel;
 		worldItem.ModelRenderer = mdl;
 		worldItem.SpinningItem = spinningItem;
+		
+		// Conna: if the Item is a block we'll handle this differently. We'll wanna
+		// use a custom model with a material override or something for the block texture.
 
 		go.NetworkSpawn();
 

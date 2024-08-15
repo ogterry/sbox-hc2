@@ -13,14 +13,14 @@ public class Block : GameResource, IValid
 	[KeyProperty] public string Name { get; set; } = "Block";
 	
 	/// <summary>
+	/// Which item resource this block uses.
+	/// </summary>
+	public ItemAsset ItemResource { get; set; }
+	
+	/// <summary>
 	/// The color of this block.
 	/// </summary>
 	public Color Color { get; set; }
-
-	/// <summary>
-	/// How many of this block type can stack together.
-	/// </summary>
-	public int MaxStack { get; set; } = 99;
 
 	/// <summary>
 	/// The texture of this block.
@@ -75,6 +75,8 @@ public class Block : GameResource, IValid
 	public void BlockDestroyed( VoxelRenderer renderer, Vector3 worldPos )
 	{
 		Assert.False( renderer.IsProxy );
-		WorldItem.CreateInstance( Item.Create( this ), worldPos );
+		
+		if ( ItemResource is null ) return;
+		WorldItem.CreateInstance( ItemResource, worldPos );
 	}
 }

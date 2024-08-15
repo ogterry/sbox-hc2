@@ -1,4 +1,6 @@
-﻿namespace HC2;
+﻿using Voxel;
+
+namespace HC2;
 
 public enum ItemCategory
 {
@@ -34,6 +36,11 @@ public class ItemAsset : GameResource
 	/// What does the item do?
 	/// </summary>
 	[TextArea] public string Description { get; set; }
+	
+	/// <summary>
+	/// The block type of this item.
+	/// </summary>
+	public Block BlockType { get; set; }
 
 	/// <summary>
 	/// What category this item belongs to.

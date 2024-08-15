@@ -37,12 +37,12 @@ public class Item : IValid
 	/// <summary>
 	/// Get the name of this item.
 	/// </summary>
-	[JsonIgnore, Hide] public string Name => BlockType?.Name ?? Resource?.Name ?? string.Empty;
+	[JsonIgnore, Hide] public string Name => Resource?.Name ?? string.Empty;
 	
 	/// <summary>
 	/// Get the max stack size for this item according to its resource asset.
 	/// </summary>
-	[JsonIgnore, Hide] public int MaxStack => BlockType?.MaxStack ?? Resource?.MaxStack ?? 1;
+	[JsonIgnore, Hide] public int MaxStack => Resource?.MaxStack ?? 1;
 
 	public static Item Create( ItemAsset resource, int amount = 1 )
 	{
@@ -52,21 +52,13 @@ public class Item : IValid
 	
 	public static Item Create( Block blockType, int amount = 1 )
 	{
-		// Conna: this is a hack. Try to find an ItemAsset type with the resource name block.
-		// We should instead define a reference to this block type somewhere and look it up there.
 		var resource = ResourceLibrary.GetAll<ItemAsset>()
-			.FirstOrDefault( x => x.ResourceName == "block" );
+			.FirstOrDefault( x => x.BlockType == blockType );
 
 		if ( resource is null )
 			throw new FileNotFoundException( "Unable to find a block.item ItemAsset file!" );
 		
-		var item = new Item { Resource = resource, BlockType = blockType, Amount = amount, Durability = resource.MaxDurability };
-		return item;
-	}
-	
-	public static Item Create( ItemAsset resource, Block blockType, int amount = 1 )
-	{
-		var item = new Item { Resource = resource, BlockType = blockType, Amount = amount, Durability = resource.MaxDurability };
+		var item = new Item { Resource = resource, Amount = amount, Durability = resource.MaxDurability };
 		return item;
 	}
 
