@@ -15,7 +15,7 @@ public enum ModificationKind : byte
 /// Interface for networked modifications. To create a new one:
 ///
 /// <list type="number">
-/// <item>Add an entry to <see cref="ModificationKind"/></item
+/// <item>Add an entry to <see cref="ModificationKind"/></item>
 /// <item>Return that in your <see cref="Kind"/> implementation</item>
 /// <item>Add a case in <see cref="VoxelNetworking.Apply(VoxelNetworking.Modification)"/></item>
 /// </list>
