@@ -170,6 +170,7 @@ public partial class VoxelModel
 		public Color Color;
 		public Vector2 TextureSize;
 		public int TextureIndex;
+		// TODO: Could have a damage texture index here, instead of tinting
 		public int Pad3;
 	}
 
@@ -190,16 +191,19 @@ public partial class VoxelModel
 			return;
 		}
 
-		for ( var i = 0; i < palette.Blocks.Count; ++i )
+		for ( var i = 1; i < 256; ++i )
 		{
-			var material = palette.Blocks[i];
-			material.Texture?.MarkUsed( int.MaxValue );
+			var entry = palette.GetEntry( (byte)i );
+			if ( entry.IsEmpty ) continue;
 
-			Palette[i] = new PaletteMaterial
+			var block = entry.Block;
+			var healthFraction = block.IsBreakable ? entry.Health / Math.Max( 1f, block.MaxHealth ) : 1f;
+
+			Palette[i - 1] = new PaletteMaterial
 			{
-				Color = material.Color,
-				TextureIndex = material.Texture?.Index ?? WhiteTexture.Index,
-				TextureSize = material.TextureSize,
+				Color = block.Color.Desaturate( 1f - healthFraction * 0.5f ).Darken( 1f - healthFraction * 0.5f ),
+				TextureIndex = block.Texture?.Index ?? WhiteTexture.Index,
+				TextureSize = block.TextureSize,
 			};
 		}
 

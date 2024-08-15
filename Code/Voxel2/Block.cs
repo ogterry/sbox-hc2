@@ -41,7 +41,7 @@ public class Block : GameResource, IValid
 	/// <summary>
 	/// The max health of this block (where 0 is indestructible).
 	/// </summary>
-	[Range( 0, 16)] public int MaxHealth { get; set; } = 8;
+	[ShowIf( nameof( IsBreakable ), true ), Range( 0, 16 )] public int MaxHealth { get; set; } = 8;
 	
 	/// <summary>
 	/// What kind of material this block is with regards to taking damage.
