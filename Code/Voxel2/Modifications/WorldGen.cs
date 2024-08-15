@@ -357,6 +357,23 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 		return prop;
 	}
 
+	public GameObject? SpawnSpawnPoint( Vector3 position )
+	{
+		var go = new GameObject( true );
+		go.Name = "Spawn Point";
+		go.Transform.Position = position;
+		go.Components.Create<SpawnPoint>();
+		go.Flags |= GameObjectFlags.NotSaved;
+		_spawnedObjects.Add( go );
+
+		if ( !Scene.IsEditor )
+		{
+			go.NetworkSpawn();
+		}
+
+		return go;
+	}
+
 	public GameObject? SpawnPrefab( PrefabFile prefab, Vector3 position )
 	{
 		// Sample random even if we don't spawn, to keep things deterministic
@@ -402,7 +419,6 @@ public sealed class WorldGenFeature : GameResource
 
 	public float Radius { get; set; } = 512f;
 	public float Weight { get; set; } = 1f;
-
 
 	public delegate void SpawnDelegate( VoxelWorldGen worldGen, Vector3 origin );
 
