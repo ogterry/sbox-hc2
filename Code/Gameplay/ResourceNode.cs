@@ -47,9 +47,9 @@ public sealed class ResourceNode : Component,
 
 	private float GetWeaponEffectiveness( DamageInstance damageInfo )
 	{
-		if ( damageInfo.Inflictor is not { } inflictor ) return 0f;
+		if ( damageInfo.Inflictor is not Component ) return 0f;
 
-		return inflictor.Components.GetAll<ResourceGatherer>()
+		return damageInfo.Inflictor.Components.GetAll<ResourceGatherer>( FindMode.EverythingInSelf )
 			.Where( x => x.SourceKind == SourceKind )
 			.Select( x => x.Effectiveness )
 			.DefaultIfEmpty( 0f )

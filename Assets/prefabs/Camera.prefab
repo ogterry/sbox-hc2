@@ -2,9 +2,9 @@
   "RootObject": {
     "__guid": "55553c7c-a8e3-4e22-a0fd-9b43af4c4d40",
     "Flags": 0,
-    "Name": "Camera",
-    "Position": "-78.14015,-32.58475,2.738846",
+    "Name": "camera",
     "Enabled": true,
+    "NetworkMode": 0,
     "Components": [
       {
         "__type": "Sandbox.CameraComponent",
@@ -144,7 +144,9 @@
           }
         ]
       }
-    ]
+    ],
+    "Children": [],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,
