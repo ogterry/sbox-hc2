@@ -116,9 +116,6 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 	private void Regenerate()
 	{
 		VoxelNetworking.Modify( new WorldGenModification( Seed, Parameters.ResourceId, 0, VoxelNetworking.Renderer.Size ) );
-
-		if ( IsProxy ) return;
-
 		SpawnProps();
 	}
 
@@ -233,29 +230,13 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 
 			localPos.y = sample.Height;
 
-			Log.Info( localPos );
-
 			filteredFeatures.Clear();
 
 			foreach ( var feature in features )
 			{
-				if ( feature.Radius >= minDist )
-				{
-					Log.Info( "Too close!" );
-					continue;
-				}
-
-				if ( feature.HeightRange.x > sample.Height || feature.HeightRange.y < sample.Height )
-				{
-					Log.Info( $"out of height range!" );
-					continue;
-				}
-
-				if ( feature.BiomeRange.x > sample.Terrain || feature.BiomeRange.y < sample.Terrain )
-				{
-					Log.Info( "out of biome range!" );
-					continue;
-				}
+				if ( feature.Radius >= minDist ) continue;
+				if ( feature.HeightRange.x > sample.Height || feature.HeightRange.y < sample.Height ) continue;
+				if ( feature.BiomeRange.x > sample.Terrain || feature.BiomeRange.y < sample.Terrain ) continue;
 
 				filteredFeatures.Add( feature );
 			}
@@ -275,7 +256,7 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 
 	public Prop SpawnProp( Model model, Vector3 position, float scale = 1f )
 	{
-		var go = new GameObject( true, "Prop" )
+		var go = new GameObject( true, model.ResourceName )
 		{
 			Transform = {
 				Position = position.SnapToGrid( 4f ),
@@ -293,20 +274,31 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 
 		go.Flags |= GameObjectFlags.NotSaved;
 
-		go.NetworkSpawn();
-
 		return prop;
 	}
 
 	public GameObject SpawnPrefab( PrefabFile prefab, Vector3 position )
 	{
-		var go = GameObject.Clone( prefab, new Transform( position.SnapToGrid( 4f ), Rotation.FromYaw( Random.Shared.Next( 0, 4 ) * 90f ) ) );
+		// Sample random even if we don't spawn, to keep things deterministic
+
+		var yaw = Rotation.FromYaw( Random.Next( 0, 4 ) * 90f );
+		var isNetworked = prefab.RootObject["NetworkMode"]?.GetValue<int>() == (int)NetworkMode.Object;
+
+		if ( IsProxy && isNetworked )
+		{
+			return null;
+		}
+
+		var go = GameObject.Clone( prefab, new Transform( position.SnapToGrid( 4f ), yaw ) );
 
 		_spawnedObjects.Add( go );
 
 		go.Flags |= GameObjectFlags.NotSaved;
 
-		go.NetworkSpawn();
+		if ( isNetworked )
+		{
+			go.NetworkSpawn();
+		}
 
 		return go;
 	}
@@ -380,10 +372,10 @@ public sealed class WorldGenSampler
 		var centrality = Math.Clamp( edgeDist, 0f, 1f );
 
 		var heightNoisePos = _heightNoiseTransform.PointToWorld( new Vector3( x, y, 0f ) );
-		var heightNoise = Math.Clamp( Noise.Fbm( 4, heightNoisePos.x, heightNoisePos.y, heightNoisePos.z ), 0f, 1f ) * centrality;
+		var heightNoise = Math.Clamp( Noise.Fbm( 6, heightNoisePos.x, heightNoisePos.y, heightNoisePos.z ), 0f, 1f ) * centrality;
 
 		var terrainNoisePos = _biomeNoiseTransform.PointToWorld( new Vector3( x, y, 0f ) );
-		var terrainNoise = Math.Clamp( Noise.Fbm( 3, terrainNoisePos.x, terrainNoisePos.y, terrainNoisePos.z ) * centrality, 0f, 1f );
+		var terrainNoise = Math.Clamp( Noise.Fbm( 4, terrainNoisePos.x, terrainNoisePos.y, terrainNoisePos.z ) * centrality, 0f, 1f );
 
 		terrainNoise = _terrainBias.Evaluate( terrainNoise );
 

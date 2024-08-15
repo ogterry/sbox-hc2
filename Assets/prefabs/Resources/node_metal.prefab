@@ -3,8 +3,6 @@
     "__guid": "1682e63e-8c0d-4a68-b4fd-d8bac6ff10c6",
     "Flags": 0,
     "Name": "node_metal",
-    "Position": "-1692.051,482.8387,136.8192",
-    "Rotation": "0,0,0.258819,0.9659258",
     "Enabled": true,
     "NetworkMode": 1,
     "Components": [
@@ -40,7 +38,6 @@
         "__guid": "8690e87e-2c9e-4a10-8df2-27d935dd57d4",
         "Flags": 0,
         "Name": "100%",
-        "Position": "0,0,0",
         "Enabled": true,
         "Components": [
           {
@@ -58,7 +55,8 @@
           }
         ]
       }
-    ]
+    ],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,

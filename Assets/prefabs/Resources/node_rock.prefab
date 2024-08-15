@@ -4,6 +4,7 @@
     "Flags": 0,
     "Name": "node_rock",
     "Enabled": true,
+    "NetworkMode": 1,
     "Components": [
       {
         "__type": "HC2.ResourceNode",

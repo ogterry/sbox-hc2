@@ -1,6 +1,6 @@
 {
-  "HeightRange": "6.00,14.00,1",
-  "BiomeRange": "0.00,0.40,1",
+  "HeightRange": "4.00,8.00,1",
+  "BiomeRange": "0.00,0.15,1",
   "Radius": 512,
   "Weight": 0.05,
   "Spawn": {
@@ -20,8 +20,8 @@
         "Id": 2,
         "Type": "resource.ref",
         "Properties": {
-          "T": "Sandbox.Model",
-          "value": "models/props/bothy/bothy.vmdl"
+          "value": "models/props/bothy/bothy.vmdl",
+          "T": "Sandbox.Model"
         },
         "UserData": {
           "Position": "-0,224"
