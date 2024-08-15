@@ -75,7 +75,6 @@ public class Block : GameResource, IValid
 	public void BlockDestroyed( VoxelRenderer renderer, Vector3 worldPos )
 	{
 		Assert.False( renderer.IsProxy );
-
 		WorldItem.CreateInstance( Item.Create( this ), worldPos );
 	}
 }
