@@ -171,7 +171,7 @@ public partial class Player : Component, IDamage,
 	/// <summary>
 	/// What's our holdtype?
 	/// </summary>
-	public CitizenAnimationHelper.HoldTypes HoldType { get; set; }
+	[Sync] public CitizenAnimationHelper.HoldTypes HoldType { get; set; }
 
 	RealTimeSince timeSinceLastSave = 0;
 
@@ -494,10 +494,22 @@ public partial class Player : Component, IDamage,
 		var item = eventArgs.Item;
 		if ( item is null ) return;
 
-		if ( item.Resource.Prefab is not null )
+		var prefab = item.Resource.Prefab;
+		if ( prefab is null && item.Resource.BlockType is not null )
 		{
-			var obj = SceneUtility.GetPrefabScene( item.Resource.Prefab );
-			SetMainHand( obj );
+			prefab = ResourceLibrary.Get<PrefabFile>( "prefabs/weapons/block_placer.prefab" );
+		}
+
+		if ( prefab is not null )
+		{
+			var obj = SceneUtility.GetPrefabScene( prefab );
+			var inst = SetMainHand( obj );
+
+			if ( inst.Components.TryGet<BlockPlacer>( out var placer, FindMode.EverythingInSelfAndDescendants ) )
+			{
+				Log.Info( item.Resource.BlockType );
+				placer.BlockType = item.Resource.BlockType;
+			}
 		}
 	}
 

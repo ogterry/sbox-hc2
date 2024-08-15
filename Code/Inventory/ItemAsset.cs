@@ -36,7 +36,7 @@ public class ItemAsset : GameResource
 	/// What does the item do?
 	/// </summary>
 	[TextArea] public string Description { get; set; }
-	
+
 	/// <summary>
 	/// The block type of this item.
 	/// </summary>
@@ -76,7 +76,11 @@ public class ItemAsset : GameResource
 	/// <summary>
 	/// What world model to use for this item.
 	/// </summary>
+	[Category( "World Model" )]
 	public Model WorldModel { get; set; }
+
+	[Category( "World Model" )]
+	public Transform WorldModelOffset { get; set; } = new Transform( Vector3.Zero, Rotation.Identity, 1f );
 
 	[Category( "Crafting" )]
 	public List<Item> CraftingRequirements { get; set; }
@@ -100,7 +104,7 @@ public class ItemAsset : GameResource
 	{
 		return BlockType?.Color ?? Color.White;
 	}
-	
+
 	/// <summary>
 	/// A list of status effects that this item applies to the player when equipped/consumed.
 	/// </summary>

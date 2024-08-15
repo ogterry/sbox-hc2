@@ -1,0 +1,24 @@
+{
+  "RootObject": {
+    "__guid": "70818148-0689-41d7-a059-1216c8afd3cd",
+    "Flags": 0,
+    "Name": "block_placer",
+    "Enabled": true,
+    "Components": [
+      {
+        "__type": "BlockPlacer",
+        "__guid": "bc7746cb-b324-472d-b05a-5a7a61f641f6",
+        "Hand": "MainHand",
+        "HoldType": "Pistol"
+      }
+    ],
+    "Children": [],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

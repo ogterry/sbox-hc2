@@ -12,7 +12,14 @@
         "__guid": "f87dcfd7-78a3-4a06-a1d9-5b927d74d0b1",
         "DamageScale": 1,
         "ExperienceYield": 6,
-        "ItemDrops": []
+        "HitSound": "sounds/mobs/roller/hit/roller_ball_hit.sound",
+        "ItemDrops": [
+          {
+            "Item": "items/metal_piece.item",
+            "AmountRange": "0,2",
+            "Chance": 100
+          }
+        ]
       },
       {
         "__type": "HealthComponent",

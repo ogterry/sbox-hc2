@@ -1,3 +1,5 @@
+@import "./Styles/_theme.scss";
+
 SpectatorHud
 {
 	position: absolute;
@@ -5,8 +7,7 @@ SpectatorHud
 	left: 0;
 	right: 0;
 	bottom: 0;
-	font-family: Glegoo;
-	font-size: 48px;
+	font-size: 24px;
 	color: white;
 
 	.container
@@ -23,12 +24,13 @@ SpectatorHud
 		.footer
 		{
 			width: 100%;
-			padding: 42px;
+			padding: 24px;
 			background-color: rgba(black, 0.5);
 			justify-content: center;
+
 			> div
 			{
-				gap: 16px;
+				gap: 8px;
 			}
 		}
 	}

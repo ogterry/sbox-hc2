@@ -37,13 +37,16 @@ public class Hotbar : Inventory
             }
         }
 
-        if ( Input.MouseWheel.y < 0 )
+        if ( !(Input.Down( "Run" ) && Player.Local.MainHand is BlockPlacer) )
         {
-            SelectSlot( (SelectedSlot + 1) % MaxSlots );
-        }
-        else if ( Input.MouseWheel.y > 0 )
-        {
-            SelectSlot( (SelectedSlot - 1 + MaxSlots) % MaxSlots );
+            if ( Input.MouseWheel.y < 0 )
+            {
+                SelectSlot( (SelectedSlot + 1) % MaxSlots );
+            }
+            else if ( Input.MouseWheel.y > 0 )
+            {
+                SelectSlot( (SelectedSlot - 1 + MaxSlots) % MaxSlots );
+            }
         }
     }
 
@@ -65,7 +68,7 @@ public class Hotbar : Inventory
         }
 
         SelectedSlot = slot;
-        
+
         var newItem = SelectedItem;
         if ( newItem is not null )
         {
@@ -78,7 +81,7 @@ public class Hotbar : Inventory
             {
                 GameObject.Dispatch( new ItemUnequipEvent( LastEquippedItem ) );
             }
-            
+
             LastEquippedItem = null;
         }
     }

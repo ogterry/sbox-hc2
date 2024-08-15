@@ -166,6 +166,11 @@ public sealed class WorldPersistence : Component
 	public static string FileToLoad { get; set; } = null;
 
 	/// <summary>
+	/// Singleton
+	/// </summary>
+	public static WorldPersistence Instance { get; private set; }
+
+	/// <summary>
 	/// This is shitty but should work
 	/// </summary>
 	public static void TryLoadWorld( Connection channel )
@@ -227,6 +232,7 @@ public sealed class WorldPersistence : Component
 
 	protected override void OnStart()
 	{
+		Instance = this;
 	}
 
 	[HostSync]

@@ -1,5 +1,7 @@
 using HC2.Mobs;
 using System.Text.Json.Serialization;
+using Sandbox.Events;
+using Voxel;
 
 public partial class HomingMissile : Component, Component.ICollisionListener
 {
@@ -126,7 +128,12 @@ public partial class HomingMissile : Component, Component.ICollisionListener
 		var contactPoint = other.Contact.Point;
 		if ( contactPoint == Vector3.Zero ) contactPoint = Transform.Position;
 
-		var healthComponent = other.Other.GameObject.Root.Components.Get<HealthComponent>();
+		if ( other.Other.Shape.Tags.Has( "voxel" ) )
+		{
+			Scene.Dispatch( new DamageWorldEvent( contactPoint + Rigidbody.Velocity.Normal * 8f, Rigidbody.Velocity.Normal, GameObject, Damage ) );
+		}
+
+		var healthComponent = other.Other.GameObject?.Root.Components.Get<HealthComponent>();
 		if ( healthComponent.IsValid() )
 		{
 			healthComponent.TakeDamage( new DamageInstance()

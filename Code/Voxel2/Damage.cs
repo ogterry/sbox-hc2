@@ -25,7 +25,7 @@ public sealed class VoxelDamage : Component,
 
 		// TODO: maybe go with ToolType instead xD
 
-		foreach ( var gatherer in eventArgs.Inflictor.Components.GetAll<ResourceGatherer>() )
+		foreach ( var gatherer in eventArgs.Inflictor.Components.GetAll<ResourceGatherer>( FindMode.EverythingInSelf ) )
 		{
 			// TODO: influence radius / damage with effectiveness
 

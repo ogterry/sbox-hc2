@@ -58,7 +58,7 @@ public class Item : IValid
 		if ( resource is null )
 			throw new FileNotFoundException( "Unable to find a block.item ItemAsset file!" );
 		
-		var item = new Item { Resource = resource, Amount = amount, Durability = resource.MaxDurability };
+		var item = new Item { Resource = resource, Amount = amount, Durability = resource.MaxDurability, BlockType = blockType };
 		return item;
 	}
 

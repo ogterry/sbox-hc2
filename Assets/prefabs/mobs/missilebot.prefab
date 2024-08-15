@@ -11,7 +11,8 @@
         "__type": "HC2.Mobs.Mob",
         "__guid": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
         "DamageScale": 1,
-        "ExperienceYield": 10
+        "ExperienceYield": 10,
+        "ItemDrops": []
       },
       {
         "__type": "Sandbox.CharacterController",
@@ -64,7 +65,11 @@
         "Components": [
           {
             "__type": "Sandbox.States.StateMachineComponent",
-            "__guid": "399e6eab-0a17-4393-bedf-cfb7af30bcf8"
+            "__guid": "399e6eab-0a17-4393-bedf-cfb7af30bcf8",
+            "Serialized": {
+              "States": [],
+              "Transitions": []
+            }
           }
         ]
       },

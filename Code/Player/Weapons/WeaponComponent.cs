@@ -40,11 +40,6 @@ public abstract class WeaponComponent : Carriable
 	[Property, Group( "Aiming" ), ShowIf( nameof( AimingEnabled ), true ), Title( "Aiming FOV Offset" )] public float AimingFOVOffset { get; set; }
 
 	/// <summary>
-	/// How do we hold this weapon?
-	/// </summary>
-	[Property, Group( "Visuals" )] public CitizenAnimationHelper.HoldTypes HoldType { get; set; } = CitizenAnimationHelper.HoldTypes.None;
-
-	/// <summary>
 	/// The shoot sound
 	/// </summary>
 	[Property, Group( "Audio" )] public SoundEvent AttackSound { get; set; }
@@ -75,12 +70,6 @@ public abstract class WeaponComponent : Carriable
 
 	protected override void OnFixedUpdate()
 	{
-		// TODO: Make this better
-		if ( Player.IsValid() )
-		{
-			Player.HoldType = HoldType;
-		}
-
 		// We don't care about doing anything if we're non-local
 		if ( IsProxy )
 			return;

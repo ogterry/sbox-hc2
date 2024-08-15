@@ -14,11 +14,14 @@ public sealed class VoxelNetworking : Component, Component.ExecuteInEditor
 
 	private record struct Modification( int Index, ModificationKind Kind, Vector3Int Min, Vector3Int Max, byte[] Data );
 
-	private readonly List<Modification> _history = new();
+	// private readonly List<Modification> _history = new();
 	private readonly Queue<Modification> _toApply = new();
 
 	private int _nextIndex;
 
+	/// <summary>
+	/// Applies a world modification, broadcasting it to other players if we're the host.
+	/// </summary>
 	public void Modify<T>( T modification )
 		where T : IModification
 	{
@@ -35,7 +38,7 @@ public sealed class VoxelNetworking : Component, Component.ExecuteInEditor
 
 			if ( !IsProxy )
 			{
-				_history.Add( serialized );
+				// _history.Add( serialized );
 				BroadcastSingle( serialized );
 			}
 			else
@@ -75,11 +78,15 @@ public sealed class VoxelNetworking : Component, Component.ExecuteInEditor
 		switch ( modification.Kind )
 		{
 			case ModificationKind.WorldGen:
-				Apply( new WorldGenModification( stream ) );
+				Apply( new WorldGenModification( stream, modification.Min, modification.Max ) );
 				break;
 
 			case ModificationKind.Carve:
 				Apply( new CarveModification( stream ) );
+				break;
+
+			case ModificationKind.Build:
+				Apply( new BuildModification( stream, modification.Min, modification.Max ) );
 				break;
 
 			default:

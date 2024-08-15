@@ -44,6 +44,24 @@
         "IsTrigger": false,
         "Radius": 2,
         "Static": false
+      },
+      {
+        "__type": "HC2.ResourceGatherer",
+        "__guid": "b26f287f-b68c-49dd-aacd-1762555a4f61",
+        "Effectiveness": 1,
+        "SourceKind": "Soil"
+      },
+      {
+        "__type": "HC2.ResourceGatherer",
+        "__guid": "f79e81a8-957f-4c3e-823f-b2561ccad9bd",
+        "Effectiveness": 1,
+        "SourceKind": "Wood"
+      },
+      {
+        "__type": "HC2.ResourceGatherer",
+        "__guid": "09a6bcfc-f7ee-4132-a7f6-b7643a80eafe",
+        "Effectiveness": 1,
+        "SourceKind": "Stone"
       }
     ],
     "Children": [

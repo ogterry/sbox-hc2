@@ -84,11 +84,13 @@ public sealed class ResourceNode : Component,
 
 		_spareDamage += damage;
 
+		var itemHeight = GameObject.GetBounds().Size.z / 2f;
+		if ( itemHeight < 16f ) itemHeight = 16f;
 		while ( _spareDamage >= DamagePerItem )
 		{
 			_spareDamage -= DamagePerItem;
 
-			var inst = WorldItem.CreateInstance( Item, Transform.Position + Vector3.Up * GameObject.GetBounds().Size.z / 2f );
+			var inst = WorldItem.CreateInstance( Item, Transform.Position + Vector3.Up * itemHeight );
 			inst.Rigidbody.MassOverride = 10;
 
 			var randomYaw = Rotation.FromYaw( Game.Random.Int( 0, 360 ) );

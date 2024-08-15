@@ -3,7 +3,8 @@
 $item-height: 50px;
 $item-padding: 4px 16px;
 
-Chat {
+Chat
+{
     width: 450px;
     flex-direction: column-reverse;
     align-items: stretch;
@@ -12,20 +13,23 @@ Chat {
     justify-content: flex-end;
     gap: 4px;
 
-    .output {
+    .output
+    {
         flex-grow: 1;
         flex-direction: column;
         justify-content: flex-end;
         gap: 5px;
 
-        .entry {
+        .entry
+        {
             padding: $item-padding;
             height: $item-height;
             gap: 8px;
             align-items: center;
             flex-grow: 0;
 
-            .avatar {
+            .avatar
+            {
                 width: 32px;
                 height: 32px;
                 background-position: center;
@@ -33,38 +37,45 @@ Chat {
                 border-radius: 100px;
             }
 
-            .author {
+            .author
+            {
                 color: $primary;
                 white-space: nowrap;
                 flex-shrink: 0;
                 font-weight: bold;
             }
 
-            .message {
+            .message
+            {
                 color: #fff;
             }
         }
     }
 
-    .input {
+    .input
+    {
         color: white;
         height: $item-height;
         padding: $item-padding;
         width: 100%;
         height: 0;
 
-        .placeholder {
+        .placeholder
+        {
             padding: 0;
             opacity: 1;
         }
 
-        .label {
+        .label
+        {
             padding: 0;
         }
     }
 
-    &.open {
-        .input {
+    &.open
+    {
+        .input
+        {
             border-image: url( /ui/Transparent center/panel-transparent-center-009.png ) 11 fill;
             border-image-tint: $background;
             height: 52px;

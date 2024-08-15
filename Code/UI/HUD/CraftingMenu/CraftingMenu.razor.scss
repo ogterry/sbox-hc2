@@ -9,7 +9,6 @@ CraftingMenu
     width: 400px;
     max-width: 400px;
     font-family: Glegoo;
-    font-size: 16px;
     flex-direction: column;
     pointer-events: all;
     gap: 16px;
@@ -31,13 +30,15 @@ CraftingMenu
 
         .group
         {
-
+            flex-shrink: 0;
+            
             .header
             {
                 background-color: rgba(black, 0.2);
                 align-items: center;
                 border-image: url( /ui/Transparent center/panel-transparent-center-001.png ) 16 fill;
                 border-image-tint: rgba( white, 0.02 );
+                flex-shrink: 0;
             }
 
             .recipes
@@ -50,19 +51,22 @@ CraftingMenu
 
     .selected-item
     {
-        max-height: 256px;
+        height: auto;
         gap: 8px;
+        flex-shrink: 0;
 
         .header
         {
             max-height: 64px;
             align-items: center;
             gap: 8px;
+            flex-shrink: 0;
         }
 
         .requirements
         {
             gap: 8px;
+            flex-shrink: 0;
 
             .entry
             {
@@ -71,23 +75,7 @@ CraftingMenu
                 max-height: 32px;
                 align-items: center;
                 gap: 16px;
-            }
-        }
-
-        .button
-        {
-            padding: 8px;
-            background-color: rgba(black, 0.2);
-            cursor: pointer;
-            align-items: center;
-            gap: 8px;
-            justify-content: space-between;
-            border-image: url( /ui/Transparent center/panel-transparent-center-013.png ) 10 fill;
-            border-image-tint: rgba( white, 0.05 );
-
-            &:hover
-            {
-                background-color: rgba(black, 0.3);
+                flex-shrink: 0;
             }
         }
 

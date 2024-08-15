@@ -144,11 +144,12 @@ public class Inventory : Component, ISaveData
 	/// <param name="slot"></param>
 	public void TakeItemSlot( int slot )
 	{
-		var item = GetItemInSlot( slot );
-		if ( item is not null )
+		if ( slot < 0 || slot >= MaxSlots )
 		{
-			TakeItem( item );
+			throw new ArgumentOutOfRangeException( nameof( slot ) );
 		}
+
+		Items[slot] = null;
 	}
 
 	/// <summary>
@@ -372,7 +373,7 @@ public class Inventory : Component, ISaveData
 			var itemDurability = 1f;
 			if ( itemData.Length > 2 )
 				itemDurability = float.Parse( itemData[2] );
-			
+
 			var it = Item.Create( itemResource, itemAmount );
 			it.Durability = itemDurability;
 
