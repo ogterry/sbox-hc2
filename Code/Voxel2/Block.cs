@@ -1,5 +1,5 @@
 ﻿using System.Text.Json.Serialization;
-using Sandbox;
+using HC2;
 
 namespace Voxel;
 
@@ -44,19 +44,13 @@ public class Block : GameResource, IValid
 	[Range( 0, 16)] public int MaxHealth { get; set; } = 8;
 	
 	/// <summary>
-	/// Which tool tags are allowed to break this block.
+	/// What kind of material this block is with regards to taking damage.
 	/// </summary>
 	[ShowIf( nameof( IsBreakable ), true )]
-	public TagSet AllowedTools { get; set; }
+	public GatherSourceKind MaterialKind { get; set; }
 
 	/// <summary>
-	/// The minimum effectiveness that a tool must have to break this block.
-	/// </summary>
-	[ShowIf( nameof( IsBreakable ), true )]
-	[Range( 0f, 1f )] public float MinimumEffectiveness { get; set; } = 0f;
-
-	/// <summary>
-	/// Scale damage from tools by this amount.
+	/// Scale damage to this block by this amount.
 	/// </summary>
 	[ShowIf( nameof( IsBreakable ), true )]
 	public float DamageScale { get; set; } = 1f;
