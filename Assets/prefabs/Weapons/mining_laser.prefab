@@ -32,7 +32,13 @@
         "__type": "HC2.ResourceGatherer",
         "__guid": "24e04cf9-b2ef-493a-bf66-c263cc057d32",
         "Effectiveness": 1,
-        "SourceKind": "Wood"
+        "SourceKind": "Stone"
+      },
+      {
+        "__type": "HC2.ResourceGatherer",
+        "__guid": "fbc8d842-4dfd-4f8f-89b8-90b3b7234fa3",
+        "Effectiveness": 2,
+        "SourceKind": "SoftOre"
       },
       {
         "__type": "HC2.StatModifier",

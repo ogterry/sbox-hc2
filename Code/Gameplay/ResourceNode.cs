@@ -5,8 +5,11 @@ namespace HC2;
 
 public enum GatherSourceKind
 {
+	Soil,
 	Wood,
 	Stone,
+	SoftOre,
+	HardOre,
 	Metal
 }
 

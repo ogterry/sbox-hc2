@@ -33,7 +33,7 @@
         "__type": "HC2.ResourceGatherer",
         "__guid": "24e04cf9-b2ef-493a-bf66-c263cc057d32",
         "Effectiveness": 1,
-        "SourceKind": "Stone"
+        "SourceKind": "Soil"
       }
     ],
     "Children": [
