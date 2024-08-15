@@ -6,7 +6,7 @@
   "Icon": "item_icons/weapon_sword.png",
   "Tags": "weapon,melee",
   "Prefab": "prefabs/weapons/sword.prefab",
-  "WorldModel": "models/sword/sword.vmdl",
+  "WorldModel": "models/weapons/sword/sword.vmdl",
   "CraftingRequirements": [
     {
       "Resource": "items/tree_branch.item",
@@ -20,8 +20,6 @@
     }
   ],
   "StatusEffects": [],
-  "__references": [
-    "hecker.sword"
-  ],
+  "__references": [],
   "__version": 0
 }

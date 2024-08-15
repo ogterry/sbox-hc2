@@ -124,8 +124,8 @@ internal class ItemEditor : BaseResourceEditor<ItemAsset>
 
 		List<SceneObject> LightingObjects = new();
 
-		public float Pitch = 0;
-		public float Yaw = 90f;
+		public float Pitch = 45f;
+		public float Yaw = 135f;
 		public SlotMode Target = SlotMode.ModelBounds;
 
 		public enum SlotMode
@@ -199,7 +199,7 @@ internal class ItemEditor : BaseResourceEditor<ItemAsset>
 
 			var lookAngle = new Angles( Pitch, Yaw, 0 );
 			var forward = lookAngle.Forward;
-			var distance = MathX.SphereCameraDistance( bounds.Size.Length * 0.5f, Camera.FieldOfView );
+			var distance = MathX.SphereCameraDistance( bounds.Size.Length * 0.45f, Camera.FieldOfView );
 
 			Camera.Position = bounds.Center - forward * distance;
 			Camera.Rotation = Rotation.From( lookAngle );
