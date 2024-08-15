@@ -1,0 +1,853 @@
+{
+  "__guid": "acfa50e1-f9ca-4785-8448-c6a56e9e243e",
+  "GameObjects": [
+    {
+      "__guid": "b64ae7ea-0bf6-4652-a383-d109cac6170a",
+      "Flags": 0,
+      "Name": "Sun",
+      "Position": "149.3263,149.3264,128",
+      "Rotation": "0.4829629,0.1294096,-0.8365163,0.224144",
+      "Tags": "light_directional,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DirectionalLight",
+          "__guid": "79caa8f9-8b1d-4ae3-bed2-b3066351d45b",
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "4.06,3.778,3.53126,1",
+          "Shadows": true,
+          "SkyColor": "0,0,0,0"
+        }
+      ]
+    },
+    {
+      "__guid": "280dceb0-abef-489e-b9d6-8f5fc056d150",
+      "Flags": 0,
+      "Name": "Envmap Probe",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.EnvmapProbe",
+          "__guid": "05b3e2c8-d220-434d-8c34-fbb2f6944187",
+          "Texture": "textures/cubemaps/default2.vtex",
+          "Bounds": {
+            "Mins": "-3010.4,-3094.199,-1211.5",
+            "Maxs": "3077.5,2670.599,2786.2"
+          },
+          "DelayBetweenUpdates": 0.1,
+          "Feathering": 0.02,
+          "FrameInterval": 5,
+          "MaxDistance": 512,
+          "Projection": "Box",
+          "RenderDynamically": false,
+          "TintColor": "1,1,1,1",
+          "UpdateStrategy": "OnEnabled",
+          "ZFar": 4096,
+          "ZNear": 16
+        }
+      ]
+    },
+    {
+      "__guid": "ef324b88-d3f5-403a-94c7-c406e67325b0",
+      "Flags": 0,
+      "Name": "2D Skybox",
+      "Tags": "skybox",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SkyBox2D",
+          "__guid": "f41cebab-a64c-4a39-81e0-69737784a281",
+          "SkyMaterial": "materials/skybox/skybox_workshop.vmat",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "eec581b2-789e-4655-b427-83e9c287d6a3",
+      "Flags": 0,
+      "Name": "Box",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.MeshComponent",
+          "__guid": "58c7af2d-b595-4391-82f3-d2a64a2dc42b",
+          "Collision": "Mesh",
+          "Color": "0.14419,0.14419,0.14419,1",
+          "HideInGame": false,
+          "IsTrigger": false,
+          "Mesh": {
+            "Topology": "H4sIAAAAAAAACl2Qiw6CUAxDh1flgg/wAfr/X2pP0iWLJA25W9t16xHxFc4C30E4\u002Bt2FWbgKd2Ew4NTvIZxcb9ZH4b5db\u002Bb9z/oUzVh8m7lPc9FOzjRYQ8ZXyXxxXvrw4e72wvtWdoEPdzMXj8We9OHDXcvO7EqdN396eKaeLHjkLciePeYxi4z0mMFtMisablFvRXZ2Tj158KQOF78f9WSROMQBAAA=",
+            "Positions": [
+              "-927.9993,-2752,64",
+              "1856,-2752,64",
+              "1856,895.9999,64",
+              "-927.9999,895.9999,64",
+              "-927.9999,895.9999,-64",
+              "1856,895.9999,-64",
+              "1856,-2752,-64",
+              "-927.9993,-2752,-64"
+            ],
+            "TextureCoord": [
+              "14.5,21.5",
+              "-7.249994,-0.5",
+              "14.5,-6.999999",
+              "-21.5,-0.5",
+              "-7.249999,-6.999999",
+              "-14.5,-0.5",
+              "-7.249994,21.5",
+              "-6.999999,-0.5",
+              "14.5,-6.999999",
+              "7.249999,0.5",
+              "14.5,21.5",
+              "6.999999,0.5",
+              "-7.249994,21.5",
+              "14.5,0.5",
+              "-7.249999,-6.999999",
+              "21.5,0.5",
+              "21.5,-0.5",
+              "-7.249994,0.5",
+              "-6.999999,0.5",
+              "7.249999,-0.5",
+              "-21.5,0.5",
+              "14.5,-0.5",
+              "6.999999,-0.5",
+              "-14.5,0.5"
+            ],
+            "TextureUAxis": [
+              "1,0,0",
+              "1,0,-0",
+              "0,-1,0",
+              "0,1,0",
+              "-1,0,0",
+              "1,-0,0"
+            ],
+            "TextureVAxis": [
+              "0,-1,0",
+              "0,-1,0",
+              "0,0,-1",
+              "-0,0,-1",
+              "0,0,-1",
+              "-0,0,-1"
+            ],
+            "TextureScale": [
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25"
+            ],
+            "TextureOffset": [
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0"
+            ],
+            "MaterialIndex": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "EdgeFlags": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "Materials": [
+              "materials/dev/reflectivity_30.vmat"
+            ]
+          },
+          "SmoothingAngle": 40,
+          "Static": true
+        }
+      ]
+    },
+    {
+      "__guid": "c20dd4cd-7981-4ece-bfa2-b1bafb98b097",
+      "Flags": 0,
+      "Name": "assault_rifle",
+      "Position": "-768,584,64.95488",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "afa07da3-10a4-48d3-9fac-8af47011a89f",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/weapons/assault_rifle/assault_rifle.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "46c4d530-431e-4094-ae9f-241500afc538",
+      "Flags": 0,
+      "Name": "bothy",
+      "Position": "60,380,63.99993",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "b38c4232-4668-4291-b53f-0b71e0ac0e96",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/props/bothy/bothy.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "b2120853-9b8c-4fea-8117-1f097ea88812",
+      "Flags": 0,
+      "Name": "cobblestone_wall",
+      "Position": "36,228,63.99989",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "aa6aaabf-a3fe-4c39-9692-bc8571a00426",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "4814e662-41e8-4297-87d6-5419da2910e4",
+      "Flags": 0,
+      "Name": "dead_tree_no_foliage",
+      "Position": "640,424,64.00006",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "5e7f22b1-c266-41a9-bef0-a29f9731d3cc",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/props/dead_tree/dead_tree_no_foliage.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "9cf8590f-7d11-4b30-8f39-abde4e7b3fe0",
+      "Flags": 0,
+      "Name": "dead_tree_no_foliage_2",
+      "Position": "920,384,64",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "545089bd-a622-47de-9675-7e6566d1b322",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/props/dead_tree/dead_tree_no_foliage_2.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "49ed41a2-58e2-49ff-b13f-9f3d0b45464b",
+      "Flags": 0,
+      "Name": "dead_tree_no_foliage_3",
+      "Position": "1272,392,64",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "610552b6-cdc2-40c0-8564-9c5c25951fbb",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/props/dead_tree/dead_tree_no_foliage_3.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "cbdd4dc8-ef19-4f9b-835e-b79e8b4eb18a",
+      "Flags": 0,
+      "Name": "dead_tree",
+      "Position": "1216,24,64",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "3a802596-33eb-4beb-b6c3-8ec3b53551cf",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/props/dead_tree/dead_tree.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "8d89d361-c957-4d9d-883b-b6122d02870e",
+      "Flags": 0,
+      "Name": "metal_pile",
+      "Position": "600,-304,64",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "74cb1983-ed4f-480d-86be-30f72f71505f",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/props/metal_pile/metal_pile.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "ba6e7400-2e8a-459d-88cd-4c4b6e751c99",
+      "Flags": 0,
+      "Name": "metal_fragment",
+      "Position": "664,-408,64.00006",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "99392a1e-f8f5-4fed-88f8-ef8b065f124c",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/props/metal_pile/metal_fragment.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "caba2db5-0ce4-4a42-bcfb-5d9d9e452c7b",
+      "Flags": 0,
+      "Name": "rock_large",
+      "Position": "296,-296,63.99994",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "a7374c64-1c7d-4195-80d5-07e5a9a06786",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/props/rocks/rock_large.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "3b7744eb-a986-4d56-bad3-c86c05fdcab5",
+      "Flags": 0,
+      "Name": "rock_fragment",
+      "Position": "336,-392,63.99994",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "21833e05-7ea6-4e0b-9684-47f46e715853",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/props/rocks/rock_fragment.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "81d02ed2-04ba-400f-b11b-4e2f7e5a5830",
+      "Flags": 0,
+      "Name": "robot_shell_a",
+      "Position": "936,-2368,64",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "61431def-f495-44b4-b3fa-cc29e9e2eb42",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/props/tech/robot_shell_a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "ee45ba3e-df4a-46b8-ad9b-2d18c5ced09f",
+      "Flags": 0,
+      "Name": "rock_scatter_01",
+      "Position": "336,-504,64",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "873fde4a-4abf-4333-8ba1-61d8c73850d7",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/props/rocks/rock_scatter_01.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "2bbb2423-3d3e-4477-ad29-fe8264a6b8b9",
+      "Flags": 0,
+      "Name": "rock_scatter_02",
+      "Position": "344,-592,64",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "3f495f1b-85f3-4e9a-abb2-39f25411d02c",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/props/rocks/rock_scatter_02.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "339bb31e-7193-4727-8a60-76ffdd716463",
+      "Flags": 0,
+      "Name": "rustedpickup",
+      "Position": "216,-880,64",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "0d81111d-238b-4e78-aca4-7f1e6e8c1f6d",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/props/vehicles/rustedpickup.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "c6a3e7ff-129b-42f4-bd9d-db0091534727",
+      "Flags": 0,
+      "Name": "rustedtanker",
+      "Position": "192,-1112,64.00006",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "3a4c7eca-9bc9-4957-a0ea-bb06f0b96270",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/props/vehicles/rustedtanker.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "a07fc6db-45f1-4ef5-88ba-4cfb83be5a1d",
+      "Flags": 0,
+      "Name": "rustedtruck",
+      "Position": "264,-1360,64",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "4214a352-486f-4271-82bd-d8737ef804f1",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/props/vehicles/rustedtruck.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "90580b57-0264-442f-ad83-4823d9a1b135",
+      "Flags": 0,
+      "Name": "rustedvan",
+      "Position": "256,-1608,64",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "e5e8bc69-a786-46c0-9173-b75a6d25331a",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/props/vehicles/rustedvan.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "ffce70de-3aef-4e32-b7d5-940d62eedb98",
+      "Flags": 0,
+      "Name": "signal_pylon",
+      "Position": "-672,-720,63.99995",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "2c898f12-0f30-4e31-9c57-2f57d3fc99c0",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/props/signal_pylon/signal_pylon.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "7afbb028-9c24-4ee0-adf8-ee172f7cffc2",
+      "Flags": 0,
+      "Name": "watertank",
+      "Position": "-640,-1024,64",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "f421b1ed-cc5e-4ce4-8a00-1c1be159748f",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/props/watertank/watertank.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "3eed13cb-cda7-4c0b-b7c2-6d5e0b2cd433",
+      "Flags": 0,
+      "Name": "watertank_02",
+      "Position": "-112.0002,-1400,63.99997",
+      "Rotation": "0,0,0.7071067,0.7071068",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "2a044598-3a45-4994-946b-a6b6e9db3db7",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/props/watertank/watertank_02.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "7dc380d0-2fb5-4b5f-8cbf-aecde01ff603",
+      "Flags": 0,
+      "Name": "standing_stone_1",
+      "Position": "944,-280,64",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "f3e31739-60e6-488a-bde2-c56bc1f05c19",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/props/standing_stones/standing_stone_1.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "c968907b-a35c-43d2-a923-43a94c020eb7",
+      "Flags": 0,
+      "Name": "standing_stone_2",
+      "Position": "944,-432,63.99998",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "964c5cc2-8ba5-4040-bc80-0257752ca488",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/props/standing_stones/standing_stone_2.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "3800202d-b645-492d-a445-a784e23f9282",
+      "Flags": 0,
+      "Name": "standing_stone_3",
+      "Position": "944,-120,64",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "9215c086-7b1e-4eb6-b899-4f7d4366e183",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/props/standing_stones/standing_stone_3.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "43415e62-3486-4a75-a746-7ed85277a2e0",
+      "Flags": 0,
+      "Name": "sword",
+      "Position": "-672,592,64.06227",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "e397a088-87c4-4f91-a411-f2508cf7aca8",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/weapons/sword/sword.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "4bb4ef41-6aef-41a9-a247-0ba6054073eb",
+      "Flags": 0,
+      "Name": "stone_sword",
+      "Position": "-776,400,69.00003",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "9ab69807-9d59-406b-ab9b-1e4d45a7e6fa",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/weapons/temp/stone/stone_sword.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "d5249756-fb21-4c5a-8463-c532a4ae71e2",
+      "Flags": 0,
+      "Name": "stone_pickaxe",
+      "Position": "-728,408,74",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "8a6fddb5-b286-428a-97cc-a9a811597ac1",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/weapons/temp/stone/stone_pickaxe.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "9f9cc93a-a7da-49f2-b2e7-76acd6c12c20",
+      "Flags": 0,
+      "Name": "stone_shovel",
+      "Position": "-688,400,74",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "d9b6bbb1-b7e2-4511-b61e-f9eed6cf359a",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/weapons/temp/stone/stone_shovel.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "8d40d957-9e48-4f6f-8844-b2ab2836f5d6",
+      "Flags": 0,
+      "Name": "stone_spear",
+      "Position": "-656,392,74",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "ec01dc10-243c-4a3f-b04a-ba5bfb1ce1a0",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/weapons/temp/stone/stone_spear.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "1f56bdd1-b8a3-443a-b28c-269d83423ca3",
+      "Flags": 0,
+      "Name": "stone_axe",
+      "Position": "-624,392,74",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "fbc22a09-7533-4de3-af25-a0dd167b3c21",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/weapons/temp/stone/stone_axe.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "05b51c54-5524-4f04-bf74-b023c05b457d",
+      "Flags": 0,
+      "Name": "stone_hammer",
+      "Position": "-584,392,74",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "072ae6e9-14c1-47b1-b096-bf7e69a3cafb",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/weapons/temp/stone/stone_hammer.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "5bb8b2b4-f3a9-4ca9-abec-45cd20569202",
+      "Flags": 0,
+      "Name": "ruby",
+      "Position": "168,-264,70.29421",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "b9842553-41cc-4e60-b9ee-65325007df62",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/mazing/ruby.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "3728e5d4-1db4-4761-8f13-4867f43108d5",
+      "Flags": 0,
+      "Name": "mining_laser",
+      "Position": "-600,592,65.20573",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "ee2052d1-72d6-4b8c-9fcc-a5b112b4a448",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/weapons/mining_laser/mining_laser.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "beb2d94b-6da6-405a-9b8a-f5a7f6d0f0f1",
+      "Flags": 0,
+      "Name": "branch",
+      "Position": "1016,256,64",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "0458b147-418f-45be-8258-ffe52cb19d26",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/props/dead_tree/branch.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "503b6779-2d8a-48a0-8902-ad45413676e1",
+      "Flags": 0,
+      "Name": "lightpost_01",
+      "Position": "-416,-656,63.99993",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "039f16e6-9e5e-43d9-97de-a190ef3b53a5",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/props/lightpost/lightpost_01.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "d6cf9c08-ca8f-440d-8633-6655cca4be93",
+      "Flags": 0,
+      "Name": "lightpost_02",
+      "Position": "-224,-640,63.99994",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "16f865ab-0c7b-4d29-9280-013173f25203",
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "Model": "models/props/lightpost/lightpost_02.vmdl",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    }
+  ],
+  "SceneProperties": {
+    "FixedUpdateFrequency": 50,
+    "MaxFixedUpdates": 5,
+    "NetworkFrequency": 30,
+    "NetworkInterpolation": true,
+    "ThreadedAnimation": true,
+    "TimeScale": 1,
+    "UseFixedUpdate": true,
+    "NavMesh": {
+      "Enabled": false,
+      "IncludeStaticBodies": true,
+      "IncludeKeyframedBodies": true,
+      "EditorAutoUpdate": true,
+      "AgentHeight": 64,
+      "AgentRadius": 16,
+      "AgentStepSize": 18,
+      "AgentMaxSlope": 40,
+      "ExcludedBodies": "",
+      "IncludedBodies": ""
+    }
+  },
+  "Title": "assetzoo",
+  "Description": "",
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}
