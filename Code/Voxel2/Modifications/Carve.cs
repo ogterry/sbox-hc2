@@ -36,7 +36,7 @@ public record struct CarveModification( GatherSourceKind SourceKind, byte Damage
 		var max = Max;
 
 		var localMin = Vector3Int.Max( min - chunk.WorldMin, 0 );
-		var localMax = Vector3Int.Min( max - chunk.WorldMin, Constants.ChunkSize );
+		var localMax = Vector3Int.Min( max - chunk.WorldMin, Constants.ChunkSize - 1 );
 
 		var voxels = chunk.Voxels;
 		var palette = renderer.Palette;
