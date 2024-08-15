@@ -563,19 +563,19 @@
                           }
                         },
                         "UserData": {
-                          "Position": "0,48"
+                          "Position": "-64,48"
                         }
                       },
                       {
                         "Id": 3,
                         "Type": "call",
                         "Properties": {
+                          "_isStatic": false,
                           "_name": "SetMoveTarget",
-                          "_type": "HC2.Mobs.Mob",
-                          "_isStatic": false
+                          "_type": "HC2.Mobs.Mob"
                         },
                         "UserData": {
-                          "Position": "464,64"
+                          "Position": "592,64"
                         }
                       },
                       {
@@ -670,12 +670,28 @@
                         "UserData": {
                           "Position": "192,160"
                         }
+                      },
+                      {
+                        "Id": 19,
+                        "Type": "if",
+                        "UserData": {
+                          "Position": "320,-32"
+                        }
+                      },
+                      {
+                        "Id": 20,
+                        "Type": "property",
+                        "ParentId": 2,
+                        "Properties": {
+                          "_name": "HasAimTarget",
+                          "_type": "HC2.Mobs.Mob"
+                        }
                       }
                     ],
                     "Links": [
                       {
-                        "SrcId": 0,
-                        "SrcName": "_signal",
+                        "SrcId": 19,
+                        "SrcName": "true",
                         "DstId": 3,
                         "DstName": "_signal"
                       },
@@ -765,6 +781,24 @@
                         "SrcName": "_result",
                         "DstId": 17,
                         "DstName": "b"
+                      },
+                      {
+                        "SrcId": 0,
+                        "SrcName": "_signal",
+                        "DstId": 19,
+                        "DstName": "_signal"
+                      },
+                      {
+                        "SrcId": 20,
+                        "SrcName": "_result",
+                        "DstId": 19,
+                        "DstName": "condition"
+                      },
+                      {
+                        "SrcId": 2,
+                        "SrcName": "_result",
+                        "DstId": 20,
+                        "DstName": "_target"
                       }
                     ],
                     "Defaults": {
