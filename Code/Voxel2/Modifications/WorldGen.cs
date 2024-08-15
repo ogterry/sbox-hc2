@@ -340,7 +340,7 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 		{
 			Transform = {
 				Position = position.SnapToGrid( 4f ),
-				Rotation = Rotation.FromYaw( Random.Shared.Next( 0, 4 ) * 90f ),
+				Rotation = Rotation.FromYaw( Random.Next( 0, 4 ) * 90f ),
 				Scale = scale
 			}
 		};
