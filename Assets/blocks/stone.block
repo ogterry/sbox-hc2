@@ -1,8 +1,9 @@
 {
   "Name": "Stone",
   "Color": "0.29984,0.31142,0.32558,1",
+  "MaxStack": 99,
   "Texture": "textures/ground_texture_02.vtex",
-  "TextureSize": "16384,16384",
+  "TextureSize": "4096,4096",
   "Tags": "",
   "IsBreakable": true,
   "MaxHealth": 6,

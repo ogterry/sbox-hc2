@@ -1,8 +1,9 @@
 {
   "Name": "Grass",
   "Color": "0.31163,0.30842,0.11885,1",
+  "MaxStack": 99,
   "Texture": "textures/ground_texture_02.vtex",
-  "TextureSize": "16384,16384",
+  "TextureSize": "4096,4096",
   "Tags": "",
   "IsBreakable": true,
   "MaxHealth": 3,

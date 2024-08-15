@@ -1,8 +1,9 @@
 {
   "Name": "Iron Ore",
   "Color": "0.61395,0.32716,0.23987,1",
+  "MaxStack": 99,
   "Texture": "textures/ground_texture_02.vtex",
-  "TextureSize": "16384,16384",
+  "TextureSize": "4096,4096",
   "Tags": "",
   "IsBreakable": true,
   "MaxHealth": 8,
