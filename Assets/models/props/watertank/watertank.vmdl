@@ -1,0 +1,177 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc29:version{3cec427c-1b0e-4d48-a90a-0436f33a6041} -->
+{
+	rootNode = 
+	{
+		_class = "RootNode"
+		children = 
+		[
+			{
+				_class = "RenderMeshList"
+				children = 
+				[
+					{
+						_class = "RenderMeshFile"
+						filename = "models/props/watertank/watertank.vox"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+				]
+			},
+			{
+				_class = "PhysicsShapeList"
+				children = 
+				[
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ 101.987854, 100.059242, 5.60482 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 116.697845, 136.449509, 21.209641 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ 50.256741, 39.952751, 82.107185 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 13.235619, 16.236526, 174.214371 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ 151.883759, 39.952751, 82.107185 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 16.564316, 16.236526, 174.214371 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ 151.883759, 162.485321, 82.107185 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 16.564316, 13.547514, 174.214371 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ 50.129082, 162.485321, 82.107185 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 12.456299, 13.547514, 174.214371 ]
+					},
+					{
+						_class = "PhysicsShapeCylinder"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						radius = 100.0
+						point0 = [ 100.647339, 100.737503, 157.257721 ]
+						point1 = [ 103.8526, 100.737503, 435.648621 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ 101.987854, 100.059242, 124.658264 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 116.697845, 136.449509, 64.311081 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ 51.927139, 99.18895, 69.987076 ]
+						angles = [ -0.691729, -0.375063, -45.838043 ]
+						dimensions = [ 16.564316, 16.236526, 174.214371 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ 149.117264, 103.435806, 69.984314 ]
+						angles = [ -1.631043, 4.383966, -139.200562 ]
+						dimensions = [ 16.564316, 16.236526, 174.214371 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ 51.975891, 99.20253, 69.984314 ]
+						angles = [ -3.07847, 3.132496, -139.149139 ]
+						dimensions = [ 16.564316, 16.236526, 174.214371 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ 149.117264, 103.435806, 69.984314 ]
+						angles = [ -1.791345, 0.757899, -45.862598 ]
+						dimensions = [ 16.564316, 16.236526, 174.214371 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ 103.474014, 39.952751, 70.375732 ]
+						angles = [ 43.58696, 0.0, 0.0 ]
+						dimensions = [ 13.235619, 16.236526, 151.377502 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ 102.185387, 39.952751, 66.846558 ]
+						angles = [ -43.390301, -0.0, 0.0 ]
+						dimensions = [ 13.235619, 16.236526, 151.377502 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ 101.40892, 157.012726, 66.112534 ]
+						angles = [ -43.390301, -0.0, 0.0 ]
+						dimensions = [ 13.235619, 16.236526, 151.377502 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ 103.474014, 156.765747, 70.375732 ]
+						angles = [ 43.58696, 0.0, 0.0 ]
+						dimensions = [ 13.235619, 16.236526, 151.377502 ]
+					},
+				]
+			},
+		]
+		model_archetype = ""
+		primary_associated_entity = ""
+		anim_graph_name = ""
+		base_model_name = ""
+	}
+}
