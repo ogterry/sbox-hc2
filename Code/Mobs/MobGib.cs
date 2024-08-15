@@ -38,7 +38,6 @@ public sealed class MobGib : Component, Component.ICollisionListener
         var particleRenderer = killParticle.Components.Get<ParticleModelRenderer>( FindMode.EnabledInSelfAndChildren );
         particleRenderer.MaterialOverride = material;
 
-        Log.Info( Sound );
         var sound = Sandbox.Sound.Play( Sound, Transform.Position );
         if ( sound.IsValid() )
         {

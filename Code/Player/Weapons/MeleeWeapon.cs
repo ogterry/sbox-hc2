@@ -75,8 +75,6 @@ public partial class MeleeWeapon : WeaponComponent
 		{
 			IsSwinging = false;
 
-			Log.Info( "Swing!" );
-
 			var tr = Scene.Trace.Ray( GameObject.Transform.Position, GameObject.Transform.Position + Player.CameraController.AimRay.Forward * GetAttackRange() )
 				.IgnoreGameObjectHierarchy( Player.GameObject )
 				.Size( Thickness )
