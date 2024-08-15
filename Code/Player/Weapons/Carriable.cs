@@ -1,4 +1,5 @@
 using System;
+using Sandbox.Citizen;
 
 namespace HC2;
 
@@ -8,6 +9,13 @@ namespace HC2;
 public partial class Carriable : Component
 {
 	[Property, Group( "Carriable" )] public SupportedHand Hand { get; set; } = SupportedHand.MainHand;
+
+
+	/// <summary>
+	/// How do we hold this weapon?
+	/// </summary>
+	[Property, Group( "Visuals" )] public CitizenAnimationHelper.HoldTypes HoldType { get; set; } = CitizenAnimationHelper.HoldTypes.None;
+
 
 	/// <summary>
 	/// Tells us which hand we can put this item in (sometimes it can be both!)

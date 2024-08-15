@@ -8,7 +8,8 @@
       {
         "__type": "BlockPlacer",
         "__guid": "bc7746cb-b324-472d-b05a-5a7a61f641f6",
-        "Hand": "MainHand"
+        "Hand": "MainHand",
+        "HoldType": "Pistol"
       }
     ],
     "Children": [],

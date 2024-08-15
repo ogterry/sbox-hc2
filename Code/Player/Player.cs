@@ -171,7 +171,7 @@ public partial class Player : Component, IDamage,
 	/// <summary>
 	/// What's our holdtype?
 	/// </summary>
-	public CitizenAnimationHelper.HoldTypes HoldType { get; set; }
+	[Sync] public CitizenAnimationHelper.HoldTypes HoldType { get; set; }
 
 	RealTimeSince timeSinceLastSave = 0;
 

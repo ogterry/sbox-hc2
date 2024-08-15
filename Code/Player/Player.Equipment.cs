@@ -141,6 +141,7 @@ public partial class Player
 			return inst;
 		}
 
+		HoldType = carriable.HoldType;
 		inst.NetworkSpawn( Network.OwnerConnection );
 
 		SetMainHand( carriable );
