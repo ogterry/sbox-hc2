@@ -11,7 +11,25 @@ public static class VoxelParticles
 		return SceneUtility.GetPrefabScene( killPrefab ).Clone( position );
 	}
 
-	public static void Spawn( Vector3 position, int count )
+	public static ParticleEffect SpawnInBounds( BBox box, int count )
+	{
+		var effect = Spawn( box.Center, count );
+
+		var coneEmitter = effect.Components.Get<ParticleConeEmitter>();
+		coneEmitter.Destroy();
+
+		var boxEmitter = effect.Components.Create<ParticleBoxEmitter>();
+		boxEmitter.Size = box.Size;
+		boxEmitter.Loop = false;
+		boxEmitter.Duration = 2;
+		boxEmitter.Burst = 500;
+		boxEmitter.Rate = 0;
+		boxEmitter.DestroyOnEnd = true;
+
+		return effect;
+	}
+
+	public static ParticleEffect Spawn( Vector3 position, int count )
 	{
 		var objs = Game.ActiveScene.FindInPhysics( new Sphere( position, 16f ) );
 		var renderer = objs.SelectMany( x => x.Components.GetAll<ModelRenderer>() ).Where( x => !(x.Tags.Has( "projectile" ) || x.Tags.Has( "player" )) ).OrderByDescending( x => x.Transform.Position.DistanceSquared( position ) ).FirstOrDefault();
@@ -28,27 +46,22 @@ public static class VoxelParticles
 				{
 					var paletteMat = palette.Blocks[voxel];
 
-					Log.Info( paletteMat );
-
 					// var mat = Material.Create( "voxel_particle", "shaders/pixel_shader.shader" );
 					// mat.Set( "Color", paletteMat.Texture );
 					var mat = Material.Create( "voxel_particle", "complex.shader" );
 					mat.Set( "Color", paletteMat.Texture );
-					Spawn( position, mat, count );
-
-					return;
+					return Spawn( position, mat, count );
 				}
 			}
 
-			Spawn( position, Color.Gray, count );
-			return;
+			return Spawn( position, Color.Gray, count );
 		}
 
 		var material = renderer.MaterialOverride ?? renderer.Model.Materials.FirstOrDefault();
-		Spawn( position, material, renderer.Tint, count );
+		return Spawn( position, material, renderer.Tint, count );
 	}
 
-	public static void Spawn( Vector3 position, Material material, int count )
+	public static ParticleEffect Spawn( Vector3 position, Material material, int count )
 	{
 		var obj = SpawnParticle( position );
 
@@ -57,18 +70,22 @@ public static class VoxelParticles
 
 		var particleEffect = obj.Components.Get<ParticleEffect>( FindMode.InChildren );
 		particleEffect.MaxParticles = count;
+
+		return particleEffect;
 	}
 
-	public static void Spawn( Vector3 position, Color color, int count )
+	public static ParticleEffect Spawn( Vector3 position, Color color, int count )
 	{
 		var obj = SpawnParticle( position );
 
 		var particleEffect = obj.Components.Get<ParticleEffect>( FindMode.InChildren );
 		particleEffect.Tint = color;
 		particleEffect.MaxParticles = count;
+
+		return particleEffect;
 	}
 
-	public static void Spawn( Vector3 position, Material material, Color color, int count )
+	public static ParticleEffect Spawn( Vector3 position, Material material, Color color, int count )
 	{
 		var obj = SpawnParticle( position );
 
@@ -78,6 +95,8 @@ public static class VoxelParticles
 		var particleEffect = obj.Components.Get<ParticleEffect>( FindMode.InChildren );
 		particleEffect.Tint = color;
 		particleEffect.MaxParticles = count;
+
+		return particleEffect;
 	}
 }
 
