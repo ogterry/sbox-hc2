@@ -1,6 +1,8 @@
 using Sandbox;
 using System;
 using System.Text.Json.Serialization;
+using Sandbox.Diagnostics;
+using Voxel;
 
 namespace HC2;
 
@@ -19,10 +21,12 @@ public interface IObjectSaveData
 /// <summary>
 /// The state of the voxel world.
 /// </summary>
-public struct VoxelWorldState
+public record VoxelWorldState( int Version, Vector3Int Size, IReadOnlyList<ChunkState> Chunks )
 {
-	// stub
+	public const int CurrentVersion = 1;
 }
+
+public record ChunkState( Vector3Int Index, string Data );
 
 /// <summary>
 /// The state of all the objects in the world, this'll be NPCs, doors, etc..
@@ -225,10 +229,58 @@ public sealed class WorldPersistence : Component
 	/// <returns></returns>
 	public VoxelWorldState SaveWorldState()
 	{
-		return new()
+		var world = Scene.GetAllComponents<VoxelRenderer>()
+			.FirstOrDefault( x => x.Tags.Has( "terrain" ) );
+
+		if ( world is null )
 		{
-			// stub
-		};
+			Log.Warning( $"Couldn't find the world {nameof(VoxelRenderer)} (expected tag \"terrain\")" );
+			return null;
+		}
+
+		return new( VoxelWorldState.CurrentVersion, world.Size, world.Model.Chunks.Where( x => x is { Allocated: true } )
+			.Select( SerializeChunk )
+			.ToArray() );
+	}
+
+	private ChunkState SerializeChunk( Chunk chunk )
+	{
+		Assert.True( chunk.Allocated );
+
+		using var writer = ByteStream.Create( 4096 );
+
+		var voxels = chunk.Voxels;
+
+		for ( var x = 0; x < Constants.ChunkSize; ++x )
+		for ( var z = 0; z < Constants.ChunkSize; ++z )
+		{
+			var prev = voxels[Chunk.GetAccessLocal( x, 0, z )];
+			var count = 1;
+
+			writer.Write( prev );
+
+			for ( var y = 1; y < Constants.ChunkSize; ++y )
+			{
+				var value = voxels[Chunk.GetAccessLocal( x, y, z )];
+
+				if ( value != prev )
+				{
+					writer.Write( (byte)count );
+					writer.Write( value );
+
+					prev = value;
+					count = 1;
+				}
+				else
+				{
+					count++;
+				}
+			}
+		}
+
+		return new ChunkState(
+			new Vector3Int( chunk.ChunkPosX, chunk.ChunkPosY, chunk.ChunkPosZ ),
+			Convert.ToBase64String( writer.ToArray() ) );
 	}
 
 	/// <summary>
