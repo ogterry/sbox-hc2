@@ -315,6 +315,7 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 [GameResource( "World Gen Parameters", "worldgen", "Parameters for the voxel world generator.", Icon = "public" )]
 public sealed class WorldGenParameters : GameResource
 {
+	public Curve TerrainBias { get; set; }
 	public Curve PlainsHeight { get; set; }
 	public Curve MountainsHeight { get; set; }
 
@@ -355,6 +356,7 @@ public sealed class WorldGenSampler
 	private readonly Transform _biomeNoiseTransform;
 	private readonly Transform _heightNoiseTransform;
 
+	private readonly Curve _terrainBias;
 	private readonly Curve _plainsHeight;
 	private readonly Curve _mountainsHeight;
 
@@ -367,6 +369,7 @@ public sealed class WorldGenSampler
 		_biomeNoiseTransform = GetRandomNoiseTransform( random, 0.3f );
 		_heightNoiseTransform = GetRandomNoiseTransform( random, 0.4f );
 
+		_terrainBias = parameters.TerrainBias;
 		_plainsHeight = parameters.PlainsHeight;
 		_mountainsHeight = parameters.MountainsHeight;
 	}
@@ -380,9 +383,9 @@ public sealed class WorldGenSampler
 		var heightNoise = Math.Clamp( Noise.Fbm( 4, heightNoisePos.x, heightNoisePos.y, heightNoisePos.z ), 0f, 1f ) * centrality;
 
 		var terrainNoisePos = _biomeNoiseTransform.PointToWorld( new Vector3( x, y, 0f ) );
-		var terrainNoise = Math.Clamp( Noise.Fbm( 3, terrainNoisePos.x, terrainNoisePos.y, terrainNoisePos.z ) * centrality * 3f - 0.75f, 0f, 1f );
+		var terrainNoise = Math.Clamp( Noise.Fbm( 3, terrainNoisePos.x, terrainNoisePos.y, terrainNoisePos.z ) * centrality, 0f, 1f );
 
-		terrainNoise = MathF.Pow( terrainNoise, 4f );
+		terrainNoise = _terrainBias.Evaluate( terrainNoise );
 
 		var plainsHeight = _plainsHeight.Evaluate( heightNoise );
 		var mountainsHeight = _mountainsHeight.Evaluate( heightNoise );

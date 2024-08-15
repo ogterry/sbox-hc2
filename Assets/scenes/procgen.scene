@@ -139,7 +139,7 @@
           "__type": "Voxel.Modifications.VoxelWorldGen",
           "__guid": "434925b3-6811-498f-b296-a5526f709d93",
           "Parameters": "worlds/default.worldgen",
-          "Seed": 250940925
+          "Seed": 522791135
         },
         {
           "__type": "Voxel.VoxelDamage",
