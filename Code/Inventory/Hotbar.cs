@@ -18,14 +18,13 @@ public class Hotbar : Inventory
     public int SelectedSlot { get; private set; } = 0;
     public Item SelectedItem => GetItemInSlot( SelectedSlot );
 
-    ItemAsset LastEquippedItem;
-    Block LastEquippedBlock;
+    Item LastEquippedItem;
 
     protected override void OnUpdate()
     {
         base.OnUpdate();
 
-        if ( SelectedItem?.Resource != LastEquippedItem && SelectedItem?.BlockType != LastEquippedBlock )
+        if ( SelectedItem != LastEquippedItem )
         {
             SelectSlot( SelectedSlot, true );
         }
@@ -71,17 +70,15 @@ public class Hotbar : Inventory
         if ( newItem is not null )
         {
             GameObject.Dispatch( new ItemEquipEvent( newItem ) );
-            LastEquippedItem = newItem.Resource;
-            LastEquippedBlock = newItem.BlockType;
+            LastEquippedItem = newItem;
         }
         else
         {
             if ( LastEquippedItem is not null )
             {
-                GameObject.Dispatch( new ItemUnequipEvent( Item.Create( LastEquippedItem, LastEquippedBlock, 1 ) ) );
+                GameObject.Dispatch( new ItemUnequipEvent( LastEquippedItem ) );
             }
-
-            LastEquippedBlock = null;
+            
             LastEquippedItem = null;
         }
     }
