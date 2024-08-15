@@ -49,8 +49,8 @@ public partial class Biome : GameResource
 	/// <param name="depth">Depth from surface, 0 for the top-most block.</param>
 	public Block GetBlock( int surfaceHeight, float terrain, int depth )
 	{
-		if ( terrain > 0.3f ) return DeepBlock;
-		if ( depth < SurfaceDepth && terrain < 0.25f ) return SurfaceBlock;
+		if ( terrain > 0.2f ) return DeepBlock;
+		if ( depth < SurfaceDepth && terrain < 0.1f ) return SurfaceBlock;
 		if ( depth - SurfaceDepth < UnderSurfaceDepth ) return UnderSurfaceBlock;
 		return DeepBlock;
 	}
