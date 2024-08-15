@@ -30,6 +30,12 @@
       },
       {
         "__type": "HC2.ResourceGatherer",
+        "__guid": "2674889d-7c16-4099-a0c8-d56301490e3d",
+        "Effectiveness": 0.5,
+        "SourceKind": "Soil"
+      },
+      {
+        "__type": "HC2.ResourceGatherer",
         "__guid": "24e04cf9-b2ef-493a-bf66-c263cc057d32",
         "Effectiveness": 1,
         "SourceKind": "Stone"
