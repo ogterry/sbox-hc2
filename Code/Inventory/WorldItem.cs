@@ -99,6 +99,7 @@ public partial class WorldItem : Component, Component.ITriggerListener
 		var go = new GameObject();
 		go.Name = $"World Item {itemAsset}";
 		go.Transform.Position = worldPosition;
+		go.Tags.Add( "worlditem" );
 
 		var sphereCollider = go.Components.Create<SphereCollider>();
 		sphereCollider.Radius = 16;
@@ -115,7 +116,7 @@ public partial class WorldItem : Component, Component.ITriggerListener
 		mdl.Model = itemAsset.WorldModel;
 		worldItem.ModelRenderer = mdl;
 		worldItem.SpinningItem = spinningItem;
-		
+
 		// Conna: if the Item is a block we'll handle this differently. We'll wanna
 		// use a custom model with a material override or something for the block texture.
 
