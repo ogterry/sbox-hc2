@@ -62,7 +62,7 @@ public partial class TraceWeapon : WeaponComponent
 	{
 		var tr = Scene.Trace
 			.Ray( Scene.Camera.Transform.Position, Scene.Camera.Transform.Position + Scene.Camera.Transform.Rotation.Forward * MaxTraceDistance )
-			.WithoutTags( "player", "trigger" )
+			.WithoutTags( "player", "trigger", "bodypart", "worlditem" )
 			.Run();
 
 		lastTraceEnd = tr.EndPosition;
