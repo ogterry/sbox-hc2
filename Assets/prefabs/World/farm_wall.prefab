@@ -1,0 +1,104 @@
+{
+  "RootObject": {
+    "__guid": "9717e1a7-9ef9-46ff-bc8b-a6cb8f69e239",
+    "Flags": 0,
+    "Name": "farm_wall",
+    "Enabled": true,
+    "Children": [
+      {
+        "__guid": "81b3a0c0-c971-4939-9cbd-f60500cd1767",
+        "Flags": 0,
+        "Name": "cobblestone_wall (1)",
+        "Position": "-95.33153,-4.413864,-12.15567",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.Prop",
+            "__guid": "27183d3f-0333-4035-b318-b70a04f7999b",
+            "BodyGroups": 18446744073709551615,
+            "Health": 0,
+            "IsStatic": true,
+            "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "f92127f5-0fa3-40e9-a602-d5661cbec077",
+        "Flags": 0,
+        "Name": "cobblestone_wall (2)",
+        "Position": "-283.7068,-4.413864,-12.15567",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.Prop",
+            "__guid": "1b48edaa-0e01-48f6-b058-836f1c3819b3",
+            "BodyGroups": 18446744073709551615,
+            "Health": 0,
+            "IsStatic": true,
+            "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "d87bfdbf-38d7-4175-91b0-6573a761b00b",
+        "Flags": 0,
+        "Name": "rock_scatter_02",
+        "Position": "-103.2157,-42.4689,0",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "a24fe909-2092-4d62-b1e4-0398c544c5a1",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/props/rocks/rock_scatter_02.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "5d833f42-7ec2-499f-8500-e264d5c40651",
+        "Flags": 0,
+        "Name": "rock_scatter_02",
+        "Position": "22.27113,7.422974,0",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "f75726b2-9c67-4669-85ed-ea7d0a6414fb",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/props/rocks/rock_scatter_02.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "ecc6dbbc-b8e6-4bb5-8c2a-0f0107b81907",
+        "Flags": 0,
+        "Name": "rock_scatter_01",
+        "Position": "-47.2209,-50.61945,0",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "b5b688be-7426-4a1d-ae36-49ac3896163d",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/props/rocks/rock_scatter_01.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

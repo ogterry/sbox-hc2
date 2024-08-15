@@ -1,6 +1,7 @@
 {
   "HeightRange": "6.00,10.00,1",
-  "BiomeRange": "0.00,0.30,1",
+  "BiomeRange": "0.00,0.00,0",
+  "SpawnsInGround": false,
   "Radius": 128,
   "Weight": 1,
   "Spawn": {
@@ -16,7 +17,7 @@
         "Id": 0,
         "Type": "input",
         "UserData": {
-          "Position": "384,-16"
+          "Position": "1120,-80"
         }
       },
       {
@@ -85,8 +86,8 @@
         "Id": 35,
         "Type": "resource.ref",
         "Properties": {
-          "T": "Sandbox.PrefabFile",
-          "value": "prefabs/resources/node_tree_3.prefab"
+          "value": "prefabs/resources/node_tree_3.prefab",
+          "T": "Sandbox.PrefabFile"
         },
         "UserData": {
           "Position": "496,688"
@@ -103,7 +104,7 @@
         "Id": 37,
         "Type": "op.conditional",
         "UserData": {
-          "Position": "1360,512"
+          "Position": "1360,416"
         }
       },
       {
@@ -139,7 +140,7 @@
           "T": "Sandbox.PrefabFile"
         },
         "UserData": {
-          "Position": "1232,848"
+          "Position": "1168,368"
         }
       }
     ],
@@ -223,7 +224,7 @@
         "DstName": "x"
       },
       {
-        "Value": 0.1,
+        "Value": 0.4,
         "DstId": 40,
         "DstName": "probability"
       },
