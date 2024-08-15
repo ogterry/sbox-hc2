@@ -111,7 +111,6 @@
       "__guid": "551197c6-bc4c-4237-b408-f581ece66630",
       "Flags": 0,
       "Name": "Water_Cheap",
-      "Position": "0,0,72",
       "Enabled": true,
       "__Prefab": "prefabs/world/water_plane_cheap.prefab",
       "__PrefabVariables": {}
@@ -139,7 +138,7 @@
           "__type": "Voxel.Modifications.VoxelWorldGen",
           "__guid": "434925b3-6811-498f-b296-a5526f709d93",
           "Parameters": "worlds/default.worldgen",
-          "Seed": 1481100936
+          "Seed": 250940925
         },
         {
           "__type": "Voxel.VoxelDamage",

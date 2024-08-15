@@ -251,7 +251,7 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 					continue;
 				}
 
-				if ( feature.BiomeRange.x > sample.Biome || feature.BiomeRange.y < sample.Biome )
+				if ( feature.BiomeRange.x > sample.Terrain || feature.BiomeRange.y < sample.Terrain )
 				{
 					Log.Info( "out of biome range!" );
 					continue;
@@ -281,8 +281,7 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 				Position = position.SnapToGrid( 4f ),
 				Rotation = Rotation.FromYaw( Random.Shared.Next( 0, 4 ) * 90f ),
 				Scale = scale
-			},
-			Flags = GameObjectFlags.NotSaved
+			}
 		};
 
 		_spawnedObjects.Add( go );
@@ -291,6 +290,8 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 
 		prop.IsStatic = true;
 		prop.Model = model;
+
+		go.Flags |= GameObjectFlags.NotSaved;
 
 		go.NetworkSpawn();
 
@@ -302,6 +303,8 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 		var go = GameObject.Clone( prefab, new Transform( position.SnapToGrid( 4f ), Rotation.FromYaw( Random.Shared.Next( 0, 4 ) * 90f ) ) );
 
 		_spawnedObjects.Add( go );
+
+		go.Flags |= GameObjectFlags.NotSaved;
 
 		go.NetworkSpawn();
 
@@ -361,14 +364,14 @@ public sealed class WorldGenSampler
 
 		_worldSize = worldSize;
 
-		_biomeNoiseTransform = GetRandomNoiseTransform( random, 0.2f );
+		_biomeNoiseTransform = GetRandomNoiseTransform( random, 0.3f );
 		_heightNoiseTransform = GetRandomNoiseTransform( random, 0.4f );
 
 		_plainsHeight = parameters.PlainsHeight;
 		_mountainsHeight = parameters.MountainsHeight;
 	}
 
-	public (float Biome, int Height) Sample( int x, int y )
+	public (float Terrain, int Height) Sample( int x, int y )
 	{
 		var center = _worldSize >> 1;
 
@@ -378,16 +381,16 @@ public sealed class WorldGenSampler
 		var heightNoisePos = _heightNoiseTransform.PointToWorld( new Vector3( x, y, 0f ) );
 		var heightNoise = Math.Clamp( Noise.Fbm( 4, heightNoisePos.x, heightNoisePos.y, heightNoisePos.z ), 0f, 1f ) * centrality;
 
-		var biomeNoisePos = _biomeNoiseTransform.PointToWorld( new Vector3( x, y, 0f ) );
-		var biomeNoise = Math.Clamp( Noise.Fbm( 3, biomeNoisePos.x, biomeNoisePos.y, biomeNoisePos.z ) * 2f - 0.5f, 0f, 1f );
+		var terrainNoisePos = _biomeNoiseTransform.PointToWorld( new Vector3( x, y, 0f ) );
+		var terrainNoise = Math.Clamp( Noise.Fbm( 3, terrainNoisePos.x, terrainNoisePos.y, terrainNoisePos.z ) * centrality * 3f - 0.75f, 0f, 1f );
 
-		biomeNoise = MathF.Pow( biomeNoise, 4f ) * centrality;
+		terrainNoise = MathF.Pow( terrainNoise, 4f );
 
 		var plainsHeight = _plainsHeight.Evaluate( heightNoise );
 		var mountainsHeight = _mountainsHeight.Evaluate( heightNoise );
 
-		var height = (int)(plainsHeight + (mountainsHeight - plainsHeight) * biomeNoise);
+		var height = (int)(plainsHeight + (mountainsHeight - plainsHeight) * terrainNoise);
 
-		return (biomeNoise, height);
+		return (terrainNoise, height);
 	}
 }
