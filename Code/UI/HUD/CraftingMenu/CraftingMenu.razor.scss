@@ -125,11 +125,13 @@ CraftingMenuEntry
             font-size: 20px;
             font-weight: 600;
             flex-shrink: 0;
+            flex-shrink: 0;
         }
 
         .desc
         {
             flex-grow: 1;
+            text-overflow: ellipsis;
         }
     }
 
