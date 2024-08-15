@@ -1,10 +1,13 @@
 
+using System;
 using HC2;
 using Voxel;
 using Voxel.Modifications;
 
 public sealed class BlockPlacer : Carriable
 {
+    public static int BrushSize = 1;
+
     /// <summary>
     /// The block type that this places
     /// </summary>
@@ -33,9 +36,24 @@ public sealed class BlockPlacer : Carriable
             var pos = tr.HitPosition + tr.Normal * (blockSize / 2f);
             pos -= blockSize / 2f;
             pos = pos.SnapToGrid( blockSize );
+
+            if ( BrushSize > 1 )
+            {
+                pos += tr.Normal * blockSize * (BrushSize - 1);
+            }
+
+            var startPos = pos;
+            var size = Vector3.One * blockSize;
+            if ( BrushSize > 1 )
+            {
+                var brushSize = BrushSize - 1;
+                startPos -= Vector3.One * blockSize * brushSize;
+                size += Vector3.One * blockSize * brushSize * 2;
+            }
+
             using ( Gizmo.Scope( "block_ghost" ) )
             {
-                var bbox = new BBox( pos, pos + Vector3.One * blockSize );
+                var bbox = new BBox( startPos, startPos + size );
                 Gizmo.Draw.Color = Color.Cyan;
                 Gizmo.Draw.LineThickness = 2f;
                 Gizmo.Draw.LineBBox( bbox );
@@ -44,9 +62,21 @@ public sealed class BlockPlacer : Carriable
             }
 
 
-            if ( Input.Down( "attack1" ) )
+            if ( Input.Pressed( "attack1" ) )
             {
                 PlaceBlock( pos + blockSize / 2f );
+            }
+        }
+
+        if ( Input.Down( "Run" ) )
+        {
+            if ( Input.MouseWheel.y < 0 )
+            {
+                BrushSize = Math.Clamp( BrushSize - 1, 1, 5 );
+            }
+            else if ( Input.MouseWheel.y > 0 )
+            {
+                BrushSize = Math.Clamp( BrushSize + 1, 1, 5 );
             }
         }
     }
@@ -54,8 +84,6 @@ public sealed class BlockPlacer : Carriable
     void PlaceBlock( Vector3 pos )
     {
         if ( timeSinceLastPlace < 0.05f )
-            return;
-        if ( Scene.Camera.Transform.Position.SnapToGrid( 1 ) == lastCamTransform.Position && Scene.Camera.Transform.Rotation == lastCamTransform.Rotation )
             return;
 
         lastCamTransform = Scene.Camera.Transform.World.WithPosition( Scene.Camera.Transform.Position.SnapToGrid( 1 ) );
@@ -66,7 +94,7 @@ public sealed class BlockPlacer : Carriable
 
             using ( Rpc.FilterInclude( Connection.Host ) )
             {
-                PlaceBlockHost( pos, BlockType, Player.Hotbar.SelectedSlot );
+                PlaceBlockHost( pos, BlockType, Player.Hotbar.SelectedSlot, BrushSize );
             }
         }
 
@@ -74,7 +102,7 @@ public sealed class BlockPlacer : Carriable
     }
 
     [Broadcast]
-    void PlaceBlockHost( Vector3 pos, Block block, int slot )
+    void PlaceBlockHost( Vector3 pos, Block block, int slot, int brushSize )
     {
         if ( !Sandbox.Networking.IsHost )
             return;
@@ -87,7 +115,7 @@ public sealed class BlockPlacer : Carriable
         var voxel = world.Renderer.Model.GetVoxel( voxelPos.x, voxelPos.y, voxelPos.z );
         if ( voxel != 0 ) return;
 
-        world.Modify( new BuildModification( block, voxelPos, voxelPos ) );
+        world.Modify( new BuildModification( block, voxelPos - (brushSize - 1), voxelPos + (brushSize - 1) ) );
 
         var caller = Rpc.Caller;
         using ( Rpc.FilterInclude( caller ) )
