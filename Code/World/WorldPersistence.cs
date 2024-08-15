@@ -51,9 +51,10 @@ public struct WorldObjectState
 		public static Object? From( IObjectSaveData saveable )
 		{
 			var go = saveable.GameObject;
-			var prefabFilePath = go.PrefabInstanceSource;
 
-			Log.Info( go.PrefabInstanceSource );
+			// TODO: fix this in engine
+			var comp = go.Components.Get<GetPrefabSource>( FindMode.EverythingInSelf );
+			var prefabFilePath = comp.IsValid() ? comp.PrefabSource : go.PrefabInstanceSource;
 
 			if ( string.IsNullOrEmpty( prefabFilePath ) )
 				return null;
