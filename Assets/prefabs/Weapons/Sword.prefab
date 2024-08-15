@@ -40,7 +40,7 @@
       {
         "__type": "HC2.ResourceGatherer",
         "__guid": "c9250199-8d39-468d-b4df-5eb79db8592c",
-        "Effectiveness": 1,
+        "Effectiveness": 0.25,
         "SourceKind": "Wood"
       }
     ],
