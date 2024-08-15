@@ -66,6 +66,6 @@ public record struct CarveModification( GatherSourceKind SourceKind, byte Damage
 
 	private void SpawnBlock( Block block, int amount, Vector3 position )
 	{
-		WorldItem.CreateInstance( BlockItem.Create( block ), position );
+		WorldItem.CreateInstance( Item.Create( block ), position );
 	}
 }
