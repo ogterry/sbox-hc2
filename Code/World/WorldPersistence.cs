@@ -186,6 +186,9 @@ public sealed class WorldPersistence : Component
 			{
 				worldGen.Randomize();
 			}
+
+			LoadingScreen.IsVisible = false;
+
 			return;
 		}
 
@@ -228,6 +231,8 @@ public sealed class WorldPersistence : Component
 		Log.Info( $"Received voxel world information from the host:\n\tseed:{seed}\n\tchunks:{states.Count()}\n\tsize:{size}" );
 
 		persistence.LoadWorldState( new( version, seed, parametersPath, size, states.AsReadOnly() ) );
+
+		LoadingScreen.IsVisible = false;
 	}
 
 	protected override void OnStart()
