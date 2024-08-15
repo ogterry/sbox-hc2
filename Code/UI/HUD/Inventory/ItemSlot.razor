@@ -2,7 +2,7 @@
 @namespace HC2
 @inherits Panel
 
-<root>
+<root tooltip=@((Item?.IsValid() ?? false) ? Item.Resource.Name : "")>
     @if (Item?.IsValid() ?? false)
     {
         <div class="item" style="background-image: url(@(Item?.Resource?.GetIcon() ?? "")); background-tint: @((Item?.Resource?.GetIconColor() ?? Color.White).Hex);">
