@@ -4,27 +4,29 @@
 @inherits Panel
 @attribute [StyleSheet]
 
-@{
-    var experience = Player.Local?.Experience;
-    if (!experience.IsValid()) return;
-
-    float experiencePerc = 100f * (experience.Points / (float)experience.MaxPoints);
-
-    var health = Player.Local?.HealthComponent;
-    if (!health.IsValid()) return;
-
-    float healthPerc = 100f * (health.Health / (float)health.MaxHealth);
-}
-
 <root class="column">
     @foreach ( var teammate in Scene.GetAllComponents<Player>().Where( x => x != Player.Local ) ) 
     {
+        @if ( !teammate.IsValid() ) continue;
+
         <div class="vital">
             @if ( !IsTooManyPeople )
             {
                 <div class="avatar-container">
                     <img class="avatar" src="avatar:@teammate.Network.OwnerConnection.SteamId" />
                 </div>
+            }
+
+            @{
+                var experience = teammate?.Experience;
+                if (!experience.IsValid()) return;
+
+                float experiencePerc = 100f * (experience.Points / (float)experience.MaxPoints);
+
+                var health = teammate?.HealthComponent;
+                if (!health.IsValid()) return;
+
+                float healthPerc = 100f * (health.Health / (float)health.MaxHealth);
             }
 
             <column>
