@@ -39,7 +39,6 @@
         "Flags": 0,
         "Name": "100%",
         "Position": "-24,-32,-32",
-        "Scale": "0.5,0.5,0.5",
         "Enabled": true,
         "Components": [
           {
