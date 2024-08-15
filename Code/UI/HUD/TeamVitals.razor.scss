@@ -1,0 +1,66 @@
+@import "../Styles/_theme.scss";
+
+$height: 96px;
+$height-small: 50px;
+
+TeamVitals
+{
+    max-height: 256px;
+
+    .vital
+    {
+        backdrop-filter: $blur;
+        color: white;
+        padding: 8px 8px;
+        text-shadow: $shadow;
+    }
+}
+
+row {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 8px;
+
+    label.small 
+    {
+        margin-bottom: 4px;
+    }
+}
+
+column
+{
+    flex-direction: column;
+    backdrop-filter: $blur;
+    border-image-tint: rgba( white, 0.5 );
+    mask: $fade-to-black;
+    border-image: url( /ui/Transparent center/panel-transparent-center-015.png ) 13 fill;
+    padding-right: 64px;
+    margin-left: 8px;
+    height: $height-small;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.avatar-container
+{
+    height: $height-small;
+    aspect-ratio: 1;
+
+}
+
+img.avatar
+{
+    border-image: url( /ui/Transparent center/panel-transparent-center-015.png ) 4 fill;
+    border-image-tint: $background;
+    overflow: hidden;
+}
+
+ProgressBar {
+    width: 164px;
+
+    .inner {
+        background-color: rgba(black, 0.2);
+    }
+}
