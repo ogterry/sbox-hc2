@@ -244,10 +244,9 @@ public sealed class WorldPersistence : Component
 		// Create GameObjects for every saved state GameObject
 		foreach ( var obj in save.ObjectState.Objects )
 		{
-			obj.CreateGameObject();
+			var go = obj.CreateGameObject();
+			go.NetworkSpawn();
 		}
-
-		// Send a full network snapshot
 	}
 
 	[Button( "Save World To File" )]

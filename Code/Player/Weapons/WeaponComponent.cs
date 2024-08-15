@@ -114,7 +114,15 @@ public abstract class WeaponComponent : Carriable
 	protected float GetDamage()
 	{
 		float damage = Damage;
-		if ( GameObject.Root.Components.TryGet<StatModifier>( out var modifier ) )
+		bool willModify = true;
+		var myModifier = Components.Get<StatModifier>();
+		if ( myModifier.IsValid() )
+		{
+			damage += myModifier.DamageIncrease;
+			damage *= myModifier.DamageMultiplier;
+			if ( !myModifier.IsAffectedByStatusEffects ) willModify = false;
+		}
+		if ( willModify && GameObject.Root.Components.TryGet<StatModifier>( out var modifier ) )
 		{
 			damage += modifier.DamageIncrease;
 			damage *= modifier.DamageMultiplier;

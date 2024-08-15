@@ -30,4 +30,27 @@ public partial class Biome : GameResource
 	/// The block type to use for blocks deep below the surface.
 	/// </summary>
 	public Block DeepBlock { get; set; }
+
+	/// <summary>
+	/// How thick is the <see cref="SurfaceBlock"/> layer?
+	/// </summary>
+	public int SurfaceDepth { get; set; } = 1;
+
+	/// <summary>
+	/// How thick is the <see cref="UnderSurfaceBlock"/> layer?
+	/// </summary>
+	public int UnderSurfaceDepth { get; set; } = 4;
+
+	/// <summary>
+	/// Block at a depth under the surface.
+	/// </summary>
+	/// <param name="surfaceHeight">Surface height at this voxel column.</param>
+	/// <param name="terrain">Terrain noise value from world gen, 0 is plains, 1 is mountain.</param>
+	/// <param name="depth">Depth from surface, 0 for the top-most block.</param>
+	public Block GetBlock( int surfaceHeight, float terrain, int depth )
+	{
+		if ( depth < SurfaceDepth ) return SurfaceBlock;
+		if ( depth - SurfaceDepth < UnderSurfaceDepth ) return UnderSurfaceBlock;
+		return DeepBlock;
+	}
 }

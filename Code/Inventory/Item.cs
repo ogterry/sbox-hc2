@@ -34,16 +34,24 @@ public class Item : IValid
 
 	public static Item Create( ItemAsset resource, int amount = 1 )
 	{
-		var item = new Item { Resource = resource, Amount = amount };
+		var item = new Item { Resource = resource, Amount = amount, Durability = resource.MaxDurability };
 		return item;
 	}
 
 	public static Item Create( string resourceName, int amount = 1 )
 	{
+		var resource = ResourceLibrary.GetAll<ItemAsset>().FirstOrDefault( x => x.ResourceName == resourceName );
+		if ( resource is null )
+		{
+			Log.Warning( $"Couldn't find item resource {resourceName}" );
+			return null;
+		}
+
 		var item = new Item
 		{
-			Resource = ResourceLibrary.GetAll<ItemAsset>().FirstOrDefault( x => x.ResourceName == resourceName ),
-			Amount = amount
+			Resource = resource,
+			Amount = amount,
+			Durability = resource.MaxDurability
 		};
 
 		return item;

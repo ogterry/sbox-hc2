@@ -111,6 +111,6 @@ public partial class MeleeWeapon : WeaponComponent
 	[Broadcast]
 	private void BroadcastDamageWorld( Vector3 pos, Vector3 dir, float damage )
 	{
-		Scene.Dispatch( new DamageWorldEvent( pos, dir, damage ) );
+		Scene.Dispatch( new DamageWorldEvent( pos, dir, GameObject, damage ) );
 	}
 }

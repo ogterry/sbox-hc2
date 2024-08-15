@@ -25,6 +25,11 @@ public sealed class StatModifier : Component
 	/// </summary>
 	public float HealthRegenIncrease { get; private set; } = 0f;
 
+	/// <summary>
+	/// Whether or not any status effects affect this.
+	/// </summary>
+	[Property] public bool IsAffectedByStatusEffects { get; set; } = true;
+
 	List<StatusEffect> StatusEffects { get; set; } = new();
 
 	public void AddEffect( StatusEffect effect )

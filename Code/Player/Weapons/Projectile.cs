@@ -119,6 +119,6 @@ public partial class Projectile : Component, Component.ICollisionListener
 	[Broadcast]
 	private void BroadcastDamageWorld( Vector3 pos, Vector3 dir, float damage )
 	{
-		Scene.Dispatch( new DamageWorldEvent( pos, dir, damage ) );
+		Scene.Dispatch( new DamageWorldEvent( pos, dir, GameObject, damage ) );
 	}
 }

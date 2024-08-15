@@ -42,14 +42,14 @@ public static class VoxelParticles
 				var voxel = voxelRenderer.Model.GetVoxel( voxelPos.x, voxelPos.y, voxelPos.z );
 
 				var palette = voxelRenderer.Palette;
-				if ( voxel < palette.Blocks.Count )
-				{
-					var paletteMat = palette.Blocks[voxel];
+				var paletteEntry = palette.GetEntry( voxel );
 
+				if ( !paletteEntry.IsEmpty )
+				{
 					// var mat = Material.Create( "voxel_particle", "shaders/pixel_shader.shader" );
 					// mat.Set( "Color", paletteMat.Texture );
 					var mat = Material.Create( "voxel_particle", "complex.shader" );
-					mat.Set( "Color", paletteMat.Texture );
+					mat.Set( "Color", paletteEntry.Block.Texture );
 					return Spawn( position, mat, count );
 				}
 			}

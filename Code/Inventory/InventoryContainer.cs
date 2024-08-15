@@ -116,7 +116,7 @@ public struct InventoryContainer
 				Items[i] = item;
 				item.Container = Inventory;
 
-				if ( amount > item.Resource.MaxStack )
+				if ( item.Resource is not null && amount > item.Resource.MaxStack )
 				{
 					Items[i].Amount = item.Resource.MaxStack;
 					amount -= item.Resource.MaxStack;
@@ -222,7 +222,7 @@ public struct InventoryContainer
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 

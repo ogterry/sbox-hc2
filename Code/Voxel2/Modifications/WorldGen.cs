@@ -124,27 +124,23 @@ public record WorldGenModification( int Seed, WorldGenParameters Parameters, Vec
 				var (height, terrain) = chunkHeightmap[heightmapAccess];
 				var biome = biomeSampler?.GetBiomeAt( min.x + x, min.z + z );
 
-				height -= min.y;
-
 				var minJ = int.MaxValue;
 				var maxJ = int.MinValue;
 
-				var soilDepth = (int) (8f - terrain * 16f);
+				var localHeight = height - min.y;
 
-				for ( var y = 0; y < Constants.ChunkSize && y < height; y++ )
+				for ( var y = 0; y < Constants.ChunkSize && y < localHeight; y++ )
 				{
-					byte blockType;
+					byte blockIndex = 1;
 
-					if ( y < height - soilDepth )
-						blockType = biome is not null ? palette.GetBlockIndex( biome.UnderSurfaceBlock, 1 ) : (byte)1;
-					else if ( soilDepth > 2 && y <= height - 1 )
-						blockType = biome is not null ? palette.GetBlockIndex( biome.SurfaceBlock, 1 ) : (byte)1;
-					else
-						blockType = biome is not null ? palette.GetBlockIndex( biome.DeepBlock, 1 ) : (byte)1;
+					if ( biome?.GetBlock( height, terrain, localHeight - y ) is { } block )
+					{
+						blockIndex = palette.GetBlockIndex( block, block.MaxHealth );
+					}
 
 					var j = Chunk.WorldToLocal( y );
 
-					voxels[Chunk.GetAccessLocal( i, j, k )] = blockType;
+					voxels[Chunk.GetAccessLocal( i, j, k )] = blockIndex;
 
 					minJ = Math.Min( j, minJ );
 					maxJ = Math.Max( j, maxJ );

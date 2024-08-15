@@ -79,7 +79,7 @@
                     "__version": 7,
                     "__guid": "2be710da-913f-4edd-beea-2375066f2d96",
                     "UserData": {
-                      "Title": "Condition",
+                      "Title": "Update",
                       "ReferencedComponentTypes": []
                     },
                     "Variables": [],
@@ -88,7 +88,7 @@
                         "Id": 0,
                         "Type": "input",
                         "UserData": {
-                          "Position": "16,-320"
+                          "Position": "-176,-352"
                         }
                       },
                       {
@@ -103,7 +103,7 @@
                           }
                         },
                         "UserData": {
-                          "Position": "-112,-208"
+                          "Position": "-304,-224"
                         }
                       },
                       {
@@ -147,20 +147,36 @@
                         "Type": "property",
                         "ParentId": 43,
                         "Properties": {
-                          "_name": "Position",
-                          "_type": "Transform"
+                          "_type": "Transform",
+                          "_name": "Position"
                         }
                       },
                       {
                         "Id": 60,
                         "Type": "call",
                         "Properties": {
-                          "_name": "SetMoveTarget",
+                          "_isStatic": false,
                           "_type": "HC2.Mobs.Mob",
-                          "_isStatic": false
+                          "_name": "SetMoveTarget"
                         },
                         "UserData": {
-                          "Position": "304,-320"
+                          "Position": "384,-336"
+                        }
+                      },
+                      {
+                        "Id": 61,
+                        "Type": "property",
+                        "ParentId": 2,
+                        "Properties": {
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "HasAimTarget"
+                        }
+                      },
+                      {
+                        "Id": 64,
+                        "Type": "if",
+                        "UserData": {
+                          "Position": "64,-352"
                         }
                       }
                     ],
@@ -190,8 +206,8 @@
                         "DstName": "_target"
                       },
                       {
-                        "SrcId": 0,
-                        "SrcName": "_signal",
+                        "SrcId": 64,
+                        "SrcName": "true",
                         "DstId": 60,
                         "DstName": "_signal"
                       },
@@ -206,6 +222,24 @@
                         "SrcName": "_result",
                         "DstId": 60,
                         "DstName": "position"
+                      },
+                      {
+                        "SrcId": 2,
+                        "SrcName": "_result",
+                        "DstId": 61,
+                        "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 0,
+                        "SrcName": "_signal",
+                        "DstId": 64,
+                        "DstName": "_signal"
+                      },
+                      {
+                        "SrcId": 61,
+                        "SrcName": "_result",
+                        "DstId": 64,
+                        "DstName": "condition"
                       }
                     ],
                     "Defaults": {
