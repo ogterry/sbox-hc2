@@ -201,6 +201,10 @@ public partial class Player : Component, IDamage,
 	/// <returns></returns>
 	private Vector3 GetWishSpeed()
 	{
+		if ( Character.GroundObject?.Tags?.Has( "water" ) ?? false )
+		{
+			return MovementSpeed * 0.6f;
+		}
 		if ( IsDucking )
 			return DuckSpeed;
 		else if ( IsWalking )
@@ -404,6 +408,15 @@ public partial class Player : Component, IDamage,
 	{
 		if ( ModelRenderer.IsValid() )
 		{
+			if ( Character.GroundObject?.Tags?.Has( "water" ) ?? false )
+			{
+				// Visually move the player down when in water
+				ModelRenderer.Transform.LocalPosition = Vector3.Down * 16f;
+			}
+			else
+			{
+				ModelRenderer.Transform.LocalPosition = 0;
+			}
 			ModelRenderer.Transform.Rotation = Rotation.FromYaw( EyeAngles.yaw );
 		}
 
