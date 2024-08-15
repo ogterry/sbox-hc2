@@ -11,7 +11,7 @@
 }
 <root class="stats-menu @(isStatsMenuOpen ? "visible" : "")">
 	<div class="stats-panel">
-		<label class="title">Stat Upgrades</label>
+		<label class="title">Perks</label>
 		<div class="stats">
 			@foreach(var stat in ResourceLibrary.GetAll<StatusEffect>().Where(x => x.Type == StatusEffect.StatusType.Stat))
 			{

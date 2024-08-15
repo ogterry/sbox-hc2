@@ -1,6 +1,7 @@
 @import "../Styles/_theme.scss";
 
-.stats-menu {
+.stats-menu
+{
     position: absolute;
     top: 0;
     width: 100%;
@@ -10,78 +11,92 @@
     opacity: 0;
     transition: all 0.2s;
     pointer-events: none;
-    font-family: Glegoo;
     font-size: 18px;
     padding: $safe-zone-y $safe-zone-x;
 
-    .stats-panel {
+    .stats-panel
+    {
         position: relative;
         flex-direction: column;
         padding: 8px 12px;
         color: white;
-        border-image-tint: $background;
+        border-image-tint: rgba( black, 0.6 );
         border-image: url( /ui/Transparent center/panel-transparent-center-001.png ) 16 fill;
         gap: 2px;
         transition: all 0.1s;
         min-width: 300px;
         left: -100%;
 
-        .header {
+        .header
+        {
             font-size: 24px;
             font-weight: bold;
             margin-bottom: 8px;
         }
 
-        .stats {
+        .stats
+        {
             width: 100%;
             flex-direction: column;
             height: 300px;
             border-image-tint: $background;
             border-image: url( /ui/border/panel-border-012.png ) fill;
 
-            .stat {
+            .stat
+            {
                 width: 100%;
                 align-items: center;
 
-                .name {
+                .name
+                {
                     flex-grow: 1;
                     text-overflow: ellipsis;
                     overflow: hidden;
                     white-space: nowrap;
+                    font-size: 14px;
                 }
 
-                .count {
+                .count
+                {
                     flex-shrink: 0;
                     gap: 8px;
                     align-items: center;
+                    font-size: 14px;
 
-                    .btn {
+                    .btn
+                    {
                         width: 24px;
                         height: 24px;
-                        border-radius: 50%;
-                        background-color: #ddd;
+                        border-image-tint: rgba( black, 0.6 );
+                        border-image: url( /ui/Transparent center/panel-transparent-center-001.png ) 2 fill;
                         justify-content: center;
                         align-items: center;
                         cursor: pointer;
 
-                        &:hover {
-                            background-color: #ccc;
+                        font-size: 18px;
+
+                        &:hover
+                        {
+                            border-image-tint: rgba( gray, 0.6 );
                         }
                     }
                 }
             }
         }
 
-        .footer {
+        .footer
+        {
             font-size: 14px;
         }
     }
 
-    &.visible {
+    &.visible
+    {
         left: 0%;
         opacity: 1;
 
-        .stats-panel {
+        .stats-panel
+        {
             pointer-events: all;
             left: 0%;
         }
