@@ -13,7 +13,7 @@ public partial class Player
             Log.Info( "==" + p.Network.OwnerConnection.DisplayName );
             foreach ( var item in p.Inventory.GetAllItems() )
             {
-                Log.Info( item.Resource.Name + " / " + item.SlotIndex );
+                Log.Info( item.Name + " / " + item.SlotIndex );
             }
         }
     }

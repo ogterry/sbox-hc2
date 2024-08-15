@@ -49,15 +49,23 @@ public record struct CarveModification( GatherSourceKind SourceKind, byte Damage
 
 			var entry = palette.GetEntry( index );
 			if ( entry.IsEmpty || entry.Health == 0 ) continue;
+			if ( SourceKind != entry.Block.MaterialKind ) continue;
 
 			if ( entry.Health == 1 )
 			{
 				chunk.SetVoxel( x, y, z, 0 );
+
+				SpawnBlock( entry.Block, 1, renderer.WorldToVoxelCoords( new Vector3Int( x,  y, z ) + chunk.WorldMin ) );
 			}
 			else
 			{
 				chunk.SetVoxel( x, y, z, (byte) (index + 1) );
 			}
 		}
+	}
+
+	private void SpawnBlock( Block block, int amount, Vector3 position )
+	{
+		WorldItem.CreateInstance( BlockItem.Create( block ), position );
 	}
 }

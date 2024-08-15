@@ -35,6 +35,12 @@
         "__type": "HC2.ResourceGatherer",
         "__guid": "287bdfe0-edeb-44d7-a689-aa8436be0562",
         "Effectiveness": 1,
+        "SourceKind": "Soil"
+      },
+      {
+        "__type": "HC2.ResourceGatherer",
+        "__guid": "c9250199-8d39-468d-b4df-5eb79db8592c",
+        "Effectiveness": 1,
         "SourceKind": "Wood"
       }
     ],

@@ -85,6 +85,22 @@ public partial class WorldItem : Component, Component.ITriggerListener
 	{
 		GameObject.Destroy();
 	}
+	
+	/// <summary>
+	/// Quick and nasty accessor for creating a world item. This could be loads better.
+	/// </summary>
+	/// <param name="item"></param>
+	/// <param name="worldPosition"></param>
+	/// <returns></returns>
+	public static WorldItem CreateInstance( Item item, Vector3 worldPosition )
+	{
+		var worldItem = CreateInstance( item.Resource, worldPosition, item.Amount );
+
+		// Conna: if the Item is a BlockItem we'll handle this differently. We'll wanna
+		// use a custom model with a material override or something for the block texture.
+		
+		return worldItem;
+	}
 
 	/// <summary>
 	/// Quick and nasty accessor for creating a world item. This could be loads better.

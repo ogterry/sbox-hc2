@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection.Metadata;
 using Sandbox.Diagnostics;
 using System.Runtime.InteropServices;
 
@@ -113,11 +114,16 @@ public partial class VoxelRenderer : Component, Component.ExecuteInEditor
 
 	public Vector3Int WorldToVoxelCoords( Vector3 worldPos )
 	{
-		var voxelSize = Constants.VoxelSize;
+		var localPos = Transform.World.PointToLocal( worldPos ) / Constants.VoxelSize;
 
-		var localPos = Transform.World.PointToLocal( worldPos );
+		return new( (int)MathF.Floor( localPos.y ), (int)MathF.Floor( localPos.z ), (int)MathF.Floor( localPos.x ) );
+	}
 
-		return new( (int)MathF.Floor( localPos.y / voxelSize ), (int)MathF.Floor( localPos.z / voxelSize ), (int)MathF.Floor( localPos.x / voxelSize ) );
+	public Vector3 VoxelToWorldCoords( Vector3Int voxelPos )
+	{
+		var localPos = ((Vector3)voxelPos + 0.5f) * Constants.VoxelSize;
+
+		return Transform.World.PointToWorld( new Vector3( localPos.z, localPos.x, localPos.y ) );
 	}
 
 	protected override void DrawGizmos()

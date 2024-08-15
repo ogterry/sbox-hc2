@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using Voxel;
 
 namespace HC2;
 
@@ -28,9 +29,14 @@ public class Item : IValid
 	public bool IsValid => Resource != null && (Container?.IsValid() ?? false);
 
 	/// <summary>
+	/// Get the name of this item.
+	/// </summary>
+	[JsonIgnore, Hide] public virtual string Name => Resource?.Name ?? string.Empty;
+	
+	/// <summary>
 	/// Get the max stack size for this item according to its resource asset.
 	/// </summary>
-	[JsonIgnore, Hide] public int MaxStack => Resource?.MaxStack ?? 1;
+	[JsonIgnore, Hide] public virtual int MaxStack => Resource?.MaxStack ?? 1;
 
 	public static Item Create( ItemAsset resource, int amount = 1 )
 	{

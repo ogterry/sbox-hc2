@@ -1,12 +1,12 @@
 {
   "Name": "Dirt",
-  "Color": "0.63137,0.63137,0.63137,1",
+  "Color": "0.54884,0.40112,0.2323,1",
   "Texture": "textures/ground_texture_02.vtex",
   "TextureSize": "16384,16384",
   "Tags": "",
   "IsBreakable": true,
   "MaxHealth": 3,
-  "MaterialKind": "Wood",
+  "MaterialKind": "Soil",
   "DamageScale": 1,
   "__references": [],
   "__version": 0

@@ -133,7 +133,7 @@ public record WorldGenModification( int Seed, WorldGenParameters Parameters, Vec
 				{
 					byte blockIndex = 1;
 
-					if ( biome?.GetBlock( height, terrain, localHeight - y ) is { } block )
+					if ( biome?.GetBlock( height, terrain, localHeight - y - 1 ) is { } block )
 					{
 						blockIndex = palette.GetBlockIndex( block, block.MaxHealth );
 					}
