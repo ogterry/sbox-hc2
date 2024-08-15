@@ -5,7 +5,7 @@
 <root>
     @if ( Resource is not null )
     {
-        <div class="item" style="background-image: url(@Resource.Icon);">
+        <div class="item" style="background-image: url(@Resource.GetIcon()); background-tint: @(Resource.GetIconColor().Hex);">
 
         </div>
     }

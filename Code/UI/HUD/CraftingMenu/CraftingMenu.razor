@@ -28,7 +28,7 @@
     {
         <div class="selected-item column">
             <div class="header">
-                <img src="@SelectedItem.Icon" />
+                <img src="@SelectedItem.GetIcon()" />
                 <div class="info column">
                     <label class="name">@SelectedItem.Name</label>
                     <label class="desc">@SelectedItem.Description</label>
@@ -38,7 +38,7 @@
                 @foreach (var entry in SelectedItem.CraftingRequirements)
                 {
                     <div class="entry">
-                        <img src="@entry.Resource.Icon" />
+                        <img src="@entry.Resource.GetIcon()" />
                         <label>@entry.Resource.Name</label>
                         <label>x@(entry.Amount)</label>
                     </div>

@@ -83,6 +83,23 @@ public class ItemAsset : GameResource
 
 	[Category( "Crafting" )]
 	public int CraftingYield { get; set; } = 1;
+
+	/// <summary>
+	/// Get the icon to use, taking into account whether this is a block item.
+	/// </summary>
+	public string GetIcon()
+	{
+		return BlockType is not null ? BlockType.Texture.ResourcePath : Icon;
+	}
+
+	/// <summary>
+	/// Get the icon tint color to use.
+	/// </summary>
+	/// <returns></returns>
+	public Color GetIconColor()
+	{
+		return BlockType?.Color ?? Color.White;
+	}
 	
 	/// <summary>
 	/// A list of status effects that this item applies to the player when equipped/consumed.
