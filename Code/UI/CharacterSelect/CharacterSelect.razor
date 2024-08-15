@@ -38,7 +38,7 @@
     @if ( CharacterSave.Current is null )
     {
         <div class="column gap" style="width: 256px;">
-              <TextEntry Value:bind=@NewCharacterName />
+              <TextEntry class="text-entry" Value:bind=@NewCharacterName />
               <div class="button" onclick="@CreateNewCharacter">Create Character</div>
         </div>
     }

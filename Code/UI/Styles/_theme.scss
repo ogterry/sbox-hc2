@@ -126,12 +126,16 @@ label, text, .label
     color: white;
 }
 
-TextEntry
+.text-entry
 {
-    border-image: url( /ui/Transparent center/panel-transparent-center-015.png ) 8 fill;
-    border-image-tint: rgba( white, 0.2 );
     height: 40px;
     font-size: 16px;
+
+    &:not( .no-background )
+    {
+        border-image: url( /ui/Transparent center/panel-transparent-center-015.png ) 8 fill;
+        border-image-tint: rgba( white, 0.2 );
+    }
 }
 
 .column

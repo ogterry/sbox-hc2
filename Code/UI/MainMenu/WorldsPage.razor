@@ -30,7 +30,7 @@
                     <label>This world hasn't been saved yet, save it to ensure you don't lose any progress!</label>
 
                     <div class="column gap" style="width: 256px;">
-                        <TextEntry placeholder="My World" @ref="WorldNameTextEntry" />
+                        <TextEntry class="text-entry" placeholder="My World" @ref="WorldNameTextEntry" />
                         <div class="button" onclick=@(() => SaveWorld()) >Save World</div>
                         <a class="button" href="/">Return</a>
                     </div>
