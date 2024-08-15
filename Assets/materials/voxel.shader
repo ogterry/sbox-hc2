@@ -47,10 +47,9 @@ VS
 	struct PaletteMaterial
 	{
 		float4 Color;
+		float2 TextureSize;
 		int TextureIndex;
 		int Pad1;
-		int Pad2;
-		int Pad3;
 	};
 
 	StructuredBuffer<PaletteMaterial> g_ColorPalette < Attribute( "ColorPalette" ); >;
@@ -96,12 +95,9 @@ VS
 		o.TextureIndex = material.TextureIndex.x + 1;
 		o.Height = o.vPositionWs.z / 128;
 
-		float aspect = 3000 / 1980;
-		float scale = 512 * 32;
-
-		o.vTextureCoords = float2( 
-			dot( o.vTangentUWs.xyz, o.vPositionWs.xyz ), 
-			dot( o.vTangentVWs.xyz, o.vPositionWs.xyz ) ) * float2( 1.0 / scale, 1.0f / (scale * aspect) );
+		float u = dot( o.vTangentUWs.xyz, o.vPositionWs.xyz );
+		float v = dot( o.vTangentVWs.xyz, o.vPositionWs.xyz );
+		o.vTextureCoords = float2( u, v ) * ( 1.0 / material.TextureSize );
 
 		return FinalizeVertex( o );
 	}
@@ -125,17 +121,16 @@ PS
 	{
 		float3 color;
 
-		// Defining the colors in the Color Ramp
 		float3 orangeColor = float3(1.0f, 0.6f, 0.2f);
 		float3 whiteColor = float3(1.0f, 1.0f, 1.0f);
 
-		// We assume the positions are [0.0, 0.95, 1.0] as per the graph
-		if (factor <= 0.95f) {
-			// Interpolate between orange and orange
+		if (factor <= 0.95f)
+		{
 			color = orangeColor;
-		} else {
-			// Interpolate between orange and white
-			float t = (factor - 0.95f) / (1.0f - 0.95f); // Normalize to 0 - 1 range
+		} 
+		else 
+		{
+			float t = (factor - 0.95f) / (1.0f - 0.95f);
 			color = lerp(orangeColor, whiteColor, t);
 		}
 

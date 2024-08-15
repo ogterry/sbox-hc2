@@ -16,7 +16,12 @@ public partial class Palette : GameResource
 
 		[KeyProperty] public string Name { get; set; }
 		public Color Color { get; set; }
+
+		[Group( "Texture" )]
 		public Texture Texture { get; set; }
+
+		[Group( "Texture" )]
+		public Vector2 TextureSize { get; set; } = 32;
 	}
 
 	public List<Material> Materials { get; set; }

@@ -135,9 +135,8 @@ public partial class VoxelModel
 	public struct PaletteMaterial
 	{
 		public Color Color;
+		public Vector2 TextureSize;
 		public int TextureIndex;
-		public int Pad1;
-		public int Pad2;
 		public int Pad3;
 	}
 
@@ -151,7 +150,7 @@ public partial class VoxelModel
 		if ( palette == null )
 		{
 			WhiteTexture.MarkUsed( int.MaxValue );
-			Array.Fill( Palette, new PaletteMaterial { Color = Color.White, TextureIndex = WhiteTexture.Index } );
+			Array.Fill( Palette, new PaletteMaterial { Color = Color.White, TextureIndex = WhiteTexture.Index, TextureSize = Vector2.One } );
 
 			PaletteBuffer.SetData( Palette );
 
@@ -166,7 +165,8 @@ public partial class VoxelModel
 			Palette[i] = new PaletteMaterial
 			{
 				Color = material.Color,
-				TextureIndex = material.Texture != null ? material.Texture.Index : WhiteTexture.Index
+				TextureIndex = material.Texture != null ? material.Texture.Index : WhiteTexture.Index,
+				TextureSize = material.TextureSize,
 			};
 		}
 
