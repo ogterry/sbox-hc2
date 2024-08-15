@@ -494,10 +494,21 @@ public partial class Player : Component, IDamage,
 		var item = eventArgs.Item;
 		if ( item is null ) return;
 
-		if ( item.Resource.Prefab is not null )
+		var prefab = item.Resource.Prefab;
+		if ( prefab is null && item.Resource.BlockType is not null )
 		{
-			var obj = SceneUtility.GetPrefabScene( item.Resource.Prefab );
+			prefab = ResourceLibrary.Get<PrefabFile>( "prefabs/weapons/block_placer.prefab" );
+		}
+
+		if ( prefab is not null )
+		{
+			var obj = SceneUtility.GetPrefabScene( prefab );
 			SetMainHand( obj );
+
+			if ( obj.Components.TryGet<BlockPlacer>( out var placer ) )
+			{
+				placer.BlockType = item.Resource.BlockType;
+			}
 		}
 	}
 
