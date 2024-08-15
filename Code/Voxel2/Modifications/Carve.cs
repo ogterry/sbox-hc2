@@ -7,13 +7,14 @@ public record struct CarveModification( Vector3Int Origin, byte Radius, int Seed
 	public ModificationKind Kind => ModificationKind.Carve;
 	public Vector3Int Min => Origin - Radius;
 	public Vector3Int Max => Origin + Radius;
-	public bool CreateChunks => false;
 
 	public CarveModification( ByteStream stream )
 		: this( stream.Read<Vector3Int>(), stream.Read<byte>(), stream.Read<int>() )
 	{
 
 	}
+
+	public bool ShouldCreateChunk( Vector3Int chunkMin ) => false;
 
 	public void Write( ref ByteStream stream )
 	{

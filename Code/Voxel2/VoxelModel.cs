@@ -92,8 +92,21 @@ public partial class VoxelRenderer : Component, Component.ExecuteInEditor
 
 		var transform = Transform.World;
 
-		foreach ( var mesh in Model.MeshChunks )
+		var meshChunks = Model.MeshChunks;
+
+		for ( var i = 0; i < meshChunks.Length; ++i )
 		{
+			var mesh = meshChunks[i];
+
+			if ( mesh is null ) continue;
+
+			if ( !mesh.Chunk.Allocated )
+			{
+				mesh.Destroy();
+				meshChunks[i] = null;
+				continue;
+			}
+
 			MeshChunk( mesh, transform );
 		}
 	}
@@ -105,6 +118,26 @@ public partial class VoxelRenderer : Component, Component.ExecuteInEditor
 		var localPos = Transform.World.PointToLocal( worldPos );
 
 		return new( (int)MathF.Floor( localPos.y / voxelSize ), (int)MathF.Floor( localPos.z / voxelSize ), (int)MathF.Floor( localPos.x / voxelSize ) );
+	}
+
+	protected override void DrawGizmos()
+	{
+		if ( !Gizmo.IsSelected ) return;
+
+		Gizmo.Draw.LineBBox( new BBox( 0f, new Vector3( Size.x, Size.z, Size.y ) * 16f ) );
+
+		if ( Model is null ) return;
+
+		Gizmo.Draw.Color = Color.White.WithAlpha( 0.125f );
+
+		foreach ( var chunk in Model.Chunks )
+		{
+			if ( chunk is not { Allocated: true } ) continue;
+
+			Gizmo.Draw.LineBBox( new BBox(
+				new Vector3( chunk.WorldMin.x, chunk.WorldMin.z, chunk.WorldMin.y ) * 16f,
+				new Vector3( chunk.WorldMax.x, chunk.WorldMax.z, chunk.WorldMax.y ) * 16f ) );
+		}
 	}
 }
 
@@ -296,14 +329,11 @@ public partial class VoxelModel
 		var chunkMax = ClampChunkCoords( GetChunkCoords( max + 1 ) );
 
 		for ( var f = chunkMin.x; f <= chunkMax.x; f++ )
-			for ( var g = chunkMin.y; g <= chunkMax.y; g++ )
-				for ( var h = chunkMin.z; h <= chunkMax.z; h++ )
-				{
-					var chunkAccess = GetAccessLocal( f, g, h );
-					var chunk = Chunks[chunkAccess];
-
-					chunk?.SetDirty();
-				}
+		for ( var g = chunkMin.y; g <= chunkMax.y; g++ )
+		for ( var h = chunkMin.z; h <= chunkMax.z; h++ )
+		{
+			GetChunkLocal( f, g, h ).SetDirty();
+		}
 	}
 
 	public Chunk InitChunk( int x, int y, int z )
@@ -312,10 +342,18 @@ public partial class VoxelModel
 		var g = y >> Constants.ChunkShift;
 		var h = z >> Constants.ChunkShift;
 
-		return InitChunkLocal( f, g, h, true );
+		return InitChunkLocal( f, g, h );
 	}
 
-	public Chunk InitChunkLocal( int f, int g, int h, bool create )
+	public Chunk GetChunkLocal( int f, int g, int h )
+	{
+		var chunkAccess = GetAccessLocal( f, g, h );
+		var chunk = Chunks[chunkAccess];
+
+		return chunk;
+	}
+
+	public Chunk InitChunkLocal( int f, int g, int h )
 	{
 		var chunkAccess = GetAccessLocal( f, g, h );
 		var chunk = Chunks[chunkAccess];
@@ -324,11 +362,6 @@ public partial class VoxelModel
 		{
 			Assert.True( MeshChunks[chunkAccess] != null );
 			return chunk;
-		}
-
-		if ( !create )
-		{
-			return null;
 		}
 
 		Assert.True( !chunk.Fake );

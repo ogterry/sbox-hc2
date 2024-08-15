@@ -84,6 +84,15 @@ public partial class Chunk
 		SetDirty();
 	}
 
+	public void Deallocate()
+	{
+		UnsetDirty();
+
+		Voxels = null;
+		MinAltitude = null;
+		MaxAltitude = null;
+	}
+
 	public static int GetAccessLocal( int i, int j, int k )
 	{
 		Assert.True( i >= 0 );

@@ -1,52 +1,129 @@
 ﻿using System;
-using Sandbox;
+using Sandbox.Diagnostics;
 using Sandbox.Utility;
 
 namespace Voxel.Modifications;
 
-public record struct WorldGenModification( int Seed, int ResourceId, Vector3Int Min, Vector3Int Max ) : IModification
+#nullable enable
+
+public record WorldGenModification( int Seed, WorldGenParameters Parameters, Vector3Int Min, Vector3Int Max ) : IModification
 {
 	public ModificationKind Kind => ModificationKind.WorldGen;
-	public bool CreateChunks => true;
 
 	public WorldGenModification( ByteStream stream )
-		: this( stream.Read<int>(), stream.Read<int>(), stream.Read<Vector3Int>(), stream.Read<Vector3Int>() )
+		: this(
+			stream.Read<int>(),
+			ResourceLibrary.Get<WorldGenParameters>( stream.Read<int>() ),
+			stream.Read<Vector3Int>(),
+			stream.Read<Vector3Int>() )
 	{
 
+	}
+
+	private HeightmapSample[]? _worldHeightmap;
+	private WorldGenSampler? _worldSampler;
+
+	[ThreadStatic]
+	private static HeightmapSample[]? _chunkHeightmap;
+
+	private WorldGenSampler WorldSampler => _worldSampler ??= new WorldGenSampler( Parameters, Seed, Max.x - Min.x );
+
+	public bool ShouldCreateChunk( Vector3Int chunkMin )
+	{
+		var chunkHeightmap = _chunkHeightmap ??= new HeightmapSample[Constants.ChunkSizeSquared];
+
+		// Span<HeightmapSample> chunkHeightmap = stackalloc HeightmapSample[Constants.ChunkSizeSquared];
+
+		GetChunkHeightMap( chunkMin.x, chunkMin.z, chunkHeightmap );
+
+		return IsChunkPopulated( chunkMin, chunkHeightmap );
+	}
+
+	private bool IsChunkPopulated( Vector3Int chunkMin, Span<HeightmapSample> chunkHeightmap )
+	{
+		var maxHeight = 0;
+
+		for ( var i = 0; i < Constants.ChunkSizeSquared; ++i )
+		{
+			maxHeight = Math.Max( maxHeight, chunkHeightmap[i].Height );
+		}
+
+		return maxHeight > chunkMin.y;
+	}
+
+	private void UpdateHeightmap()
+	{
+		if ( _worldHeightmap is not null ) return;
+
+		_worldHeightmap = new HeightmapSample[(Max.x - Min.x) * (Max.z - Min.z)];
+		WorldSampler.Sample( Min.x, Min.z, Max.x, Max.z, _worldHeightmap );
+	}
+
+	private void GetChunkHeightMap( int minX, int minZ, Span<HeightmapSample> output )
+	{
+		UpdateHeightmap();
+
+		Assert.True( output.Length >= Constants.ChunkSizeSquared );
+		Assert.True( minX >= Min.x );
+		Assert.True( minZ >= Min.z );
+		Assert.True( minX + Constants.ChunkSize <= Max.x );
+		Assert.True( minZ + Constants.ChunkSize <= Max.z );
+
+		var stride = Max.x - Min.x;
+		var baseIndex = minX - Min.x + (minZ - Min.z) * stride;
+
+		for ( var z = 0; z < Constants.ChunkSize; ++z )
+		{
+			var index = baseIndex + z * stride;
+
+			_worldHeightmap
+				.AsSpan( index, Constants.ChunkSize )
+				.CopyTo( output.Slice( z << Constants.ChunkShift, Constants.ChunkSize ) );
+		}
 	}
 
 	public void Write( ref ByteStream stream )
 	{
 		stream.Write( Seed );
-		stream.Write( ResourceId );
+		stream.Write( Parameters.ResourceId );
 		stream.Write( Min );
 		stream.Write( Max );
 	}
 
 	public void Apply( Scene scene, Chunk chunk )
 	{
-		var min = chunk.WorldMin;
-		var random = new Random( Seed );
-		var resource = ResourceLibrary.Get<WorldGenParameters>( ResourceId );
+		var chunkHeightmap = _chunkHeightmap ??= new HeightmapSample[Constants.ChunkSizeSquared];
 
-		var sampler = new WorldGenSampler( resource, Seed, Max.x - Min.x );
-		var biomeSampler = scene.GetAllComponents<BiomeSampler>().FirstOrDefault();
+		// Span<HeightmapSample> chunkHeightmap = stackalloc HeightmapSample[Constants.ChunkSizeSquared];
+
+		var min = chunk.WorldMin;
+
+		GetChunkHeightMap( min.x, min.z, chunkHeightmap );
+
+		if ( !IsChunkPopulated( min, chunkHeightmap ) )
+		{
+			chunk.Deallocate();
+			return;
+		}
 
 		chunk.Clear();
 
 		var voxels = chunk.Voxels;
+		var biomeSampler = scene.GetAllComponents<BiomeSampler>().FirstOrDefault();
 
 		for ( var x = 0; x < Constants.ChunkSize; x++ )
 		{
 			for ( var z = 0; z < Constants.ChunkSize; z++ )
 			{
-				var (terrain, height) = sampler.Sample( min.x + x, min.z + z );
+				var i = Chunk.WorldToLocal( x );
+				var k = Chunk.WorldToLocal( z );
+
+				var heightmapAccess = Chunk.GetHeightmapAccess( i, k );
+
+				var (height, terrain) = chunkHeightmap[heightmapAccess];
 				var biome = biomeSampler?.GetBiomeAt( min.x + x, min.z + z );
 
 				height -= min.y;
-
-				var i = Chunk.WorldToLocal( x );
-				var k = Chunk.WorldToLocal( z );
 
 				var minJ = int.MaxValue;
 				var maxJ = int.MinValue;
@@ -82,8 +159,6 @@ public record struct WorldGenModification( int Seed, int ResourceId, Vector3Int 
 
 				if ( maxJ < 0 || minJ > 255 ) continue;
 
-				var heightmapAccess = Chunk.GetHeightmapAccess( i, k );
-
 				chunk.MinAltitude[heightmapAccess] = (byte)minJ;
 				chunk.MaxAltitude[heightmapAccess] = (byte)maxJ;
 			}
@@ -94,14 +169,14 @@ public record struct WorldGenModification( int Seed, int ResourceId, Vector3Int 
 [Icon( "casino" )]
 public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 {
-	[RequireComponent] public VoxelNetworking VoxelNetworking { get; private set; }
-	[RequireComponent] public VoxelRenderer Renderer { get; private set; }
+	[RequireComponent] public VoxelNetworking VoxelNetworking { get; private set; } = null!;
+	[RequireComponent] public VoxelRenderer Renderer { get; private set; } = null!;
 
 	[Property]
 	public int Seed { get; set; }
 
 	[Property]
-	public WorldGenParameters Parameters { get; set; }
+	public WorldGenParameters? Parameters { get; set; }
 
 	private readonly List<GameObject> _spawnedObjects = new();
 
@@ -115,7 +190,11 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 	[Button( "Regenerate" )]
 	private void Regenerate()
 	{
-		VoxelNetworking.Modify( new WorldGenModification( Seed, Parameters.ResourceId, 0, VoxelNetworking.Renderer.Size ) );
+		if ( Parameters is null ) return;
+
+		using var sceneScope = Scene.Push();
+
+		VoxelNetworking.Modify( new WorldGenModification( Seed, Parameters, 0, VoxelNetworking.Renderer.Size ) );
 		SpawnProps();
 	}
 
@@ -124,6 +203,7 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 		Regenerate();
 	}
 
+	[Button( "Destroy Props" )]
 	private void DestroyProps()
 	{
 		foreach ( var spawnedObject in _spawnedObjects )
@@ -150,11 +230,11 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 
 		SpawnFeatures( Vector3.Zero, 4096f, true, Parameters.Features.ToArray() );
 
-		Random = null;
-		Sampler = null;
+		Random = null!;
+		Sampler = null!;
 	}
 
-	private WorldGenFeature GetRandomWeighted( IReadOnlyList<WorldGenFeature> features )
+	private WorldGenFeature? GetRandomWeighted( IReadOnlyList<WorldGenFeature> features )
 	{
 		if ( features.Count == 0 )
 		{
@@ -177,8 +257,8 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 		return null;
 	}
 
-	public Random Random { get; private set; }
-	public WorldGenSampler Sampler { get; private set; }
+	public Random Random { get; private set; } = null!;
+	public WorldGenSampler Sampler { get; private set; } = null!;
 
 	public void SpawnFeatures( Vector3 origin, float radius, bool uniform = false, params WorldGenFeature[] features )
 	{
@@ -250,11 +330,11 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 
 			blocked.Add( new Circle( pos2d, selected.Radius ) );
 
-			selected.Spawn( this, new Vector3( pos2d.x, pos2d.y, sample.Height * 16f ) );
+			selected.Spawn?.Invoke( this, new Vector3( pos2d.x, pos2d.y, sample.Height * 16f ) );
 		}
 	}
 
-	public Prop SpawnProp( Model model, Vector3 position, float scale = 1f )
+	public Prop? SpawnProp( Model model, Vector3 position, float scale = 1f )
 	{
 		var go = new GameObject( true, model.ResourceName )
 		{
@@ -277,12 +357,12 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 		return prop;
 	}
 
-	public GameObject SpawnPrefab( PrefabFile prefab, Vector3 position )
+	public GameObject? SpawnPrefab( PrefabFile prefab, Vector3 position )
 	{
 		// Sample random even if we don't spawn, to keep things deterministic
 
 		var yaw = Rotation.FromYaw( Random.Next( 0, 4 ) * 90f );
-		var isNetworked = prefab.RootObject["NetworkMode"]?.GetValue<int>() == (int)NetworkMode.Object;
+		var isNetworked = Game.IsPlaying && prefab.RootObject["NetworkMode"]?.GetValue<int>() == (int)NetworkMode.Object;
 
 		if ( IsProxy && isNetworked )
 		{
@@ -326,8 +406,10 @@ public sealed class WorldGenFeature : GameResource
 
 	public delegate void SpawnDelegate( VoxelWorldGen worldGen, Vector3 origin );
 
-	public SpawnDelegate Spawn { get; set; }
+	public SpawnDelegate? Spawn { get; set; }
 }
+
+public record struct HeightmapSample( int Height, float Terrain );
 
 public sealed class WorldGenSampler
 {
@@ -366,15 +448,15 @@ public sealed class WorldGenSampler
 		_mountainsHeight = parameters.MountainsHeight;
 	}
 
-	public (float Terrain, int Height) Sample( int x, int y )
+	public HeightmapSample Sample( int x, int z )
 	{
-		var edgeDist = Math.Min( Math.Min( x, y ), Math.Min( _worldSize - x, _worldSize - y ) ) / (_worldSize * 0.125f);
+		var edgeDist = Math.Min( Math.Min( x, z ), Math.Min( _worldSize - x, _worldSize - z ) ) / (_worldSize * 0.125f);
 		var centrality = Math.Clamp( edgeDist, 0f, 1f );
 
-		var heightNoisePos = _heightNoiseTransform.PointToWorld( new Vector3( x, y, 0f ) );
+		var heightNoisePos = _heightNoiseTransform.PointToWorld( new Vector3( x, z, 0f ) );
 		var heightNoise = Math.Clamp( Noise.Fbm( 6, heightNoisePos.x, heightNoisePos.y, heightNoisePos.z ), 0f, 1f ) * centrality;
 
-		var terrainNoisePos = _biomeNoiseTransform.PointToWorld( new Vector3( x, y, 0f ) );
+		var terrainNoisePos = _biomeNoiseTransform.PointToWorld( new Vector3( x, z, 0f ) );
 		var terrainNoise = Math.Clamp( Noise.Fbm( 4, terrainNoisePos.x, terrainNoisePos.y, terrainNoisePos.z ) * centrality, 0f, 1f );
 
 		terrainNoise = _terrainBias.Evaluate( terrainNoise );
@@ -384,6 +466,19 @@ public sealed class WorldGenSampler
 
 		var height = (int)(plainsHeight + (mountainsHeight - plainsHeight) * terrainNoise);
 
-		return (terrainNoise, height);
+		return new ( height, terrainNoise );
+	}
+
+	public void Sample( int minX, int minZ, int sizeX, int sizeZ, Span<HeightmapSample> output )
+	{
+		Assert.True( output.Length >= sizeX * sizeZ );
+
+		// TODO: batch noise calls nicer, so it doesn't need to reinit each call
+
+		for ( var x = 0; x < sizeX; ++x )
+		for ( var z = 0; z < sizeZ; ++z )
+		{
+			output[x + sizeX * z] = Sample( minX + x, minZ + z );
+		}
 	}
 }
