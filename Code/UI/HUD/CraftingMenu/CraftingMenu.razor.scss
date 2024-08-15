@@ -66,6 +66,8 @@ CraftingMenu
 
             .entry
             {
+                border-image-tint: rgba( white, 0.02 );
+                border-image: url( /ui/Transparent center/panel-transparent-center-015.png ) 10 fill;
                 max-height: 32px;
                 align-items: center;
                 gap: 16px;
@@ -80,6 +82,8 @@ CraftingMenu
             align-items: center;
             gap: 8px;
             justify-content: space-between;
+            border-image: url( /ui/Transparent center/panel-transparent-center-013.png ) 10 fill;
+            border-image-tint: rgba( white, 0.05 );
 
             &:hover
             {
@@ -109,7 +113,7 @@ CraftingMenuEntry
     align-items: center;
     cursor: pointer;
     flex-shrink: 0;
-    border-image: url( /ui/Transparent center/panel-transparent-center-001.png ) 16 fill;
+    border-image: url( /ui/Transparent center/panel-transparent-center-015.png ) 10 fill;
     border-image-tint: rgba( white, 0.05 );
 
     img
