@@ -35,6 +35,9 @@ public class ItemAsset : GameResource
 	/// </summary>
 	[TextArea] public string Description { get; set; }
 
+	/// <summary>
+	/// What category this item belongs to.
+	/// </summary>
 	public ItemCategory Category { get; set; }
 
 	/// <summary>
@@ -73,6 +76,7 @@ public class ItemAsset : GameResource
 
 	[Category( "Crafting" )]
 	public int CraftingYield { get; set; } = 1;
+	
 	/// <summary>
 	/// A list of status effects that this item applies to the player when equipped/consumed.
 	/// </summary>

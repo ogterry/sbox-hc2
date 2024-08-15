@@ -17,6 +17,11 @@ public class Block : GameResource, IValid
 	public Color Color { get; set; }
 
 	/// <summary>
+	/// How many of this block type can stack together.
+	/// </summary>
+	public int MaxStack { get; set; } = 99;
+
+	/// <summary>
 	/// The texture of this block.
 	/// </summary>
 	[Group( "Texture" )]
