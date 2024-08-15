@@ -21,7 +21,7 @@
                     <label>Last Saved: @(world.LastSaved.ToString("dd/MM/yyyy HH:mm"))</label>
 
                     <div class="column gap" style="width: 256px;">
-                        <div class="button">Save World</div>
+                    <div class="button" onclick=@(() => SaveWorld())>Save World</div>
                         <a class="button" href="/">Return</a>
                     </div>
                 }
