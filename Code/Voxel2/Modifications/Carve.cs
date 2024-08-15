@@ -30,6 +30,7 @@ public record struct CarveModification( GatherSourceKind SourceKind, byte Damage
 	public void Apply( VoxelRenderer renderer, Chunk chunk )
 	{
 		// TODO: rough sphere
+		// TODO: damage
 
 		var min = Min;
 		var max = Max;
@@ -55,17 +56,16 @@ public record struct CarveModification( GatherSourceKind SourceKind, byte Damage
 			{
 				chunk.SetVoxel( x, y, z, 0 );
 
-				SpawnBlock( entry.Block, 1, renderer.WorldToVoxelCoords( new Vector3Int( x,  y, z ) + chunk.WorldMin ) );
+				if ( !renderer.IsProxy )
+				{
+					var worldPos = renderer.WorldToVoxelCoords( new Vector3Int( x, y, z ) + chunk.WorldMin );
+					entry.Block.BlockDestroyed( renderer, worldPos );
+				}
 			}
 			else
 			{
 				chunk.SetVoxel( x, y, z, (byte) (index + 1) );
 			}
 		}
-	}
-
-	private void SpawnBlock( Block block, int amount, Vector3 position )
-	{
-		WorldItem.CreateInstance( Item.Create( block ), position );
 	}
 }

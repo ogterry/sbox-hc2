@@ -1,5 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 using HC2;
+using Sandbox.Diagnostics;
 
 namespace Voxel;
 
@@ -69,5 +70,12 @@ public class Block : GameResource, IValid
 	{
 		Palette.OnReload?.Invoke();
 		base.PostReload();
+	}
+
+	public void BlockDestroyed( VoxelRenderer renderer, Vector3 worldPos )
+	{
+		Assert.False( renderer.IsProxy );
+
+		WorldItem.CreateInstance( Item.Create( this ), worldPos );
 	}
 }
