@@ -205,10 +205,14 @@ public partial class VoxelModel
 			var block = entry.Block;
 			var healthFraction = block.IsBreakable ? entry.Health / Math.Max( 1f, block.MaxHealth ) : 1f;
 
+			var texture = block.Texture ?? WhiteTexture;
+
+			texture.MarkUsed( int.MaxValue );
+
 			Palette[i - 1] = new PaletteMaterial
 			{
 				Color = block.Color.Desaturate( 1f - healthFraction * 0.5f ).Darken( 1f - healthFraction * 0.5f ),
-				TextureIndex = block.Texture?.Index ?? WhiteTexture.Index,
+				TextureIndex = texture.Index,
 				TextureSize = block.TextureSize,
 			};
 		}
