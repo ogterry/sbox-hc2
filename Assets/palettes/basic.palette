@@ -1,23 +1,8 @@
 {
-  "Materials": [
-    {
-      "Name": "Grass",
-      "Color": "0.54884,0.54884,0.54884,1",
-      "Texture": "textures/ground_texture_02.vtex",
-      "TextureSize": "16384,16384"
-    },
-    {
-      "Name": "Dirt",
-      "Color": "0.63256,0.63256,0.63256,1",
-      "Texture": "textures/ground_texture_02.vtex",
-      "TextureSize": "16384,16384"
-    },
-    {
-      "Name": "Stone",
-      "Color": "1,1,1,1",
-      "Texture": "textures/ground_texture_02.vtex",
-      "TextureSize": "16384,16384"
-    }
+  "Blocks": [
+    "blocks/grass.block",
+    "blocks/dirt.block",
+    "blocks/stone.block"
   ],
   "__references": [],
   "__version": 0

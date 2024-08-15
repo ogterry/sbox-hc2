@@ -190,15 +190,15 @@ public partial class VoxelModel
 			return;
 		}
 
-		for ( var i = 0; i < palette.Materials.Count; ++i )
+		for ( var i = 0; i < palette.Blocks.Count; ++i )
 		{
-			var material = palette.Materials[i];
+			var material = palette.Blocks[i];
 			material.Texture?.MarkUsed( int.MaxValue );
 
 			Palette[i] = new PaletteMaterial
 			{
 				Color = material.Color,
-				TextureIndex = material.Texture != null ? material.Texture.Index : WhiteTexture.Index,
+				TextureIndex = material.Texture?.Index ?? WhiteTexture.Index,
 				TextureSize = material.TextureSize,
 			};
 		}

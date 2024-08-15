@@ -20,5 +20,5 @@ public interface IModification
 	bool ShouldCreateChunk( Vector3Int chunkMin );
 
 	void Write( ref ByteStream stream );
-	void Apply( Scene scene, Chunk chunk );
+	void Apply( VoxelRenderer renderer, Chunk chunk );
 }

@@ -19,15 +19,15 @@ public partial class Biome : GameResource
 	/// <summary>
 	/// The block type to use for the surface.
 	/// </summary>
-	public byte SurfaceBlockId { get; set; } = 1;
+	public Block SurfaceBlock { get; set; }
 	
 	/// <summary>
 	/// The block type to use for the blocks just below the surface.
 	/// </summary>
-	public byte UnderSurfaceId { get; set; } = 2;
+	public Block UnderSurfaceBlock { get; set; }
 	
 	/// <summary>
 	/// The block type to use for blocks deep below the surface.
 	/// </summary>
-	public byte DeepBlockId { get; set; } = 3;
+	public Block DeepBlock { get; set; }
 }

@@ -1,9 +1,9 @@
 {
   "Name": "Desert",
   "Temperature": 0.8,
-  "SurfaceBlockId": 1,
-  "UnderSurfaceId": 2,
-  "DeepBlockId": 3,
+  "SurfaceBlock": "blocks/grass.block",
+  "UnderSurfaceBlock": "blocks/dirt.block",
+  "DeepBlock": "blocks/stone.block",
   "__references": [],
   "__version": 0
 }

@@ -109,7 +109,7 @@ public sealed class VoxelNetworking : Component, Component.ExecuteInEditor
 				chunk = model.InitChunkLocal( f, g, h );
 			}
 
-			modification.Apply( Scene, chunk );
+			modification.Apply( Renderer, chunk );
 		}
 
 		model.SetRegionDirty( modification.Min, modification.Max );

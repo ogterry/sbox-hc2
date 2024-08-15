@@ -90,10 +90,9 @@ public record WorldGenModification( int Seed, WorldGenParameters Parameters, Vec
 		stream.Write( Max );
 	}
 
-	public void Apply( Scene scene, Chunk chunk )
+	public void Apply( VoxelRenderer renderer, Chunk chunk )
 	{
 		var chunkHeightmap = _chunkHeightmap ??= new HeightmapSample[Constants.ChunkSizeSquared];
-
 		// Span<HeightmapSample> chunkHeightmap = stackalloc HeightmapSample[Constants.ChunkSizeSquared];
 
 		var min = chunk.WorldMin;
@@ -105,11 +104,12 @@ public record WorldGenModification( int Seed, WorldGenParameters Parameters, Vec
 			chunk.Deallocate();
 			return;
 		}
-
+		
 		chunk.Clear();
 
 		var voxels = chunk.Voxels;
-		var biomeSampler = scene.GetAllComponents<BiomeSampler>().FirstOrDefault();
+		var biomeSampler = renderer.Components.Get<BiomeSampler>();
+		var palette = renderer.Palette;
 
 		for ( var x = 0; x < Constants.ChunkSize; x++ )
 		{
@@ -132,22 +132,14 @@ public record WorldGenModification( int Seed, WorldGenParameters Parameters, Vec
 
 				for ( var y = 0; y < Constants.ChunkSize && y < height; y++ )
 				{
-					var worldY = min.y + y;
-
 					byte blockType;
 
 					if ( y < height - soilDepth )
-					{
-						blockType = biome?.UnderSurfaceId ?? 2;
-					}
-					else if ( soilDepth > 2 && y < height - 1 )
-					{
-						blockType = biome?.SurfaceBlockId ?? 1;
-					}
+						blockType = biome is not null ? palette.GetBlockIndex( biome.UnderSurfaceBlock, 1 ) : (byte)1;
+					else if ( soilDepth > 2 && y <= height - 1 )
+						blockType = biome is not null ? palette.GetBlockIndex( biome.SurfaceBlock, 1 ) : (byte)1;
 					else
-					{
-						blockType = biome?.DeepBlockId ?? 3;
-					}
+						blockType = biome is not null ? palette.GetBlockIndex( biome.DeepBlock, 1 ) : (byte)1;
 
 					var j = Chunk.WorldToLocal( y );
 
@@ -375,7 +367,7 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 
 		go.Flags |= GameObjectFlags.NotSaved;
 
-		if ( isNetworked )
+		if ( isNetworked && !Scene.IsEditor )
 		{
 			go.NetworkSpawn();
 		}

@@ -23,7 +23,7 @@ public static class VoxelParticles
 				var voxelPos = voxelRenderer.WorldToVoxelCoords( position );
 				var voxel = voxelRenderer.Model.GetVoxel( voxelPos.x, voxelPos.y, voxelPos.z );
 				var palette = voxelRenderer.Palette;
-				var paletteMat = palette.Materials[voxel];
+				var paletteMat = palette.Blocks[voxel];
 
 				Log.Info( paletteMat );
 
