@@ -29,8 +29,8 @@
                     <label>This world hasn't been saved yet, save it to ensure you don't lose any progress!</label>
 
                     <div class="column gap" style="width: 256px;">
-                        <TextEntry placeholder="My World" />
-                        <div class="button">Save World</div>
+                        <TextEntry placeholder="My World" @ref="WorldNameTextEntry" />
+                        <div class="button" onclick=@(() => SaveWorld()) >Save World</div>
                     </div>
                 }
             }
@@ -56,6 +56,8 @@
 
 @code
 {
+    public TextEntry WorldNameTextEntry { get; set; }
+
 
     WorldSave TryGetWorldSave()
     {
@@ -72,6 +74,28 @@
             Log.Warning( "Couldn't deserialize world for some reason" );
             return null;
         }
+    }
+
+    void SaveWorld()
+    {
+        var persistence = Game.ActiveScene.GetAllComponents<WorldPersistence>().FirstOrDefault();
+
+        // Name is already set and decided if we're not doing this for the first time
+        if ( WorldNameTextEntry is not null )
+        {
+            var name = WorldNameTextEntry.Text;
+
+            if (string.IsNullOrEmpty(name))
+            {
+                return;
+            }
+
+            persistence.WorldName = name;
+        }
+
+        persistence.SaveToFile();
+
+        this.Navigate("/");
     }
 
     void CreateNewWorld()

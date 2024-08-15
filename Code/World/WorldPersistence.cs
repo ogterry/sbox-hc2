@@ -320,7 +320,7 @@ public sealed class WorldPersistence : Component
 	}
 
 	[Button( "Save World To File" )]
-	public void SaveToFile()
+	public WorldSave SaveToFile()
 	{
 		if ( !FileSystem.Data.DirectoryExists( "worlds" ) )
 			FileSystem.Data.CreateDirectory( "worlds" );
@@ -333,7 +333,11 @@ public sealed class WorldPersistence : Component
 		var fileName = $"worlds/{guid}.json";
 		var json = Json.Serialize( save );
 
+		WorldPersistence.FileToLoad = fileName;
+
 		FileSystem.Data.WriteAllText( fileName, json );
+
+		return save;
 	}
 
 	/// <summary>
