@@ -78,7 +78,7 @@ public sealed class VoxelNetworking : Component, Component.ExecuteInEditor
 		switch ( modification.Kind )
 		{
 			case ModificationKind.WorldGen:
-				Apply( new WorldGenModification( stream ) );
+				Apply( new WorldGenModification( stream, modification.Min, modification.Max ) );
 				break;
 
 			case ModificationKind.Carve:
@@ -86,7 +86,7 @@ public sealed class VoxelNetworking : Component, Component.ExecuteInEditor
 				break;
 
 			case ModificationKind.Build:
-				Apply( new BuildModification( stream ) );
+				Apply( new BuildModification( stream, modification.Min, modification.Max ) );
 				break;
 
 			default:

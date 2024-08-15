@@ -12,12 +12,11 @@ public record WorldGenModification( int Seed, WorldGenParameters Parameters, Vec
 {
 	public ModificationKind Kind => ModificationKind.WorldGen;
 
-	public WorldGenModification( ByteStream stream )
+	public WorldGenModification( ByteStream stream, Vector3Int min, Vector3Int max )
 		: this(
 			stream.Read<int>(),
 			ResourceLibrary.Get<WorldGenParameters>( stream.Read<int>() ),
-			stream.Read<Vector3Int>(),
-			stream.Read<Vector3Int>() )
+			min, max )
 	{
 
 	}
@@ -88,8 +87,6 @@ public record WorldGenModification( int Seed, WorldGenParameters Parameters, Vec
 	{
 		stream.Write( Seed );
 		stream.Write( Parameters.ResourceId );
-		stream.Write( Min );
-		stream.Write( Max );
 	}
 
 	public void Apply( VoxelRenderer renderer, Chunk chunk )

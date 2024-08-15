@@ -8,8 +8,8 @@ public record struct BuildModification( Block Block, Vector3Int Min, Vector3Int 
 
 	public bool ShouldCreateChunk( Vector3Int chunkMin ) => true;
 
-	public BuildModification( ByteStream stream )
-		: this( ResourceLibrary.Get<Block>( stream.Read<int>() ), stream.Read<Vector3Int>(), stream.Read<Vector3Int>() )
+	public BuildModification( ByteStream stream, Vector3Int min, Vector3Int max )
+		: this( ResourceLibrary.Get<Block>( stream.Read<int>() ), min, max )
 	{
 
 	}
@@ -17,8 +17,6 @@ public record struct BuildModification( Block Block, Vector3Int Min, Vector3Int 
 	public void Write( ref ByteStream stream )
 	{
 		stream.Write( Block.ResourceId );
-		stream.Write( Min );
-		stream.Write( Max );
 	}
 
 	public void Apply( VoxelRenderer renderer, Chunk chunk )
