@@ -138,6 +138,19 @@ public class Inventory : Component, ISaveData
 	}
 
 	/// <summary>
+	/// Take the item in the specified slot.
+	/// </summary>
+	/// <param name="slot"></param>
+	public void TakeItemSlot( int slot )
+	{
+		var item = GetItemInSlot( slot );
+		if ( item is not null )
+		{
+			TakeItem( item );
+		}
+	}
+
+	/// <summary>
 	/// Try to give an item to the specified slot.
 	/// </summary>
 	/// <param name="item"></param>

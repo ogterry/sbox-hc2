@@ -1,5 +1,6 @@
 using HC2;
 using Sandbox.Citizen;
+using Sandbox.Events;
 
 public abstract class WeaponComponent : Carriable
 {
@@ -22,6 +23,11 @@ public abstract class WeaponComponent : Carriable
 	/// What type of damage?
 	/// </summary>
 	[Property, Group( "Stats" )] public DamageType DamageType { get; set; }
+
+	/// <summary>
+	/// How much durability does this weapon lose on use?
+	/// </summary>
+	[Property, Group( "Stats" )] public float DurabilityOnUse { get; set; } = 0f;
 
 	/// <summary>
 	/// Is aiming enabled for this weapon?
@@ -122,6 +128,7 @@ public abstract class WeaponComponent : Carriable
 	protected virtual void Attack()
 	{
 		TimeSinceAttack = 0;
+		GameObject.Root.Dispatch( new ItemUseEvent( DurabilityOnUse ) );
 		BroadcastEffects();
 	}
 

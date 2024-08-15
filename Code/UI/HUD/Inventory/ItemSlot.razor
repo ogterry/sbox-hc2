@@ -10,6 +10,12 @@
             {
                 <label class="amount">@Item.Amount</label>
             }
+            @if (Item.Durability < 1f)
+            {
+                <div class="durability-bar">
+                    <div class="fill" style="width: @(Item.Durability * 100)%" />
+                </div>
+            }
         </div>
     }
 </root>
@@ -40,5 +46,5 @@
             InventoryUI.HoveredSlot = null;
     }
 
-    protected override int BuildHash() => System.HashCode.Combine(Item?.Amount);
+    protected override int BuildHash() => System.HashCode.Combine(Item?.Amount, Item?.Durability);
 }

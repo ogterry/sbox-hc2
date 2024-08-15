@@ -15,6 +15,7 @@
         "AttackSound": "sounds/weapons/laser_gun_shoot.sound",
         "Damage": 12,
         "DamageType": "Sharp",
+        "DurabilityOnUse": 0.006,
         "EjectSpeed": 32000,
         "Hand": "MainHand",
         "HoldType": "Rifle",

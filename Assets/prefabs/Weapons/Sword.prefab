@@ -23,6 +23,7 @@
         "AttackSound": "sounds/weapons/sword_swing.sound",
         "Damage": 50,
         "DamageType": "Fire",
+        "DurabilityOnUse": 0.035,
         "Hand": "MainHand, OffHand",
         "HitSound": "sounds/weapons/sword_metallic_hit.sound",
         "HoldType": "HoldItem",

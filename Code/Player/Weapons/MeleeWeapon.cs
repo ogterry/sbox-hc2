@@ -60,7 +60,9 @@ public partial class MeleeWeapon : WeaponComponent
 
 	protected override void Attack()
 	{
-		base.Attack();
+		// Not calling base.Attack because we don't wanna use durability unless we hit
+		TimeSinceAttack = 0;
+		BroadcastEffects();
 
 		TimeUntilAttackHit = SwingDelay;
 		IsSwinging = true;
@@ -99,6 +101,9 @@ public partial class MeleeWeapon : WeaponComponent
 				}
 
 				BroadcastHitEffects( tr.EndPosition );
+
+				// Only use durability if we hit something for melee
+				GameObject.Root.Dispatch( new ItemUseEvent( DurabilityOnUse ) );
 			}
 		}
 	}

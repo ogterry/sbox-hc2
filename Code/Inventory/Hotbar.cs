@@ -6,6 +6,8 @@ namespace HC2;
 
 public record ItemEquipEvent( Item Item ) : IGameEvent;
 public record ItemUnequipEvent( Item Item ) : IGameEvent;
+public record ItemUseEvent( float DurabilityUsed ) : IGameEvent;
+
 
 [Category( "Inventory - Hotbar" )]
 [Description( "The player's hotbar, with an active slot." )]
