@@ -54,7 +54,8 @@
     "worlds/single_rock.feature",
     "worlds/bothy.feature",
     "worlds/standing_stone.feature",
-    "worlds/spawn_point.feature"
+    "worlds/spawn_point.feature",
+    "worlds/metal_pile.feature"
   ],
   "__references": [],
   "__version": 0
