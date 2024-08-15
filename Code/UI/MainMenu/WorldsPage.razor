@@ -1,0 +1,49 @@
+@using Sandbox;
+@using System
+@using Sandbox.UI;
+
+@implements INavigatorPage
+@namespace HC2
+
+<root>
+    <div class="canvas">
+        <div class="column">
+            <div class="title">
+                HC2
+            </div>
+
+            <div class="column gap" style="width: 256px;">
+                <div class="button" @onclick="@(() => Play() )">Create New World</div>
+
+                <div class="worlds column gap">
+                    @foreach ( var save in WorldPersistence.GetWorlds() )
+                    {
+                        Log.Info(save);
+                        <div class="button">@(save.Name) @(save.CreatedAt.ToString("dd/MM/yyyy HH:mm")</div>
+                    }
+                </div>
+
+                <div class="button" @onclick="@(() => JoinSomeoneElse() )">Join a Friend</div>
+                <a class="button" href="/">Return</a>
+            </div>
+        </div>
+    </div>
+</root>
+
+@code
+{
+    async void Play()
+    {
+        var sceneFile = ResourceLibrary.Get<SceneFile>( "scenes/procgen.scene" );
+        Scene.Load( sceneFile );
+    }
+
+    async void JoinSomeoneElse()
+    {
+        bool joined = await global::Networking.TryJoinLobby();
+        if (!joined)
+        {
+            Log.Warning( "Nobody to play with :(" );
+        }
+    }
+}

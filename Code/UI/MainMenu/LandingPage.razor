@@ -18,7 +18,7 @@
                 }
                 else
                 {
-                    <div class="button" @onclick="@(() => Play() )">Play</div>
+                    <a class="button" href="/worlds">Play</a>
                 }
                 <a class="button" href="/characters">Characters</a>
                 <div class="button" @onclick="@(() => Quit() )">@((MenuRoot.Instance?.IsPauseMenu ?? false) ? "Quit to Main Menu" : "Quit")</div>
@@ -38,16 +38,6 @@
         else
         {
             Game.Close();
-        }
-    }
-
-    async void Play()
-    {
-        bool joined = await global::Networking.TryJoinLobby();
-        if (!joined)
-        {
-            var sceneFile = ResourceLibrary.Get<SceneFile>("scenes/procgen.scene");
-            Scene.Load(sceneFile);
         }
     }
 

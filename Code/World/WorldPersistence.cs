@@ -56,6 +56,8 @@ public struct WorldObjectState
 		{
 			var go = saveable.GameObject;
 
+			if ( !go.IsValid() ) return null;
+
 			// TODO: fix this in engine
 			var comp = go.Components.Get<GetPrefabSource>( FindMode.EverythingInSelf );
 			var prefabFilePath = comp.IsValid() ? comp.PrefabSource : go.PrefabInstanceSource;
@@ -106,7 +108,7 @@ public class WorldSave
 	/// <summary>
 	/// What's the target version?
 	/// </summary>
-	public const int CurrentVersion = 0;
+	public const int CurrentVersion = VoxelWorldState.CurrentVersion;
 
 	/// <summary>
 	/// What's the version of this save? We'll use it to mark incompatibility.
@@ -142,12 +144,59 @@ public class WorldSave
 
 public sealed class WorldPersistence : Component
 {
-	[HostSync] public string WorldName { get; set; } = "My World";
-	[HostSync] public Guid CurrentSave { get; set; }
+	/// <summary>
+	/// This is the file to load when we join, as a host.. this is selected in the game UI.
+	/// </summary>
+	public static string FileToLoad { get; set; } = null;
+
+	protected override void OnStart()
+	{
+		if ( Sandbox.Networking.IsHost )
+		{
+			TryLoadFromSelectedFile();
+		}
+	}
+
+	[HostSync]
+	public string WorldName { get; set; } = "My World";
+	[HostSync] 
+	public Guid CurrentSave { get; set; }
+
+	public static List<WorldSave> GetWorlds()
+	{
+		var files = FileSystem.Data.FindFile( "worlds", "*.json" );
+		var saves = new List<WorldSave>();
+		foreach ( var file in files )
+		{
+			var save = FileSystem.Data.ReadJson<WorldSave>( $"worlds/{file}" );
+			saves.Add( save );
+		}
+
+		return saves;
+	}
+
+	private void TryLoadFromSelectedFile()
+	{
+		// We'll just generate something 
+		if ( string.IsNullOrEmpty( FileToLoad ) )
+		{
+			return;
+		}
+
+		LoadFromFile( FileToLoad, true );
+	}
 
 	public void LoadFromFile( string path, bool refreshSnapshot = true )
 	{
-		// TODO: load the world data file
+		var worldSave = FileSystem.Data.ReadJson<WorldSave>( path );
+		if ( worldSave is not null )
+		{
+			Load( worldSave );
+		}
+		else
+		{
+			Log.Warning( $"Couldn't load world from file... {path}" );
+		}
 	}
 
 	/// <summary>
