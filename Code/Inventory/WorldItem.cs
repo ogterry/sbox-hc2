@@ -108,6 +108,7 @@ public partial class WorldItem : Component, Component.ITriggerListener
 		worldItem.Resource = itemAsset;
 		worldItem.Amount = amount;
 		worldItem.Rigidbody.LinearDamping = 1f;
+		worldItem.Rigidbody.AngularDamping = 1f;
 
 		var spinningItem = new GameObject();
 		spinningItem.Parent = go;
