@@ -22,6 +22,7 @@
 
                     <div class="column gap" style="width: 256px;">
                         <div class="button">Save World</div>
+                        <a class="button" href="/">Return</a>
                     </div>
                 }
                 else
@@ -31,6 +32,7 @@
                     <div class="column gap" style="width: 256px;">
                         <TextEntry placeholder="My World" @ref="WorldNameTextEntry" />
                         <div class="button" onclick=@(() => SaveWorld()) >Save World</div>
+                        <a class="button" href="/">Return</a>
                     </div>
                 }
             }
