@@ -5,9 +5,8 @@
   "TextureSize": "16384,16384",
   "Tags": "",
   "IsBreakable": true,
-  "MaxHealth": 8,
-  "AllowedTools": "",
-  "MinimumEffectiveness": 0,
+  "MaxHealth": 3,
+  "MaterialKind": "Wood",
   "DamageScale": 1,
   "__references": [],
   "__version": 0

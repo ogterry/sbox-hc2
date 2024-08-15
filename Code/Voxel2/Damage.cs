@@ -1,11 +1,12 @@
 ﻿
 using System;
+using HC2;
 using Sandbox.Events;
 using Voxel.Modifications;
 
 namespace Voxel;
 
-public record DamageWorldEvent( Vector3 Position, Vector3 Direction, float Damage ) : IGameEvent;
+public record DamageWorldEvent( Vector3 Position, Vector3 Direction, GameObject Inflictor, float Damage ) : IGameEvent;
 
 [Icon( "healing" )]
 public sealed class VoxelDamage : Component,
@@ -22,6 +23,13 @@ public sealed class VoxelDamage : Component,
 
 		if ( Renderer.Model.OutOfBounds( coords ) ) return;
 
-		VoxelNetworking.Modify( new CarveModification( coords, 1, Random.Shared.Next() ) );
+		// TODO: maybe go with ToolType instead xD
+
+		foreach ( var gatherer in eventArgs.Inflictor.Components.GetAll<ResourceGatherer>() )
+		{
+			// TODO: influence radius / damage with effectiveness
+
+			VoxelNetworking.Modify( new CarveModification( gatherer.SourceKind, 1, coords, 1, Random.Shared.Next() ) );
+		}
 	}
 }
