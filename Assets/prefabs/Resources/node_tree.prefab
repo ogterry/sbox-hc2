@@ -3,7 +3,6 @@
     "__guid": "ea865760-495e-4ea4-8b9b-da5017d4b3b3",
     "Flags": 0,
     "Name": "node_tree",
-    "Position": "2.679371,26.13426,0.0000001597029",
     "Enabled": true,
     "NetworkMode": 1,
     "Components": [
@@ -28,7 +27,7 @@
       {
         "__type": "Sandbox.BoxCollider",
         "__guid": "0656d21c-4d57-4c52-8d37-af351a41e8dd",
-        "Center": "0,0,71.92049",
+        "Center": "5.599999,40.2,71.92049",
         "IsTrigger": false,
         "Scale": "75,75,137.9602",
         "Static": false

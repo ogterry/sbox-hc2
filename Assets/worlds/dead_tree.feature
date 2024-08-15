@@ -34,9 +34,9 @@
         "Id": 27,
         "Type": "call",
         "Properties": {
+          "_type": "Voxel.Modifications.VoxelWorldGen",
           "_name": "SpawnPrefab",
-          "_isStatic": false,
-          "_type": "Voxel.Modifications.VoxelWorldGen"
+          "_isStatic": false
         },
         "UserData": {
           "Position": "768,-16"
@@ -66,6 +66,56 @@
         "UserData": {
           "Position": "160,352"
         }
+      },
+      {
+        "Id": 33,
+        "Type": "random.chance",
+        "UserData": {
+          "Position": "576,432"
+        }
+      },
+      {
+        "Id": 34,
+        "Type": "op.conditional",
+        "UserData": {
+          "Position": "992,528"
+        }
+      },
+      {
+        "Id": 35,
+        "Type": "resource.ref",
+        "Properties": {
+          "T": "Sandbox.PrefabFile",
+          "value": "prefabs/resources/node_tree_3.prefab"
+        },
+        "UserData": {
+          "Position": "496,688"
+        }
+      },
+      {
+        "Id": 36,
+        "Type": "random.chance",
+        "UserData": {
+          "Position": "1072,464"
+        }
+      },
+      {
+        "Id": 37,
+        "Type": "op.conditional",
+        "UserData": {
+          "Position": "1488,560"
+        }
+      },
+      {
+        "Id": 38,
+        "Type": "resource.ref",
+        "Properties": {
+          "T": "Sandbox.PrefabFile",
+          "value": "prefabs/resources/node_tree_4.prefab"
+        },
+        "UserData": {
+          "Position": "992,720"
+        }
       }
     ],
     "Links": [
@@ -88,7 +138,7 @@
         "DstName": "position"
       },
       {
-        "SrcId": 29,
+        "SrcId": 37,
         "SrcName": "_result",
         "DstId": 27,
         "DstName": "prefab"
@@ -109,6 +159,42 @@
         "SrcId": 28,
         "SrcName": "_result",
         "DstId": 29,
+        "DstName": "x"
+      },
+      {
+        "SrcId": 29,
+        "SrcName": "_result",
+        "DstId": 34,
+        "DstName": "a"
+      },
+      {
+        "SrcId": 35,
+        "SrcName": "_result",
+        "DstId": 34,
+        "DstName": "b"
+      },
+      {
+        "SrcId": 33,
+        "SrcName": "_result",
+        "DstId": 34,
+        "DstName": "x"
+      },
+      {
+        "SrcId": 34,
+        "SrcName": "_result",
+        "DstId": 37,
+        "DstName": "a"
+      },
+      {
+        "SrcId": 38,
+        "SrcName": "_result",
+        "DstId": 37,
+        "DstName": "b"
+      },
+      {
+        "SrcId": 36,
+        "SrcName": "_result",
+        "DstId": 37,
         "DstName": "x"
       }
     ]

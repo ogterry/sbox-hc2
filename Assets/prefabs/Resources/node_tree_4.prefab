@@ -2,7 +2,7 @@
   "RootObject": {
     "__guid": "ea865760-495e-4ea4-8b9b-da5017d4b3b3",
     "Flags": 0,
-    "Name": "node_tree_2",
+    "Name": "node_tree_4",
     "Enabled": true,
     "NetworkMode": 1,
     "Components": [
@@ -27,9 +27,9 @@
       {
         "__type": "Sandbox.BoxCollider",
         "__guid": "0656d21c-4d57-4c52-8d37-af351a41e8dd",
-        "Center": "82.09985,104.5998,71.92049",
+        "Center": "61.00004,51.69998,71.92049",
         "IsTrigger": false,
-        "Scale": "35.70013,35.69999,137.9602",
+        "Scale": "30.50007,30.50014,137.9602",
         "Static": false
       }
     ],
@@ -45,7 +45,7 @@
             "__type": "Sandbox.ModelRenderer",
             "__guid": "77074f13-86cf-4825-bcdc-913380ce8c3e",
             "BodyGroups": 18446744073709551615,
-            "Model": "models/props/dead_tree/dead_tree_no_foliage_2.vmdl",
+            "Model": "models/props/pine_tree/pine_tree.vmdl",
             "RenderType": "On",
             "Tint": "1,0,0,1"
           },
