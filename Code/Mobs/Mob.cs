@@ -160,7 +160,8 @@ public sealed class Mob : Component,
 			var rb = gib.Components.GetOrCreate<Rigidbody>();
 			rb.Velocity = (force * Random.Shared.Float(0.8f, 1.2f) * 150f) / rb.PhysicsBody.Mass;
 			rb.AngularVelocity = Vector3.Random * Random.Shared.Float(0.8f, 1.2f) * 10f;
-			gib.Components.Create<MobGib>();
+			var mobGib = gib.Components.Create<MobGib>();
+			mobGib.Sound = HitSound;
 		}
 	}
 }
