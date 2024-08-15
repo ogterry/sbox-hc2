@@ -50,19 +50,22 @@ CraftingMenu
 
     .selected-item
     {
-        max-height: 256px;
+        height: auto;
         gap: 8px;
+        flex-shrink: 0;
 
         .header
         {
             max-height: 64px;
             align-items: center;
             gap: 8px;
+            flex-shrink: 0;
         }
 
         .requirements
         {
             gap: 8px;
+            flex-shrink: 0;
 
             .entry
             {
@@ -71,6 +74,7 @@ CraftingMenu
                 max-height: 32px;
                 align-items: center;
                 gap: 16px;
+                flex-shrink: 0;
             }
         }
 
@@ -84,6 +88,7 @@ CraftingMenu
             justify-content: space-between;
             border-image: url( /ui/Transparent center/panel-transparent-center-013.png ) 10 fill;
             border-image-tint: rgba( white, 0.05 );
+            flex-shrink: 0;
 
             &:hover
             {
