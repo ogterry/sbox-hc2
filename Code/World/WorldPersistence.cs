@@ -224,6 +224,7 @@ public sealed class WorldPersistence : Component
 		DestroyAnyTransientObjects();
 
 		// Load the world from the save file
+		LoadWorldState( save.WorldState );
 
 		// Create GameObjects for every saved state GameObject
 		foreach ( var obj in save.ObjectState.Objects )
@@ -273,21 +274,27 @@ public sealed class WorldPersistence : Component
 		};
 	}
 
-	/// <summary>
-	/// Save the voxel world state into something that's readable 
-	/// </summary>
-	/// <returns></returns>
-	public VoxelWorldState SaveWorldState()
+	private VoxelRenderer GetVoxelWorld()
 	{
 		var world = Scene.GetAllComponents<VoxelRenderer>()
 			.FirstOrDefault( x => x.Tags.Has( "terrain" ) );
 
 		if ( world is null )
 		{
-			Log.Warning( $"Couldn't find the world {nameof(VoxelRenderer)} (expected tag \"terrain\")" );
+			Log.Warning( $"Couldn't find the world {nameof( VoxelRenderer )} (expected tag \"terrain\")" );
 			return null;
 		}
 
+		return world;
+	}
+
+	/// <summary>
+	/// Save the voxel world state into something that's readable 
+	/// </summary>
+	/// <returns></returns>
+	public VoxelWorldState SaveWorldState()
+	{
+		var world = GetVoxelWorld();
 		var worldGen = world.Components.Get<VoxelWorldGen>();
 
 		return new( VoxelWorldState.CurrentVersion,
@@ -298,11 +305,45 @@ public sealed class WorldPersistence : Component
 			.ToArray() );
 	}
 
+	public void LoadWorldState( VoxelWorldState state )
+	{
+		if ( state is null )
+		{
+			return;
+		}
+
+		if ( state.Version < 2 )
+		{
+			throw new NotImplementedException();
+		}
+
+		var world = GetVoxelWorld();
+		var worldGen = world.Components.Get<VoxelWorldGen>();
+
+		worldGen.Seed = state.Seed;
+		worldGen.Parameters = ResourceLibrary.Get<WorldGenParameters>( state.ParametersPath );
+
+		// TODO
+		Assert.AreEqual( world.Size, state.Size );
+
+		foreach ( var chunk in world.Model.Chunks )
+		{
+			chunk.Deallocate();
+		}
+
+		foreach ( var chunkState in state.Chunks )
+		{
+			var chunk = world.Model.InitChunkLocal( chunkState.Index.x, chunkState.Index.y, chunkState.Index.z );
+
+			DeserializeChunk( chunk, chunkState );
+		}
+	}
+
 	private static void WriteVarUshort( ref ByteStream writer, ushort value )
 	{
 		Assert.True( value < 0x8000 );
 
-		if ( value < 128 )
+		if ( value < 0x80 )
 		{
 			writer.Write( (byte)value );
 			return;
@@ -314,11 +355,22 @@ public sealed class WorldPersistence : Component
 		writer.Write( (byte)(value >> 7) );
 	}
 
+	private static ushort ReadVarUshort( ref ByteStream reader )
+	{
+		var lower = reader.Read<byte>();
+		if ( lower < 0x80 ) return lower;
+
+		var upper = reader.Read<byte>();
+		return (ushort) ((lower & 0x7f) | (upper << 7));
+	}
+
 	private ChunkState SerializeChunk( Chunk chunk )
 	{
 		Assert.True( chunk.Allocated );
 
 		var writer = ByteStream.Create( 4096 );
+
+		// Just a basic RLE for now
 
 		try
 		{
@@ -331,16 +383,16 @@ public sealed class WorldPersistence : Component
 			for ( var z = 0; z < Constants.ChunkSize; ++z )
 			for ( var y = 0; y < Constants.ChunkSize; ++y )
 			{
-				var value = voxels[Chunk.GetAccessLocal( x, y, z )];
+				var next = voxels[Chunk.GetAccessLocal( x, y, z )];
 
-				if ( value != prev )
+				if ( next != prev )
 				{
 					// Count will always be < 32 * 32 * 32 = (32,768)
 
 					WriteVarUshort( ref writer, (ushort)count );
-					writer.Write( value );
+					writer.Write( next );
 
-					prev = value;
+					prev = next;
 					count = 1;
 				}
 				else
@@ -356,6 +408,47 @@ public sealed class WorldPersistence : Component
 		finally
 		{
 			writer.Dispose();
+		}
+	}
+
+	private static void SetVoxelRun( byte[] voxels, ref int index, byte value, int count )
+	{
+		for ( var i = 0; i < count; ++i, ++index )
+		{
+			// Definitely a way to simplify this
+
+			var y = index & Constants.ChunkMask;
+			var z = (index >> Constants.ChunkShift) & Constants.ChunkMask;
+			var x = (index >> Constants.ChunkShift >> Constants.ChunkShift) & Constants.ChunkMask;
+
+			voxels[Chunk.GetAccessLocal( x, y, z )] = value;
+		}
+	}
+
+	private void DeserializeChunk( Chunk chunk, ChunkState state )
+	{
+		Assert.True( chunk.Allocated );
+
+		var reader = ByteStream.CreateReader( Convert.FromBase64String( state.Data ) );
+
+		try
+		{
+			var voxels = chunk.Voxels;
+
+			var prev = (byte)0;
+			var index = 0;
+
+			while ( reader.ReadRemaining > 0 )
+			{
+				SetVoxelRun( voxels, ref index, prev, ReadVarUshort( ref reader ) );
+				prev = reader.Read<byte>();
+			}
+
+			SetVoxelRun( voxels, ref index, prev, Constants.ChunkSizeCubed - index );
+		}
+		finally
+		{
+			reader.Dispose();
 		}
 	}
 
