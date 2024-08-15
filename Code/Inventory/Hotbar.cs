@@ -1,6 +1,7 @@
 ﻿using System;
 using Sandbox.Diagnostics;
 using Sandbox.Events;
+using Voxel;
 
 namespace HC2;
 
@@ -18,12 +19,13 @@ public class Hotbar : Inventory
     public Item SelectedItem => GetItemInSlot( SelectedSlot );
 
     ItemAsset LastEquippedItem;
+    Block LastEquippedBlock;
 
     protected override void OnUpdate()
     {
         base.OnUpdate();
 
-        if ( SelectedItem?.Resource != LastEquippedItem )
+        if ( SelectedItem?.Resource != LastEquippedItem && SelectedItem?.BlockType != LastEquippedBlock )
         {
             SelectSlot( SelectedSlot, true );
         }
@@ -64,20 +66,23 @@ public class Hotbar : Inventory
         }
 
         SelectedSlot = slot;
+        
         var newItem = SelectedItem;
         if ( newItem is not null )
         {
             GameObject.Dispatch( new ItemEquipEvent( newItem ) );
             LastEquippedItem = newItem.Resource;
+            LastEquippedBlock = newItem.BlockType;
         }
         else
         {
             if ( LastEquippedItem is not null )
             {
-                GameObject.Dispatch( new ItemUnequipEvent( Item.Create( LastEquippedItem, 1 ) ) );
+                GameObject.Dispatch( new ItemUnequipEvent( Item.Create( LastEquippedItem, LastEquippedBlock, 1 ) ) );
             }
+
+            LastEquippedBlock = null;
             LastEquippedItem = null;
         }
     }
-
 }

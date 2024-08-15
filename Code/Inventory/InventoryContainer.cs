@@ -175,7 +175,7 @@ public struct InventoryContainer
 			{
 				var leftover = Items[slotIndex].Amount + item.Amount - item.Resource.MaxStack;
 				Items[slotIndex].Amount = item.Resource.MaxStack;
-				TryGiveItem( Item.Create( item.Resource, leftover ) );
+				TryGiveItem( Item.Create( item.Resource, item.BlockType, leftover ) );
 			}
 			else
 			{

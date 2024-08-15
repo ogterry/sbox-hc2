@@ -1,14 +1,13 @@
 using System;
+using Voxel;
 
 namespace HC2;
 
 public partial class WorldItem : Component, Component.ITriggerListener
 {
-	[Property]
-	public ItemAsset Resource { get; set; }
-
-	[Sync]
-	public int Amount { get; set; } = 1;
+	[Property] public ItemAsset Resource { get; set; }
+	[Property] public Block BlockType { get; set; }
+	[Sync] public int Amount { get; set; } = 1;
 
 	[RequireComponent]
 	public Rigidbody Rigidbody { get; set; }
@@ -72,7 +71,7 @@ public partial class WorldItem : Component, Component.ITriggerListener
 	[Broadcast( NetPermission.HostOnly )]
 	void Pickup( Player player )
 	{
-		var item = Item.Create( Resource, Amount );
+		var item = Item.Create( Resource, BlockType, Amount );
 
 		if ( player.Hotbar.TryGiveItem( item ) )
 		{
@@ -94,7 +93,33 @@ public partial class WorldItem : Component, Component.ITriggerListener
 	/// <returns></returns>
 	public static WorldItem CreateInstance( Item item, Vector3 worldPosition )
 	{
-		var worldItem = CreateInstance( item.Resource, worldPosition, item.Amount );
+		// Push the active scene
+		using var _ = Game.ActiveScene.Push();
+
+		var go = new GameObject();
+		go.Name = $"World Item {item.Resource}";
+		go.Transform.Position = worldPosition;
+
+		var sphereCollider = go.Components.Create<SphereCollider>();
+		sphereCollider.Radius = 16;
+
+		var worldItem = go.Components.Create<WorldItem>();
+
+		worldItem.BlockType = item.BlockType;
+		worldItem.Resource = item.Resource;
+		worldItem.Amount = item.Amount;
+		
+		worldItem.Rigidbody.LinearDamping = 1f;
+
+		var spinningItem = new GameObject();
+		spinningItem.Parent = go;
+
+		var mdl = spinningItem.Components.Create<SkinnedModelRenderer>();
+		mdl.Model = item.Resource.WorldModel;
+		worldItem.ModelRenderer = mdl;
+		worldItem.SpinningItem = spinningItem;
+
+		go.NetworkSpawn();
 
 		// Conna: if the Item is a BlockItem we'll handle this differently. We'll wanna
 		// use a custom model with a material override or something for the block texture.

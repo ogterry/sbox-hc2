@@ -1,4 +1,5 @@
 ﻿using System;
+using Voxel;
 
 namespace HC2;
 
@@ -247,7 +248,7 @@ public class Inventory : Component, ISaveData
 					{
 						var diff = currentItemInSlot.Resource.MaxStack - currentItemInSlot.Amount;
 						currentItemInSlot.Amount = currentItemInSlot.Resource.MaxStack;
-						TryGiveItem( Item.Create( item.Resource, item.Amount - diff ) );
+						TryGiveItem( Item.Create( item.Resource, item.BlockType, item.Amount - diff ) );
 
 						return;
 					}
@@ -336,7 +337,7 @@ public class Inventory : Component, ISaveData
 			if ( item is null )
 				itemString += "null,";
 			else
-				itemString += $"{item.Resource.ResourceName}:{item.Amount}:{item.Durability},";
+				itemString += $"{item.Resource.ResourceName}:{item.Amount}:{item.Durability}:{item.BlockType?.ResourceId ?? -1},";
 		}
 
 		if ( itemString.EndsWith( "," ) )
@@ -371,7 +372,23 @@ public class Inventory : Component, ISaveData
 			var itemDurability = 1f;
 			if ( itemData.Length > 2 )
 				itemDurability = float.Parse( itemData[2] );
-			var it = Item.Create( itemResource, itemAmount );
+
+			Item it = null;
+
+			if ( itemData.Length > 3 )
+			{
+				var blockResourceId = int.Parse( itemData[3] );
+				if ( blockResourceId != -1 )
+				{
+					var block = ResourceLibrary.Get<Block>( blockResourceId );
+					if ( block is not null )
+						it = Item.Create( itemResource, block, itemAmount );
+				}
+			}
+			
+			if ( it is null )
+				it = Item.Create( itemResource, itemAmount );
+			
 			it.Durability = itemDurability;
 
 			TryGiveItemSlot( it, i - 1 );
