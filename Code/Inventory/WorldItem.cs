@@ -26,6 +26,8 @@ public partial class WorldItem : Component, Component.ITriggerListener
 	[Sync]
 	public TimeSince LastPickupAttempt { get; set; }
 
+	TimeSince timeSinceSpawned = 0f;
+
 	protected override void OnStart()
 	{
 		Tags.Add( "pickup" );
@@ -53,6 +55,24 @@ public partial class WorldItem : Component, Component.ITriggerListener
 	{
 		if ( !Sandbox.Networking.IsHost )
 			return;
+
+		if ( other.GameObject.Root.Components.TryGet<WorldItem>( out var otherItem ) )
+		{
+			if ( otherItem.Resource == Resource )
+			{
+				if ( otherItem.timeSinceSpawned > timeSinceSpawned )
+				{
+					otherItem.Amount += Amount;
+					DestroyOnAuthority();
+				}
+				else
+				{
+					Amount += otherItem.Amount;
+					otherItem.DestroyOnAuthority();
+				}
+			}
+			return;
+		}
 
 		if ( other.GameObject.Root.Components.Get<Player>() is not { IsValid: true } player )
 			return;
