@@ -44,25 +44,31 @@ public sealed class BlockPlacer : Carriable
 
             var startPos = pos;
             var size = Vector3.One * blockSize;
+            var totalBlocks = BrushSize;
             if ( BrushSize > 1 )
             {
                 var brushSize = BrushSize - 1;
                 startPos -= Vector3.One * blockSize * brushSize;
                 size += Vector3.One * blockSize * brushSize * 2;
+                totalBlocks = (int)MathF.Pow( 1 + (BrushSize * 2), 3 );
             }
+
+            var canPlace = Player.Local.Inventory.HasItem( Item.Create( BlockType.ItemResource, totalBlocks ) );
 
             using ( Gizmo.Scope( "block_ghost" ) )
             {
                 var bbox = new BBox( startPos, startPos + size );
                 Gizmo.Draw.Color = Color.Cyan;
+                if ( !canPlace )
+                    Gizmo.Draw.Color = Color.Red;
                 Gizmo.Draw.LineThickness = 2f;
                 Gizmo.Draw.LineBBox( bbox );
-                Gizmo.Draw.Color = Color.Cyan.WithAlpha( 0.5f );
+                Gizmo.Draw.Color = Gizmo.Draw.Color.WithAlpha( 0.5f );
                 Gizmo.Draw.SolidBox( bbox );
             }
 
 
-            if ( Input.Pressed( "attack1" ) )
+            if ( canPlace && Input.Pressed( "attack1" ) )
             {
                 PlaceBlock( pos + blockSize / 2f );
             }
