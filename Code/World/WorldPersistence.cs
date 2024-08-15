@@ -162,6 +162,19 @@ public sealed class WorldPersistence : Component
 	[HostSync] 
 	public Guid CurrentSave { get; set; }
 
+	public static List<WorldSave> GetWorlds()
+	{
+		var files = FileSystem.Data.FindFile( "worlds", "*.json" );
+		var saves = new List<WorldSave>();
+		foreach ( var file in files )
+		{
+			var save = FileSystem.Data.ReadJson<WorldSave>( $"worlds/{file}" );
+			saves.Add( save );
+		}
+
+		return saves;
+	}
+
 	private void TryLoadFromSelectedFile()
 	{
 		// We'll just generate something 
