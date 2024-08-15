@@ -4,6 +4,7 @@ using System.Text.Json.Serialization;
 using Sandbox.Diagnostics;
 using Voxel;
 using Voxel.Modifications;
+using Sandbox.States;
 
 namespace HC2;
 
@@ -27,7 +28,17 @@ public record VoxelWorldState( int Version, int Seed, string ParametersPath, Vec
 	public const int CurrentVersion = 2;
 }
 
-public record ChunkState( Vector3Int Index, string Data );
+public struct ChunkState
+{
+	public ChunkState( Vector3Int index, string data )
+	{
+		Index = index;
+		Data = data;
+	}
+
+	public Vector3Int Index { get; set; }
+	public string Data { get; set; }
+}
 
 /// <summary>
 /// The state of all the objects in the world, this'll be NPCs, doors, etc..
@@ -155,6 +166,38 @@ public sealed class WorldPersistence : Component
 	/// This is the file to load when we join, as a host.. this is selected in the game UI.
 	/// </summary>
 	public static string FileToLoad { get; set; } = null;
+
+	/// <summary>
+	/// This is shitty but should work
+	/// </summary>
+	public static void SendVoxelWorld()
+	{
+		var persistence = Game.ActiveScene.GetAllComponents<WorldPersistence>().FirstOrDefault();
+
+		var world = persistence.GetVoxelWorld();
+		var worldGen = world.Components.Get<VoxelWorldGen>();
+		var seed = worldGen?.Seed ?? 0;
+		var path = worldGen?.Parameters?.ResourcePath;
+		var size = world.Size;
+		
+		var chunkArray = world.Model.Chunks.Where( x => x is { Allocated: true } ).Select( persistence.SerializeChunk )
+			.ToArray();
+
+		Log.Info( $"Sending chunks from host to a client: {chunkArray.Count()}" );
+
+		SendVoxelWorldRpc( seed, path, size, chunkArray );
+	}
+
+	[Broadcast]
+	public static void SendVoxelWorldRpc( int seed, string parametersPath, Vector3Int size, ChunkState[] states )
+	{
+		var version = VoxelWorldState.CurrentVersion;
+		var persistence = Game.ActiveScene.GetAllComponents<WorldPersistence>().FirstOrDefault();
+
+		Log.Info( $"Received voxel world information from the host:\n\tseed:{seed}\n\tchunks:{states.Count()}\n\tsize:{size}" );
+
+		persistence.LoadWorldState( new( version, seed, parametersPath, size, states.AsReadOnly() ) );
+	}
 
 	protected override void OnStart()
 	{
@@ -382,7 +425,7 @@ public sealed class WorldPersistence : Component
 		return (ushort) ((lower & 0x7f) | (upper << 7));
 	}
 
-	private ChunkState SerializeChunk( Chunk chunk )
+	internal ChunkState SerializeChunk( Chunk chunk )
 	{
 		Assert.True( chunk.Allocated );
 

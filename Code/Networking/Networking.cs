@@ -40,12 +40,18 @@ public sealed class Networking : Component, Component.INetworkListener
 	/// <summary>
 	/// A client is fully connected to the server. This is called on the host.
 	/// </summary>
-	public void OnActive(Connection channel)
+	public void OnActive( Connection channel )
 	{
 		Log.Info($"Player '{channel.DisplayName}' has joined the game");
 
-		using (Rpc.FilterInclude(channel))
+		using ( Rpc.FilterInclude( channel ) )
 		{
+			// Send the voxel world to them
+			if ( !channel.IsHost )
+			{
+				// WorldPersistence.SendVoxelWorld();
+			}
+
 			SpawnLocalPlayer();
 		}
 	}
