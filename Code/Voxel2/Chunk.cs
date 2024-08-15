@@ -81,6 +81,7 @@ public partial class Chunk
 	{
 		Array.Fill( Voxels, (byte)0 );
 		Array.Fill( MinAltitude, (byte)Constants.ChunkSize );
+		Array.Fill( MaxAltitude, (byte)0 );
 		SetDirty();
 	}
 
@@ -173,5 +174,46 @@ public partial class Chunk
 		}
 
 		MaxAltitude[hAccess] = 0;
+	}
+
+	public void UpdateHeightmaps()
+	{
+		var voxels = Voxels;
+
+		for ( var i = 0; i < Constants.ChunkSize; ++i )
+		for ( var k = 0; k < Constants.ChunkSize; ++k )
+		{
+			var hAccess = GetHeightmapAccess( i, k );
+
+			var min = Constants.ChunkSize;
+			var ptr = GetAccessLocal( i, 0, k );
+
+			for ( var j = 0; j < Constants.ChunkSize; ++j, ++ptr )
+			{
+				if ( voxels[ptr] != 0 )
+				{
+					min = j;
+					break;
+				}
+			}
+
+			var max = 0;
+			ptr = GetAccessLocal( i, Constants.ChunkSize - 1, k );
+
+			if ( min < Constants.ChunkSize )
+			{
+				for ( var j = Constants.ChunkSize - 1; j >= 0; --j, --ptr )
+				{
+					if ( voxels[ptr] != 0 )
+					{
+						max = j;
+						break;
+					}
+				}
+			}
+
+			MinAltitude[hAccess] = (byte)min;
+			MaxAltitude[hAccess] = (byte)max;
+		}
 	}
 }

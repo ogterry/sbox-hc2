@@ -343,7 +343,11 @@ public sealed class WorldPersistence : Component
 			var chunk = world.Model.InitChunkLocal( chunkState.Index.x, chunkState.Index.y, chunkState.Index.z );
 
 			DeserializeChunk( chunk, chunkState );
+
+			chunk.SetDirty();
 		}
+
+		world.MeshChunks();
 	}
 
 	private static void WriteVarUshort( ref ByteStream writer, ushort value )
@@ -457,6 +461,8 @@ public sealed class WorldPersistence : Component
 		{
 			reader.Dispose();
 		}
+
+		chunk.UpdateHeightmaps();
 	}
 
 	/// <summary>

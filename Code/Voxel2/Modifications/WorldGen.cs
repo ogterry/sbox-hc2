@@ -1,4 +1,5 @@
 ﻿using System;
+using HC2;
 using Sandbox.Diagnostics;
 using Sandbox.Utility;
 
@@ -186,7 +187,13 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 
 		using var sceneScope = Scene.Push();
 
-		VoxelNetworking.Modify( new WorldGenModification( Seed, Parameters, 0, VoxelNetworking.Renderer.Size ) );
+		if ( WorldPersistence.FileToLoad is null )
+		{
+			Log.Info( $"Generating!" );
+			VoxelNetworking.Modify( new WorldGenModification( Seed, Parameters, 0, VoxelNetworking.Renderer.Size ) );
+		}
+
+		Log.Info( $"Spawning props!" );
 		SpawnProps();
 	}
 
