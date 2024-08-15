@@ -503,10 +503,11 @@ public partial class Player : Component, IDamage,
 		if ( prefab is not null )
 		{
 			var obj = SceneUtility.GetPrefabScene( prefab );
-			SetMainHand( obj );
+			var inst = SetMainHand( obj );
 
-			if ( obj.Components.TryGet<BlockPlacer>( out var placer ) )
+			if ( inst.Components.TryGet<BlockPlacer>( out var placer, FindMode.EverythingInSelfAndDescendants ) )
 			{
+				Log.Info( item.Resource.BlockType );
 				placer.BlockType = item.Resource.BlockType;
 			}
 		}

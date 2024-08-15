@@ -1,10 +1,22 @@
 
 using HC2;
 using Voxel;
+using Voxel.Modifications;
 
 public sealed class BlockPlacer : Carriable
 {
+    /// <summary>
+    /// The block type that this places
+    /// </summary>
     [Property] public Block BlockType { get; set; }
+
+    /// <summary>
+	/// Gets the player
+	/// </summary>
+	public Player Player => GameObject.Root.Components.Get<Player>();
+
+
+    RealTimeSince timeSinceLastPlace = 0f;
 
     protected override void OnUpdate()
     {
@@ -39,14 +51,27 @@ public sealed class BlockPlacer : Carriable
 
     void PlaceBlock( Vector3 pos )
     {
-        using ( Rpc.FilterInclude( Connection.Host ) )
+        if ( timeSinceLastPlace < 0.1f )
+            return;
+
+        if ( Player.Hotbar.GetItemInSlot( Player.Hotbar.SelectedSlot ) is Item item )
         {
-            PlaceBlockHost( pos );
+            if ( item.Amount <= 0 ) return;
+            item.Amount--;
+            if ( item.Amount <= 0 )
+            {
+                Player.Hotbar.TakeItemSlot( Player.Hotbar.SelectedSlot );
+            }
+
+            using ( Rpc.FilterInclude( Connection.Host ) )
+            {
+                PlaceBlockHost( pos, BlockType );
+            }
         }
     }
 
     [Broadcast]
-    void PlaceBlockHost( Vector3 pos )
+    void PlaceBlockHost( Vector3 pos, Block block )
     {
         if ( !Sandbox.Networking.IsHost )
             return;
@@ -55,7 +80,11 @@ public sealed class BlockPlacer : Carriable
         if ( world is null )
             return;
 
+        Log.Info( block );
+
         var voxelPos = world.Renderer.WorldToVoxelCoords( pos );
-        // world.Modify(new BuildModifi)
+        Log.Info( voxelPos );
+
+        world.Modify( new BuildModification( block, voxelPos, voxelPos ) );
     }
 }

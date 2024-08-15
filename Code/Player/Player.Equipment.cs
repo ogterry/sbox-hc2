@@ -6,7 +6,7 @@ public partial class Player
 	/// <summary>
 	/// What should be our carriable if we aren't holding anything? Think hands..
 	/// </summary>
-	[Property, Group( "Equipment" ), Sync] 
+	[Property, Group( "Equipment" ), Sync]
 	public Carriable FallbackCarriable { get; set; }
 
 	/// <summary>
@@ -118,14 +118,14 @@ public partial class Player
 	/// Sets the current main hand from a GameObject.
 	/// </summary>
 	/// <param name="go"></param>
-	public void SetMainHand( GameObject go )
+	public GameObject SetMainHand( GameObject go )
 	{
 		// Only the owner should be doing this
 		if ( IsProxy )
-			return;
+			return null;
 
 		if ( !go.IsValid() )
-			return;
+			return null;
 
 		var inst = go.Clone( new CloneConfig()
 		{
@@ -138,12 +138,14 @@ public partial class Player
 		if ( !carriable.IsValid() )
 		{
 			inst.Destroy();
-			return;
+			return inst;
 		}
 
 		inst.NetworkSpawn( Network.OwnerConnection );
 
 		SetMainHand( carriable );
+
+		return inst;
 	}
 
 	/// <summary>
