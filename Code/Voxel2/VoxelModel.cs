@@ -187,13 +187,12 @@ public partial class VoxelModel
 
 	public void SetPalette( Palette palette )
 	{
+		WhiteTexture.MarkUsed( int.MaxValue );
+		Array.Fill( Palette, new PaletteMaterial { Color = Color.White, TextureIndex = WhiteTexture.Index, TextureSize = Vector2.One } );
+
 		if ( palette == null )
 		{
-			WhiteTexture.MarkUsed( int.MaxValue );
-			Array.Fill( Palette, new PaletteMaterial { Color = Color.White, TextureIndex = WhiteTexture.Index, TextureSize = Vector2.One } );
-
 			PaletteBuffer.SetData( Palette );
-
 			return;
 		}
 
@@ -205,15 +204,19 @@ public partial class VoxelModel
 			var block = entry.Block;
 			var healthFraction = block.IsBreakable ? entry.Health / Math.Max( 1f, block.MaxHealth ) : 1f;
 
+			Log.Info( $"Palette {i}: {block.Name} {healthFraction * 100:F0}%" );
+
+			var color = block.Color.Desaturate( 1f - healthFraction * 0.5f ).Darken( 1f - healthFraction * 0.5f );
 			var texture = block.Texture ?? WhiteTexture;
+			var textureSize = block.TextureSize;
 
 			texture.MarkUsed( int.MaxValue );
 
 			Palette[i - 1] = new PaletteMaterial
 			{
-				Color = block.Color.Desaturate( 1f - healthFraction * 0.5f ).Darken( 1f - healthFraction * 0.5f ),
+				Color = color,
 				TextureIndex = texture.Index,
-				TextureSize = block.TextureSize,
+				TextureSize = textureSize,
 			};
 		}
 
