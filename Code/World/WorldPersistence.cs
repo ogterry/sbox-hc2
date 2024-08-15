@@ -106,6 +106,9 @@ public struct WorldObjectState
 
 public class WorldSave
 {
+	[JsonIgnore]
+	public string FilePath { get; set; } = null;
+
 	/// <summary>
 	/// What's the target version?
 	/// </summary>
@@ -170,6 +173,7 @@ public sealed class WorldPersistence : Component
 		foreach ( var file in files )
 		{
 			var save = FileSystem.Data.ReadJson<WorldSave>( $"worlds/{file}" );
+			save.FilePath = $"worlds/{file}";
 			saves.Add( save );
 		}
 

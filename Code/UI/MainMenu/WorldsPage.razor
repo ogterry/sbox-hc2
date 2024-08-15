@@ -18,8 +18,7 @@
                 <div class="worlds column gap">
                     @foreach ( var save in WorldPersistence.GetWorlds() )
                     {
-                        Log.Info(save);
-                        <div class="button">@(save.Name) @(save.CreatedAt.ToString("dd/MM/yyyy HH:mm")</div>
+                        <div class="button" @onclick=@(() => LoadWorld(save)) >@(save.Name) @(save.CreatedAt.ToString("dd/MM/yyyy HH:mm")</div>
                     }
                 </div>
 
@@ -32,16 +31,27 @@
 
 @code
 {
-    async void Play()
+    void Play()
     {
         var sceneFile = ResourceLibrary.Get<SceneFile>( "scenes/procgen.scene" );
         Scene.Load( sceneFile );
     }
 
+    async void LoadWorld( WorldSave save )
+    {
+        WorldPersistence.FileToLoad = save.FilePath;
+
+        Play();
+
+        Log.Info( $"Loaded {save} in!" );
+    }
+
     async void JoinSomeoneElse()
     {
-        bool joined = await global::Networking.TryJoinLobby();
-        if (!joined)
+        WorldPersistence.FileToLoad = null;
+
+        var joined = await global::Networking.TryJoinLobby();
+        if ( !joined )
         {
             Log.Warning( "Nobody to play with :(" );
         }
