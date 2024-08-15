@@ -16,7 +16,7 @@
             {
                 @if ( TryGetWorldSave() is { } world )
                 {
-                    <label>This is an existing world.</label>
+                    <label>World: @world.Name</label>
                     <label>Creation Time: @(world.CreatedAt.ToString("dd/MM/yyyy HH:mm"))</label>
                     <label>Last Saved: @(world.LastSaved.ToString("dd/MM/yyyy HH:mm"))</label>
 
