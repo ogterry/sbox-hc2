@@ -333,7 +333,6 @@ public class Inventory : Component, ISaveData
 
 		foreach ( var item in Container.Items )
 		{
-			Log.Info( item );
 			if ( item is null )
 				itemString += "null,";
 			else
