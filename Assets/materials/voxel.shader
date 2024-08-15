@@ -128,10 +128,6 @@ PS
 		Texture2D texture = GetBindlessTexture2D( NonUniformResourceIndex( i.TextureIndex ) );
 		float4 textureSample = texture.Sample( g_sPointWrap, i.vTextureCoords.xy );
 
-      	float3 vHsv = RgbToHsv( textureSample.rgb );
-        vHsv.b *= i.vVertexColor.a;
-        textureSample.rgb = HsvToRgb( vHsv );
-
 		Material m = Material::From( i );
 		m.Albedo = textureSample.rgb * i.vVertexColor.rgb;
 		m.Roughness = 1;
