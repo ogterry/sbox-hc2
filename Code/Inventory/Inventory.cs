@@ -191,6 +191,8 @@ public class Inventory : Component, ISaveData
 			if ( i is null ) continue;
 			if ( i.Resource == item.Resource )
 			{
+				if ( i.Amount <= 0 ) continue;
+
 				amount -= i.Amount;
 
 				if ( amount <= 0 )
