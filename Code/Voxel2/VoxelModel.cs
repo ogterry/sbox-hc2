@@ -124,7 +124,7 @@ public partial class VoxelRenderer : Component, Component.ExecuteInEditor
 	{
 		if ( !Gizmo.IsSelected ) return;
 
-		Gizmo.Draw.LineBBox( new BBox( 0f, new Vector3( Size.x, Size.z, Size.y ) * 16f ) );
+		Gizmo.Draw.LineBBox( new BBox( 0f, new Vector3( Size.z, Size.x, Size.y ) * 16f ) );
 
 		if ( Model is null ) return;
 
@@ -135,8 +135,8 @@ public partial class VoxelRenderer : Component, Component.ExecuteInEditor
 			if ( chunk is not { Allocated: true } ) continue;
 
 			Gizmo.Draw.LineBBox( new BBox(
-				new Vector3( chunk.WorldMin.x, chunk.WorldMin.z, chunk.WorldMin.y ) * 16f,
-				new Vector3( chunk.WorldMax.x, chunk.WorldMax.z, chunk.WorldMax.y ) * 16f ) );
+				new Vector3( chunk.WorldMin.z, chunk.WorldMin.x, chunk.WorldMin.y ) * 16f,
+				new Vector3( chunk.WorldMax.z, chunk.WorldMax.x, chunk.WorldMax.y ) * 16f ) );
 		}
 	}
 }
