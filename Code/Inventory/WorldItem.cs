@@ -114,6 +114,7 @@ public partial class WorldItem : Component, Component.ITriggerListener
 
 		var mdl = spinningItem.Components.Create<SkinnedModelRenderer>();
 		mdl.Model = itemAsset.WorldModel;
+		mdl.Transform.Local = itemAsset.WorldModelOffset;
 		worldItem.ModelRenderer = mdl;
 		worldItem.SpinningItem = spinningItem;
 

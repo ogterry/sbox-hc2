@@ -1,11 +1,28 @@
 {
   "Name": "Metal Fragment",
   "Description": "You can craft stuff with it.. or can you?",
+  "BlockType": null,
+  "Category": "Resources",
   "MaxStack": 99,
+  "MaxDurability": 1,
   "Icon": "item_icons/metal_piece.png",
   "Tags": null,
   "Prefab": null,
   "WorldModel": "models/props/metal_pile/metal_fragment.vmdl",
+  "WorldModelOffset": {
+    "UniformScale": 0.5,
+    "IsValid": true,
+    "ForwardRay": {
+      "Position": "12,-12,0",
+      "Forward": "1,0,0"
+    },
+    "Position": "12,-12,0",
+    "Scale": "0.5,0.5,0.5",
+    "Rotation": "0,0,0,1"
+  },
+  "CraftingRequirements": [],
+  "CraftingYield": 1,
+  "StatusEffects": [],
   "__references": [],
   "__version": 0
 }
