@@ -9,6 +9,15 @@
   "Tags": null,
   "Prefab": null,
   "WorldModel": "models/props/rocks/rock_fragment.vmdl",
+  "WorldModelOffset": {
+    "UniformScale": 0.4,
+    "IsValid": true,
+    "ForwardRay": {
+      "Forward": "1,0,0"
+    },
+    "Scale": "0.4,0.4,0.4",
+    "Rotation": "0,0,0,1"
+  },
   "CraftingRequirements": [],
   "CraftingYield": 1,
   "StatusEffects": [],
