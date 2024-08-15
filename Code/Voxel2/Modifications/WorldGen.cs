@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 using HC2;
 using Sandbox.Diagnostics;
 using Sandbox.Utility;
@@ -316,7 +317,7 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 			{
 				if ( feature.Radius >= minDist ) continue;
 				if ( feature.HeightRange.x > sample.Height || feature.HeightRange.y < sample.Height ) continue;
-				if ( feature.BiomeRange.x > sample.Terrain || feature.BiomeRange.y < sample.Terrain ) continue;
+				if ( feature.TerrainRange.x > sample.Terrain || feature.TerrainRange.y < sample.Terrain ) continue;
 
 				filteredFeatures.Add( feature );
 			}
@@ -399,6 +400,11 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 
 		return go;
 	}
+
+	public void SpawnOreSeam( Block block, Vector3 position, RangedFloat sizeRange, RangedFloat depthRange )
+	{
+
+	}
 }
 
 [GameResource( "World Gen Parameters", "worldgen", "Parameters for the voxel world generator.", Icon = "public" )]
@@ -408,6 +414,7 @@ public sealed class WorldGenParameters : GameResource
 	public Curve PlainsHeight { get; set; }
 	public Curve MountainsHeight { get; set; }
 
+	// TODO: move these to biomes
 	public List<WorldGenFeature> Features { get; set; } = new();
 }
 
@@ -415,7 +422,14 @@ public sealed class WorldGenParameters : GameResource
 public sealed class WorldGenFeature : GameResource
 {
 	public RangedFloat HeightRange { get; set; }
-	public RangedFloat BiomeRange { get; set; }
+
+	[JsonPropertyName( "BiomeRange" )]
+	public RangedFloat TerrainRange { get; set; }
+
+	/// <summary>
+	/// If true, this spawns in solid ground.
+	/// </summary>
+	public bool SpawnsInGround { get; set; }
 
 	public float Radius { get; set; } = 512f;
 	public float Weight { get; set; } = 1f;
