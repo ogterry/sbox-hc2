@@ -1,4 +1,5 @@
 using System;
+using HC2;
 
 public sealed class PlayerFootsteps : Component
 {
@@ -53,8 +54,10 @@ public sealed class PlayerFootsteps : Component
 	{
 		if ( Particle == null ) return;
 
-		var particle = Particle.Clone();
-		particle.Transform.Position = position;
+		VoxelParticles.Spawn( position, 4 );
+
+		// var particle = Particle.Clone();
+		// particle.Transform.Position = position;
 
 		// var effect = particle.Components.Get<ParticleEffect>( FindMode.InChildren );
 		// if ( effect is null ) return;

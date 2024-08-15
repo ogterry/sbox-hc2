@@ -22,21 +22,25 @@ public static class VoxelParticles
 			{
 				var voxelPos = voxelRenderer.WorldToVoxelCoords( position );
 				var voxel = voxelRenderer.Model.GetVoxel( voxelPos.x, voxelPos.y, voxelPos.z );
+
 				var palette = voxelRenderer.Palette;
-				var paletteMat = palette.Blocks[voxel];
+				if ( voxel < palette.Blocks.Count )
+				{
+					var paletteMat = palette.Blocks[voxel];
 
-				Log.Info( paletteMat );
+					Log.Info( paletteMat );
 
-				// var mat = Material.Create( "voxel_particle", "shaders/pixel_shader.shader" );
-				// mat.Set( "Color", paletteMat.Texture );
-				var mat = Material.Create( "voxel_particle", "complex.shader" );
-				mat.Set( "Color", paletteMat.Texture );
-				Spawn( position, mat, count );
+					// var mat = Material.Create( "voxel_particle", "shaders/pixel_shader.shader" );
+					// mat.Set( "Color", paletteMat.Texture );
+					var mat = Material.Create( "voxel_particle", "complex.shader" );
+					mat.Set( "Color", paletteMat.Texture );
+					Spawn( position, mat, count );
 
-				return;
+					return;
+				}
 			}
 
-			Spawn( position, Color.White, count );
+			Spawn( position, Color.Gray, count );
 			return;
 		}
 
