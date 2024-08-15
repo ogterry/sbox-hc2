@@ -3,6 +3,7 @@ using System;
 using System.Text.Json.Serialization;
 using Sandbox.Diagnostics;
 using Voxel;
+using Voxel.Modifications;
 
 namespace HC2;
 
@@ -21,9 +22,9 @@ public interface IObjectSaveData
 /// <summary>
 /// The state of the voxel world.
 /// </summary>
-public record VoxelWorldState( int Version, Vector3Int Size, IReadOnlyList<ChunkState> Chunks )
+public record VoxelWorldState( int Version, int Seed, string ParametersPath, Vector3Int Size, IReadOnlyList<ChunkState> Chunks )
 {
-	public const int CurrentVersion = 1;
+	public const int CurrentVersion = 2;
 }
 
 public record ChunkState( Vector3Int Index, string Data );
@@ -287,34 +288,56 @@ public sealed class WorldPersistence : Component
 			return null;
 		}
 
-		return new( VoxelWorldState.CurrentVersion, world.Size, world.Model.Chunks.Where( x => x is { Allocated: true } )
+		var worldGen = world.Components.Get<VoxelWorldGen>();
+
+		return new( VoxelWorldState.CurrentVersion,
+			worldGen?.Seed ?? 0,
+			worldGen?.Parameters?.ResourcePath,
+			world.Size, world.Model.Chunks.Where( x => x is { Allocated: true } )
 			.Select( SerializeChunk )
 			.ToArray() );
+	}
+
+	private static void WriteVarUshort( ref ByteStream writer, ushort value )
+	{
+		Assert.True( value < 0x8000 );
+
+		if ( value < 128 )
+		{
+			writer.Write( (byte)value );
+			return;
+		}
+
+		// 8th bit indicates there's a second byte
+
+		writer.Write( (byte)((value & 0x7f) | 0x80) );
+		writer.Write( (byte)(value >> 7) );
 	}
 
 	private ChunkState SerializeChunk( Chunk chunk )
 	{
 		Assert.True( chunk.Allocated );
 
-		using var writer = ByteStream.Create( 4096 );
+		var writer = ByteStream.Create( 4096 );
 
-		var voxels = chunk.Voxels;
-
-		for ( var x = 0; x < Constants.ChunkSize; ++x )
-		for ( var z = 0; z < Constants.ChunkSize; ++z )
+		try
 		{
-			var prev = voxels[Chunk.GetAccessLocal( x, 0, z )];
-			var count = 1;
+			var voxels = chunk.Voxels;
 
-			writer.Write( prev );
+			var prev = 0;
+			var count = 0;
 
-			for ( var y = 1; y < Constants.ChunkSize; ++y )
+			for ( var x = 0; x < Constants.ChunkSize; ++x )
+			for ( var z = 0; z < Constants.ChunkSize; ++z )
+			for ( var y = 0; y < Constants.ChunkSize; ++y )
 			{
 				var value = voxels[Chunk.GetAccessLocal( x, y, z )];
 
 				if ( value != prev )
 				{
-					writer.Write( (byte)count );
+					// Count will always be < 32 * 32 * 32 = (32,768)
+
+					WriteVarUshort( ref writer, (ushort)count );
 					writer.Write( value );
 
 					prev = value;
@@ -325,11 +348,15 @@ public sealed class WorldPersistence : Component
 					count++;
 				}
 			}
-		}
 
-		return new ChunkState(
-			new Vector3Int( chunk.ChunkPosX, chunk.ChunkPosY, chunk.ChunkPosZ ),
-			Convert.ToBase64String( writer.ToArray() ) );
+			return new ChunkState(
+				new Vector3Int( chunk.ChunkPosX, chunk.ChunkPosY, chunk.ChunkPosZ ),
+				Convert.ToBase64String( writer.ToArray() ) );
+		}
+		finally
+		{
+			writer.Dispose();
+		}
 	}
 
 	/// <summary>
