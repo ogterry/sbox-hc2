@@ -55,7 +55,7 @@ public record struct CarveModification( GatherSourceKind SourceKind, byte Damage
 			{
 				chunk.SetVoxel( x, y, z, 0 );
 
-				SpawnBlock( entry.Block, renderer.WorldToVoxelCoords( new Vector3Int( x,  y, z ) + chunk.WorldMin ) );
+				SpawnBlock( entry.Block, 1, renderer.WorldToVoxelCoords( new Vector3Int( x,  y, z ) + chunk.WorldMin ) );
 			}
 			else
 			{
@@ -64,8 +64,8 @@ public record struct CarveModification( GatherSourceKind SourceKind, byte Damage
 		}
 	}
 
-	private void SpawnBlock( Block block, Vector3 position )
+	private void SpawnBlock( Block block, int amount, Vector3 position )
 	{
-		Log.Info( $"Spawn {block} at {position}" );
+		WorldItem.CreateInstance( BlockItem.Create( block ), position );
 	}
 }
