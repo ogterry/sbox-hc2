@@ -1,0 +1,17 @@
+{
+  "Name": "Iron Ore",
+  "Description": "",
+  "BlockType": "blocks/iron_ore.block",
+  "Category": "Resources",
+  "MaxStack": 99,
+  "MaxDurability": 1,
+  "Icon": "textures/ground_texture_02.png",
+  "Tags": null,
+  "Prefab": null,
+  "WorldModel": "models/props/rocks/rock_fragment.vmdl",
+  "CraftingRequirements": [],
+  "CraftingYield": 1,
+  "StatusEffects": [],
+  "__references": [],
+  "__version": 0
+}

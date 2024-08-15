@@ -1,10 +1,11 @@
 {
-  "Name": "Block",
+  "Name": "Stone",
   "Description": "",
+  "BlockType": "blocks/stone.block",
   "Category": "Resources",
   "MaxStack": 99,
   "MaxDurability": 1,
-  "Icon": "materials/lights/white_color.tga",
+  "Icon": "textures/ground_texture_02.png",
   "Tags": null,
   "Prefab": null,
   "WorldModel": "models/props/rocks/rock_fragment.vmdl",
