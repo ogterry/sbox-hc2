@@ -165,7 +165,8 @@
       },
       {
         "__type": "HC2.StatModifier",
-        "__guid": "4939f46a-d084-420f-8e2c-4f04a85e1f01"
+        "__guid": "4939f46a-d084-420f-8e2c-4f04a85e1f01",
+        "IsAffectedByStatusEffects": true
       },
       {
         "__type": "HC2.Inventory",
@@ -645,6 +646,7 @@
                                                     "AttackSound": "sounds/weapons/sword_swing.sound",
                                                     "Damage": 10,
                                                     "DamageType": "Blunt",
+                                                    "DurabilityOnUse": 0,
                                                     "Hand": "MainHand",
                                                     "HitSound": "sounds/weapons/sword_metallic_hit.sound",
                                                     "HoldType": "Punch",
@@ -654,8 +656,14 @@
                                                   },
                                                   {
                                                     "__type": "HC2.ResourceGatherer",
+                                                    "__guid": "d510825d-c154-4416-963c-fb7f04a5301e",
+                                                    "Effectiveness": 0.5,
+                                                    "SourceKind": "Soil"
+                                                  },
+                                                  {
+                                                    "__type": "HC2.ResourceGatherer",
                                                     "__guid": "5b9ec711-d1cb-4072-9a2f-4370bb43fe4a",
-                                                    "Effectiveness": 1,
+                                                    "Effectiveness": 0.25,
                                                     "SourceKind": "Wood"
                                                   }
                                                 ]
