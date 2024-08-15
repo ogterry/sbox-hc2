@@ -39,10 +39,10 @@ public sealed class Mob : Component,
 	public event Action<KilledEvent>? Killed;
 
 	[Property]
-	SoundEvent HitSound { get; set; }
+	SoundEvent? HitSound { get; set; }
 
 	[Property]
-	public List<MobDrop> ItemDrops { get; set; } = new();
+	public List<MobDrop>? ItemDrops { get; set; } = new();
 
 	private DamageTakenEvent? _lastDamageEvent;
 	private TimeSince _sinceLastDamage;
@@ -124,7 +124,7 @@ public sealed class Mob : Component,
 		GiveNearbyPlayersExperience();
 		Killed?.Invoke(eventArgs);
 
-		if ((ItemDrops?.Count ?? 0) > 0)
+		if ( ItemDrops is { Count: > 0 } )
 		{
 			foreach (var drop in ItemDrops)
 			{
@@ -167,7 +167,7 @@ public sealed class Mob : Component,
 
 public class MobDrop
 {
-	[KeyProperty] public ItemAsset Item { get; set; }
+	[KeyProperty] public ItemAsset? Item { get; set; }
 	[KeyProperty] public Vector2Int AmountRange { get; set; } = 1;
 	public float Chance { get; set; } = 100f;
 }

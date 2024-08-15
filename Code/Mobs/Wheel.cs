@@ -3,6 +3,8 @@ using System;
 
 namespace HC2.Mobs;
 
+#nullable enable
+
 [Icon( "accessible_forward" )]
 public sealed class Wheel : Component
 {
