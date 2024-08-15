@@ -333,10 +333,11 @@ public class Inventory : Component, ISaveData
 
 		foreach ( var item in Container.Items )
 		{
+			Log.Info( item );
 			if ( item is null )
 				itemString += "null,";
 			else
-				itemString += $"{item.Resource.ResourceName}:{item.Amount},";
+				itemString += $"{item.Resource.ResourceName}:{item.Amount}:{item.Durability},";
 		}
 
 		if ( itemString.EndsWith( "," ) )
@@ -368,7 +369,11 @@ public class Inventory : Component, ISaveData
 			}
 
 			var itemAmount = int.Parse( itemData[1] );
+			var itemDurability = 1f;
+			if ( itemData.Length > 2 )
+				itemDurability = float.Parse( itemData[2] );
 			var it = Item.Create( itemResource, itemAmount );
+			it.Durability = itemDurability;
 
 			TryGiveItemSlot( it, i - 1 );
 		}

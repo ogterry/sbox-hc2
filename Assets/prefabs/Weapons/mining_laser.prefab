@@ -1,0 +1,73 @@
+{
+  "RootObject": {
+    "__guid": "70818148-0689-41d7-a059-1216c8afd3cd",
+    "Flags": 0,
+    "Name": "mining_laser",
+    "Enabled": true,
+    "Components": [
+      {
+        "__type": "TraceWeapon",
+        "__guid": "26430ea8-7575-4d59-9aa1-0e522905a459",
+        "AimingEnabled": false,
+        "AimingFOVOffset": 0,
+        "AmmoConsumptionRate": 0,
+        "AttackDelay": 0.2,
+        "Damage": 1,
+        "DamageType": "Electric",
+        "DurabilityOnUse": 0.004,
+        "FireConstantly": true,
+        "Hand": "MainHand",
+        "HoldType": "Pistol",
+        "InputAction": "Attack1",
+        "LaserColor": "0,0.85,1,1",
+        "LaserVisible": true,
+        "LaserWidth": 2,
+        "MaxTraceDistance": 500,
+        "Muzzle": {
+          "_type": "gameobject",
+          "go": "99705985-0f19-444c-9d48-0fdbe9b8aa05"
+        }
+      },
+      {
+        "__type": "HC2.ResourceGatherer",
+        "__guid": "24e04cf9-b2ef-493a-bf66-c263cc057d32",
+        "Effectiveness": 1,
+        "SourceKind": "Stone"
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "99705985-0f19-444c-9d48-0fdbe9b8aa05",
+        "Flags": 0,
+        "Name": "Muzzle",
+        "Position": "14.73014,-0.00004914694,-1.379581",
+        "Rotation": "-0.0000000000001136868,-0.7071067,0.00000000000005684342,0.7071068",
+        "Enabled": true
+      },
+      {
+        "__guid": "e5de3e9c-bf8d-4c62-8544-fa2f80d8d9de",
+        "Flags": 0,
+        "Name": "Object",
+        "Position": "5.323276,-0.4190639,-6.088871",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "ecff1592-6daf-4ebd-ac33-54af0abdce29",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/weapons/mining_laser/mining_laser.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

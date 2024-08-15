@@ -40,9 +40,16 @@ public class Item : IValid
 
 	public static Item Create( string resourceName, int amount = 1 )
 	{
+		var resource = ResourceLibrary.GetAll<ItemAsset>().FirstOrDefault( x => x.ResourceName == resourceName );
+		if ( resource is null )
+		{
+			Log.Warning( $"Couldn't find item resource {resourceName}" );
+			return null;
+		}
+
 		var item = new Item
 		{
-			Resource = ResourceLibrary.GetAll<ItemAsset>().FirstOrDefault( x => x.ResourceName == resourceName ),
+			Resource = resource,
 			Amount = amount
 		};
 

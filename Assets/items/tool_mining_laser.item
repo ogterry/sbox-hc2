@@ -1,0 +1,31 @@
+{
+  "Name": "Mining Laser",
+  "Description": "Breaks Blocks with Precision",
+  "Category": "Tools",
+  "MaxStack": 1,
+  "Icon": "item_icons/tool_mining_laser.png",
+  "Tags": "weapon",
+  "Prefab": "prefabs/weapons/mining_laser.prefab",
+  "WorldModel": "models/weapons/mining_laser/mining_laser.vmdl",
+  "CraftingRequirements": [
+    {
+      "Resource": "items/rock.item",
+      "Amount": 10,
+      "Durability": 1
+    },
+    {
+      "Resource": "items/tree_branch.item",
+      "Amount": 5,
+      "Durability": 1
+    },
+    {
+      "Resource": "items/metal_piece.item",
+      "Amount": 5,
+      "Durability": 1
+    }
+  ],
+  "CraftingYield": 1,
+  "StatusEffects": [],
+  "__references": [],
+  "__version": 0
+}
