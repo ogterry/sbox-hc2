@@ -1,5 +1,5 @@
 {
-  "HeightRange": "4.00,8.00,1",
+  "HeightRange": "3.00,4.00,1",
   "BiomeRange": "0.00,0.15,1",
   "Radius": 64,
   "Weight": 0.01,
