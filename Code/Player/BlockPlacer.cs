@@ -29,7 +29,8 @@ public sealed class BlockPlacer : Carriable
         if ( tr.Hit )
         {
             var blockSize = 16f;
-            var pos = tr.HitPosition + tr.Normal * (blockSize / 4f);
+            var pos = tr.HitPosition + tr.Normal * (blockSize / 2f);
+            pos -= blockSize / 2f;
             pos = pos.SnapToGrid( blockSize );
             using ( Gizmo.Scope( "block_ghost" ) )
             {
@@ -51,7 +52,7 @@ public sealed class BlockPlacer : Carriable
 
     void PlaceBlock( Vector3 pos )
     {
-        if ( timeSinceLastPlace < 0.1f )
+        if ( timeSinceLastPlace < 0.05f )
             return;
 
         if ( Player.Hotbar.GetItemInSlot( Player.Hotbar.SelectedSlot ) is Item item )
@@ -63,6 +64,8 @@ public sealed class BlockPlacer : Carriable
                 PlaceBlockHost( pos, BlockType, Player.Hotbar.SelectedSlot );
             }
         }
+
+        timeSinceLastPlace = 0;
     }
 
     [Broadcast]
