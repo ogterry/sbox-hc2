@@ -23,48 +23,23 @@
         "Id": 26,
         "Type": "resource.ref",
         "Properties": {
-          "value": "prefabs/resources/node_tree.prefab",
-          "T": "Sandbox.PrefabFile"
+          "T": "Sandbox.PrefabFile",
+          "value": "prefabs/resources/node_tree.prefab"
         },
         "UserData": {
-          "Position": "128,176"
+          "Position": "352,128"
         }
       },
       {
         "Id": 27,
         "Type": "call",
         "Properties": {
-          "_name": "SpawnPrefab",
+          "_type": "Voxel.Modifications.VoxelWorldGen",
           "_isStatic": false,
-          "_type": "Voxel.Modifications.VoxelWorldGen"
+          "_name": "SpawnPrefab"
         },
         "UserData": {
           "Position": "768,-16"
-        }
-      },
-      {
-        "Id": 28,
-        "Type": "random.chance",
-        "UserData": {
-          "Position": "240,96"
-        }
-      },
-      {
-        "Id": 29,
-        "Type": "op.conditional",
-        "UserData": {
-          "Position": "656,192"
-        }
-      },
-      {
-        "Id": 31,
-        "Type": "resource.ref",
-        "Properties": {
-          "value": "prefabs/resources/node_tree_2.prefab",
-          "T": "Sandbox.PrefabFile"
-        },
-        "UserData": {
-          "Position": "160,352"
         }
       }
     ],
@@ -88,28 +63,10 @@
         "DstName": "position"
       },
       {
-        "SrcId": 29,
+        "SrcId": 26,
         "SrcName": "_result",
         "DstId": 27,
         "DstName": "prefab"
-      },
-      {
-        "SrcId": 26,
-        "SrcName": "_result",
-        "DstId": 29,
-        "DstName": "a"
-      },
-      {
-        "SrcId": 31,
-        "SrcName": "_result",
-        "DstId": 29,
-        "DstName": "b"
-      },
-      {
-        "SrcId": 28,
-        "SrcName": "_result",
-        "DstId": 29,
-        "DstName": "x"
       }
     ]
   },

@@ -15,8 +15,17 @@
 						surface_prop = "default"
 						collision_tags = "solid"
 						radius = 21.038366
-						point0 = [ 44.308777, 68.482635, 234.348328 ]
-						point1 = [ 50.854065, 60.923553, 21.613907 ]
+						point0 = [ 76.211403, 103.627792, 121.377045 ]
+						point1 = [ 82.756691, 104.227844, 21.613907 ]
+					},
+					{
+						_class = "PhysicsShapeCylinder"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						radius = 21.038366
+						point0 = [ 85.353836, 131.242615, 194.358749 ]
+						point1 = [ 82.756691, 93.49752, 90.243797 ]
 					},
 				]
 			},
@@ -26,7 +35,7 @@
 				[
 					{
 						_class = "RenderMeshFile"
-						filename = "models/props/dead_tree/dead_tree_no_foliage.vox"
+						filename = "models/props/dead_tree/dead_tree_no_foliage_3.vox"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
 						import_scale = 1.0

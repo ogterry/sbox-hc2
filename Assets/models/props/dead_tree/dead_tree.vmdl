@@ -10,12 +10,13 @@
 				children = 
 				[
 					{
-						_class = "PhysicsHullFromRender"
+						_class = "PhysicsShapeCylinder"
 						parent_bone = ""
 						surface_prop = "default"
 						collision_tags = "solid"
-						faceMergeAngle = 20.0
-						maxHullVertices = 32
+						radius = 21.038366
+						point0 = [ 44.308777, 53.04895, 234.348328 ]
+						point1 = [ 50.854065, 45.489868, 21.613907 ]
 					},
 				]
 			},
