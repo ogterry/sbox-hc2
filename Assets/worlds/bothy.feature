@@ -10,7 +10,12 @@
       "Title": "Spawn",
       "ReferencedComponentTypes": []
     },
-    "Variables": [],
+    "Variables": [
+      {
+        "Name": "height_offset_boffy",
+        "Type": "System.Object"
+      }
+    ],
     "Nodes": [
       {
         "Id": 0,
@@ -24,19 +29,19 @@
           "T": "Sandbox.Model"
         },
         "UserData": {
-          "Position": "-0,224"
+          "Position": "-64,288"
         }
       },
       {
         "Id": 3,
         "Type": "call",
         "Properties": {
-          "_type": "Voxel.Modifications.VoxelWorldGen",
+          "_name": "SpawnProp",
           "_isStatic": false,
-          "_name": "SpawnProp"
+          "_type": "Voxel.Modifications.VoxelWorldGen"
         },
         "UserData": {
-          "Position": "288,16"
+          "Position": "336,-0"
         }
       }
     ],
@@ -66,7 +71,7 @@
         "DstName": "position"
       },
       {
-        "Value": 0.4,
+        "Value": 1,
         "DstId": 3,
         "DstName": "scale"
       }
