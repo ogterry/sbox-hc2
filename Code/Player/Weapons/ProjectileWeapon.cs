@@ -1,3 +1,5 @@
+using HC2;
+
 public partial class ProjectileWeapon : WeaponComponent
 {
 	/// <summary>
@@ -15,20 +17,43 @@ public partial class ProjectileWeapon : WeaponComponent
 	/// </summary>
 	[Property, Group( "Projectile Weapon" )] public float EjectSpeed { get; set; } = 1024000f;
 
+	/// <summary>
+	/// What item should be consumed when firing? (if any)
+	/// </summary>
+	[Property, Group( "Projectile Weapon" )] public ItemAsset AmmoItem { get; set; }
+
 	///<summary>
 	/// Muzzle flash prefab
 	/// </summary>
 	[Property, Group( "Visuals" )] public GameObject MuzzleFlashPrefab { get; set; }
 
+	[Property, Group( "Audio" )] public SoundEvent OutOfAmmoSound { get; set; }
+
 	protected override void Attack()
 	{
-		base.Attack();
-
 		if ( !ProjectilePrefab.IsValid() )
 		{
 			Log.Warning( $"{this} doesn't have a Projectile prefab" );
 			return;
 		}
+
+		if ( AmmoItem is not null )
+		{
+			var ammoItem = Item.Create( AmmoItem, 1 );
+			if ( Player.Hotbar.HasItem( ammoItem ) )
+			{
+				Player.Hotbar.TakeItem( ammoItem );
+			}
+			else
+			{
+				TimeSinceAttack = 0;
+				if ( OutOfAmmoSound is not null )
+					Sound.Play( OutOfAmmoSound, Transform.Position );
+				return;
+			}
+		}
+
+		base.Attack();
 
 		var go = ProjectilePrefab.Clone( new CloneConfig()
 		{
@@ -36,14 +61,14 @@ public partial class ProjectileWeapon : WeaponComponent
 			Transform = Muzzle.Transform.World.WithScale( 1f ),
 			StartEnabled = true,
 			Name = $"Projectile from {this}"
-		} ) ;
+		} );
 
 		if ( MuzzleFlashPrefab.IsValid() )
 		{
 			var muzzle = MuzzleFlashPrefab.Clone( new CloneConfig()
 			{
 				Parent = null,
-				Transform = Muzzle.Transform.World.WithScale( 1f ).WithRotation( Rotation.From( Muzzle.Transform.Rotation * Rotation.FromPitch(90) ) ),
+				Transform = Muzzle.Transform.World.WithScale( 1f ).WithRotation( Rotation.From( Muzzle.Transform.Rotation * Rotation.FromPitch( 90 ) ) ),
 				StartEnabled = true
 			} );
 		}

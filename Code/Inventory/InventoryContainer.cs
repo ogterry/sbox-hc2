@@ -195,18 +195,18 @@ public struct InventoryContainer
 	/// <summary>
 	/// <inheritdoc cref="Inventory.TakeItem"/>
 	/// </summary>
-	public void TakeItem( Item item )
+	public bool TryTakeItem( Item item )
 	{
 		for ( var i = MaxSlots - 1; i >= 0; i-- )
 		{
 			if ( Items[i] == null )
 				continue;
 
-			if ( Items[i] == item )
+			if ( Items[i]?.Resource == item?.Resource && Items[i].Amount == item.Amount )
 			{
 				Items[i] = null;
 				item.Container = null;
-				return;
+				return true;
 			}
 
 			if ( Items[i].Resource == item.Resource )
@@ -214,13 +214,16 @@ public struct InventoryContainer
 				Items[i].Amount -= item.Amount;
 
 				if ( Items[i].Amount > 0 )
-					continue;
+					return true;
 
 				item.Amount = Math.Abs( Items[i].Amount );
 				Items[i] = null;
 				item.Container = null;
+				return true;
 			}
 		}
+		
+		return false;
 	}
 
 	/// <summary>

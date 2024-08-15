@@ -45,7 +45,8 @@
                 }
             </div>
             <div class="button" onclick=@CraftSelected>
-                @(Player.Local?.Inventory?.CanCraftItem(SelectedItem) ?? false ? "Craft" : "Not enough resources")
+                <label>@(Player.Local?.Inventory?.CanCraftItem(SelectedItem) ?? false ? "Craft" : "Not enough resources")</label>
+                <label>x@(SelectedItem.CraftingYield)</label>
             </div>
         </div>
     }

@@ -99,7 +99,7 @@ public class Inventory : Component, ISaveData
 			TakeItem( reqItem );
 		}
 
-		TryGiveItem( item );
+		TryGiveItem( Item.Create( item.Resource, item.Amount * item.Resource.CraftingYield ) );
 	}
 
 	/// <summary>
@@ -131,7 +131,10 @@ public class Inventory : Component, ISaveData
 	/// <param name="item"></param>
 	public void TakeItem( Item item )
 	{
-		Container.TakeItem( item );
+		if ( !Container.TryTakeItem( item ) )
+		{
+			OverflowContainer.TryTakeItem( item );
+		}
 	}
 
 	/// <summary>

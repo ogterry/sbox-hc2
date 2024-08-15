@@ -46,7 +46,7 @@ public abstract class WeaponComponent : Carriable
 	/// <summary>
 	/// How long since we attacked?
 	/// </summary>
-	TimeSince TimeSinceAttack { get; set; }
+	protected TimeSince TimeSinceAttack { get; set; }
 
 	/// <summary>
 	/// Gets the player

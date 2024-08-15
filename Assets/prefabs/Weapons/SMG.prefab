@@ -10,6 +10,7 @@
         "__guid": "23dee7a0-a4d1-40ac-ba7b-862d6b6234b0",
         "AimingEnabled": true,
         "AimingFOVOffset": 25,
+        "AmmoItem": "items/energy_pellet.item",
         "AttackDelay": 0.125,
         "AttackSound": "sounds/weapons/laser_gun_shoot.sound",
         "Damage": 12,
@@ -26,6 +27,7 @@
           "_type": "gameobject",
           "prefab": "prefabs/weapons/muzzle-flash-smg.prefab"
         },
+        "OutOfAmmoSound": "sounds/kenney/ui/ui.button.deny.sound",
         "ProjectilePrefab": {
           "_type": "gameobject",
           "go": "ed8d5c90-52c7-4715-b1e7-7a7cb8ae4128"
