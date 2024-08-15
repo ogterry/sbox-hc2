@@ -23,7 +23,7 @@
     "CsProjName": "",
     "StartupScene": "scenes/menu.scene",
     "MapStartupScene": "scenes/menu.scene",
-    "LaunchMode": "QuickPlay",
+    "LaunchMode": "Normal",
     "Compiler": {
       "RootNamespace": "HC2",
       "DefineConstants": "SANDBOX;ADDON;DEBUG",
