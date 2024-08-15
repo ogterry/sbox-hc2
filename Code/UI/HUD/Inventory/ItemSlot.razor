@@ -10,10 +10,10 @@
             {
                 <label class="amount">@Item.Amount</label>
             }
-            @if (Item.Durability < 1f)
+            @if (Item.Durability < Item.Resource.MaxDurability)
             {
                 <div class="durability-bar">
-                    <div class="fill" style="width: @(Item.Durability * 100)%" />
+                    <div class="fill" style="width: @(Item.Durability / Item.Resource.MaxDurability * 100)%" />
                 </div>
             }
         </div>

@@ -34,7 +34,7 @@ public class Item : IValid
 
 	public static Item Create( ItemAsset resource, int amount = 1 )
 	{
-		var item = new Item { Resource = resource, Amount = amount };
+		var item = new Item { Resource = resource, Amount = amount, Durability = resource.MaxDurability };
 		return item;
 	}
 
@@ -50,7 +50,8 @@ public class Item : IValid
 		var item = new Item
 		{
 			Resource = resource,
-			Amount = amount
+			Amount = amount,
+			Durability = resource.MaxDurability
 		};
 
 		return item;

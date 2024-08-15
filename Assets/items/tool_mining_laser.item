@@ -3,6 +3,7 @@
   "Description": "Breaks Blocks with Precision",
   "Category": "Tools",
   "MaxStack": 1,
+  "MaxDurability": 10,
   "Icon": "item_icons/tool_mining_laser.png",
   "Tags": "weapon",
   "Prefab": "prefabs/weapons/mining_laser.prefab",

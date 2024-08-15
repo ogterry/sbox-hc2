@@ -11,10 +11,10 @@
         "AimingEnabled": false,
         "AimingFOVOffset": 0,
         "AmmoConsumptionRate": 0,
-        "AttackDelay": 0.2,
+        "AttackDelay": 0.1,
         "Damage": 1,
         "DamageType": "Electric",
-        "DurabilityOnUse": 0.004,
+        "DurabilityOnUse": 0.01,
         "FireConstantly": true,
         "Hand": "MainHand",
         "HoldType": "Pistol",
@@ -32,7 +32,12 @@
         "__type": "HC2.ResourceGatherer",
         "__guid": "24e04cf9-b2ef-493a-bf66-c263cc057d32",
         "Effectiveness": 1,
-        "SourceKind": "Stone"
+        "SourceKind": "Wood"
+      },
+      {
+        "__type": "HC2.StatModifier",
+        "__guid": "38d3661d-3490-4646-8327-9408c30e4bc3",
+        "IsAffectedByStatusEffects": false
       }
     ],
     "Children": [
@@ -40,7 +45,7 @@
         "__guid": "99705985-0f19-444c-9d48-0fdbe9b8aa05",
         "Flags": 0,
         "Name": "Muzzle",
-        "Position": "14.73014,-0.00004914694,-1.379581",
+        "Position": "12.55317,-0.5381492,4.26506",
         "Rotation": "-0.0000000000001136868,-0.7071067,0.00000000000005684342,0.7071068",
         "Enabled": true
       },

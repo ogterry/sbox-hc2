@@ -43,6 +43,11 @@ public class ItemAsset : GameResource
 	public int MaxStack { get; set; } = 99;
 
 	/// <summary>
+	/// The maximum durability of the item.
+	/// </summary>
+	public float MaxDurability { get; set; } = 1f;
+
+	/// <summary>
 	/// What icon should the item use?
 	/// </summary>
 	[ImageAssetPath]
