@@ -24,7 +24,7 @@ public sealed class BlockPlacer : Carriable
         base.OnUpdate();
 
         var tr = Scene.Trace.Ray( Scene.Camera.Transform.Position, Scene.Camera.Transform.Position + Scene.Camera.Transform.Rotation.Forward * 500 )
-            .WithoutTags( "player", "trigger" )
+            .WithoutTags( "player", "trigger", "mob" )
             .Run();
 
         if ( tr.Hit )
