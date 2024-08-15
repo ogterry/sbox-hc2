@@ -531,6 +531,7 @@ public partial class Player : Component, IDamage,
 
 			if ( Hotbar.SelectedItem.Durability <= 0 )
 			{
+				DestroyMainHand();
 				Hotbar.TakeItemSlot( Hotbar.SelectedSlot );
 			}
 		}

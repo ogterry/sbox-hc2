@@ -11,6 +11,24 @@ public static class VoxelParticles
 		return SceneUtility.GetPrefabScene( killPrefab ).Clone( position );
 	}
 
+	public static ParticleEffect SpawnInBounds( BBox box, Material material, int count )
+	{
+		var effect = Spawn( box.Center, material, count );
+
+		var coneEmitter = effect.Components.Get<ParticleConeEmitter>();
+		coneEmitter.Destroy();
+
+		var boxEmitter = effect.Components.Create<ParticleBoxEmitter>();
+		boxEmitter.Size = box.Size;
+		boxEmitter.Loop = false;
+		boxEmitter.Duration = 2;
+		boxEmitter.Burst = 500;
+		boxEmitter.Rate = 0;
+		boxEmitter.DestroyOnEnd = true;
+
+		return effect;
+	}
+
 	public static ParticleEffect SpawnInBounds( BBox box, int count )
 	{
 		var effect = Spawn( box.Center, count );

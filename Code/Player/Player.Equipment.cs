@@ -101,6 +101,20 @@ public partial class Player
 		FallbackCarriable.GameObject.Enabled = true;
 	}
 
+	public void DestroyMainHand()
+	{
+		var renderer = MainHand.Components.Get<ModelRenderer>( FindMode.EverythingInSelfAndDescendants );
+		if ( renderer.IsValid() )
+		{
+			var material = renderer.MaterialOverride ?? renderer?.Model?.Materials?.FirstOrDefault();
+			if ( material is not null )
+			{
+				VoxelParticles.SpawnInBounds( renderer.Bounds, 50 );
+			}
+		}
+		RemoveMainHand();
+	}
+
 	/// <summary>
 	/// Removes the offhand carriable, destroying it.
 	/// </summary>
