@@ -112,6 +112,7 @@
       "Flags": 0,
       "Name": "Water_Cheap",
       "Position": "0,0,40",
+      "Tags": "water",
       "Enabled": true,
       "__Prefab": "prefabs/world/water_plane_cheap.prefab",
       "__PrefabVariables": {}

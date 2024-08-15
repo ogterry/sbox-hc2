@@ -168,23 +168,32 @@ public sealed class WorldPersistence : Component
 	/// <summary>
 	/// This is shitty but should work
 	/// </summary>
-	public static void TrySendVoxelWorld( Connection channel )
+	public static void TryLoadWorld( Connection channel )
 	{
+		var persistence = Game.ActiveScene.GetAllComponents<WorldPersistence>().FirstOrDefault();
+		var world = persistence.GetVoxelWorld();
+		var worldGen = world.Components.Get<VoxelWorldGen>();
+
 		// We're not sending this to the host
 		if ( channel.IsHost )
+		{
+			if ( !persistence.TryLoadFromSelectedFile() )
+			{
+				worldGen.Randomize();
+			}
 			return;
+		}
 
 		// We must BE the host
 		if ( !Sandbox.Networking.IsHost )
+		{
+			Log.Info( $"We are not the host, so we're not sending a voxel world to {channel}" );
 			return;
+		}
 
 		// Send to our target
 		using ( Rpc.FilterInclude( channel ) )
 		{
-			var persistence = Game.ActiveScene.GetAllComponents<WorldPersistence>().FirstOrDefault();
-
-			var world = persistence.GetVoxelWorld();
-			var worldGen = world.Components.Get<VoxelWorldGen>();
 			var seed = worldGen?.Seed ?? 0;
 			var path = worldGen?.Parameters?.ResourcePath;
 			var size = world.Size;
@@ -218,7 +227,6 @@ public sealed class WorldPersistence : Component
 
 	protected override void OnStart()
 	{
-		TryLoadFromSelectedFile();
 	}
 
 	[HostSync]
@@ -241,15 +249,17 @@ public sealed class WorldPersistence : Component
 		return saves;
 	}
 
-	private void TryLoadFromSelectedFile()
+	private bool TryLoadFromSelectedFile()
 	{
 		// We'll just generate something 
 		if ( string.IsNullOrEmpty( FileToLoad ) )
 		{
-			return;
+			return false;
 		}
 
 		LoadFromFile( FileToLoad, true );
+
+		return true;
 	}
 
 	public void LoadFromFile( string path, bool refreshSnapshot = true )
@@ -290,7 +300,7 @@ public sealed class WorldPersistence : Component
 		// Host only
 		if ( !Sandbox.Networking.IsHost )
 		{
-			Log.Info( "Tried to load a world save but we're not the host.." );
+			Log.Warning( "Tried to load a world save but we're not the host.." );
 			return;
 		}
 
@@ -393,7 +403,6 @@ public sealed class WorldPersistence : Component
 
 		var world = GetVoxelWorld();
 		var worldGen = world.Components.Get<VoxelWorldGen>();
-
 		worldGen.Seed = state.Seed;
 		worldGen.Parameters = ResourceLibrary.Get<WorldGenParameters>( state.ParametersPath );
 
@@ -415,6 +424,9 @@ public sealed class WorldPersistence : Component
 		}
 
 		world.MeshChunks();
+		
+		// Spawn props afterwards
+		worldGen.SpawnProps();
 	}
 
 	private static void WriteVarUshort( ref ByteStream writer, ushort value )

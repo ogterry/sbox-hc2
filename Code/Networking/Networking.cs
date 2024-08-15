@@ -44,11 +44,7 @@ public sealed class Networking : Component, Component.INetworkListener
 	{
 		Log.Info($"Player '{channel.DisplayName}' has joined the game");
 
-		// Send the voxel world to them
-		if ( !channel.IsHost )
-		{
-			// WorldPersistence.SendVoxelWorld( channel );
-		}
+		WorldPersistence.TryLoadWorld( channel );
 
 		using ( Rpc.FilterInclude( channel ) )
 		{

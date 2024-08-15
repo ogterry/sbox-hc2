@@ -37,7 +37,7 @@
             else
             {
                 <div class="column gap" style="width: 256px;">
-                    <div class="button" @onclick="@(() => Play() )">Create New World</div>
+                    <div class="button" @onclick="@(() => CreateNewWorld() )">Create New World</div>
 
                     <div class="worlds column gap">
                         @foreach ( var save in WorldPersistence.GetWorlds() )
@@ -72,6 +72,12 @@
             Log.Warning( "Couldn't deserialize world for some reason" );
             return null;
         }
+    }
+
+    void CreateNewWorld()
+    {
+        WorldPersistence.FileToLoad = null;
+        Play();
     }
 
     void Play()

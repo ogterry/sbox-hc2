@@ -170,7 +170,7 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 	private readonly List<GameObject> _spawnedObjects = new();
 
 	[Button( "Randomize" )]
-	private void Randomize()
+	public void Randomize()
 	{
 		Seed = Random.Shared.Next();
 		Regenerate();
@@ -195,7 +195,12 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 
 	protected override void OnEnabled()
 	{
-		Regenerate();
+        // While in the editor, and not playing, generate a map
+        // Play mode is handled differently
+        if ( !Game.IsPlaying )
+        {
+            Regenerate();
+        }
 	}
 
 	[Button( "Destroy Props" )]
@@ -211,7 +216,7 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 
 	private readonly record struct Circle( Vector2 Center, float Radius );
 
-	private void SpawnProps()
+	internal void SpawnProps()
 	{
 		DestroyProps();
 
