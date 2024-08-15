@@ -11,23 +11,25 @@
 }
 
 <root class="@(InventoryOpen ? "visible" : "")">
-    <div class="inventory">
-        @for (var i = 0; i < Inventory.MaxSlots; i++)
-        {
-            var item = Inventory.GetItemInSlot(i);
-            <ItemSlot Item=@item Inventory=@Inventory SlotIndex=@i />
-        }
-    </div>
+    <div class="canvas">
+        <div class="inventory">
+            @for (var i = 0; i < Inventory.MaxSlots; i++)
+            {
+                var item = Inventory.GetItemInSlot(i);
+                <ItemSlot Item=@item Inventory=@Inventory SlotIndex=@i />
+            }
+        </div>
 
-    <div class="container">
-        @for (var i = 0; i < Hotbar.MaxSlots; i++)
-        {
-            var item = Hotbar.GetItemInSlot(i);
-            <ItemSlot class="@(Hotbar.SelectedSlot == i ? "active" : "")" Item=@item Inventory=@Hotbar SlotIndex=@i />
-        }
-    </div>
+        <div class="container">
+            @for (var i = 0; i < Hotbar.MaxSlots; i++)
+            {
+                var item = Hotbar.GetItemInSlot(i);
+                <ItemSlot class="@(Hotbar.SelectedSlot == i ? "active" : "")" Item=@item Inventory=@Hotbar SlotIndex=@i />
+            }
+        </div>
 
-    <CraftingMenu />
+        <CraftingMenu />
+    </div>
 </root>
 
 @code

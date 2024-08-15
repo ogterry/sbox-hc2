@@ -3,9 +3,9 @@
 InventoryUI
 {
     position: absolute;
-    bottom: $safe-zone-y;
-    left: $safe-zone-x;
-    right: $safe-zone-x;
+    bottom: 0;
+    left: 0;
+    right: 0;
     top: 0;
     justify-content: center;
     align-items: flex-end;
@@ -16,6 +16,16 @@ InventoryUI
         flex-direction: row;
         justify-content: space-evenly;
         gap: 16px;
+    }
+
+    .canvas
+    {
+        position: absolute;
+        bottom: $safe-zone-y;
+        left: $safe-zone-x;
+        right: $safe-zone-x;
+        justify-content: center;
+        align-items: flex-end;
     }
 
     .inventory
@@ -41,7 +51,9 @@ InventoryUI
     &.visible
     {
         pointer-events: all;
-        
+        background-color: rgba( white, 0.01 );
+        backdrop-filter: blur(10px);
+
         .inventory
         {
             opacity: 1;
@@ -66,7 +78,7 @@ InventoryUI
         align-items: center;
         width: 64px;
         height: 64px;
-        border-image-tint: $background;
+        border-image-tint: rgba( white, 0.02 );
         border-image: url( /ui/Transparent center/panel-transparent-center-015.png ) 10 fill;
         position: relative;
 
