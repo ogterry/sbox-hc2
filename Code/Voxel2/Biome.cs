@@ -50,7 +50,7 @@ public partial class Biome : GameResource
 	public Block GetBlock( int surfaceHeight, float terrain, int depth )
 	{
 		if ( terrain > 0.2f ) return DeepBlock;
-		if ( depth < SurfaceDepth && terrain < 0.1f ) return SurfaceBlock;
+		if ( depth < SurfaceDepth && terrain < 0.1f && surfaceHeight > 4 ) return SurfaceBlock;
 		if ( depth - SurfaceDepth < UnderSurfaceDepth ) return UnderSurfaceBlock;
 		return DeepBlock;
 	}
