@@ -373,10 +373,8 @@ public sealed class WorldGenSampler
 
 	public (float Terrain, int Height) Sample( int x, int y )
 	{
-		var center = _worldSize >> 1;
-
-		var centerDistSq = (x - center) * (x - center) + (y - center) * (y - center);
-		var centrality = Math.Clamp( 4f - 4f * MathF.Sqrt( centerDistSq ) / center, 0f, 1f );
+		var edgeDist = Math.Min( Math.Min( x, y ), Math.Min( _worldSize - x, _worldSize - y ) ) / (_worldSize * 0.125f);
+		var centrality = Math.Clamp( edgeDist, 0f, 1f );
 
 		var heightNoisePos = _heightNoiseTransform.PointToWorld( new Vector3( x, y, 0f ) );
 		var heightNoise = Math.Clamp( Noise.Fbm( 4, heightNoisePos.x, heightNoisePos.y, heightNoisePos.z ), 0f, 1f ) * centrality;
