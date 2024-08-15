@@ -1,0 +1,25 @@
+{
+  "Name": "Stone Spear",
+  "Description": "Throw Spears",
+  "Category": "Weapons",
+  "MaxStack": 1,
+  "Icon": "item_icons/weapon_stone_spear.png",
+  "Tags": "weapon",
+  "Prefab": "prefabs/weapons/stone_spear.prefab",
+  "WorldModel": "models/weapons/temp/stone/stone_spear.vmdl",
+  "CraftingRequirements": [
+    {
+      "Resource": "items/rock.item",
+      "Amount": 1,
+      "Durability": 1
+    },
+    {
+      "Resource": "items/tree_branch.item",
+      "Amount": 1,
+      "Durability": 1
+    }
+  ],
+  "StatusEffects": [],
+  "__references": [],
+  "__version": 0
+}
