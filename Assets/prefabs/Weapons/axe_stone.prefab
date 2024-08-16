@@ -50,40 +50,21 @@
     ],
     "Children": [
       {
-        "__guid": "06cbfd22-5ca8-41e0-80ba-735bd5c800c6",
+        "__guid": "182f49c7-c3a9-4a87-bd15-090f756c3d23",
         "Flags": 0,
-        "Name": "sword",
-        "Position": "2.285936,-4.462226,14.17199",
-        "Rotation": "-0.3060121,-0.6374609,-0.3060121,0.6374609",
+        "Name": "axe",
+        "Position": "-0.08951939,-1.498636,0.6529577",
+        "Rotation": "-0.00000008940697,0,-0.943473,0.3314489",
         "Scale": "1.2,1.2,1.2",
         "Enabled": true,
         "Components": [
           {
             "__type": "Sandbox.ModelRenderer",
-            "__guid": "908c6b61-7b2d-4ed0-b43c-d3f49d365bf4",
+            "__guid": "12e21897-1527-47a8-abd6-ae3a9eb9ccd9",
             "BodyGroups": 18446744073709551615,
-            "Model": "models/weapons/sword/sword.vmdl",
+            "Model": "models/weapons/temp/stone/stone_axe.vmdl",
             "RenderType": "On",
             "Tint": "1,1,1,1"
-          }
-        ]
-      },
-      {
-        "__guid": "da2e9afd-39f6-4071-b6e0-a80a2f2a3f32",
-        "Flags": 0,
-        "Name": "box",
-        "Position": "2.224924,-4.38609,35.87997",
-        "Rotation": "-0.3060121,-0.6374609,-0.3060121,0.6374609",
-        "Scale": "0.315495,0.02726698,0.2458524",
-        "Enabled": true,
-        "Components": [
-          {
-            "__type": "Sandbox.ModelRenderer",
-            "__guid": "8b9ec72a-3763-4dd8-bbd8-a9e60842c708",
-            "BodyGroups": 18446744073709551615,
-            "Model": "models/dev/box.vmdl",
-            "RenderType": "On",
-            "Tint": "0.05581,0.04606,0.04154,1"
           }
         ]
       }

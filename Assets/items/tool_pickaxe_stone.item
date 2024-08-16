@@ -5,10 +5,10 @@
   "Category": "Tools",
   "MaxStack": 1,
   "MaxDurability": 1,
-  "Icon": "item_icons/weapon_sword.png",
+  "Icon": "item_icons/tool_pickaxe_stone.png",
   "Tags": "weapon,melee",
   "Prefab": "prefabs/weapons/pickaxe_stone.prefab",
-  "WorldModel": "models/weapons/sword/sword.vmdl",
+  "WorldModel": "models/weapons/temp/stone/stone_pickaxe.vmdl",
   "WorldModelOffset": {
     "UniformScale": 1,
     "IsValid": true,
