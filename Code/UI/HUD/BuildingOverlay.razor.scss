@@ -8,6 +8,7 @@ BuildingOverlay
     font-size: 20px;
     align-items: center;
     justify-content: flex-end;
+    z-index: -100;
 
     .content
     {
