@@ -25,6 +25,7 @@
         gap: 2px;
         transition: all 0.1s;
         min-width: 300px;
+        max-width: 400px;
         left: -100%;
 
         .header
@@ -41,6 +42,7 @@
             height: 300px;
             border-image-tint: $background;
             border-image: url( /ui/border/panel-border-012.png ) fill;
+            gap: 12px;
 
             .stat
             {
@@ -81,6 +83,12 @@
                         }
                     }
                 }
+            }
+
+            ProgressBar
+            {
+                width: 100%;
+                background-color: rgba(black, 0.5);
             }
         }
 
