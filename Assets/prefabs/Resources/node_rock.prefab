@@ -9,7 +9,7 @@
       {
         "__type": "HC2.ResourceNode",
         "__guid": "9a129aa3-6085-45ba-96d2-b6795b2b797f",
-        "DamagePerItem": 40,
+        "DamagePerItem": 25,
         "Item": "items/rock.item",
         "RegenerateDelay": 60,
         "RegenerateRate": 1,
