@@ -11,9 +11,15 @@
 				[
 					{
 						_class = "DefaultMaterialGroup"
-						remaps = [  ]
-						use_global_default = true
-						global_default_material = "materials/default.vmat"
+						remaps = 
+						[
+							{
+								from = "mining_laser.vmat"
+								to = "models/weapons/mining_laser/mining_laser.vmat"
+							},
+						]
+						use_global_default = false
+						global_default_material = "models/weapons/mining_laser/mining_laser.vmat"
 					},
 				]
 			},
@@ -37,6 +43,7 @@
 							exception_list = 
 							[
 								"Cylinder003",
+								"mining_laser",
 							]
 						}
 					},

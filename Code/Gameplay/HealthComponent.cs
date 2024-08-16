@@ -120,7 +120,7 @@ public sealed class HealthComponent : Component
 		var textRenderer = particle.Components.Get<ParticleTextRenderer>();
 		if ( textRenderer != null )
 		{
-			var text = new TextRendering.Scope( icon + instance.Damage.ToString(), color, 32, weight: 800 );
+			var text = new TextRendering.Scope( icon + instance.Damage.ToString( "0.#" ), color, 32, weight: 800 );
 			text.Outline.Enabled = true;
 			text.Outline.Color = Color.Black;
 			text.Outline.Size = 8;

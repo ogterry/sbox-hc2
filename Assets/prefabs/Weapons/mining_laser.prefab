@@ -12,6 +12,7 @@
         "AimingFOVOffset": 0,
         "AmmoConsumptionRate": 0,
         "AttackDelay": 0.1,
+        "AttackSound": "sounds/weapons/mining_laser.sound",
         "Damage": 1,
         "DamageType": "Electric",
         "DurabilityOnUse": 0.01,
@@ -31,7 +32,7 @@
       {
         "__type": "HC2.ResourceGatherer",
         "__guid": "2674889d-7c16-4099-a0c8-d56301490e3d",
-        "Effectiveness": 0.5,
+        "Effectiveness": 1,
         "SourceKind": "Soil"
       },
       {
