@@ -1,12 +1,23 @@
 {
   "Name": "Sword",
   "Description": "Hack n slash!",
+  "BlockType": null,
   "Category": "Weapons",
   "MaxStack": 1,
+  "MaxDurability": 1,
   "Icon": "item_icons/weapon_sword.png",
   "Tags": "weapon,melee",
   "Prefab": "prefabs/weapons/sword.prefab",
   "WorldModel": "models/weapons/sword/sword.vmdl",
+  "WorldModelOffset": {
+    "UniformScale": 1,
+    "IsValid": true,
+    "ForwardRay": {
+      "Forward": "1,0,0"
+    },
+    "Scale": "1,1,1",
+    "Rotation": "0,0,0,1"
+  },
   "CraftingRequirements": [
     {
       "Resource": "items/tree_branch.item",
@@ -14,11 +25,12 @@
       "Durability": 1
     },
     {
-      "Resource": "items/rock.item",
-      "Amount": 4,
+      "Resource": "items/metal_piece.item",
+      "Amount": 3,
       "Durability": 1
     }
   ],
+  "CraftingYield": 1,
   "StatusEffects": [],
   "__references": [],
   "__version": 0
