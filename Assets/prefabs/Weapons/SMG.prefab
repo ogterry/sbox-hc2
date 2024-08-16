@@ -47,6 +47,7 @@
         "Flags": 0,
         "Name": "SMG Projectile",
         "Position": "0,0,15.48442",
+        "Tags": "projectile",
         "Components": [
           {
             "__type": "Projectile",
