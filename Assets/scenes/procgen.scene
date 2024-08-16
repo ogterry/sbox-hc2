@@ -108,6 +108,15 @@
       "__PrefabVariables": {}
     },
     {
+      "__guid": "8c427061-a1c8-4495-b85b-444d1451c744",
+      "Flags": 0,
+      "Name": "Clouds",
+      "Position": "0,0,2240",
+      "Enabled": true,
+      "__Prefab": "prefabs/world/cloud_plane.prefab",
+      "__PrefabVariables": {}
+    },
+    {
       "__guid": "551197c6-bc4c-4237-b408-f581ece66630",
       "Flags": 0,
       "Name": "Water_Cheap",
@@ -140,7 +149,7 @@
           "__type": "Voxel.Modifications.VoxelWorldGen",
           "__guid": "434925b3-6811-498f-b296-a5526f709d93",
           "Parameters": "worlds/default.worldgen",
-          "Seed": 697977690
+          "Seed": 1086581841
         },
         {
           "__type": "Voxel.VoxelDamage",

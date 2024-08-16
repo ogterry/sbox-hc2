@@ -1,0 +1,56 @@
+{
+  "RootObject": {
+    "__guid": "8c427061-a1c8-4495-b85b-444d1451c744",
+    "Flags": 0,
+    "Name": "cloud_plane",
+    "Enabled": true,
+    "Children": [
+      {
+        "__guid": "639d8bd4-8c49-403e-b898-fe6f9eb6dedd",
+        "Flags": 0,
+        "Name": "Plane",
+        "Position": "-0.0001744576,0,-704",
+        "Rotation": "-0.3826834,-0.9238796,-0.00000007451121,0.000000179886",
+        "Scale": "500,500,1",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "6e4f2ab6-f80f-4e4a-8d76-fa244ac133ed",
+            "BodyGroups": 18446744073709551615,
+            "MaterialOverride": "materials/clouds/cloud.vmat",
+            "Model": "models/dev/plane.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,0.25"
+          }
+        ]
+      },
+      {
+        "__guid": "14e4e493-ba8a-4b51-b535-37a6114bbb3e",
+        "Flags": 0,
+        "Name": "Plane",
+        "Rotation": "0,-1,0,0.0000001947072",
+        "Scale": "500,500,1",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "949ef6ce-2d63-48aa-b843-caf25badc0ee",
+            "BodyGroups": 18446744073709551615,
+            "MaterialOverride": "materials/clouds/cloud.vmat",
+            "Model": "models/dev/plane.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}
