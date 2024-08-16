@@ -1,0 +1,69 @@
+{
+  "RootObject": {
+    "__guid": "ea865760-495e-4ea4-8b9b-da5017d4b3b3",
+    "Flags": 0,
+    "Name": "node_tree_trunk",
+    "Enabled": true,
+    "NetworkMode": 1,
+    "Components": [
+      {
+        "__type": "HC2.ResourceNode",
+        "__guid": "9a129aa3-6085-45ba-96d2-b6795b2b797f",
+        "DamagePerItem": 15,
+        "Item": "items/tree_branch.item",
+        "RegenerateDelay": 60,
+        "RegenerateRate": 1,
+        "SourceKind": "Wood"
+      },
+      {
+        "__type": "HealthComponent",
+        "__guid": "718cbadb-a111-4126-b770-daaa86dc05aa",
+        "DamageEffectPrefab": {
+          "_type": "gameobject",
+          "prefab": "prefabs/damage/dmgnumber.prefab"
+        },
+        "MaxHealth": 500,
+        "RegenRate": 0
+      },
+      {
+        "__type": "Sandbox.BoxCollider",
+        "__guid": "0656d21c-4d57-4c52-8d37-af351a41e8dd",
+        "Center": "10.69985,-3.600221,17.3205",
+        "IsTrigger": false,
+        "Scale": "35.70013,35.69999,56.26021",
+        "Static": false
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "3b898e1c-846a-4e71-a5fb-81b1f509321b",
+        "Flags": 0,
+        "Name": "100%",
+        "Position": "-27.00339,-24.95746,-45.59626",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "77074f13-86cf-4825-bcdc-913380ce8c3e",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/props/tree_trunk/tree_trunk.vmdl",
+            "RenderType": "On",
+            "Tint": "1,0,0,1"
+          },
+          {
+            "__type": "HC2.ResourceDepletionStage",
+            "__guid": "b46c2f60-46bd-4c6d-89bd-954ceceeb62f",
+            "Fraction": 1
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}
