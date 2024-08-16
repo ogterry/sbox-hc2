@@ -73,6 +73,9 @@ public partial class MeleeWeapon : WeaponComponent
 		if ( IsProxy )
 			return;
 
+		if ( !Player.IsValid() )
+			return;
+
 		if ( IsSwinging && TimeUntilAttackHit )
 		{
 			IsSwinging = false;
