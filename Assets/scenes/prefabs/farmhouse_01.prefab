@@ -17,7 +17,7 @@
             "__guid": "35f92337-2978-4a2f-874b-321adf8f7d04",
             "BodyGroups": 18446744073709551615,
             "Health": 0,
-            "IsStatic": false,
+            "IsStatic": true,
             "Model": "models/props/watertank/watertank.vmdl",
             "Tint": "1,1,1,1"
           }
@@ -71,7 +71,7 @@
             "__guid": "d15f6d91-011c-4709-9701-7d72b2d77ad5",
             "BodyGroups": 18446744073709551615,
             "Health": 0,
-            "IsStatic": false,
+            "IsStatic": true,
             "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
             "Tint": "1,1,1,1"
           }
@@ -89,7 +89,7 @@
             "__guid": "61725f6b-618f-4561-bb90-80c0b018a5b9",
             "BodyGroups": 18446744073709551615,
             "Health": 0,
-            "IsStatic": false,
+            "IsStatic": true,
             "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
             "Tint": "1,1,1,1"
           }
@@ -107,7 +107,7 @@
             "__guid": "c950a59a-4ab1-484e-bd97-38673b307cc1",
             "BodyGroups": 18446744073709551615,
             "Health": 0,
-            "IsStatic": false,
+            "IsStatic": true,
             "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
             "Tint": "1,1,1,1"
           }
@@ -125,7 +125,7 @@
             "__guid": "b50b0f46-1842-454c-adc2-f8103e8c3153",
             "BodyGroups": 18446744073709551615,
             "Health": 0,
-            "IsStatic": false,
+            "IsStatic": true,
             "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
             "Tint": "1,1,1,1"
           }
@@ -144,7 +144,7 @@
             "__guid": "6072b458-d653-4812-9e69-901cda5ff38b",
             "BodyGroups": 18446744073709551615,
             "Health": 0,
-            "IsStatic": false,
+            "IsStatic": true,
             "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
             "Tint": "1,1,1,1"
           }
@@ -163,7 +163,7 @@
             "__guid": "2c2f2190-9479-4948-82bb-079422f84bbc",
             "BodyGroups": 18446744073709551615,
             "Health": 0,
-            "IsStatic": false,
+            "IsStatic": true,
             "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
             "Tint": "1,1,1,1"
           }
@@ -173,7 +173,7 @@
         "__guid": "5121a23d-0881-4d6d-8a6d-c1bf14bcda81",
         "Flags": 0,
         "Name": "cobblestone_wall (13)",
-        "Position": "226.6737,-29.3264,-4.820801",
+        "Position": "226.6737,-28,-4",
         "Rotation": "0,0,-0.7071067,0.7071068",
         "Enabled": true,
         "Components": [
@@ -182,7 +182,7 @@
             "__guid": "ef2cd6cd-0a08-449a-b6dc-310e7c2f4cf2",
             "BodyGroups": 18446744073709551615,
             "Health": 0,
-            "IsStatic": false,
+            "IsStatic": true,
             "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
             "Tint": "1,1,1,1"
           }
@@ -200,7 +200,7 @@
             "__guid": "c83e761d-a8a2-4754-8a2a-28696c396b16",
             "BodyGroups": 18446744073709551615,
             "Health": 0,
-            "IsStatic": false,
+            "IsStatic": true,
             "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
             "Tint": "1,1,1,1"
           }
@@ -218,7 +218,7 @@
             "__guid": "12d9ba11-eece-44fa-9bfb-d6d70d0319ab",
             "BodyGroups": 18446744073709551615,
             "Health": 0,
-            "IsStatic": false,
+            "IsStatic": true,
             "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
             "Tint": "1,1,1,1"
           }
@@ -237,7 +237,7 @@
             "__guid": "087725a6-db63-45f0-a89f-4686e9538675",
             "BodyGroups": 18446744073709551615,
             "Health": 0,
-            "IsStatic": false,
+            "IsStatic": true,
             "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
             "Tint": "1,1,1,1"
           }
@@ -256,7 +256,7 @@
             "__guid": "c5c758b1-708c-4744-ba20-3210a87a2180",
             "BodyGroups": 18446744073709551615,
             "Health": 0,
-            "IsStatic": false,
+            "IsStatic": true,
             "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
             "Tint": "1,1,1,1"
           }
@@ -275,7 +275,7 @@
             "__guid": "c62398dd-536e-4d44-b812-601da3d8f56f",
             "BodyGroups": 18446744073709551615,
             "Health": 0,
-            "IsStatic": false,
+            "IsStatic": true,
             "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
             "Tint": "1,1,1,1"
           }
@@ -294,7 +294,7 @@
             "__guid": "bec51e46-2f04-40ca-9fc3-ea89cb76cb85",
             "BodyGroups": 18446744073709551615,
             "Health": 0,
-            "IsStatic": false,
+            "IsStatic": true,
             "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
             "Tint": "1,1,1,1"
           }
@@ -313,7 +313,7 @@
             "__guid": "9cba1d3a-ad2b-4e24-9973-6cbe531e667d",
             "BodyGroups": 18446744073709551615,
             "Health": 0,
-            "IsStatic": false,
+            "IsStatic": true,
             "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
             "Tint": "1,1,1,1"
           }
@@ -332,7 +332,7 @@
             "__guid": "530f6c4a-25e8-4249-976b-6fc240038899",
             "BodyGroups": 18446744073709551615,
             "Health": 0,
-            "IsStatic": false,
+            "IsStatic": true,
             "Model": "models/props/vehicles/rustedpickup.vmdl",
             "Tint": "1,1,1,1"
           }
@@ -581,7 +581,7 @@
             "__guid": "da2df248-7aad-4ae5-ad01-32543f6ad44f",
             "BodyGroups": 18446744073709551615,
             "Health": 0,
-            "IsStatic": false,
+            "IsStatic": true,
             "Model": "models/props/pine_tree/pine_tree.vmdl",
             "Tint": "1,1,1,1"
           }
@@ -600,7 +600,7 @@
             "__guid": "fcd41aed-f01c-4417-9ae7-e857d00efe3e",
             "BodyGroups": 18446744073709551615,
             "Health": 0,
-            "IsStatic": false,
+            "IsStatic": true,
             "Model": "models/props/vehicles/rustedtanker.vmdl",
             "Tint": "1,1,1,1"
           }
