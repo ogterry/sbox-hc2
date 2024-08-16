@@ -38,10 +38,13 @@ public sealed class Mob : Component,
 	[Property, KeyProperty]
 	public event Action<KilledEvent>? Killed;
 
-	[Property]
+	[Property, Category( "Audio" )]
 	SoundEvent? IdleSound { get; set; }
 
-	[Property]
+	[Property, Category( "Audio" )]
+	SoundEvent? LoopingIdleSound { get; set; }
+
+	[Property, Category( "Audio" )]
 	SoundEvent? HitSound { get; set; }
 
 	[Property]
@@ -50,6 +53,7 @@ public sealed class Mob : Component,
 	private DamageTakenEvent? _lastDamageEvent;
 	private TimeSince _sinceLastDamage;
 	private TimeUntil _nextIdleSound;
+	private SoundHandle _loopingIdleSound;
 
 	public bool HasTakenDamage => _lastDamageEvent is not null && _sinceLastDamage < 0.1f;
 	public MobTarget? LastAttacker => _lastDamageEvent?.Instance.Attacker?.Components.GetInAncestorsOrSelf<MobTarget>();
@@ -60,12 +64,30 @@ public sealed class Mob : Component,
 		_nextIdleSound = Random.Shared.Float( 5f, 15f );
 	}
 
+	protected override void OnEnabled()
+	{
+		if ( LoopingIdleSound != null )
+		{
+			_loopingIdleSound = Sound.Play( LoopingIdleSound, Transform.Position );
+		}
+	}
+
+	protected override void OnDisabled()
+	{
+		_loopingIdleSound?.Stop();
+	}
+
 	protected override void OnFixedUpdate()
 	{
 		if ( IdleSound != null && _nextIdleSound <= 0f )
 		{
 			Sound.Play( IdleSound, Transform.Position );
 			_nextIdleSound = Random.Shared.Float( 5f, 15f );
+		}
+
+		if ( _loopingIdleSound.IsValid() )
+		{
+			_loopingIdleSound.Position = Transform.Position;
 		}
 	}
 

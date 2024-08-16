@@ -20,7 +20,8 @@
             "AmountRange": "0,2",
             "Chance": 100
           }
-        ]
+        ],
+        "LoopingIdleSound": "sounds/mobs/drone/drone_idle_loop.sound"
       },
       {
         "__type": "HealthComponent",
