@@ -19,6 +19,7 @@ public sealed class HighlightSelectedBlock : Component
             var world = Scene.GetAllComponents<VoxelNetworking>().FirstOrDefault();
             if ( world == null ) return;
             if ( world?.Renderer?.Model is null ) return;
+            if ( !world.Renderer.IsReady ) return;
 
             var voxelPos = world.Renderer.WorldToVoxelCoords( pos );
             var voxel = world.Renderer.Model.GetVoxel( voxelPos.x, voxelPos.y, voxelPos.z );
