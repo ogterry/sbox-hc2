@@ -55,7 +55,7 @@ public sealed class PlayerExperience : Component, ISaveData
 
 		using ( Rpc.FilterInclude( Network.OwnerConnection ) )
 		{
-			BroadcastMessage( $"You gained {amount} levels!" );
+			BroadcastMessage( $"You gained {amount} level(s)!" );
 		}
 
 		CharacterSave.Current?.Save( Player.Local );
