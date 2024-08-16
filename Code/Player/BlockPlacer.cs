@@ -57,16 +57,18 @@ public sealed class BlockPlacer : Carriable
         {
             var blockSize = 16f;
             var pos = tr.HitPosition + tr.Normal * (blockSize / 2f);
+            var normal = tr.Normal;
             if ( checkingDir != 0 )
             {
-                pos = tr.HitPosition - tr.Normal * (blockSize / 2f) + new Vector3( checkingDir.x, 0, checkingDir.y ) * (blockSize / 2f);
+                normal = new Vector3( checkingDir.x, 0, checkingDir.y );
+                pos = tr.HitPosition - tr.Normal * (blockSize / 2f) + normal * (blockSize / 2f);
             }
             pos -= blockSize / 2f;
             pos = pos.SnapToGrid( blockSize );
 
             if ( BrushSize > 1 )
             {
-                pos += tr.Normal * blockSize * (BrushSize - 1);
+                pos += normal * blockSize * (BrushSize - 1);
             }
 
             var startPos = pos;
