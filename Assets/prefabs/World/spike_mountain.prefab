@@ -1,0 +1,35 @@
+{
+  "RootObject": {
+    "__guid": "9717e1a7-9ef9-46ff-bc8b-a6cb8f69e239",
+    "Flags": 0,
+    "Name": "spike_mountain",
+    "Enabled": true,
+    "Children": [
+      {
+        "__guid": "caef09ed-e501-4fb1-a2d4-a51d511143d1",
+        "Flags": 0,
+        "Name": "spike_mountain",
+        "Position": "-172.4753,-160.096,-250.5211",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.Prop",
+            "__guid": "af1adb92-cbcb-4404-947a-c01ff8b25e80",
+            "BodyGroups": 18446744073709551615,
+            "Health": 0,
+            "IsStatic": true,
+            "Model": "models/props/mountain/spike_mountain.vmdl",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}
