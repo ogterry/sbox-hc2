@@ -48,6 +48,9 @@ public sealed class Mob : Component,
 	bool LoopingIdlePitchWithSpeed { get; set; } = false;
 
 	[Property, Category( "Audio" )]
+	bool OnlyPlayIdleSoundWhenMoving { get; set; } = false;
+
+	[Property, Category( "Audio" )]
 	SoundEvent? HitSound { get; set; }
 
 	[Property]
@@ -69,7 +72,7 @@ public sealed class Mob : Component,
 
 	protected override void OnEnabled()
 	{
-		if ( LoopingIdleSound != null )
+		if ( LoopingIdleSound != null && !OnlyPlayIdleSoundWhenMoving )
 		{
 			_loopingIdleSound = Sound.Play( LoopingIdleSound, Transform.Position );
 		}
@@ -88,13 +91,27 @@ public sealed class Mob : Component,
 			_nextIdleSound = Random.Shared.Float( 5f, 15f );
 		}
 
+		if ( LoopingIdleSound != null && OnlyPlayIdleSoundWhenMoving )
+		{
+			var bm = Components.Get<BaseMover>();
+			if ( bm.LastVelocity.Length > 50f )
+			{
+				if ( !_loopingIdleSound.IsValid() )
+					_loopingIdleSound = Sound.Play( LoopingIdleSound, Transform.Position );
+			}
+			else
+			{
+				_loopingIdleSound?.Stop();
+			}
+		}
+
 		if ( _loopingIdleSound.IsValid() )
 		{
 			_loopingIdleSound.Position = Transform.Position;
 			if ( LoopingIdlePitchWithSpeed )
 			{
-				var rb = Components.Get<Rigidbody>();
-				_loopingIdleSound.Pitch = 1f + (rb.Velocity.Length / 400f);
+				var bm = Components.Get<BaseMover>();
+				_loopingIdleSound.Pitch = 1f + (bm.LastVelocity.Length / 400f);
 			}
 		}
 	}

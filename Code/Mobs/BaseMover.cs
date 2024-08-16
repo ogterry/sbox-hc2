@@ -33,6 +33,11 @@ public abstract class BaseMover : Component
 	/// </summary>
 	public bool IsApproachingTarget => Mob.MoveTarget is { } target && (target - Transform.Position).LengthSquared < ApproachDistance * ApproachDistance;
 
+	/// <summary>
+	/// Last velocity we had.
+	/// </summary>
+	public Vector3 LastVelocity { get; private set; }
+
 	protected override void OnFixedUpdate()
 	{
 		if ( IsProxy ) return;
@@ -71,7 +76,8 @@ public abstract class BaseMover : Component
 	{
 		if ( Mob.MoveTarget is not { } target )
 		{
-			return Vector3.Zero;
+			LastVelocity = Vector3.Zero;
+			return LastVelocity;
 		}
 
 		var diff = target - Transform.Position;
@@ -82,7 +88,8 @@ public abstract class BaseMover : Component
 		if ( diff.LengthSquared < stopDistSq )
 		{
 			Mob.ClearMoveTarget();
-			return Vector3.Zero;
+			LastVelocity = Vector3.Zero;
+			return LastVelocity;
 		}
 
 		var wishDir = diff.LengthSquared < approachDistSq
@@ -91,7 +98,8 @@ public abstract class BaseMover : Component
 
 		var forwardness = MathF.Max( 0f, Vector3.Dot( wishDir, Transform.Rotation.Forward ) );
 
-		return forwardness * wishDir * MaxSpeed;
+		LastVelocity = forwardness * wishDir * MaxSpeed;
+		return LastVelocity;
 	}
 }
 

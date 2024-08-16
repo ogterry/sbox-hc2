@@ -26,7 +26,10 @@
             "AmountRange": "0,2",
             "Chance": 100
           }
-        ]
+        ],
+        "LoopingIdlePitchWithSpeed": false,
+        "LoopingIdleSound": "sounds/mobs/roller/rolling/roller_ball_rolling.sound",
+        "OnlyPlayIdleSoundWhenMoving": true
       },
       {
         "__type": "Sandbox.CharacterController",
