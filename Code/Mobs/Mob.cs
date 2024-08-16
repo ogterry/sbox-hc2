@@ -39,6 +39,9 @@ public sealed class Mob : Component,
 	public event Action<KilledEvent>? Killed;
 
 	[Property]
+	SoundEvent? IdleSound { get; set; }
+
+	[Property]
 	SoundEvent? HitSound { get; set; }
 
 	[Property]
@@ -46,6 +49,7 @@ public sealed class Mob : Component,
 
 	private DamageTakenEvent? _lastDamageEvent;
 	private TimeSince _sinceLastDamage;
+	private TimeUntil _nextIdleSound;
 
 	public bool HasTakenDamage => _lastDamageEvent is not null && _sinceLastDamage < 0.1f;
 	public MobTarget? LastAttacker => _lastDamageEvent?.Instance.Attacker?.Components.GetInAncestorsOrSelf<MobTarget>();
@@ -53,6 +57,16 @@ public sealed class Mob : Component,
 	protected override void OnStart()
 	{
 		SpawnTransform = Transform.World;
+		_nextIdleSound = Random.Shared.Float( 5f, 15f );
+	}
+
+	protected override void OnFixedUpdate()
+	{
+		if ( IdleSound != null && _nextIdleSound <= 0f )
+		{
+			Sound.Play( IdleSound, Transform.Position );
+			_nextIdleSound = Random.Shared.Float( 5f, 15f );
+		}
 	}
 
 	public void SetMoveTarget( Vector3 position )

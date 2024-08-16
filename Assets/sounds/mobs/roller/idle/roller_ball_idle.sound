@@ -1,0 +1,26 @@
+{
+  "UI": false,
+  "Volume": "1.00,1.00,0",
+  "Pitch": "0.80,1.10,1",
+  "Decibels": 149,
+  "SelectionMode": "Random",
+  "Sounds": [
+    "sounds/mobs/roller/idle/roller_ball_idle_01.vsnd",
+    "sounds/mobs/roller/idle/roller_ball_idle_02.vsnd",
+    "sounds/mobs/roller/idle/roller_ball_idle_03.vsnd",
+    "sounds/mobs/roller/idle/roller_ball_idle_04.vsnd",
+    "sounds/mobs/roller/idle/roller_ball_idle_05.vsnd",
+    "sounds/mobs/roller/idle/roller_ball_idle_06.vsnd",
+    "sounds/mobs/roller/idle/roller_ball_idle_07.vsnd",
+    "sounds/mobs/roller/idle/roller_ball_idle_08.vsnd",
+    "sounds/mobs/roller/idle/roller_ball_idle_09.vsnd",
+    "sounds/mobs/roller/idle/roller_ball_idle_10.vsnd"
+  ],
+  "Occlusion": true,
+  "AirAbsorption": true,
+  "Transmission": true,
+  "OcclusionRadius": 64,
+  "DistanceAttenuation": true,
+  "__references": [],
+  "__version": 0
+}
