@@ -428,7 +428,7 @@
                         "Id": 0,
                         "Type": "input",
                         "UserData": {
-                          "Position": "-160,-320"
+                          "Position": "-288,-448"
                         }
                       },
                       {
@@ -450,7 +450,7 @@
                           }
                         },
                         "UserData": {
-                          "Position": "-384,-112"
+                          "Position": "-656,-16"
                         }
                       },
                       {
@@ -462,7 +462,7 @@
                           "_name": "Distance"
                         },
                         "UserData": {
-                          "Position": "-208,144"
+                          "Position": "-480,240"
                         }
                       },
                       {
@@ -537,7 +537,7 @@
                           }
                         },
                         "UserData": {
-                          "Position": "-256,16"
+                          "Position": "-528,112"
                         }
                       },
                       {
@@ -582,7 +582,7 @@
                         "Id": 68,
                         "Type": "op.greaterthan",
                         "UserData": {
-                          "Position": "16,160",
+                          "Position": "-256,256",
                           "Labels": {
                             "_result": "too far away from target"
                           }
@@ -598,26 +598,37 @@
                         }
                       },
                       {
-                        "Id": 71,
-                        "Type": "op.orelse",
-                        "UserData": {
-                          "Position": "-144,-240"
-                        }
-                      },
-                      {
                         "Id": 72,
                         "Type": "op.not",
                         "UserData": {
-                          "Position": "48,-32",
+                          "Position": "-224,64",
                           "Labels": {
                             "_result": "has no aim target"
                           }
+                        }
+                      },
+                      {
+                        "Id": 74,
+                        "Type": "op.conditional",
+                        "UserData": {
+                          "Position": "-304,-208"
+                        }
+                      },
+                      {
+                        "Id": 76,
+                        "Type": "comment",
+                        "UserData": {
+                          "Position": "-512,-320",
+                          "Size": "416,256",
+                          "Title": "TODO:",
+                          "Layer": 1,
+                          "Description": "\u0026\u0026 doesn\u0027t short-circuit properly, so this avoids an NRE"
                         }
                       }
                     ],
                     "Links": [
                       {
-                        "SrcId": 71,
+                        "SrcId": 74,
                         "SrcName": "_result",
                         "DstId": 1,
                         "DstName": "_result"
@@ -710,22 +721,27 @@
                         "DstName": "_target"
                       },
                       {
-                        "SrcId": 72,
+                        "SrcId": 70,
                         "SrcName": "_result",
-                        "DstId": 71,
+                        "DstId": 72,
+                        "DstName": "a"
+                      },
+                      {
+                        "Value": true,
+                        "DstId": 74,
                         "DstName": "a"
                       },
                       {
                         "SrcId": 68,
                         "SrcName": "_result",
-                        "DstId": 71,
+                        "DstId": 74,
                         "DstName": "b"
                       },
                       {
-                        "SrcId": 70,
+                        "SrcId": 72,
                         "SrcName": "_result",
-                        "DstId": 72,
-                        "DstName": "a"
+                        "DstId": 74,
+                        "DstName": "x"
                       }
                     ],
                     "Defaults": {
