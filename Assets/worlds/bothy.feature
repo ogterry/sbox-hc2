@@ -1,6 +1,7 @@
 {
-  "HeightRange": "4.00,8.00,1",
+  "HeightRange": "6.00,13.00,1",
   "BiomeRange": "0.00,0.15,1",
+  "SpawnsInGround": false,
   "Radius": 512,
   "Weight": 0.05,
   "Spawn": {
@@ -19,7 +20,10 @@
     "Nodes": [
       {
         "Id": 0,
-        "Type": "input"
+        "Type": "input",
+        "UserData": {
+          "Position": "-288,-224"
+        }
       },
       {
         "Id": 2,
@@ -36,12 +40,40 @@
         "Id": 3,
         "Type": "call",
         "Properties": {
-          "_name": "SpawnProp",
+          "_type": "Voxel.Modifications.VoxelWorldGen",
           "_isStatic": false,
-          "_type": "Voxel.Modifications.VoxelWorldGen"
+          "_name": "SpawnProp"
         },
         "UserData": {
           "Position": "336,-0"
+        }
+      },
+      {
+        "Id": 5,
+        "Type": "property",
+        "ParentId": 0,
+        "Properties": {
+          "_type": "Vector3",
+          "_name": "z"
+        }
+      },
+      {
+        "Id": 6,
+        "Type": "op.subtract",
+        "UserData": {
+          "Position": "-224,0"
+        }
+      },
+      {
+        "Id": 7,
+        "Type": "call",
+        "Properties": {
+          "_type": "Vector3",
+          "_isStatic": false,
+          "_name": "WithZ"
+        },
+        "UserData": {
+          "Position": "-32,-32"
         }
       }
     ],
@@ -65,8 +97,8 @@
         "DstName": "model"
       },
       {
-        "SrcId": 0,
-        "SrcName": "origin",
+        "SrcId": 7,
+        "SrcName": "_result",
         "DstId": 3,
         "DstName": "position"
       },
@@ -74,6 +106,39 @@
         "Value": 1,
         "DstId": 3,
         "DstName": "scale"
+      },
+      {
+        "SrcId": 0,
+        "SrcName": "origin",
+        "DstId": 5,
+        "DstName": "_target"
+      },
+      {
+        "SrcId": 5,
+        "SrcName": "_result",
+        "DstId": 6,
+        "DstName": "a"
+      },
+      {
+        "Value": {
+          "$type": "Simple",
+          "Type": "System.Single",
+          "Value": 34
+        },
+        "DstId": 6,
+        "DstName": "b"
+      },
+      {
+        "SrcId": 0,
+        "SrcName": "origin",
+        "DstId": 7,
+        "DstName": "_target"
+      },
+      {
+        "SrcId": 6,
+        "SrcName": "_result",
+        "DstId": 7,
+        "DstName": "z"
       }
     ]
   },
