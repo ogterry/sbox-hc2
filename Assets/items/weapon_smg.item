@@ -1,26 +1,36 @@
 {
   "Name": "SMG",
   "Description": "Shoots bullets quickly",
+  "BlockType": null,
   "Category": "Weapons",
   "MaxStack": 1,
+  "MaxDurability": 1,
   "Icon": "item_icons/weapon_smg.png",
   "Tags": "weapon",
   "Prefab": "prefabs/weapons/smg.prefab",
   "WorldModel": "models/weapons/assault_rifle/assault_rifle.vmdl",
+  "WorldModelOffset": {
+    "UniformScale": 1,
+    "IsValid": true,
+    "ForwardRay": {
+      "Forward": "1,0,0"
+    },
+    "Scale": "1,1,1",
+    "Rotation": "0,0,0,1"
+  },
   "CraftingRequirements": [
     {
       "Resource": "items/rock.item",
-      "Amount": 8,
-      "Durability": 1,
-      "MaxStack": 99
+      "Amount": 2,
+      "Durability": 1
     },
     {
-      "Resource": "items/tree_branch.item",
-      "Amount": 2,
-      "Durability": 1,
-      "MaxStack": 99
+      "Resource": "items/metal_piece.item",
+      "Amount": 4,
+      "Durability": 1
     }
   ],
+  "CraftingYield": 1,
   "StatusEffects": [],
   "__references": [],
   "__version": 0
