@@ -1,0 +1,99 @@
+{
+  "RootObject": {
+    "__guid": "b7c98c4e-8217-4956-a6a1-87559ffe2b98",
+    "Flags": 0,
+    "Name": "axe_stone",
+    "Enabled": true,
+    "Components": [
+      {
+        "__type": "MeleeWeapon",
+        "__guid": "a9db2399-a4a5-416e-bc76-442c7c81b836",
+        "AimingEnabled": false,
+        "AimingFOVOffset": 0,
+        "AttackDelay": 1,
+        "AttackRange": 128,
+        "AttackSound": "sounds/weapons/sword_swing.sound",
+        "Damage": 25,
+        "DamageType": "Fire",
+        "DurabilityOnUse": 0.035,
+        "Hand": "MainHand, OffHand",
+        "HitSound": "sounds/weapons/sword_metallic_hit.sound",
+        "HoldType": "Swing",
+        "InputAction": "attack1",
+        "SwingDelay": 0.25,
+        "Thickness": 20
+      },
+      {
+        "__type": "HC2.ResourceGatherer",
+        "__guid": "287bdfe0-edeb-44d7-a689-aa8436be0562",
+        "Effectiveness": 0.02,
+        "SourceKind": "Soil"
+      },
+      {
+        "__type": "HC2.ResourceGatherer",
+        "__guid": "c9250199-8d39-468d-b4df-5eb79db8592c",
+        "Effectiveness": 1,
+        "SourceKind": "Wood"
+      },
+      {
+        "__type": "HC2.ResourceGatherer",
+        "__guid": "82d1ca60-4b5a-444e-b53c-fc7e103a0011",
+        "Effectiveness": 0.1,
+        "SourceKind": "Stone"
+      },
+      {
+        "__type": "HC2.ResourceGatherer",
+        "__guid": "0f096e1a-3ccf-4fc6-89d8-c0004d98ea50",
+        "Effectiveness": 0.1,
+        "SourceKind": "Metal"
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "06cbfd22-5ca8-41e0-80ba-735bd5c800c6",
+        "Flags": 0,
+        "Name": "sword",
+        "Position": "2.285936,-4.462226,14.17199",
+        "Rotation": "-0.3060121,-0.6374609,-0.3060121,0.6374609",
+        "Scale": "1.2,1.2,1.2",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "908c6b61-7b2d-4ed0-b43c-d3f49d365bf4",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/weapons/sword/sword.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "da2e9afd-39f6-4071-b6e0-a80a2f2a3f32",
+        "Flags": 0,
+        "Name": "box",
+        "Position": "2.224924,-4.38609,35.87997",
+        "Rotation": "-0.3060121,-0.6374609,-0.3060121,0.6374609",
+        "Scale": "0.315495,0.02726698,0.2458524",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "8b9ec72a-3763-4dd8-bbd8-a9e60842c708",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/dev/box.vmdl",
+            "RenderType": "On",
+            "Tint": "0.05581,0.04606,0.04154,1"
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}
