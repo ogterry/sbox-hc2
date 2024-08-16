@@ -51,12 +51,13 @@ public partial class WorldItem : Component, Component.ITriggerListener
 		SpinningItem.Transform.LocalPosition = Vector3.Up * MathF.Sin( Time.Now * 3f ) * 2;
 	}
 
+	bool _combining = false;
 	void ITriggerListener.OnTriggerEnter( Collider other )
 	{
 		if ( !Sandbox.Networking.IsHost )
 			return;
 
-		if ( other.GameObject.Root.Components.TryGet<WorldItem>( out var otherItem ) )
+		if ( !_combining && other.GameObject.Root.Components.TryGet<WorldItem>( out var otherItem ) )
 		{
 			if ( otherItem.Resource == Resource )
 			{
@@ -70,6 +71,8 @@ public partial class WorldItem : Component, Component.ITriggerListener
 					Amount += otherItem.Amount;
 					otherItem.DestroyOnAuthority();
 				}
+				_combining = true;
+				otherItem._combining = true;
 			}
 			return;
 		}
