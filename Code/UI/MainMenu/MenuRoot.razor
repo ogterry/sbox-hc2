@@ -18,10 +18,13 @@
 
 	public MenuRoot()
 	{
+		GameSettingsSystem.Load();
+
 		DefaultUrl = "/";
 		AddDestination("/", typeof(LandingPage));
-        AddDestination("/characters", typeof(CharactersPage));
-        AddDestination("/worlds", typeof(WorldsPage));
+		AddDestination("/characters", typeof(CharactersPage));
+		AddDestination("/worlds", typeof(WorldsPage));
+		AddDestination("/settings", typeof(SettingsPage));
 
 		Instance = this;
 	}

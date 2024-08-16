@@ -1,0 +1,16 @@
+SettingsPage
+{
+    .settings
+    {
+        > .row
+        {
+            gap: 16px;
+            justify-content: space-between;
+        }
+        
+        SliderControl
+        {
+            max-width: 256px;
+        }
+    }
+}
