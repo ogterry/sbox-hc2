@@ -1,7 +1,8 @@
 {
   "HeightRange": "4.00,32.00,1",
   "BiomeRange": "0.00,0.50,1",
-  "Radius": 384,
+  "SpawnsInGround": false,
+  "Radius": 500,
   "Weight": 0.05,
   "Spawn": {
     "__version": 7,
@@ -73,9 +74,9 @@
         "Id": 14,
         "Type": "call",
         "Properties": {
-          "_type": "Voxel.Modifications.VoxelWorldGen",
+          "_name": "SpawnProp",
           "_isStatic": false,
-          "_name": "SpawnProp"
+          "_type": "Voxel.Modifications.VoxelWorldGen"
         },
         "UserData": {
           "Position": "864,-112"
@@ -130,9 +131,9 @@
         "Id": 36,
         "Type": "call",
         "Properties": {
-          "_type": "Vector3",
+          "_name": "WithZ",
           "_isStatic": false,
-          "_name": "WithZ"
+          "_type": "Vector3"
         },
         "UserData": {
           "Position": "576,-16"

@@ -2,7 +2,7 @@
   "HeightRange": "6.00,10.00,1",
   "BiomeRange": "0.00,0.30,1",
   "SpawnsInGround": false,
-  "Radius": 128,
+  "Radius": 900,
   "Weight": 0.05,
   "Spawn": {
     "__version": 7,

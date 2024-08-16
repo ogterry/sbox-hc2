@@ -1,9 +1,9 @@
 {
-  "HeightRange": "6.00,10.00,1",
-  "BiomeRange": "0.00,0.00,0",
+  "HeightRange": "2.00,50.00,1",
+  "BiomeRange": "0.05,0.40,1",
   "SpawnsInGround": false,
-  "Radius": 128,
-  "Weight": 1,
+  "Radius": 125,
+  "Weight": 2,
   "Spawn": {
     "__version": 7,
     "__guid": "550821d4-b9c4-40ef-998f-7276a82c0f3e",
@@ -35,9 +35,9 @@
         "Id": 27,
         "Type": "call",
         "Properties": {
-          "_type": "Voxel.Modifications.VoxelWorldGen",
+          "_name": "SpawnPrefab",
           "_isStatic": false,
-          "_name": "SpawnPrefab"
+          "_type": "Voxel.Modifications.VoxelWorldGen"
         },
         "UserData": {
           "Position": "1840,32"
@@ -142,6 +142,34 @@
         "UserData": {
           "Position": "1168,368"
         }
+      },
+      {
+        "Id": 44,
+        "Type": "property",
+        "ParentId": 0,
+        "Properties": {
+          "_name": "z",
+          "_type": "Vector3"
+        }
+      },
+      {
+        "Id": 45,
+        "Type": "op.subtract",
+        "UserData": {
+          "Position": "1328,96"
+        }
+      },
+      {
+        "Id": 46,
+        "Type": "call",
+        "Properties": {
+          "_name": "WithZ",
+          "_isStatic": false,
+          "_type": "Vector3"
+        },
+        "UserData": {
+          "Position": "1536,96"
+        }
       }
     ],
     "Links": [
@@ -158,8 +186,8 @@
         "DstName": "_target"
       },
       {
-        "SrcId": 0,
-        "SrcName": "origin",
+        "SrcId": 46,
+        "SrcName": "_result",
         "DstId": 27,
         "DstName": "position"
       },
@@ -245,6 +273,39 @@
         "SrcName": "_result",
         "DstId": 41,
         "DstName": "x"
+      },
+      {
+        "SrcId": 0,
+        "SrcName": "origin",
+        "DstId": 44,
+        "DstName": "_target"
+      },
+      {
+        "SrcId": 44,
+        "SrcName": "_result",
+        "DstId": 45,
+        "DstName": "a"
+      },
+      {
+        "Value": {
+          "$type": "Simple",
+          "Type": "System.Single",
+          "Value": 10
+        },
+        "DstId": 45,
+        "DstName": "b"
+      },
+      {
+        "SrcId": 0,
+        "SrcName": "origin",
+        "DstId": 46,
+        "DstName": "_target"
+      },
+      {
+        "SrcId": 45,
+        "SrcName": "_result",
+        "DstId": 46,
+        "DstName": "z"
       }
     ]
   },

@@ -1,9 +1,9 @@
 {
-  "HeightRange": "40.00,100.00,1",
-  "BiomeRange": "0.80,1.00,1",
+  "HeightRange": "40.00,200.00,1",
+  "BiomeRange": "0.60,1.00,1",
   "SpawnsInGround": false,
   "Radius": 180,
-  "Weight": 3,
+  "Weight": 1,
   "Spawn": {
     "__version": 7,
     "__guid": "ecd9ebea-0048-4250-bb28-0dd1f908d26e",
@@ -22,9 +22,9 @@
         "Id": 7,
         "Type": "call",
         "Properties": {
-          "_type": "Vector3",
+          "_name": "WithZ",
           "_isStatic": false,
-          "_name": "WithZ"
+          "_type": "Vector3"
         },
         "UserData": {
           "Position": "-0,32"
@@ -63,16 +63,16 @@
         "Type": "property",
         "ParentId": 32,
         "Properties": {
-          "_type": "Vector3",
-          "_name": "z"
+          "_name": "z",
+          "_type": "Vector3"
         }
       },
       {
         "Id": 49,
         "Type": "resource.ref",
         "Properties": {
-          "value": "prefabs/world/spike_mountain.prefab",
-          "T": "Sandbox.PrefabFile"
+          "T": "Sandbox.PrefabFile",
+          "value": "prefabs/world/spike_mountain.prefab"
         },
         "UserData": {
           "Position": "-288,432"
@@ -82,9 +82,9 @@
         "Id": 54,
         "Type": "call",
         "Properties": {
-          "_type": "Voxel.Modifications.VoxelWorldGen",
+          "_name": "SpawnPrefab",
           "_isStatic": false,
-          "_name": "SpawnPrefab"
+          "_type": "Voxel.Modifications.VoxelWorldGen"
         },
         "UserData": {
           "Position": "400,-128"
