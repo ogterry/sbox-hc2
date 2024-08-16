@@ -120,6 +120,8 @@ public sealed class VoxelNetworking : Component, Component.ExecuteInEditor
 		}
 
 		model.SetRegionDirty( modification.Min, modification.Max );
+		
+		Renderer.InvokeChangeListeners( modification );
 	}
 
 	protected override void OnUpdate()

@@ -2,18 +2,88 @@
 using System.Reflection.Metadata;
 using Sandbox.Diagnostics;
 using System.Runtime.InteropServices;
+using Voxel.Modifications;
 
 namespace Voxel;
+
+public class VoxelChangeListener : IDisposable, IValid
+{
+	public Vector3Int Min { get; init; }
+	public Vector3Int Max { get; init; }
+	public Action<IModification> OnChange { get; set; }
+	
+	private VoxelRenderer Renderer { get; init; }
+	private bool IsDisposed { get; set; }
+	
+	bool IValid.IsValid => IsDisposed;
+	
+	public VoxelChangeListener( VoxelRenderer renderer, Vector3Int min, Vector3Int max )
+	{
+		Renderer = renderer;
+		Min = min;
+		Max = max;
+	}
+	
+	public void Dispose()
+	{
+		if ( IsDisposed )
+			return;
+		
+		IsDisposed = true;
+		
+		if ( Renderer.IsValid() )
+			Renderer.RemoveChangeListener( this );
+	}
+}
 
 public partial class VoxelRenderer : Component, Component.ExecuteInEditor
 {
 	internal VoxelModel Model { get; private set; }
 
 	[Property] public Vector3Int Size { get; set; } = new( 256, 32, 256 );
-
 	[Property, MakeDirty] public Palette Palette { get; set; }
+	
+	private List<VoxelChangeListener> ChangeListeners { get; set; } = new();
 
 	public bool IsReady => Enabled && Model is not null;
+
+	/// <summary>
+	/// Add a change listener which can listen for changes within a volume.
+	/// </summary>
+	/// <param name="min"></param>
+	/// <param name="max"></param>
+	public VoxelChangeListener AddChangeListener( Vector3Int min, Vector3Int max )
+	{
+		var listener = new VoxelChangeListener( this, min, max );
+		ChangeListeners.Add( listener );
+		return listener;
+	}
+
+	/// <summary>
+	/// Remove a change listener. Alternatively you can simply dispose the listener itself.
+	/// </summary>
+	/// <param name="listener"></param>
+	public void RemoveChangeListener( VoxelChangeListener listener )
+	{
+		if ( !listener.IsValid() )
+			return;
+		
+		ChangeListeners.Remove( listener );
+		listener.Dispose();
+	}
+
+	internal void InvokeChangeListeners( IModification modification )
+	{
+		var changedVolume = new BBox( modification.Min, modification.Max );
+		foreach ( var listener in ChangeListeners )
+		{
+			var listenerVolume = new BBox( listener.Min, listener.Max );
+			if ( changedVolume.Overlaps( listenerVolume ) )
+			{
+				listener.OnChange?.Invoke( modification );
+			}
+		}
+	}
 
 	protected override void OnDirty()
 	{
@@ -92,7 +162,6 @@ public partial class VoxelRenderer : Component, Component.ExecuteInEditor
 		// TODO: have a set of dirty ones?
 
 		var transform = Transform.World;
-
 		var meshChunks = Model.MeshChunks;
 
 		for ( var i = 0; i < meshChunks.Length; ++i )

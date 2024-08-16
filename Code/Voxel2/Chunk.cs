@@ -6,7 +6,7 @@ namespace Voxel;
 public partial class Chunk
 {
 	public byte[] Voxels;
-
+	
 	public bool Allocated => Voxels != null && MinAltitude != null && MaxAltitude != null;
 
 	public bool Dirty;
