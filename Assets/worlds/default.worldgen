@@ -57,7 +57,8 @@
     "worlds/spawn_point.feature",
     "worlds/standing_stone_circle.feature",
     "worlds/rock_scatter.feature",
-    "worlds/farm_wall.feature"
+    "worlds/farm_wall.feature",
+    "worlds/farm_house.feature"
   ],
   "__references": [],
   "__version": 0
