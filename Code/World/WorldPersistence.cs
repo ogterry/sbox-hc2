@@ -141,7 +141,6 @@ public class WorldSave
 	/// </summary>
 	public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
 
-
 	/// <summary>
 	/// When was this world last saved?
 	/// </summary>
@@ -242,6 +241,7 @@ public sealed class WorldPersistence : Component
 
 	[HostSync]
 	public string WorldName { get; set; } = "My World";
+
 	[HostSync]
 	public Guid CurrentSave { get; set; }
 
@@ -253,7 +253,7 @@ public sealed class WorldPersistence : Component
 		{
 			var save = FileSystem.Data.ReadJson<WorldSave>( $"worlds/{file}" );
 			save.FilePath = $"worlds/{file}";
-			save.Id = new Guid( file.Replace( ".json", "" ) );
+			save.Id = Guid.Parse( file.Replace( ".json", "" ) );
 			saves.Add( save );
 		}
 
@@ -279,6 +279,8 @@ public sealed class WorldPersistence : Component
 		var worldSave = FileSystem.Data.ReadJson<WorldSave>( path );
 		if ( worldSave is not null )
 		{
+			worldSave.Id = Guid.Parse( path.Replace( ".json", "" ).Replace( "worlds/", "" ) );
+
 			Load( worldSave );
 		}
 		else
@@ -304,16 +306,16 @@ public sealed class WorldPersistence : Component
 	/// <param name="save"></param>
 	public void Load( WorldSave save )
 	{
-		// Mark as current save
-		CurrentSave = save.Id;
-		WorldName = save.Name;
-
 		// Host only
 		if ( !Sandbox.Networking.IsHost )
 		{
 			Log.Warning( "Tried to load a world save but we're not the host.." );
 			return;
 		}
+
+		// Mark as current save
+		CurrentSave = save.Id;
+		WorldName = save.Name;
 
 		Log.Info( "Trying to load a world save..." );
 
