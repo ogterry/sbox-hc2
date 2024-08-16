@@ -51,30 +51,31 @@ public partial class WorldItem : Component, Component.ITriggerListener
 		SpinningItem.Transform.LocalPosition = Vector3.Up * MathF.Sin( Time.Now * 3f ) * 2;
 	}
 
-	bool _combining = false;
 	void ITriggerListener.OnTriggerEnter( Collider other )
 	{
+		if ( Amount == 0 ) return;
+
 		if ( !Sandbox.Networking.IsHost )
 			return;
 
-		if ( !_combining && other.GameObject.Root.Components.TryGet<WorldItem>( out var otherItem ) )
+		if ( other.GameObject.Root.Components.TryGet<WorldItem>( out var otherItem ) )
 		{
 			if ( otherItem.Resource == Resource )
 			{
 				if ( otherItem.timeSinceSpawned > timeSinceSpawned )
 				{
 					otherItem.Amount += Amount;
+					Amount = 0;
 					DestroyOnAuthority();
+					return;
 				}
 				else
 				{
 					Amount += otherItem.Amount;
+					otherItem.Amount = 0;
 					otherItem.DestroyOnAuthority();
 				}
-				_combining = true;
-				otherItem._combining = true;
 			}
-			return;
 		}
 
 		if ( other.GameObject.Root.Components.Get<Player>() is not { IsValid: true } player )
@@ -150,7 +151,7 @@ public partial class WorldItem : Component, Component.ITriggerListener
 		// Conna: if the Item is a block we'll handle this differently. We'll wanna
 		// use a custom model with a material override or something for the block texture.
 
-		go.NetworkSpawn(null);
+		go.NetworkSpawn( null );
 		BroadcastSpawnSound( go.Transform.Position );
 
 		return worldItem;
