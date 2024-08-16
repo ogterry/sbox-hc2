@@ -22,7 +22,8 @@
           "_type": "gameobject",
           "prefab": "prefabs/damage/dmgnumber.prefab"
         },
-        "MaxHealth": 500
+        "MaxHealth": 500,
+        "RegenRate": 0
       },
       {
         "__type": "Sandbox.BoxCollider",
@@ -53,6 +54,27 @@
             "__type": "HC2.ResourceDepletionStage",
             "__guid": "b46c2f60-46bd-4c6d-89bd-954ceceeb62f",
             "Fraction": 1
+          }
+        ]
+      },
+      {
+        "__guid": "054ad57e-6473-443c-b8b9-ea92b8efd73a",
+        "Flags": 0,
+        "Name": "0%",
+        "Position": "49.17472,78.49827,-67.30266",
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "f0cc7cbd-e057-4e2f-8ae9-228dca7b9d86",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/props/tree_trunk/tree_trunk.vmdl",
+            "RenderType": "On",
+            "Tint": "1,0,0,1"
+          },
+          {
+            "__type": "HC2.ResourceDepletionStage",
+            "__guid": "0f783e2e-0363-4e12-b702-046a794658a9",
+            "Fraction": 0
           }
         ]
       }
