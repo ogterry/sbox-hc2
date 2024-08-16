@@ -216,6 +216,7 @@ public class Inventory : Component, ISaveData
 			Container.ClearItemSlot( slotIndex );
 
 			var aimRay = Player.Local.CameraController.AimRay;
+			if ( item.Amount <= 0 ) return;
 			WorldItem.CreateInstance( item.Resource, aimRay.Position + aimRay.Forward * 128f, item.Amount );
 		}
 	}
