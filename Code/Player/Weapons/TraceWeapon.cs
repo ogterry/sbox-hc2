@@ -45,12 +45,31 @@ public partial class TraceWeapon : WeaponComponent
 
 	TimeSince timeSinceAttack;
 	TimeSince ammoConsumptionRate;
+	SoundHandle _constantFireSound;
+
+	[Sync] bool IsFiring { get; set; }
 
 	protected override void OnPreRender()
 	{
 		base.OnPreRender();
 
+		if ( !IsProxy ) IsFiring = Input.Down( InputAction );
+
 		UpdateLaser();
+
+		if ( FireConstantly && AttackSound is not null )
+		{
+			if ( IsFiring )
+			{
+				if ( !_constantFireSound.IsValid() )
+					_constantFireSound = Sound.Play( AttackSound, Muzzle.Transform.Position );
+				_constantFireSound.Position = Muzzle.Transform.Position;
+			}
+			else
+			{
+				_constantFireSound?.Stop();
+			}
+		}
 	}
 
 	protected override bool CanAttack()
@@ -167,7 +186,7 @@ public partial class TraceWeapon : WeaponComponent
 			};
 		}
 
-		if ( !Input.Down( InputAction ) )
+		if ( !IsFiring )
 		{
 			lineRenderer.Width = lineRenderer.Width.Evaluate( 0 ).LerpTo( 0, Time.Delta * 10f );
 			if ( lineRenderer.Width.Evaluate( 0 ) < 0.05f )

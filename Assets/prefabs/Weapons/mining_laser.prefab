@@ -12,6 +12,7 @@
         "AimingFOVOffset": 0,
         "AmmoConsumptionRate": 0,
         "AttackDelay": 0.1,
+        "AttackSound": "sounds/weapons/mining_laser.sound",
         "Damage": 1,
         "DamageType": "Electric",
         "DurabilityOnUse": 0.01,
