@@ -41,17 +41,19 @@
 
     @* <Toast /> *@
 
+    <BuildingOverlay />
+
     <StatUpgradesPanel />
 
     <Crosshair />
 </root>
 
 @code {
-    [ConVar( "hc2_drawhud" )]
+    [ConVar("hc2_drawhud")]
     public static bool DrawHud { get; set; } = true;
 
     protected override int BuildHash()
     {
-        return HashCode.Combine( DrawHud );
+        return HashCode.Combine(DrawHud);
     }
 }

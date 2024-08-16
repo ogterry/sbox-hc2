@@ -1,0 +1,31 @@
+﻿@using Sandbox;
+@using Sandbox.UI;
+@inherits Panel
+@namespace HC2
+@attribute [StyleSheet]
+
+<root>
+	@if (Player.Local?.MainHand is not BlockPlacer) return;
+	<div class="content column">
+		<div class="row">
+			<Image Texture=@Input.GetGlyph("Attack1", InputGlyphSize.Small, GlyphStyle.Light) />
+			<label>Place Block(s)</label>
+		</div>
+		<div class="row">
+			<div class="control row">
+				<Image Texture=@Input.GetGlyph("Run", InputGlyphSize.Small, GlyphStyle.Light) />
+				<label>+</label>
+				<Image Texture=@Input.GetGlyph("Mouse3", InputGlyphSize.Small, GlyphStyle.Light) />
+			</div>
+			<label>Brush Size</label>
+		</div>
+	</div>
+</root>
+
+@code
+{
+	protected override int BuildHash()
+	{
+		return (Player.Local?.MainHand is BlockPlacer) ? 1 : 0;
+	}
+}
