@@ -14,7 +14,7 @@ public class VoxelChangeListener : IDisposable, IValid
 	private VoxelRenderer Renderer { get; init; }
 	private bool IsDisposed { get; set; }
 	
-	bool IValid.IsValid => IsDisposed;
+	bool IValid.IsValid => !IsDisposed;
 	
 	public VoxelChangeListener( VoxelRenderer renderer, Vector3Int min, Vector3Int max )
 	{
