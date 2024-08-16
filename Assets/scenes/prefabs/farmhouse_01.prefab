@@ -597,6 +597,24 @@
         "NetworkMode": 1,
         "__Prefab": "prefabs/resources/node_tree.prefab",
         "__PrefabVariables": {}
+      },
+      {
+        "__guid": "a74de1c6-325c-463e-9397-b4792c556b96",
+        "Flags": 0,
+        "Name": "Object",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Voxel.Modifications.FlattenGroundComponent",
+            "__guid": "168d466c-cecd-41f2-bf6f-8af135e70c94",
+            "Area": {
+              "Position": "-1182.7,-937.3001",
+              "Size": "1731.2,1983"
+            },
+            "FlattenRange": "0.00,0.00,0",
+            "OffsetRange": "0.00,1.00,1"
+          }
+        ]
       }
     ],
     "__variables": []
