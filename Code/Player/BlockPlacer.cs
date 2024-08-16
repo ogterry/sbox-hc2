@@ -79,7 +79,7 @@ public sealed class BlockPlacer : Carriable
                 var brushSize = BrushSize - 1;
                 startPos -= Vector3.One * blockSize * brushSize;
                 size += Vector3.One * blockSize * brushSize * 2;
-                totalBlocks = (int)MathF.Pow( 1 + (BrushSize * 2), 3 );
+                totalBlocks = (int)MathF.Pow( 1 + ((BrushSize - 1) * 2), 3 );
             }
 
             var canPlace = Player.Local.Inventory.HasItem( Item.Create( BlockType.ItemResource, totalBlocks ) );
@@ -155,7 +155,7 @@ public sealed class BlockPlacer : Carriable
         var totalBlocks = brushSize;
         if ( brushSize > 1 )
         {
-            totalBlocks = (int)MathF.Pow( 1 + (brushSize * 2), 3 );
+            totalBlocks = (int)MathF.Pow( 1 + ((brushSize - 1) * 2), 3 );
         }
 
         var caller = Rpc.Caller;
