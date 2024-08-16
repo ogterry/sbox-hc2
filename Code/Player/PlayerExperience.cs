@@ -68,10 +68,11 @@ public sealed class PlayerExperience : Component, ISaveData
 
 	public void UpgradeStat( StatusEffect status, bool force = false )
 	{
+		if ( IsProxy ) return;
 		if ( UnspentUpgrades <= 0 && !force ) return;
 		if ( Upgrades.ContainsKey( status.ResourceName ) && Upgrades[status.ResourceName] >= MaxUpgrades ) return;
 
-		var modifier = Player.Local?.Components.Get<StatModifier>();
+		var modifier = GameObject.Root.Components.Get<StatModifier>();
 		if ( modifier == null ) return;
 
 		if ( !Upgrades.ContainsKey( status.ResourceName ) )

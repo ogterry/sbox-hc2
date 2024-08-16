@@ -17,15 +17,6 @@ public sealed class StatModifier : Component
 	public float DamageReduction { get; private set; } = 0f;
 
 	/// <summary>
-	/// How much max health is increased by.
-	/// </summary>
-	public float HealthIncrease { get; private set; } = 0f;
-	/// <summary>
-	/// How much health regen is increased by (per second).
-	/// </summary>
-	public float HealthRegenIncrease { get; private set; } = 0f;
-
-	/// <summary>
 	/// Whether or not any status effects affect this.
 	/// </summary>
 	[Property] public bool IsAffectedByStatusEffects { get; set; } = true;
@@ -42,6 +33,20 @@ public sealed class StatModifier : Component
 			{
 				case StatusEffectType.DamageIncrease:
 					DamageIncrease += entry.Value;
+					break;
+				case StatusEffectType.HealthRegenIncrease:
+					{
+						var healthComponent = GameObject.Components.Get<HealthComponent>();
+						if ( healthComponent.IsValid() )
+							healthComponent.RegenRate += entry.Value;
+					}
+					break;
+				case StatusEffectType.MaxHealthIncrease:
+					{
+						var healthComponent = GameObject.Components.Get<HealthComponent>();
+						if ( healthComponent.IsValid() )
+							healthComponent.MaxHealth += entry.Value;
+					}
 					break;
 				case StatusEffectType.ActionGraph:
 					entry.OnEffectApplied?.Invoke( GameObject );
@@ -61,6 +66,20 @@ public sealed class StatModifier : Component
 				case StatusEffectType.DamageIncrease:
 					DamageIncrease -= entry.Value;
 					break;
+				case StatusEffectType.HealthRegenIncrease:
+					{
+						var healthComponent = GameObject.Components.Get<HealthComponent>();
+						if ( healthComponent.IsValid() )
+							healthComponent.RegenRate -= entry.Value;
+					}
+					break;
+				case StatusEffectType.MaxHealthIncrease:
+					{
+						var healthComponent = GameObject.Components.Get<HealthComponent>();
+						if ( healthComponent.IsValid() )
+							healthComponent.MaxHealth -= entry.Value;
+						break;
+					}
 				case StatusEffectType.ActionGraph:
 					entry.OnEffectRemoved?.Invoke( GameObject );
 					break;
