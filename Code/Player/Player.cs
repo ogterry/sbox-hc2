@@ -319,7 +319,7 @@ public partial class Player : Component, IDamage,
 
 		DoFlyMode();
 
-		if ( FlyMode || DevCam) return;
+		if ( FlyMode || DevCam ) return;
 
 		BuildWishVelocity();
 		ApplyAcceleration();
@@ -376,6 +376,7 @@ public partial class Player : Component, IDamage,
 		if ( IsProxy )
 			return;
 
+		FallbackCarriable.GameObject.Enabled = true;
 		Inventory.OverflowContainer = Hotbar.Container;
 		Hotbar.OverflowContainer = Inventory.Container;
 
