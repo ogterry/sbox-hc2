@@ -98,6 +98,8 @@ public partial class MeleeWeapon : WeaponComponent
 					{
 						BroadcastDamageWorld( tr.HitPosition - tr.Normal * 8f, tr.Normal, damage.Damage );
 					}
+
+					GameObject.Root.Dispatch( new ItemUseEvent( DurabilityOnUse ) );
 					return;
 				}
 
@@ -108,7 +110,6 @@ public partial class MeleeWeapon : WeaponComponent
 
 				BroadcastHitEffects( tr.EndPosition );
 
-				// Only use durability if we hit something for melee
 				GameObject.Root.Dispatch( new ItemUseEvent( DurabilityOnUse ) );
 			}
 		}
