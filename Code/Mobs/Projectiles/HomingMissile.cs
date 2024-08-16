@@ -130,7 +130,7 @@ public partial class HomingMissile : Component, Component.ICollisionListener
 
 		if ( other.Other.Shape.Tags.Has( "voxel" ) )
 		{
-			Scene.Dispatch( new DamageWorldEvent( contactPoint + Rigidbody.Velocity.Normal * 8f, Rigidbody.Velocity.Normal, GameObject, Damage ) );
+			Scene.Dispatch( new DamageWorldEvent( contactPoint + Rigidbody.Velocity.Normal * 8f, Rigidbody.Velocity.Normal, GameObject, Damage, 4 ) );
 		}
 
 		var healthComponent = other.Other.GameObject?.Root.Components.Get<HealthComponent>();

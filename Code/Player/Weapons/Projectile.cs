@@ -38,6 +38,11 @@ public partial class Projectile : Component, Component.ICollisionListener
 	public float Damage { get; set; }
 
 	/// <summary>
+	/// Passed in by a weapon, how big of a hole in the world does it leave?
+	/// </summary>
+	public int VoxelDamageRadius { get; set; }
+
+	/// <summary>
 	/// Passed in by a weapon, what's the damage type?
 	/// </summary>
 	public DamageType DamageType { get; set; }
@@ -119,6 +124,6 @@ public partial class Projectile : Component, Component.ICollisionListener
 	[Broadcast]
 	private void BroadcastDamageWorld( Vector3 pos, Vector3 dir, float damage )
 	{
-		Scene.Dispatch( new DamageWorldEvent( pos, dir, GameObject, damage ) );
+		Scene.Dispatch( new DamageWorldEvent( pos, dir, GameObject, damage, VoxelDamageRadius ) );
 	}
 }

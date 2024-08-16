@@ -97,5 +97,6 @@ public partial class ProjectileWeapon : WeaponComponent
 		projectile.Weapon = this;
 		projectile.Damage = GetDamage();
 		projectile.DamageType = GetDamageType();
+		projectile.VoxelDamageRadius = 2; // TODO
 	}
 }

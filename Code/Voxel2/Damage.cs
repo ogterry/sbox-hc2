@@ -6,7 +6,7 @@ using Voxel.Modifications;
 
 namespace Voxel;
 
-public record DamageWorldEvent( Vector3 Position, Vector3 Direction, GameObject Inflictor, float Damage ) : IGameEvent;
+public record DamageWorldEvent( Vector3 Position, Vector3 Direction, GameObject Inflictor, float Damage, int Radius ) : IGameEvent;
 
 [Icon( "healing" )]
 public sealed class VoxelDamage : Component,
@@ -23,13 +23,13 @@ public sealed class VoxelDamage : Component,
 
 		if ( Renderer.Model.OutOfBounds( coords ) ) return;
 
-		// TODO: maybe go with ToolType instead xD
+		var effectiveness = eventArgs.Inflictor.Components
+			.GetAll<ResourceGatherer>( FindMode.EverythingInSelf )
+			.Select( x => new GatherEffectiveness( x.SourceKind, x.Effectiveness ) )
+			.ToArray();
 
-		foreach ( var gatherer in eventArgs.Inflictor.Components.GetAll<ResourceGatherer>( FindMode.EverythingInSelf ) )
-		{
-			// TODO: influence radius / damage with effectiveness
+		var radius = (byte) Math.Clamp( eventArgs.Radius, 1, 255 );
 
-			VoxelNetworking.Modify( new CarveModification( gatherer.SourceKind, 1, coords, 1, Random.Shared.Next() ) );
-		}
+		VoxelNetworking.Modify( new CarveModification( eventArgs.Damage, coords, radius, Random.Shared.Next(), effectiveness ) );
 	}
 }

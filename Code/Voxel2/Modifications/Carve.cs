@@ -1,17 +1,22 @@
-﻿using HC2;
+﻿using System;
+using HC2;
 
 namespace Voxel.Modifications;
 
 #nullable enable
 
-public record struct CarveModification( GatherSourceKind SourceKind, byte Damage, Vector3Int Origin, byte Radius, int Seed ) : IModification
+public record struct GatherEffectiveness( GatherSourceKind SourceKind, float Effectiveness );
+
+public record struct CarveModification( float Damage, Vector3Int Origin, byte Radius, int Seed,
+	params GatherEffectiveness[] Effectiveness ) : IModification
 {
 	public ModificationKind Kind => ModificationKind.Carve;
 	public Vector3Int Min => Origin - Radius;
 	public Vector3Int Max => Origin + Radius;
 
 	public CarveModification( ByteStream stream )
-		: this( stream.Read<GatherSourceKind>(), stream.Read<byte>(), stream.Read<Vector3Int>(), stream.Read<byte>(), stream.Read<int>() )
+		: this( stream.Read<float>(), stream.Read<Vector3Int>(), stream.Read<byte>(), stream.Read<int>(),
+			stream.ReadArray<GatherEffectiveness>( 32 ).ToArray() )
 	{
 
 	}
@@ -20,18 +25,27 @@ public record struct CarveModification( GatherSourceKind SourceKind, byte Damage
 
 	public void Write( ref ByteStream stream )
 	{
-		stream.Write( SourceKind );
 		stream.Write( Damage );
 		stream.Write( Origin );
 		stream.Write( Radius );
 		stream.Write( Seed );
+		stream.WriteArray( Effectiveness );
+	}
+
+	private float GetEffectiveness( GatherSourceKind sourceKind )
+	{
+		// TODO: faster lookup?
+
+		foreach ( var entry in Effectiveness )
+		{
+			if ( entry.SourceKind == sourceKind ) return entry.Effectiveness;
+		}
+
+		return 0f;
 	}
 
 	public void Apply( VoxelRenderer renderer, Chunk chunk )
 	{
-		// TODO: rough sphere
-		// TODO: damage
-
 		var min = Min;
 		var max = Max;
 
@@ -40,6 +54,8 @@ public record struct CarveModification( GatherSourceKind SourceKind, byte Damage
 
 		var voxels = chunk.Voxels;
 		var palette = renderer.Palette;
+
+		var localCenter = (max + min) / 2 - chunk.WorldMin;
 
 		for ( var x = localMin.x; x <= localMax.x; x++ )
 		for ( var y = localMin.y; y <= localMax.y; y++ )
@@ -50,9 +66,18 @@ public record struct CarveModification( GatherSourceKind SourceKind, byte Damage
 
 			var entry = palette.GetEntry( index );
 			if ( entry.IsEmpty || entry.Health == 0 ) continue;
-			if ( SourceKind != entry.Block.MaterialKind ) continue;
 
-			if ( entry.Health == 1 )
+			var effectiveness = GetEffectiveness( entry.Block.MaterialKind );
+			if ( effectiveness <= 0f ) continue;
+
+			var distanceSq = (new Vector3Int( x, y, z ) - localCenter).LengthSquared;
+			if ( distanceSq > Radius * Radius ) continue;
+
+			var falloff = Math.Clamp( 1f - distanceSq / (1f + Radius * Radius), 0, 1f );
+			var damage = (int) Math.Round( Damage * entry.Block.DamageScale * effectiveness * falloff );
+			if ( damage < 1 ) continue;
+
+			if ( entry.Health <= damage )
 			{
 				chunk.SetVoxel( x, y, z, 0 );
 
@@ -64,7 +89,7 @@ public record struct CarveModification( GatherSourceKind SourceKind, byte Damage
 			}
 			else
 			{
-				chunk.SetVoxel( x, y, z, (byte) (index + 1) );
+				chunk.SetVoxel( x, y, z, (byte) (index + damage) );
 			}
 		}
 	}

@@ -50,6 +50,6 @@ public sealed class DamageTrigger : Component, Component.ITriggerListener
     [Broadcast]
     private void BroadcastDamageWorld( Vector3 pos, Vector3 dir, float damage )
     {
-        Scene.Dispatch( new DamageWorldEvent( pos, dir, GameObject, damage ) );
+        Scene.Dispatch( new DamageWorldEvent( pos, dir, GameObject, damage, 2 ) );
     }
 }
