@@ -28,7 +28,8 @@
           "_type": "gameobject",
           "prefab": "prefabs/damage/dmgnumber.prefab"
         },
-        "MaxHealth": 100
+        "MaxHealth": 100,
+        "RegenRate": 0
       },
       {
         "__type": "Sandbox.BoxCollider",
@@ -418,20 +419,23 @@
                     "__version": 7,
                     "__guid": "0c241b09-2c3b-44bc-a698-7a7af6084e89",
                     "UserData": {
-                      "Title": "Condition",
+                      "Title": "Target lost",
                       "ReferencedComponentTypes": []
                     },
                     "Variables": [],
                     "Nodes": [
                       {
                         "Id": 0,
-                        "Type": "input"
+                        "Type": "input",
+                        "UserData": {
+                          "Position": "-160,-320"
+                        }
                       },
                       {
                         "Id": 1,
                         "Type": "output",
                         "UserData": {
-                          "Position": "480,0"
+                          "Position": "48,-288"
                         }
                       },
                       {
@@ -446,7 +450,7 @@
                           }
                         },
                         "UserData": {
-                          "Position": "-352,128"
+                          "Position": "-384,-112"
                         }
                       },
                       {
@@ -458,7 +462,7 @@
                           "_name": "Distance"
                         },
                         "UserData": {
-                          "Position": "96,160"
+                          "Position": "-208,144"
                         }
                       },
                       {
@@ -516,6 +520,11 @@
                         "Properties": {
                           "_type": "Transform",
                           "_name": "Position"
+                        },
+                        "UserData": {
+                          "Labels": {
+                            "_result": "target position"
+                          }
                         }
                       },
                       {
@@ -528,7 +537,7 @@
                           }
                         },
                         "UserData": {
-                          "Position": "-240,224"
+                          "Position": "-256,16"
                         }
                       },
                       {
@@ -562,19 +571,53 @@
                         "Properties": {
                           "_type": "Transform",
                           "_name": "Position"
+                        },
+                        "UserData": {
+                          "Labels": {
+                            "_result": "my position"
+                          }
                         }
                       },
                       {
                         "Id": 68,
                         "Type": "op.greaterthan",
                         "UserData": {
-                          "Position": "320,160"
+                          "Position": "16,160",
+                          "Labels": {
+                            "_result": "too far away from target"
+                          }
+                        }
+                      },
+                      {
+                        "Id": 70,
+                        "Type": "property",
+                        "ParentId": 3,
+                        "Properties": {
+                          "_name": "HasAimTarget",
+                          "_type": "HC2.Mobs.Mob"
+                        }
+                      },
+                      {
+                        "Id": 71,
+                        "Type": "op.orelse",
+                        "UserData": {
+                          "Position": "-144,-240"
+                        }
+                      },
+                      {
+                        "Id": 72,
+                        "Type": "op.not",
+                        "UserData": {
+                          "Position": "48,-32",
+                          "Labels": {
+                            "_result": "has no aim target"
+                          }
                         }
                       }
                     ],
                     "Links": [
                       {
-                        "SrcId": 68,
+                        "SrcId": 71,
                         "SrcName": "_result",
                         "DstId": 1,
                         "DstName": "_result"
@@ -659,6 +702,30 @@
                         },
                         "DstId": 68,
                         "DstName": "b"
+                      },
+                      {
+                        "SrcId": 3,
+                        "SrcName": "_result",
+                        "DstId": 70,
+                        "DstName": "_target"
+                      },
+                      {
+                        "SrcId": 72,
+                        "SrcName": "_result",
+                        "DstId": 71,
+                        "DstName": "a"
+                      },
+                      {
+                        "SrcId": 68,
+                        "SrcName": "_result",
+                        "DstId": 71,
+                        "DstName": "b"
+                      },
+                      {
+                        "SrcId": 70,
+                        "SrcName": "_result",
+                        "DstId": 72,
+                        "DstName": "a"
                       }
                     ],
                     "Defaults": {
@@ -673,21 +740,6 @@
                         "go": "7415ac66-ae34-4cab-af30-2f7141f438d1"
                       }
                     }
-                  },
-                  "OnTransition": {
-                    "__version": 7,
-                    "__guid": "91c90651-50dd-401d-9596-c3a2f3ae6302",
-                    "UserData": {
-                      "Title": "Action"
-                    },
-                    "Variables": [],
-                    "Nodes": [
-                      {
-                        "Id": 0,
-                        "Type": "input"
-                      }
-                    ],
-                    "Links": []
                   }
                 },
                 {

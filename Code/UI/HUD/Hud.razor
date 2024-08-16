@@ -1,7 +1,11 @@
-@using System;
+@using System
+@using Sandbox
 
 @inherits PanelComponent
 @namespace HC2
+
+@if (!DrawHud)
+    return;
 
 <root>
     <div class="canvas">
@@ -41,3 +45,13 @@
 
     <Crosshair />
 </root>
+
+@code {
+    [ConVar( "hc2_drawhud" )]
+    public static bool DrawHud { get; set; } = true;
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine( DrawHud );
+    }
+}

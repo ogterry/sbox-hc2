@@ -6,101 +6,121 @@
     "Enabled": true,
     "Children": [
       {
-        "__guid": "11400a96-af2a-45cd-8e68-45f5fc771916",
+        "__guid": "9b52e44c-0f66-4f0e-8fff-5e2351f96b26",
         "Flags": 0,
-        "Name": "standing_stone_1",
-        "Position": "-101.859,-90.38175,-62.93617",
-        "Rotation": "0,0,0.7071067,0.7071068",
-        "Scale": "0.7557899,0.7557899,0.7557899",
+        "Name": "Flatten",
         "Enabled": true,
         "Components": [
           {
-            "__type": "Sandbox.Prop",
-            "__guid": "3537ed56-9291-4324-916d-c86f1d72bcf8",
-            "BodyGroups": 18446744073709551615,
-            "Health": 0,
-            "IsStatic": true,
-            "Model": "models/props/standing_stones/standing_stone_1.vmdl",
-            "Tint": "1,1,1,1"
+            "__type": "Voxel.Modifications.FlattenGroundComponent",
+            "__guid": "e40cd3e0-9558-4af2-a451-a6a86ba5e8b9",
+            "Area": {
+              "Position": "-256,-128",
+              "Size": "512,288"
+            },
+            "FlattenRange": "-1.00,1.00,1",
+            "OffsetRange": "0.00,2.00,0"
           }
-        ]
-      },
-      {
-        "__guid": "1b393646-bb99-4a7d-865b-bec28529472e",
-        "Flags": 0,
-        "Name": "standing_stone_2",
-        "Position": "221.8545,-90.89566,-62.93626",
-        "Rotation": "0,0,-0.7071069,-0.7071066",
-        "Scale": "0.7557899,0.7557899,0.7557899",
-        "Enabled": true,
-        "Components": [
+        ],
+        "Children": [
           {
-            "__type": "Sandbox.Prop",
-            "__guid": "4dfbe1c3-d886-468b-bf80-01c42458836a",
-            "BodyGroups": 18446744073709551615,
-            "Health": 0,
-            "IsStatic": true,
-            "Model": "models/props/standing_stones/standing_stone_2.vmdl",
-            "Tint": "1,1,1,1"
-          }
-        ]
-      },
-      {
-        "__guid": "d29dda96-52a4-494d-9e30-7e6cbd92c4a4",
-        "Flags": 0,
-        "Name": "standing_stone_3",
-        "Position": "-23.1902,53.89116,-62.93618",
-        "Scale": "0.7557899,0.7557899,0.7557899",
-        "Enabled": true,
-        "Components": [
+            "__guid": "11400a96-af2a-45cd-8e68-45f5fc771916",
+            "Flags": 0,
+            "Name": "standing_stone_1",
+            "Position": "-101.859,-90.38176,-23.68983",
+            "Rotation": "0,0,0.7071067,0.7071068",
+            "Scale": "0.7557899,0.7557899,0.7557899",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.Prop",
+                "__guid": "3537ed56-9291-4324-916d-c86f1d72bcf8",
+                "BodyGroups": 18446744073709551615,
+                "Health": 0,
+                "IsStatic": true,
+                "Model": "models/props/standing_stones/standing_stone_1.vmdl",
+                "Tint": "1,1,1,1"
+              }
+            ]
+          },
           {
-            "__type": "Sandbox.Prop",
-            "__guid": "be36149d-2be5-4b7b-a20d-3eb87e5f18be",
-            "BodyGroups": 18446744073709551615,
-            "Health": 0,
-            "IsStatic": true,
-            "Model": "models/props/standing_stones/standing_stone_3.vmdl",
-            "Tint": "1,1,1,1"
-          }
-        ]
-      },
-      {
-        "__guid": "ae6c1cdd-ec3e-4622-9bc7-e81c41014bd5",
-        "Flags": 0,
-        "Name": "standing_stone_3",
-        "Position": "-101.3099,8.686432,-62.93617",
-        "Rotation": "0,0,0.3826834,0.9238797",
-        "Scale": "0.7557899,0.7557899,0.7557899",
-        "Enabled": true,
-        "Components": [
+            "__guid": "1b393646-bb99-4a7d-865b-bec28529472e",
+            "Flags": 0,
+            "Name": "standing_stone_2",
+            "Position": "221.8545,-90.89568,-23.68993",
+            "Rotation": "0,0,-0.7071069,-0.7071066",
+            "Scale": "0.7557899,0.7557899,0.7557899",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.Prop",
+                "__guid": "4dfbe1c3-d886-468b-bf80-01c42458836a",
+                "BodyGroups": 18446744073709551615,
+                "Health": 0,
+                "IsStatic": true,
+                "Model": "models/props/standing_stones/standing_stone_2.vmdl",
+                "Tint": "1,1,1,1"
+              }
+            ]
+          },
           {
-            "__type": "Sandbox.Prop",
-            "__guid": "9788d15e-f58a-4698-bd38-18afca9ac07d",
-            "BodyGroups": 18446744073709551615,
-            "Health": 0,
-            "IsStatic": true,
-            "Model": "models/props/standing_stones/standing_stone_3.vmdl",
-            "Tint": "1,1,1,1"
-          }
-        ]
-      },
-      {
-        "__guid": "c0ba8860-e511-4eae-9668-4e38ab5a82f8",
-        "Flags": 0,
-        "Name": "standing_stone_1",
-        "Position": "80.88187,31.37391,-62.93618",
-        "Rotation": "0,0,-0.3826834,0.9238797",
-        "Scale": "0.7557899,0.7557899,0.7557899",
-        "Enabled": true,
-        "Components": [
+            "__guid": "d29dda96-52a4-494d-9e30-7e6cbd92c4a4",
+            "Flags": 0,
+            "Name": "standing_stone_3",
+            "Position": "-23.19022,53.89115,-23.68985",
+            "Scale": "0.7557899,0.7557899,0.7557899",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.Prop",
+                "__guid": "be36149d-2be5-4b7b-a20d-3eb87e5f18be",
+                "BodyGroups": 18446744073709551615,
+                "Health": 0,
+                "IsStatic": true,
+                "Model": "models/props/standing_stones/standing_stone_3.vmdl",
+                "Tint": "1,1,1,1"
+              }
+            ]
+          },
           {
-            "__type": "Sandbox.Prop",
-            "__guid": "34633326-39ee-47ef-877d-da09ae8ff9e7",
-            "BodyGroups": 18446744073709551615,
-            "Health": 0,
-            "IsStatic": true,
-            "Model": "models/props/standing_stones/standing_stone_1.vmdl",
-            "Tint": "1,1,1,1"
+            "__guid": "ae6c1cdd-ec3e-4622-9bc7-e81c41014bd5",
+            "Flags": 0,
+            "Name": "standing_stone_3",
+            "Position": "-101.3099,8.686419,-23.68983",
+            "Rotation": "0,0,0.3826834,0.9238797",
+            "Scale": "0.7557899,0.7557899,0.7557899",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.Prop",
+                "__guid": "9788d15e-f58a-4698-bd38-18afca9ac07d",
+                "BodyGroups": 18446744073709551615,
+                "Health": 0,
+                "IsStatic": true,
+                "Model": "models/props/standing_stones/standing_stone_3.vmdl",
+                "Tint": "1,1,1,1"
+              }
+            ]
+          },
+          {
+            "__guid": "c0ba8860-e511-4eae-9668-4e38ab5a82f8",
+            "Flags": 0,
+            "Name": "standing_stone_1",
+            "Position": "80.88185,31.3739,-23.68985",
+            "Rotation": "0,0,-0.3826834,0.9238797",
+            "Scale": "0.7557899,0.7557899,0.7557899",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.Prop",
+                "__guid": "34633326-39ee-47ef-877d-da09ae8ff9e7",
+                "BodyGroups": 18446744073709551615,
+                "Health": 0,
+                "IsStatic": true,
+                "Model": "models/props/standing_stones/standing_stone_1.vmdl",
+                "Tint": "1,1,1,1"
+              }
+            ]
           }
         ]
       }
