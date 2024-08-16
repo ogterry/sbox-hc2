@@ -103,7 +103,7 @@ public sealed class BlockPlacer : Carriable
             }
         }
 
-        if ( Input.Down( "Run" ) )
+        if ( Input.Down( "Walk" ) )
         {
             if ( Input.MouseWheel.y < 0 )
             {
