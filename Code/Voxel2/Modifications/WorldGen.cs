@@ -103,7 +103,7 @@ public record WorldGenModification( int Seed, WorldGenParameters Parameters, Vec
 			chunk.Deallocate();
 			return;
 		}
-		
+
 		chunk.Clear();
 
 		var voxels = chunk.Voxels;
@@ -193,12 +193,12 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 
 	protected override void OnEnabled()
 	{
-        // While in the editor, and not playing, generate a map
-        // Play mode is handled differently
-        if ( !Game.IsPlaying )
-        {
-            Regenerate();
-        }
+		// While in the editor, and not playing, generate a map
+		// Play mode is handled differently
+		if ( !Game.IsPlaying )
+		{
+			Regenerate();
+		}
 	}
 
 	[Button( "Destroy Props" )]
@@ -366,7 +366,7 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 
 		if ( !Scene.IsEditor )
 		{
-			go.NetworkSpawn();
+			go.NetworkSpawn( null );
 		}
 
 		return go;
@@ -392,7 +392,7 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 
 		if ( isNetworked && !Scene.IsEditor )
 		{
-			go.NetworkSpawn();
+			go.NetworkSpawn( null );
 		}
 
 		return go;
@@ -493,7 +493,7 @@ public sealed class WorldGenSampler
 
 		var height = (int)(plainsHeight + (mountainsHeight - plainsHeight) * terrainNoise);
 
-		return new ( height, terrainNoise );
+		return new( height, terrainNoise );
 	}
 
 	public void Sample( int minX, int minZ, int sizeX, int sizeZ, Span<HeightmapSample> output )
@@ -503,9 +503,9 @@ public sealed class WorldGenSampler
 		// TODO: batch noise calls nicer, so it doesn't need to reinit each call
 
 		for ( var x = 0; x < sizeX; ++x )
-		for ( var z = 0; z < sizeZ; ++z )
-		{
-			output[x + sizeX * z] = Sample( minX + x, minZ + z );
-		}
+			for ( var z = 0; z < sizeZ; ++z )
+			{
+				output[x + sizeX * z] = Sample( minX + x, minZ + z );
+			}
 	}
 }

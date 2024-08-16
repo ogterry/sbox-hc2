@@ -40,7 +40,7 @@ public sealed class ProjectileSpawner : Component
 		var pos = Transform.Position + SpawnOffset;
 		var inst = Prefab.Clone( pos );
 
-		inst.NetworkSpawn();
+		inst.NetworkSpawn( null );
 	}
 
 	protected override void DrawGizmos()

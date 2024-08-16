@@ -150,7 +150,7 @@ public partial class WorldItem : Component, Component.ITriggerListener
 		// Conna: if the Item is a block we'll handle this differently. We'll wanna
 		// use a custom model with a material override or something for the block texture.
 
-		go.NetworkSpawn();
+		go.NetworkSpawn(null);
 		BroadcastSpawnSound( go.Transform.Position );
 
 		return worldItem;
