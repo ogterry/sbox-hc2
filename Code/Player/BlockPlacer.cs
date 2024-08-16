@@ -22,6 +22,9 @@ public sealed class BlockPlacer : Carriable
     RealTimeSince timeSinceLastPlace = 0f;
     Transform lastCamTransform;
 
+    bool drawingRect = false;
+    Vector3 startingRectPosition = Vector3.Zero;
+
     protected override void OnUpdate()
     {
         base.OnUpdate();
@@ -73,20 +76,44 @@ public sealed class BlockPlacer : Carriable
 
             var startPos = pos;
             var size = Vector3.One * blockSize;
-            var totalBlocks = BrushSize;
             if ( BrushSize > 1 )
             {
                 var brushSize = BrushSize - 1;
                 startPos -= Vector3.One * blockSize * brushSize;
                 size += Vector3.One * blockSize * brushSize * 2;
-                totalBlocks = (int)MathF.Pow( 1 + ((BrushSize - 1) * 2), 3 );
             }
 
+            var boxStart = startPos;
+            var boxEnd = startPos + size;
+            if ( drawingRect )
+            {
+                boxStart = startingRectPosition;
+                boxEnd = startPos + blockSize / 2f;
+            }
+            var mins = Vector3.Min( boxStart, boxEnd );
+            var maxs = Vector3.Max( boxStart, boxEnd );
+            if ( drawingRect )
+            {
+                mins -= blockSize * (BrushSize - 1);
+                maxs += blockSize * (BrushSize - 1);
+            }
+
+            var xblocks = (int)Math.Round( Math.Abs( maxs.x - mins.x ) / blockSize );
+            var yblocks = (int)Math.Round( Math.Abs( maxs.y - mins.y ) / blockSize );
+            var zblocks = (int)Math.Round( Math.Abs( maxs.z - mins.z ) / blockSize );
+            if ( drawingRect )
+            {
+                xblocks++;
+                yblocks++;
+                zblocks++;
+            }
+            var totalBlocks = xblocks * yblocks * zblocks;
             var canPlace = Player.Local.Inventory.HasItem( Item.Create( BlockType.ItemResource, totalBlocks ) );
 
             using ( Gizmo.Scope( "block_ghost" ) )
             {
-                var bbox = new BBox( startPos, startPos + size );
+                var bbox = new BBox( mins, maxs );
+                if ( drawingRect ) bbox = bbox.Grow( blockSize / 2f );
                 Gizmo.Draw.Color = Color.Cyan;
                 if ( !canPlace )
                     Gizmo.Draw.Color = Color.Red;
@@ -97,9 +124,22 @@ public sealed class BlockPlacer : Carriable
             }
 
 
-            if ( canPlace && Input.Pressed( "attack1" ) )
+            if ( canPlace )
             {
-                PlaceBlock( pos + blockSize / 2f );
+                if ( drawingRect && !Input.Down( "attack2" ) )
+                {
+                    drawingRect = false;
+                    PlaceBlock( mins, maxs - (blockSize / 2f) );
+                }
+                else if ( !drawingRect && Input.Pressed( "attack1" ) )
+                {
+                    PlaceBlock( mins, maxs - (blockSize / 2f) );
+                }
+                else if ( Input.Pressed( "attack2" ) )
+                {
+                    drawingRect = true;
+                    startingRectPosition = pos + blockSize / 2f;
+                }
             }
         }
 
@@ -116,8 +156,9 @@ public sealed class BlockPlacer : Carriable
         }
     }
 
-    void PlaceBlock( Vector3 pos )
+    void PlaceBlock( Vector3 mins, Vector3 maxs )
     {
+        Log.Info( $"Placing block at {mins} to {maxs}" );
         if ( timeSinceLastPlace < 0.05f )
             return;
 
@@ -129,7 +170,7 @@ public sealed class BlockPlacer : Carriable
 
             using ( Rpc.FilterInclude( Connection.Host ) )
             {
-                PlaceBlockHost( pos, BlockType, Player.Hotbar.SelectedSlot, BrushSize );
+                PlaceBlockHost( mins, maxs, BlockType, Player.Hotbar.SelectedSlot );
             }
         }
 
@@ -137,7 +178,7 @@ public sealed class BlockPlacer : Carriable
     }
 
     [Broadcast]
-    void PlaceBlockHost( Vector3 pos, Block block, int slot, int brushSize )
+    void PlaceBlockHost( Vector3 mins, Vector3 maxs, Block block, int slot )
     {
         if ( !Sandbox.Networking.IsHost )
             return;
@@ -146,17 +187,15 @@ public sealed class BlockPlacer : Carriable
         if ( world is null )
             return;
 
-        var voxelPos = world.Renderer.WorldToVoxelCoords( pos );
-        var voxel = world.Renderer.Model.GetVoxel( voxelPos.x, voxelPos.y, voxelPos.z );
-        if ( voxel != 0 ) return;
+        var voxelMins = world.Renderer.WorldToVoxelCoords( mins );
+        var voxelMaxs = world.Renderer.WorldToVoxelCoords( maxs );
 
-        world.Modify( new BuildModification( block, voxelPos - (brushSize - 1), voxelPos + (brushSize - 1) ) );
+        world.Modify( new BuildModification( block, voxelMins, voxelMaxs ) );
 
-        var totalBlocks = brushSize;
-        if ( brushSize > 1 )
-        {
-            totalBlocks = (int)MathF.Pow( 1 + ((brushSize - 1) * 2), 3 );
-        }
+        int xblocks = (int)Math.Abs( voxelMaxs.x - voxelMins.x ) + 1;
+        int yblocks = (int)Math.Abs( voxelMaxs.y - voxelMins.y ) + 1;
+        int zblocks = (int)Math.Abs( voxelMaxs.z - voxelMins.z ) + 1;
+        var totalBlocks = xblocks * yblocks * zblocks;
 
         var caller = Rpc.Caller;
         using ( Rpc.FilterInclude( caller ) )
