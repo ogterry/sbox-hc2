@@ -64,14 +64,14 @@ public record struct CarveModification( float Damage, Vector3Int Origin, byte Ra
 			var index = voxels[Chunk.GetAccessLocal( x, y, z )];
 			if ( index == 0 ) continue;
 
+			var distanceSq = (new Vector3Int( x, y, z ) - localCenter).LengthSquared;
+			if ( distanceSq > Radius * Radius ) continue;
+
 			var entry = palette.GetEntry( index );
 			if ( entry.IsEmpty || entry.Health == 0 ) continue;
 
 			var effectiveness = GetEffectiveness( entry.Block.MaterialKind );
 			if ( effectiveness <= 0f ) continue;
-
-			var distanceSq = (new Vector3Int( x, y, z ) - localCenter).LengthSquared;
-			if ( distanceSq > Radius * Radius ) continue;
 
 			var falloff = Math.Clamp( 1f - distanceSq / (1f + Radius * Radius), 0, 1f );
 			var damage = (int) Math.Round( Damage * entry.Block.DamageScale * effectiveness * falloff );

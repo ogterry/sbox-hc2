@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text.Json.Serialization;
 using HC2;
 using Sandbox.Diagnostics;
 using Sandbox.Utility;
@@ -9,7 +8,7 @@ namespace Voxel.Modifications;
 #nullable enable
 
 [Icon( "casino" )]
-public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
+public sealed partial class VoxelWorldGen : Component, Component.ExecuteInEditor
 {
 	[RequireComponent] public VoxelNetworking VoxelNetworking { get; private set; } = null!;
 	[RequireComponent] public VoxelRenderer Renderer { get; private set; } = null!;
@@ -40,8 +39,12 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 
 		if ( WorldPersistence.FileToLoad is null )
 		{
-			Log.Info( $"Applying heightmap! size: {heightmap.Length}" );
-			VoxelNetworking.Modify( new HeightmapModification( 0, VoxelNetworking.Renderer.Size, heightmap ) );
+			Log.Info( $"Applying heightmap! size: {heightmap.Size}" );
+
+			Assert.AreEqual( VoxelNetworking.Renderer.Size.x, heightmap.Size );
+			Assert.AreEqual( VoxelNetworking.Renderer.Size.z, heightmap.Size );
+
+			VoxelNetworking.Modify( new HeightmapModification( 0, VoxelNetworking.Renderer.Size, heightmap.Samples ) );
 		}
 	}
 
@@ -72,206 +75,32 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 	/// Generates a heightmap, spawns props, returns heightmap.
 	/// Doesn't actually apply the heightmap to the world.
 	/// </summary>
-	internal HeightmapSample[] Generate()
+	internal Heightmap Generate()
 	{
 		DestroyProps();
 
 		Random = new Random( Seed );
 
-		_size = VoxelNetworking.Renderer.Size.x;
-		var heightmap = _heightmap = new HeightmapSample[_size * _size];
+		var size = VoxelNetworking.Renderer.Size.x;
+		var heightmap = Heightmap = new Heightmap( size, Transform.World.WithScale( Constants.VoxelSize ) );
 
-		var sampler = new WorldGenSampler( Parameters, Seed, _size );
-		sampler.Sample( 0, 0, _size, _size, _heightmap );
+		var sampler = new WorldGenSampler( Parameters!, Seed, size );
+		sampler.Sample( 0, 0, size, size, Heightmap.Samples );
 
-		SpawnFeatures( Vector3.Zero, 4096f, true, Parameters.Features.ToArray() );
+		SpawnFeatures( Vector3.Zero, 4096f, true, Parameters!.Features.ToArray() );
 
 		Random = null!;
-		_heightmap = null!;
+		Heightmap = null!;
 
 		return heightmap;
 	}
 
-	private WorldGenFeature? GetRandomWeighted( IReadOnlyList<WorldGenFeature> features )
-	{
-		if ( features.Count == 0 )
-		{
-			return null;
-		}
-
-		var totalWeight = features.Sum( x => x.Weight );
-		var index = Random.NextSingle() * totalWeight;
-
-		foreach ( var feature in features )
-		{
-			index -= feature.Weight;
-
-			if ( index <= 0f )
-			{
-				return feature;
-			}
-		}
-
-		return null;
-	}
+	//
+	// Helper properties for feature spawning graphs to use
+	//
 
 	public Random Random { get; private set; } = null!;
-
-	private HeightmapSample[] _heightmap = null!;
-	private int _size;
-
-	public HeightmapSample SampleHeightmap( int x, int z )
-	{
-		x = Math.Clamp( x, 0, _size - 1 );
-		z = Math.Clamp( z, 0, _size - 1 );
-
-		return _heightmap[x + z * _size];
-	}
-
-	public void SpawnFeatures( Vector3 origin, float radius, bool uniform = false, params WorldGenFeature[] features )
-	{
-		if ( features.Length == 0 ) return;
-
-		var blocked = new List<Circle>();
-
-		const int maxAttempts = 128;
-
-		var maxSpawned = Math.Max( 10, radius / 4f );
-		var attempts = 0;
-		var spawned = 0;
-
-		var minRadius = features.Min( x => x.Radius );
-
-		bool AnyBlocking( Circle area, out float minDist )
-		{
-			// TODO: optimize!
-
-			minDist = float.PositiveInfinity;
-
-			foreach ( var circle in blocked )
-			{
-				var distSq = (circle.Center - area.Center).LengthSquared;
-				var minRadSq = (circle.Radius + area.Radius) * (circle.Radius + area.Radius);
-
-				if ( distSq <= minRadSq )
-				{
-					minDist = 0f;
-					return true;
-				}
-
-				minDist = Math.Min( minDist, MathF.Sqrt( distSq ) - circle.Radius );
-			}
-
-			return false;
-		}
-
-		var filteredFeatures = new List<WorldGenFeature>();
-
-		while ( spawned < maxSpawned && attempts++ < maxAttempts )
-		{
-			var pos2d = (Vector2)origin + (uniform ? Random.VectorInCircle( radius - minRadius ) : Random.Gaussian2D( 0f, radius / 3f ));
-
-			if ( AnyBlocking( new Circle( pos2d, minRadius ), out float minDist ) ) continue;
-
-			var localPos = Renderer.WorldToVoxelCoords( pos2d );
-			var sample = SampleHeightmap( localPos.x, localPos.z );
-
-			localPos.y = sample.Height;
-
-			filteredFeatures.Clear();
-
-			foreach ( var feature in features )
-			{
-				if ( feature.Radius >= minDist ) continue;
-				if ( feature.HeightRange.x > sample.Height || feature.HeightRange.y < sample.Height ) continue;
-				if ( feature.TerrainRange.x > sample.Terrain || feature.TerrainRange.y < sample.Terrain ) continue;
-
-				filteredFeatures.Add( feature );
-			}
-
-			var selected = GetRandomWeighted( filteredFeatures );
-
-			if ( selected is null ) continue;
-
-			attempts = 0;
-			spawned++;
-
-			blocked.Add( new Circle( pos2d, selected.Radius ) );
-
-			selected.Spawn?.Invoke( this, new Vector3( pos2d.x, pos2d.y, sample.Height * 16f ) );
-		}
-	}
-
-	public Prop? SpawnProp( Model model, Vector3 position, float scale = 1f )
-	{
-		var go = new GameObject( true, model.ResourceName )
-		{
-			Transform = {
-				Position = position.SnapToGrid( 4f ),
-				Rotation = Rotation.FromYaw( Random.Next( 0, 4 ) * 90f ),
-				Scale = scale
-			}
-		};
-
-		_spawnedObjects.Add( go );
-
-		var prop = go.Components.Create<Prop>();
-
-		prop.IsStatic = true;
-		prop.Model = model;
-
-		go.Flags |= GameObjectFlags.NotSaved;
-
-		return prop;
-	}
-
-	public GameObject? SpawnSpawnPoint( Vector3 position )
-	{
-		var go = new GameObject( true );
-		go.Name = "Spawn Point";
-		go.Transform.Position = position;
-		go.Components.Create<SpawnPoint>();
-		go.Flags |= GameObjectFlags.NotSaved;
-		_spawnedObjects.Add( go );
-
-		if ( !Scene.IsEditor )
-		{
-			go.NetworkSpawn( null );
-		}
-
-		return go;
-	}
-
-	public GameObject? SpawnPrefab( PrefabFile prefab, Vector3 position )
-	{
-		// Sample random even if we don't spawn, to keep things deterministic
-
-		var yaw = Rotation.FromYaw( Random.Next( 0, 4 ) * 90f );
-		var isNetworked = Game.IsPlaying && prefab.RootObject["NetworkMode"]?.GetValue<int>() == (int)NetworkMode.Object;
-
-		if ( IsProxy && isNetworked )
-		{
-			return null;
-		}
-
-		var go = GameObject.Clone( prefab, new Transform( position.SnapToGrid( 4f ), yaw ) );
-
-		_spawnedObjects.Add( go );
-
-		go.Flags |= GameObjectFlags.NotSaved;
-
-		if ( isNetworked && !Scene.IsEditor )
-		{
-			go.NetworkSpawn( null );
-		}
-
-		return go;
-	}
-
-	public void SpawnOreSeam( Block block, Vector3 position, RangedFloat sizeRange, RangedFloat depthRange )
-	{
-
-	}
+	public Heightmap Heightmap { get; private set; } = null!;
 }
 
 [GameResource( "World Gen Parameters", "worldgen", "Parameters for the voxel world generator.", Icon = "public" )]
@@ -283,27 +112,6 @@ public sealed class WorldGenParameters : GameResource
 
 	// TODO: move these to biomes
 	public List<WorldGenFeature> Features { get; set; } = new();
-}
-
-[GameResource( "World Gen Feature", "feature", "Something that can be spawned by World Gen.", Icon = "home" )]
-public sealed class WorldGenFeature : GameResource
-{
-	public RangedFloat HeightRange { get; set; }
-
-	[JsonPropertyName( "BiomeRange" )]
-	public RangedFloat TerrainRange { get; set; }
-
-	/// <summary>
-	/// If true, this spawns in solid ground.
-	/// </summary>
-	public bool SpawnsInGround { get; set; }
-
-	public float Radius { get; set; } = 512f;
-	public float Weight { get; set; } = 1f;
-
-	public delegate void SpawnDelegate( VoxelWorldGen worldGen, Vector3 origin );
-
-	public SpawnDelegate? Spawn { get; set; }
 }
 
 public record struct HeightmapSample( int Height, float Terrain );
