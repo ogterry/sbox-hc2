@@ -110,19 +110,68 @@ public class Inventory : Component, ISaveData
 	/// <returns></returns>
 	public bool TryGiveItem( Item item )
 	{
-		if ( !Container.Inventory.IsValid() )
-			return false;
+		var oldContainer = item.Container;
+		oldContainer?.TakeItem( item );
 
-		if ( Container.CanGiveItem( item ) )
+		var amount = item.Amount;
+
+		// Check both containers for existing entries first, then sweep for empty slots
+
+		foreach ( var i in Container.Items )
 		{
-			Container.TryGiveItem( item );
-			return true;
+			if ( i is null ) continue;
+			if ( i.Resource == item.Resource )
+			{
+				if ( i.Amount <= 0 ) continue;
+
+				if ( i.Amount + amount <= i.Resource.MaxStack )
+				{
+					i.Amount += amount;
+					return true;
+				}
+
+				amount -= i.Resource.MaxStack - i.Amount;
+				i.Amount = i.Resource.MaxStack;
+			}
+
+			if ( amount <= 0 )
+				return true;
 		}
 
-		if ( !OverflowContainer.IsValid() || !OverflowContainer.CanGiveItem( item ) )
-			return false;
+		if ( OverflowContainer.IsValid() )
+		{
+			foreach ( var i in OverflowContainer.Items )
+			{
+				if ( i is null ) continue;
+				if ( i.Resource == item.Resource )
+				{
+					if ( i.Amount <= 0 ) continue;
 
-		OverflowContainer.TryGiveItem( item );
+					if ( i.Amount + amount <= i.Resource.MaxStack )
+					{
+						i.Amount += amount;
+						return true;
+					}
+
+					amount -= i.Resource.MaxStack - i.Amount;
+					i.Amount = i.Resource.MaxStack;
+				}
+
+				if ( amount <= 0 )
+					return true;
+			}
+		}
+
+		// No existing entries, sweep for empty slots
+
+		if ( !Container.TryGiveItem( item ) )
+		{
+			if ( !OverflowContainer.IsValid() || !OverflowContainer.CanGiveItem( item ) )
+				return false;
+
+			OverflowContainer.TryGiveItem( item );
+		}
+
 		return true;
 	}
 
@@ -292,14 +341,7 @@ public class Inventory : Component, ISaveData
 	/// <param name="item">This item must already exist on the host.</param>
 	public void GiveItem( Item item )
 	{
-		var oldContainer = item.Container;
-		oldContainer?.TakeItem( item );
-
-		if ( Container.TryGiveItem( item ) )
-			return;
-
-		if ( OverflowContainer.IsValid() )
-			OverflowContainer.TryGiveItem( item );
+		TryGiveItem( item );
 	}
 
 	/// <summary>
