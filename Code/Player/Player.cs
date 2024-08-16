@@ -376,7 +376,7 @@ public partial class Player : Component, IDamage,
 		if ( IsProxy )
 			return;
 
-		FallbackCarriable.GameObject.Enabled = true;
+		RemoveMainHand();
 		Inventory.OverflowContainer = Hotbar.Container;
 		Hotbar.OverflowContainer = Inventory.Container;
 
