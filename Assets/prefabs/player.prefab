@@ -93,7 +93,7 @@
         "Bounciness": 0.3,
         "GroundAngle": 45,
         "Height": 64,
-        "IgnoreLayers": "pickup",
+        "IgnoreLayers": "pickup,debris",
         "Radius": 16,
         "StepHeight": 18,
         "UseCollisionRules": false
@@ -119,7 +119,8 @@
           "_type": "gameobject",
           "prefab": "prefabs/damage/dmgnumber.prefab"
         },
-        "MaxHealth": 100
+        "MaxHealth": 100,
+        "RegenRate": 0
       },
       {
         "__type": "Sandbox.BoxCollider",
