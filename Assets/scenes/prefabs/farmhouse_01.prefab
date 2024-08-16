@@ -570,24 +570,6 @@
         ]
       },
       {
-        "__guid": "9a3a5226-0ec6-403c-8509-b97666ffa908",
-        "Flags": 0,
-        "Name": "pine_tree",
-        "Position": "-289.3263,-337.3264,-56.8206",
-        "Enabled": true,
-        "Components": [
-          {
-            "__type": "Sandbox.Prop",
-            "__guid": "da2df248-7aad-4ae5-ad01-32543f6ad44f",
-            "BodyGroups": 18446744073709551615,
-            "Health": 0,
-            "IsStatic": true,
-            "Model": "models/props/pine_tree/pine_tree.vmdl",
-            "Tint": "1,1,1,1"
-          }
-        ]
-      },
-      {
         "__guid": "0e6ab5af-ec62-49e0-a251-eba85767a845",
         "Flags": 0,
         "Name": "rustedtanker",
@@ -605,6 +587,16 @@
             "Tint": "1,1,1,1"
           }
         ]
+      },
+      {
+        "__guid": "4bb205d7-60af-47d5-8804-1a4aed63a5cc",
+        "Flags": 0,
+        "Name": "node_tree",
+        "Position": "-248,-284,-4",
+        "Enabled": true,
+        "NetworkMode": 1,
+        "__Prefab": "prefabs/resources/node_tree.prefab",
+        "__PrefabVariables": {}
       }
     ],
     "__variables": []
