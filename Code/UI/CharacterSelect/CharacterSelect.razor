@@ -21,25 +21,25 @@
             {
                 <div class="column gap with-padding-vertical">
 
-                @foreach ( var character in Characters )
-                {
-                    <div class="button" onclick=@(() => SelectCharacter(character))>@character.Name</div>
-                }
+                    @foreach (var character in Characters)
+                    {
+                        <div class="button" onclick=@(() => SelectCharacter(character))>@character.Name</div>
+                    }
                 </div>
             }
 
-            @if ( !IsModal )
+            @if (!IsModal)
             {
                 <a class="button" href="/">Return</a>
             }
         </div>
     </div>
 
-    @if ( CharacterSave.Current is null )
+    @if (CharacterSave.Current is null)
     {
         <div class="column gap" style="width: 256px;">
-              <TextEntry class="text-entry" Value:bind=@NewCharacterName />
-              <div class="button" onclick="@CreateNewCharacter">Create Character</div>
+            <TextEntry class="text-entry" Value:bind=@NewCharacterName />
+            <div class="button" onclick="@CreateNewCharacter">Create Character</div>
         </div>
     }
 </root>
@@ -56,17 +56,23 @@
 
     void SelectCharacter(CharacterSave character)
     {
-        CharacterSave.Current = character;
-        OnSelect?.Invoke();
+        if (IsPause)
+        {
+            Player.Local?.Kill();
+            CharacterSave.Current = character;
+        }
+        else
+        {
+            CharacterSave.Current = character;
+            OnSelect?.Invoke();
+        }
     }
 
     protected override void OnAfterTreeRender(bool firstTime)
     {
         base.OnAfterTreeRender(firstTime);
 
-        var elementName = FindRootPanel().Children.FirstOrDefault().ElementName;
-        IsModal = elementName == "characterselectmodal";
-        IsPause = elementName == "pausemenu";
+        IsPause = MenuRoot.Instance.IsPauseMenu;
 
         var chars = CharacterSave.GetAll();
         if (chars.Count != Characters.Count)

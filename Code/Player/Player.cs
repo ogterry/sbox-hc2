@@ -442,8 +442,8 @@ public partial class Player : Component, IDamage,
 		Kill();
 	}
 
-	[Authority( NetPermission.HostOnly )]
-	private void Kill()
+	[Authority( NetPermission.HostOnly | NetPermission.OwnerOnly )]
+	public void Kill()
 	{
 		BroadcastKillEffect();
 		GameObject.Destroy();
