@@ -1,0 +1,29 @@
+NotificationPanel
+{
+    position: relative;
+    flex-direction: column;
+    font-family: Glegoo;
+    font-size: 20px;
+    align-items: flex-end;
+
+    NotificationPanelEntry
+    {
+        position: relative;
+        left: 0px;
+        opacity: 1;
+        transition: all 0.2s;
+
+        &:intro
+        {
+            left: -100px;
+            opacity: 0;
+        }
+
+        &:outro
+        {
+            left: 100px;
+            opacity: 0;
+            transition: all 0.4s;
+        }
+    }
+}

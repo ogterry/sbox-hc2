@@ -186,6 +186,9 @@ public sealed class WorldPersistence : Component
 			{
 				worldGen.Randomize();
 			}
+
+			LoadingScreen.IsVisible = false;
+
 			return;
 		}
 
@@ -228,6 +231,8 @@ public sealed class WorldPersistence : Component
 		Log.Info( $"Received voxel world information from the host:\n\tseed:{seed}\n\tchunks:{states.Count()}\n\tsize:{size}" );
 
 		persistence.LoadWorldState( new( version, seed, parametersPath, size, states.AsReadOnly() ) );
+
+		LoadingScreen.IsVisible = false;
 	}
 
 	protected override void OnStart()
@@ -237,7 +242,7 @@ public sealed class WorldPersistence : Component
 
 	[HostSync]
 	public string WorldName { get; set; } = "My World";
-	[HostSync] 
+	[HostSync]
 	public Guid CurrentSave { get; set; }
 
 	public static List<WorldSave> GetWorlds()
@@ -321,7 +326,7 @@ public sealed class WorldPersistence : Component
 		foreach ( var obj in save.ObjectState.Objects )
 		{
 			var go = obj.CreateGameObject();
-			go.NetworkSpawn();
+			go.NetworkSpawn( null );
 		}
 	}
 
@@ -434,7 +439,7 @@ public sealed class WorldPersistence : Component
 		}
 
 		world.MeshChunks();
-		
+
 		// Spawn props afterwards
 		worldGen.SpawnProps();
 	}
@@ -461,7 +466,7 @@ public sealed class WorldPersistence : Component
 		if ( lower < 0x80 ) return lower;
 
 		var upper = reader.Read<byte>();
-		return (ushort) ((lower & 0x7f) | (upper << 7));
+		return (ushort)((lower & 0x7f) | (upper << 7));
 	}
 
 	internal ChunkState SerializeChunk( Chunk chunk )
@@ -480,26 +485,26 @@ public sealed class WorldPersistence : Component
 			var count = 0;
 
 			for ( var x = 0; x < Constants.ChunkSize; ++x )
-			for ( var z = 0; z < Constants.ChunkSize; ++z )
-			for ( var y = 0; y < Constants.ChunkSize; ++y )
-			{
-				var next = voxels[Chunk.GetAccessLocal( x, y, z )];
+				for ( var z = 0; z < Constants.ChunkSize; ++z )
+					for ( var y = 0; y < Constants.ChunkSize; ++y )
+					{
+						var next = voxels[Chunk.GetAccessLocal( x, y, z )];
 
-				if ( next != prev )
-				{
-					// Count will always be < 32 * 32 * 32 = (32,768)
+						if ( next != prev )
+						{
+							// Count will always be < 32 * 32 * 32 = (32,768)
 
-					WriteVarUshort( ref writer, (ushort)count );
-					writer.Write( next );
+							WriteVarUshort( ref writer, (ushort)count );
+							writer.Write( next );
 
-					prev = next;
-					count = 1;
-				}
-				else
-				{
-					count++;
-				}
-			}
+							prev = next;
+							count = 1;
+						}
+						else
+						{
+							count++;
+						}
+					}
 
 			return new ChunkState(
 				new Vector3Int( chunk.ChunkPosX, chunk.ChunkPosY, chunk.ChunkPosZ ),

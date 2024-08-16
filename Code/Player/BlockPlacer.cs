@@ -27,7 +27,7 @@ public sealed class BlockPlacer : Carriable
         base.OnUpdate();
 
         var tr = Scene.Trace.Ray( Scene.Camera.Transform.Position, Scene.Camera.Transform.Position + Scene.Camera.Transform.Rotation.Forward * 500 )
-            .WithoutTags( "player", "trigger", "mob" )
+            .WithoutTags( "player", "trigger", "mob", "worlditem" )
             .Run();
 
         if ( tr.Hit )
@@ -113,7 +113,7 @@ public sealed class BlockPlacer : Carriable
         if ( !Sandbox.Networking.IsHost )
             return;
 
-        var world = Scene.GetAllComponents<VoxelNetworking>().First();
+        var world = Scene.GetAllComponents<VoxelNetworking>().FirstOrDefault();
         if ( world is null )
             return;
 
@@ -123,20 +123,33 @@ public sealed class BlockPlacer : Carriable
 
         world.Modify( new BuildModification( block, voxelPos - (brushSize - 1), voxelPos + (brushSize - 1) ) );
 
+        var totalBlocks = brushSize;
+        if ( brushSize > 1 )
+        {
+            totalBlocks = (int)MathF.Pow( 1 + (brushSize * 2), 3 );
+        }
+
         var caller = Rpc.Caller;
         using ( Rpc.FilterInclude( caller ) )
         {
-            UseBlock( slot );
+            UseBlock( slot, totalBlocks );
         }
     }
 
     [Broadcast( NetPermission.HostOnly )]
-    void UseBlock( int slot )
+    void UseBlock( int slot, int amount )
     {
         if ( Player.Hotbar.GetItemInSlot( slot ) is Item item )
         {
             if ( item.Amount <= 0 ) return;
-            item.Amount--;
+
+            if ( item.Amount < amount )
+            {
+                Player.Hotbar.TakeItem( Item.Create( item.Resource, amount ) );
+                return;
+            }
+
+            item.Amount -= amount;
 
             if ( item.Amount <= 0 )
             {

@@ -384,20 +384,6 @@ public partial class Player : Component, IDamage,
 		{
 			CharacterSave.Current.Load( this );
 			CharacterName = CharacterSave.Current.Name;
-
-			// Give them some starting weapons if they didn't have them. We can remove this later
-			var smgItem = Item.Create( "weapon_smg" );
-			if ( !Hotbar.HasItem( smgItem ) )
-			{
-				Log.Info( "giving smg" );
-				Hotbar.GiveItem( smgItem );
-			}
-
-			var swordItem = Item.Create( "weapon_sword" );
-			if ( !Hotbar.HasItem( swordItem ) )
-			{
-				Hotbar.GiveItem( swordItem );
-			}
 		}
 
 		// Select first slot
@@ -531,6 +517,7 @@ public partial class Player : Component, IDamage,
 
 			if ( Hotbar.SelectedItem.Durability <= 0 )
 			{
+				DestroyMainHand();
 				Hotbar.TakeItemSlot( Hotbar.SelectedSlot );
 			}
 		}

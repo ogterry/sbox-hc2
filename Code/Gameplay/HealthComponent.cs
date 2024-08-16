@@ -56,13 +56,23 @@ public sealed class HealthComponent : Component
 {
 	[HostSync, Property, JsonIgnore, ReadOnly] public float Health { get; set; } = 100f;
 	[Property] public float MaxHealth { get; set; } = 100f;
+	[Property] public float RegenRate { get; set; } = 0f;
 	[Property] public GameObject DamageEffectPrefab { get; set; }
 
 	public DamageInstance LastDamage { get; private set; }
+	TimeSince timeSinceLastDamage = 0;
 
 	protected override void OnStart()
 	{
 		Health = MaxHealth;
+	}
+
+	protected override void OnFixedUpdate()
+	{
+		if ( timeSinceLastDamage > 4f && RegenRate > 0 && Health < MaxHealth )
+		{
+			Health += RegenRate * Time.Delta;
+		}
 	}
 
 	[Broadcast]
@@ -195,6 +205,7 @@ public sealed class HealthComponent : Component
 
 		Health -= damage.Damage;
 		LastDamage = damage;
+		timeSinceLastDamage = 0;
 
 		if ( Health <= 0 )
 		{

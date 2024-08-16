@@ -1,0 +1,618 @@
+{
+  "RootObject": {
+    "__guid": "38aa5c93-dc8e-4c0c-826f-b33727041277",
+    "Flags": 0,
+    "Name": "farmhouse_01",
+    "Enabled": true,
+    "Children": [
+      {
+        "__guid": "5e693029-5f11-4c93-8d0d-9b086782dc02",
+        "Flags": 0,
+        "Name": "watertank",
+        "Position": "-93.32629,-589.3264,-4.820709",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.Prop",
+            "__guid": "35f92337-2978-4a2f-874b-321adf8f7d04",
+            "BodyGroups": 18446744073709551615,
+            "Health": 0,
+            "IsStatic": false,
+            "Model": "models/props/watertank/watertank.vmdl",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "93764c5c-5b8c-45b0-9e35-222e79c179ff",
+        "Flags": 0,
+        "Name": "bothy",
+        "Position": "-333.3263,-165.3264,-20.8206",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "b17ee4da-5a8b-4742-911f-818c2e066209",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/props/bothy/bothy.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "3cffed55-02da-4390-a012-d173e9a8762d",
+        "Flags": 0,
+        "Name": "bothy (1)",
+        "Position": "-333.3263,386.6736,-20.8206",
+        "Rotation": "0,0,-0.7071067,0.7071068",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "d862d644-71f6-494b-8c20-644e118681fa",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/props/bothy/bothy.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "8a130a91-09e7-47f2-9805-2f7db6ef41ff",
+        "Flags": 0,
+        "Name": "cobblestone_wall",
+        "Position": "-325.3263,-157.3264,-4.820709",
+        "Rotation": "0,0,-0.7071067,0.7071068",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.Prop",
+            "__guid": "d15f6d91-011c-4709-9701-7d72b2d77ad5",
+            "BodyGroups": 18446744073709551615,
+            "Health": 0,
+            "IsStatic": false,
+            "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "83ba30ce-06e5-4b0d-a8f1-8697a39c4c6e",
+        "Flags": 0,
+        "Name": "cobblestone_wall (1)",
+        "Position": "-325.3263,746.6736,-4.820709",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.Prop",
+            "__guid": "61725f6b-618f-4561-bb90-80c0b018a5b9",
+            "BodyGroups": 18446744073709551615,
+            "Health": 0,
+            "IsStatic": false,
+            "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "45654ed8-8b96-4691-a97b-030c2ad23fb5",
+        "Flags": 0,
+        "Name": "cobblestone_wall (2)",
+        "Position": "-589.3263,746.6736,-4.820709",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.Prop",
+            "__guid": "c950a59a-4ab1-484e-bd97-38673b307cc1",
+            "BodyGroups": 18446744073709551615,
+            "Health": 0,
+            "IsStatic": false,
+            "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "1d1f9ed2-1562-4bcc-aec3-a707f79f941d",
+        "Flags": 0,
+        "Name": "cobblestone_wall (7)",
+        "Position": "90.67371,746.6736,-4.820709",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.Prop",
+            "__guid": "b50b0f46-1842-454c-adc2-f8103e8c3153",
+            "BodyGroups": 18446744073709551615,
+            "Health": 0,
+            "IsStatic": false,
+            "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "303a6d85-f1ab-42b2-8570-309015ca2721",
+        "Flags": 0,
+        "Name": "cobblestone_wall (8)",
+        "Position": "226.6737,498.6736,-4.820801",
+        "Rotation": "0,0,-0.7071067,0.7071068",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.Prop",
+            "__guid": "6072b458-d653-4812-9e69-901cda5ff38b",
+            "BodyGroups": 18446744073709551615,
+            "Health": 0,
+            "IsStatic": false,
+            "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "d5eb9044-e771-48fd-98bb-849b6423328d",
+        "Flags": 0,
+        "Name": "cobblestone_wall (11)",
+        "Position": "226.6737,250.6736,-4.820801",
+        "Rotation": "0,0,-0.7071067,0.7071068",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.Prop",
+            "__guid": "2c2f2190-9479-4948-82bb-079422f84bbc",
+            "BodyGroups": 18446744073709551615,
+            "Health": 0,
+            "IsStatic": false,
+            "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "5121a23d-0881-4d6d-8a6d-c1bf14bcda81",
+        "Flags": 0,
+        "Name": "cobblestone_wall (13)",
+        "Position": "226.6737,-29.3264,-4.820801",
+        "Rotation": "0,0,-0.7071067,0.7071068",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.Prop",
+            "__guid": "ef2cd6cd-0a08-449a-b6dc-310e7c2f4cf2",
+            "BodyGroups": 18446744073709551615,
+            "Health": 0,
+            "IsStatic": false,
+            "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "b592e961-c900-4cc0-97e1-bb9554d8c717",
+        "Flags": 0,
+        "Name": "cobblestone_wall (3)",
+        "Position": "-717.3263,746.6736,-4.820709",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.Prop",
+            "__guid": "c83e761d-a8a2-4754-8a2a-28696c396b16",
+            "BodyGroups": 18446744073709551615,
+            "Health": 0,
+            "IsStatic": false,
+            "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "f7fe2cdf-8084-4c8a-bfc3-6b808bc24e52",
+        "Flags": 0,
+        "Name": "cobblestone_wall (6)",
+        "Position": "-37.32629,746.6736,-4.820709",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.Prop",
+            "__guid": "12d9ba11-eece-44fa-9bfb-d6d70d0319ab",
+            "BodyGroups": 18446744073709551615,
+            "Health": 0,
+            "IsStatic": false,
+            "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "8a5193d8-bc25-4a1d-b747-94bf882b45eb",
+        "Flags": 0,
+        "Name": "cobblestone_wall (9)",
+        "Position": "226.6737,626.6736,-4.820801",
+        "Rotation": "0,0,-0.7071067,0.7071068",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.Prop",
+            "__guid": "087725a6-db63-45f0-a89f-4686e9538675",
+            "BodyGroups": 18446744073709551615,
+            "Health": 0,
+            "IsStatic": false,
+            "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "f1cdf903-db8c-491a-a2c4-fa7ebff1ae55",
+        "Flags": 0,
+        "Name": "cobblestone_wall (10)",
+        "Position": "226.6737,378.6736,-4.820801",
+        "Rotation": "0,0,-0.7071067,0.7071068",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.Prop",
+            "__guid": "c5c758b1-708c-4744-ba20-3210a87a2180",
+            "BodyGroups": 18446744073709551615,
+            "Health": 0,
+            "IsStatic": false,
+            "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "48cc8b77-2a02-48ba-b53f-6d7770a9693d",
+        "Flags": 0,
+        "Name": "cobblestone_wall (12)",
+        "Position": "226.6737,98.6736,-4.820801",
+        "Rotation": "0,0,-0.7071067,0.7071068",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.Prop",
+            "__guid": "c62398dd-536e-4d44-b812-601da3d8f56f",
+            "BodyGroups": 18446744073709551615,
+            "Health": 0,
+            "IsStatic": false,
+            "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "51a3bdfb-01f0-4be2-8d7d-820538ee3f0a",
+        "Flags": 0,
+        "Name": "cobblestone_wall (4)",
+        "Position": "-701.3263,762.6736,-4.820709",
+        "Rotation": "0,0,-1,0.0000001947072",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.Prop",
+            "__guid": "bec51e46-2f04-40ca-9fc3-ea89cb76cb85",
+            "BodyGroups": 18446744073709551615,
+            "Health": 0,
+            "IsStatic": false,
+            "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "a0cc332a-5b41-42b2-987a-17f84e488b69",
+        "Flags": 0,
+        "Name": "cobblestone_wall (5)",
+        "Position": "-21.32629,762.6736,-4.820709",
+        "Rotation": "0,0,-1,0.0000001947072",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.Prop",
+            "__guid": "9cba1d3a-ad2b-4e24-9973-6cbe531e667d",
+            "BodyGroups": 18446744073709551615,
+            "Health": 0,
+            "IsStatic": false,
+            "Model": "models/props/cobblestone/cobblestone_wall.vmdl",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "4416aa7b-af53-4729-9c2e-a24b3d883b5e",
+        "Flags": 0,
+        "Name": "rustedpickup",
+        "Position": "-629.3264,218.6736,-4.820602",
+        "Rotation": "0,0,0.1305262,0.9914449",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.Prop",
+            "__guid": "530f6c4a-25e8-4249-976b-6fc240038899",
+            "BodyGroups": 18446744073709551615,
+            "Health": 0,
+            "IsStatic": false,
+            "Model": "models/props/vehicles/rustedpickup.vmdl",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "5f98261b-51db-4975-8995-bdd7d25a758e",
+        "Flags": 0,
+        "Name": "rock_scatter_01",
+        "Position": "-369.3263,-193.3264,-0.8206024",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "ef807e94-c6e9-465d-a6e9-1b8dca6a1211",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/props/rocks/rock_scatter_01.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "9371b160-1cfc-4c6f-bc12-c4d48c497bfb",
+        "Flags": 0,
+        "Name": "rock_scatter_01 (4)",
+        "Position": "-81.3263,-493.3264,-0.8204956",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "83dc071f-f875-491e-8228-990a47d920a6",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/props/rocks/rock_scatter_01.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "71a98731-9f02-4eb7-8e90-2e91dc29f4f1",
+        "Flags": 0,
+        "Name": "rock_scatter_01 (5)",
+        "Position": "54.67371,-481.3264,-0.8204956",
+        "Rotation": "0,0,-0.7071067,0.7071068",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "50b95c6f-7884-47a8-a196-c580066447c8",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/props/rocks/rock_scatter_01.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "7818d39c-fb29-4cab-9dd3-65119e5c335a",
+        "Flags": 0,
+        "Name": "rock_scatter_01 (6)",
+        "Position": "214.6737,-345.3264,-0.8204956",
+        "Rotation": "0,0,-0.7071067,0.7071068",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "a6bdd817-33f0-4823-ae49-c457ff8c39c0",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/props/rocks/rock_scatter_01.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "fde45fb7-8811-4475-a4cc-8ff841708b0f",
+        "Flags": 0,
+        "Name": "rock_scatter_01 (7)",
+        "Position": "362.6737,-729.3264,-0.8204956",
+        "Rotation": "0,0,-0.7071067,0.7071068",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "10ebbc98-b320-408f-ae0e-527e15b92da0",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/props/rocks/rock_scatter_01.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "9251d815-20cb-4d47-9c03-18cb84abaf3a",
+        "Flags": 0,
+        "Name": "rock_scatter_01 (2)",
+        "Position": "-161.3263,78.6736,-0.8206024",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "3bd56071-2e1e-475f-a931-4b540633c558",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/props/rocks/rock_scatter_01.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "905c9a58-cb41-418b-88be-9df6d5fff109",
+        "Flags": 0,
+        "Name": "rock_scatter_01 (3)",
+        "Position": "-93.32629,-117.3264,-0.8206024",
+        "Rotation": "0,0,-0.7071068,0.7071068",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "8e415777-b2ce-4798-9646-0aa428587a4a",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/props/rocks/rock_scatter_01.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "553df2ff-daf4-464c-9dfd-530e2bc4105b",
+        "Flags": 0,
+        "Name": "rock_scatter_01 (1)",
+        "Position": "-265.3263,-209.3264,-0.8206024",
+        "Rotation": "0,0,0.7071067,0.7071068",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "0e6459ad-460d-44a8-adb8-c3753f389285",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/props/rocks/rock_scatter_01.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "d1bd0992-1e28-4ea5-b559-1980f8c4d25b",
+        "Flags": 0,
+        "Name": "rock_scatter_02",
+        "Position": "-329.3263,-285.3264,-0.8206024",
+        "Rotation": "-0.008102794,-0.008102668,-0.7070603,0.7070604",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "54250bdb-68aa-4198-9bba-43e87f5c27ef",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/props/rocks/rock_scatter_02.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "24c6c314-dc95-46b3-a8da-d41602c93b71",
+        "Flags": 0,
+        "Name": "rock_scatter_02 (1)",
+        "Position": "-341.3263,398.6736,-0.8206024",
+        "Rotation": "-0.008102794,-0.008102668,-0.7070603,0.7070604",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "ddad6707-2889-4ce0-8aa1-b018d78790ed",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/props/rocks/rock_scatter_02.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "dcb1cbe3-eabb-417d-9014-aad444d22e84",
+        "Flags": 0,
+        "Name": "rock_scatter_02 (3)",
+        "Position": "-333.3263,738.6736,-0.8206024",
+        "Rotation": "-0.00000008987263,-0.01145899,0,0.9999343",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "9b447e3a-05aa-4dce-86cd-f1cc0e6df86a",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/props/rocks/rock_scatter_02.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "b641cd84-110f-4cd5-9478-885f62eef0d9",
+        "Flags": 0,
+        "Name": "rock_scatter_02 (4)",
+        "Position": "-445.3263,738.6736,-0.8206024",
+        "Rotation": "-0.00000008987263,-0.01145899,0,0.9999343",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "9e237e64-5a43-46d0-8536-92750fc9d17e",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/props/rocks/rock_scatter_02.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "77eae1da-19cc-4dde-8793-181b0026d159",
+        "Flags": 0,
+        "Name": "rock_scatter_02 (2)",
+        "Position": "-33.32629,386.6736,-0.8204956",
+        "Rotation": "-0.00000008987263,-0.01145899,0,0.9999343",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "e81aaf00-5394-4e1a-8f7c-d0b6b461982d",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/props/rocks/rock_scatter_02.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "9a3a5226-0ec6-403c-8509-b97666ffa908",
+        "Flags": 0,
+        "Name": "pine_tree",
+        "Position": "-289.3263,-337.3264,-56.8206",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.Prop",
+            "__guid": "da2df248-7aad-4ae5-ad01-32543f6ad44f",
+            "BodyGroups": 18446744073709551615,
+            "Health": 0,
+            "IsStatic": false,
+            "Model": "models/props/pine_tree/pine_tree.vmdl",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
+        "__guid": "0e6ab5af-ec62-49e0-a251-eba85767a845",
+        "Flags": 0,
+        "Name": "rustedtanker",
+        "Position": "130.6737,-349.3264,-0.8206024",
+        "Rotation": "0,0,-0.4999999,0.8660254",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.Prop",
+            "__guid": "fcd41aed-f01c-4417-9ae7-e857d00efe3e",
+            "BodyGroups": 18446744073709551615,
+            "Health": 0,
+            "IsStatic": false,
+            "Model": "models/props/vehicles/rustedtanker.vmdl",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

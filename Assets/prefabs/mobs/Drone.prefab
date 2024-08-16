@@ -118,8 +118,8 @@
                         "Type": "property",
                         "ParentId": 2,
                         "Properties": {
-                          "_name": "AimTarget",
-                          "_type": "HC2.Mobs.Mob"
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "AimTarget"
                         },
                         "UserData": {
                           "Visible": false
@@ -130,8 +130,8 @@
                         "Type": "property",
                         "ParentId": 10,
                         "Properties": {
-                          "_name": "Transform",
-                          "_type": "Sandbox.Component"
+                          "_type": "Sandbox.Component",
+                          "_name": "Transform"
                         },
                         "UserData": {
                           "Visible": false
@@ -142,8 +142,8 @@
                         "Type": "property",
                         "ParentId": 38,
                         "Properties": {
-                          "_name": "World",
-                          "_type": "Sandbox.GameTransform"
+                          "_type": "Sandbox.GameTransform",
+                          "_name": "World"
                         },
                         "UserData": {
                           "Visible": false
@@ -292,8 +292,8 @@
                         "Id": 4,
                         "Type": "property",
                         "Properties": {
-                          "_name": "Transform",
-                          "_type": "Sandbox.GameObject"
+                          "_type": "Sandbox.GameObject",
+                          "_name": "Transform"
                         },
                         "UserData": {
                           "Position": "-32,64"
@@ -304,8 +304,8 @@
                         "Type": "property",
                         "ParentId": 4,
                         "Properties": {
-                          "_name": "Position",
-                          "_type": "Sandbox.GameTransform"
+                          "_type": "Sandbox.GameTransform",
+                          "_name": "Position"
                         }
                       },
                       {
@@ -334,9 +334,9 @@
                         "Id": 15,
                         "Type": "call",
                         "Properties": {
-                          "_name": "SetMoveTarget",
+                          "_isStatic": false,
                           "_type": "HC2.Mobs.Mob",
-                          "_isStatic": false
+                          "_name": "SetMoveTarget"
                         },
                         "UserData": {
                           "Position": "576,-128"
@@ -453,9 +453,9 @@
                         "Id": 5,
                         "Type": "call",
                         "Properties": {
-                          "_name": "Distance",
+                          "_isStatic": false,
                           "_type": "Vector3",
-                          "_isStatic": false
+                          "_name": "Distance"
                         },
                         "UserData": {
                           "Position": "96,160"
@@ -466,8 +466,8 @@
                         "Type": "property",
                         "ParentId": 3,
                         "Properties": {
-                          "_name": "AimTarget",
-                          "_type": "HC2.Mobs.Mob"
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "AimTarget"
                         },
                         "UserData": {
                           "Visible": false
@@ -478,8 +478,8 @@
                         "Type": "property",
                         "ParentId": 16,
                         "Properties": {
-                          "_name": "GameObject",
-                          "_type": "Sandbox.Component"
+                          "_type": "Sandbox.Component",
+                          "_name": "GameObject"
                         },
                         "UserData": {
                           "Visible": false
@@ -490,8 +490,8 @@
                         "Type": "property",
                         "ParentId": 35,
                         "Properties": {
-                          "_name": "Transform",
-                          "_type": "Sandbox.GameObject"
+                          "_type": "Sandbox.GameObject",
+                          "_name": "Transform"
                         },
                         "UserData": {
                           "Visible": false
@@ -502,8 +502,8 @@
                         "Type": "property",
                         "ParentId": 43,
                         "Properties": {
-                          "_name": "World",
-                          "_type": "Sandbox.GameTransform"
+                          "_type": "Sandbox.GameTransform",
+                          "_name": "World"
                         },
                         "UserData": {
                           "Visible": false
@@ -514,8 +514,8 @@
                         "Type": "property",
                         "ParentId": 44,
                         "Properties": {
-                          "_name": "Position",
-                          "_type": "Transform"
+                          "_type": "Transform",
+                          "_name": "Position"
                         }
                       },
                       {
@@ -536,8 +536,8 @@
                         "Type": "property",
                         "ParentId": 57,
                         "Properties": {
-                          "_name": "Transform",
-                          "_type": "Sandbox.GameObject"
+                          "_type": "Sandbox.GameObject",
+                          "_name": "Transform"
                         },
                         "UserData": {
                           "Visible": false
@@ -548,8 +548,8 @@
                         "Type": "property",
                         "ParentId": 60,
                         "Properties": {
-                          "_name": "World",
-                          "_type": "Sandbox.GameTransform"
+                          "_type": "Sandbox.GameTransform",
+                          "_name": "World"
                         },
                         "UserData": {
                           "Visible": false
@@ -560,8 +560,8 @@
                         "Type": "property",
                         "ParentId": 61,
                         "Properties": {
-                          "_name": "Position",
-                          "_type": "Transform"
+                          "_type": "Transform",
+                          "_name": "Position"
                         }
                       },
                       {
@@ -807,9 +807,9 @@
                         "Id": 5,
                         "Type": "call",
                         "Properties": {
-                          "_name": "SetAimTarget",
+                          "_isStatic": false,
                           "_type": "HC2.Mobs.Mob",
-                          "_isStatic": false
+                          "_name": "SetAimTarget"
                         },
                         "UserData": {
                           "Position": "192,176"
@@ -819,9 +819,9 @@
                         "Id": 6,
                         "Type": "call",
                         "Properties": {
-                          "_name": "CanSeeAnyTarget",
+                          "_isStatic": false,
                           "_type": "HC2.Mobs.VisionCone",
-                          "_isStatic": false
+                          "_name": "CanSeeAnyTarget"
                         },
                         "UserData": {
                           "Position": "-48,320"
@@ -953,9 +953,9 @@
                         "Id": 5,
                         "Type": "call",
                         "Properties": {
-                          "_name": "SetAimTarget",
+                          "_isStatic": false,
                           "_type": "HC2.Mobs.Mob",
-                          "_isStatic": false
+                          "_name": "SetAimTarget"
                         },
                         "UserData": {
                           "Position": "224,144"
@@ -965,9 +965,9 @@
                         "Id": 6,
                         "Type": "call",
                         "Properties": {
-                          "_name": "CanSeeAnyTarget",
+                          "_isStatic": false,
                           "_type": "HC2.Mobs.VisionCone",
-                          "_isStatic": false
+                          "_name": "CanSeeAnyTarget"
                         },
                         "UserData": {
                           "Position": "-16,288"
@@ -1108,6 +1108,22 @@
             "Knockback": 0
           }
         ]
+      },
+      {
+        "__guid": "91078845-7a49-423c-b94e-12c60c5b9735",
+        "Flags": 0,
+        "Name": "Nametag",
+        "Position": "0,0,23.93274",
+        "__Prefab": "prefabs/mobnametag.prefab",
+        "__PrefabVariables": {
+          "Panel Size": "850,160",
+          "Mob": {
+            "_type": "component",
+            "component_id": "f87dcfd7-78a3-4a06-a1d9-5b927d74d0b1",
+            "go": "7415ac66-ae34-4cab-af30-2f7141f438d1",
+            "component_type": "Mob"
+          }
+        }
       }
     ],
     "__variables": []

@@ -1,0 +1,38 @@
+@using Sandbox;
+@using Sandbox.UI;
+@using HC2.Mobs;
+@inherits PanelComponent
+
+<root>
+	@if (!Mob.IsValid()) return;
+	<ProgressBar Value="@(Health.Health / Health.MaxHealth * 100f)" />
+</root>
+
+@code
+{
+	[Property] Mob Mob { get; set; }
+	HealthComponent Health;
+	float heightOffset = 0;
+
+	protected override void OnAwake()
+	{
+		heightOffset = Transform.LocalPosition.z;
+	}
+
+	protected override void OnStart()
+	{
+		Mob ??= GameObject.Root.Components.Get<Mob>();
+		Health = Mob.Components.Get<HealthComponent>();
+	}
+
+	protected override void OnPreRender()
+	{
+		if (Scene.Camera.IsValid())
+		{
+			Transform.Rotation = Scene.Camera.Transform.Rotation * new Angles(0, 180, 0);
+		}
+		Transform.Position = GameObject.Parent.Transform.Position + Vector3.Up * heightOffset;
+	}
+
+	protected override int BuildHash() => System.HashCode.Combine(Health?.Health);
+}

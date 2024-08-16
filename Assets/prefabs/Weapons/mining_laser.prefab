@@ -50,6 +50,10 @@
         "__type": "HC2.StatModifier",
         "__guid": "38d3661d-3490-4646-8327-9408c30e4bc3",
         "IsAffectedByStatusEffects": false
+      },
+      {
+        "__type": "HighlightSelectedBlock",
+        "__guid": "5d96af88-98f5-4e62-8252-5ffbdf738da9"
       }
     ],
     "Children": [

@@ -37,7 +37,7 @@ public class Hotbar : Inventory
             }
         }
 
-        if ( !(Input.Down( "Run" ) && Player.Local.MainHand is BlockPlacer) )
+        if ( !(Input.Down( "Run" ) && Player.Local.IsValid() && Player.Local.MainHand is BlockPlacer ) )
         {
             if ( Input.MouseWheel.y < 0 )
             {

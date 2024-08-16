@@ -37,12 +37,25 @@ public sealed class Networking : Component, Component.INetworkListener
 		}
 	}
 
+
+	[Broadcast( NetPermission.HostOnly )]
+	void DoLoadingScreen()
+	{
+		LoadingScreen.Title = "Loading procgen..";
+		LoadingScreen.IsVisible = true;
+	}
+
 	/// <summary>
 	/// A client is fully connected to the server. This is called on the host.
 	/// </summary>
 	public void OnActive( Connection channel )
 	{
 		Log.Info($"Player '{channel.DisplayName}' has joined the game");
+
+		using ( Rpc.FilterInclude( channel ) )
+		{
+			DoLoadingScreen();
+		}
 
 		WorldPersistence.TryLoadWorld( channel );
 

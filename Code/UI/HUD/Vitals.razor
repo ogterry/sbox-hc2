@@ -17,13 +17,9 @@
 }
 
 <root>
-    <div class="avatar-container">
-        <img class="avatar" src="@AvatarUrl" />
-    </div>
-
     <column>
         <row>
-            <label class="small">@PlayerName.ToUpper()</label>
+            <label class="large">@PlayerName.ToUpper()</label>
             <Donut Value="@(experiencePerc)" size="24" InnerText="@($"{experience.Level}")" />
         </row>
 

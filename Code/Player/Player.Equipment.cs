@@ -61,6 +61,7 @@ public partial class Player
 		// TODO: Events
 		MainHand = null;
 		MainHand = carriable;
+		HoldType = carriable.HoldType;
 
 		FallbackCarriable.GameObject.Enabled = false;
 	}
@@ -95,10 +96,24 @@ public partial class Player
 			MainHand.GameObject.Destroy();
 		}
 
-		HoldType = Sandbox.Citizen.CitizenAnimationHelper.HoldTypes.None;
+		HoldType = Sandbox.Citizen.CitizenAnimationHelper.HoldTypes.Punch;
 		MainHand = null;
 
 		FallbackCarriable.GameObject.Enabled = true;
+	}
+
+	public void DestroyMainHand()
+	{
+		var renderer = MainHand.Components.Get<ModelRenderer>( FindMode.EverythingInSelfAndDescendants );
+		if ( renderer.IsValid() )
+		{
+			var material = renderer.MaterialOverride ?? renderer?.Model?.Materials?.FirstOrDefault();
+			if ( material is not null )
+			{
+				VoxelParticles.SpawnInBounds( renderer.Bounds, 50 );
+			}
+		}
+		RemoveMainHand();
 	}
 
 	/// <summary>
@@ -141,7 +156,6 @@ public partial class Player
 			return inst;
 		}
 
-		HoldType = carriable.HoldType;
 		inst.NetworkSpawn( Network.OwnerConnection );
 
 		SetMainHand( carriable );

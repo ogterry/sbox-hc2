@@ -96,6 +96,17 @@ public sealed class Mob : Component,
 		}
 	}
 
+	[Broadcast]
+	public void BroadcastEnableNametag()
+	{
+		if ( Components.TryGet<MobNametag>( out var nametag, FindMode.EverythingInChildren ) )
+		{
+			nametag.GameObject.Enabled = true;
+		}
+		_isNametagVisible = true;
+	}
+	bool _isNametagVisible = false;
+
 	void IGameEventHandler<ModifyDamageEvent>.OnGameEvent( ModifyDamageEvent eventArgs )
 	{
 		eventArgs.DamageInstance.Damage *= DamageScale;
@@ -107,6 +118,9 @@ public sealed class Mob : Component,
 
 		_lastDamageEvent = eventArgs;
 		_sinceLastDamage = 0f;
+
+		if ( !_isNametagVisible && eventArgs.Instance.Damage > 0f )
+			BroadcastEnableNametag();
 
 		if ( HitSound != null )
 		{

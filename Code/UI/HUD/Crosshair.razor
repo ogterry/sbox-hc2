@@ -15,42 +15,42 @@
 
     public override void Tick()
     {
-        if ( !Player.IsValid() )
+        if (!Player.IsValid())
         {
-            SetClass( "hidden", true );
+            SetClass("hidden", true);
             return;
         }
 
         var wpn = Player.MainHandWeapon;
 
-        if ( !wpn.IsValid() )
+        if (!Player.MainHand.IsValid())
         {
-            SetClass( "hidden", true );
+            SetClass("hidden", true);
             return;
         }
 
-        SetClass( "hidden", false );
+        SetClass("hidden", false);
 
-        if ( wpn is ProjectileWeapon projectileWeapon )
+        if (wpn is ProjectileWeapon projectileWeapon)
         {
             var origin = projectileWeapon.Muzzle;
             var fwd = Player.CameraController.AimRay.Forward;
 
-            var tr = Scene.Trace.Ray( origin.Transform.Position, origin.Transform.Position + fwd * 100000f )
-                .WithoutTags( "projectile", "player" )
-                .Run();
+            var tr = Scene.Trace.Ray(origin.Transform.Position, origin.Transform.Position + fwd * 100000f)
+            .WithoutTags("projectile", "player")
+            .Run();
 
             var screenHitPos = Scene.Camera.PointToScreenNormal(tr.EndPosition);
 
-            lerpPos = lerpPos.LerpTo( screenHitPos, Time.Delta * 10f );
+            lerpPos = lerpPos.LerpTo(screenHitPos, Time.Delta * 10f);
 
-            Style.Left = Length.Fraction( lerpPos.x );
-            Style.Top = Length.Fraction( lerpPos.y );
+            Style.Left = Length.Fraction(lerpPos.x);
+            Style.Top = Length.Fraction(lerpPos.y);
         }
         else
         {
-            Style.Left = Length.Fraction( 0.5f );
-            Style.Top = Length.Fraction( 0.5f );
+            Style.Left = Length.Fraction(0.5f);
+            Style.Top = Length.Fraction(0.5f);
         }
     }
 }

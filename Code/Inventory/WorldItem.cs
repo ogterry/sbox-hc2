@@ -26,10 +26,12 @@ public partial class WorldItem : Component, Component.ITriggerListener
 	[Sync]
 	public TimeSince LastPickupAttempt { get; set; }
 
+	TimeSince timeSinceSpawned = 0f;
+
 	protected override void OnStart()
 	{
 		Tags.Add( "pickup" );
-		Trigger.Scale = new( 16, 16, 16 );
+		Trigger.Scale = new( 24, 24, 28 );
 		Trigger.IsTrigger = true;
 	}
 
@@ -51,8 +53,30 @@ public partial class WorldItem : Component, Component.ITriggerListener
 
 	void ITriggerListener.OnTriggerEnter( Collider other )
 	{
+		if ( Amount == 0 ) return;
+
 		if ( !Sandbox.Networking.IsHost )
 			return;
+
+		if ( other.GameObject.Root.Components.TryGet<WorldItem>( out var otherItem ) )
+		{
+			if ( otherItem.Resource == Resource )
+			{
+				if ( otherItem.timeSinceSpawned > timeSinceSpawned )
+				{
+					otherItem.Amount += Amount;
+					Amount = 0;
+					DestroyOnAuthority();
+					return;
+				}
+				else
+				{
+					Amount += otherItem.Amount;
+					otherItem.Amount = 0;
+					otherItem.DestroyOnAuthority();
+				}
+			}
+		}
 
 		if ( other.GameObject.Root.Components.Get<Player>() is not { IsValid: true } player )
 			return;
@@ -74,13 +98,18 @@ public partial class WorldItem : Component, Component.ITriggerListener
 
 		if ( player.Hotbar.TryGiveItem( item ) )
 		{
-			DestroyOnAuthority();
+			DestroyOnAuthority( true );
 		}
 	}
 
 	[Authority]
-	void DestroyOnAuthority()
+	void DestroyOnAuthority( bool particles = false )
 	{
+		if ( particles )
+		{
+			Sound.Play( "item.pickup", Transform.Position );
+			VoxelParticles.SpawnInBounds( ModelRenderer.Bounds, ModelRenderer.MaterialOverride ?? ModelRenderer.Model.Materials.FirstOrDefault(), 5 );
+		}
 		GameObject.Destroy();
 	}
 
@@ -122,8 +151,15 @@ public partial class WorldItem : Component, Component.ITriggerListener
 		// Conna: if the Item is a block we'll handle this differently. We'll wanna
 		// use a custom model with a material override or something for the block texture.
 
-		go.NetworkSpawn();
+		go.NetworkSpawn( null );
+		BroadcastSpawnSound( go.Transform.Position );
 
 		return worldItem;
+	}
+
+	[Broadcast]
+	static void BroadcastSpawnSound( Vector3 position )
+	{
+		Sound.Play( "item.drop", position );
 	}
 }

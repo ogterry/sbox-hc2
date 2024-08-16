@@ -1,0 +1,52 @@
+{
+  "RootObject": {
+    "__guid": "2c82f07f-84d6-45b6-9c47-0c39c09230f1",
+    "Flags": 0,
+    "Name": "mobnametag",
+    "Components": [
+      {
+        "__type": "Sandbox.WorldPanel",
+        "__guid": "f2c2792b-1d96-4b08-85c6-525d6bbe1f62",
+        "HorizontalAlign": "Center",
+        "InteractionRange": 1000,
+        "LookAtCamera": false,
+        "PanelSize": "850,160",
+        "RenderScale": 1,
+        "VerticalAlign": "Center"
+      },
+      {
+        "__type": "MobNametag",
+        "__guid": "dbbae0c9-6aec-4c62-acde-d4f19a383f3e"
+      }
+    ],
+    "Children": [],
+    "__variables": [
+      {
+        "Id": "Panel Size",
+        "Title": "Panel Size",
+        "Targets": [
+          {
+            "Id": "f2c2792b-1d96-4b08-85c6-525d6bbe1f62",
+            "Property": "PanelSize"
+          }
+        ]
+      },
+      {
+        "Id": "Mob",
+        "Title": "Mob",
+        "Targets": [
+          {
+            "Id": "dbbae0c9-6aec-4c62-acde-d4f19a383f3e",
+            "Property": "Mob"
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

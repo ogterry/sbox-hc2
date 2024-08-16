@@ -50,7 +50,7 @@ public class ItemAsset : GameResource
 	/// <summary>
 	/// The maximum amount that can be stacked in a single slot.
 	/// </summary>
-	public int MaxStack { get; set; } = 99;
+	public int MaxStack { get; set; } = 256;
 
 	/// <summary>
 	/// The maximum durability of the item.
