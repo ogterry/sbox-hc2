@@ -10,7 +10,7 @@
         "__guid": "458c67a5-8daf-40ad-bfaa-12a9fa43ae1b",
         "Flags": 0,
         "Name": "Plane",
-        "Scale": "100,100,1",
+        "Scale": "500,500,1",
         "Enabled": true,
         "Components": [
           {
