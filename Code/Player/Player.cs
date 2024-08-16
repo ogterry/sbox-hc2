@@ -417,7 +417,7 @@ public partial class Player : Component, IDamage,
 			{
 				DevCam = !DevCam;
 
-				ConsoleSystem.SetValue( "hc2_drawhud", DevCam ? "0" : "1" );
+				HC2.Hud.DrawHud = !DevCam;
 			}
 
 			if ( Input.Pressed( "flymode" ) )

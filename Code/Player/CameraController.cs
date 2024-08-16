@@ -156,6 +156,9 @@ public sealed class CameraController : Component
 			return;
 		}
 
+		movement += Input.Down("Jump") ? Vector3.Up : Vector3.Zero;
+		movement -= Input.Down("Duck") ? Vector3.Up : Vector3.Zero;
+
 		devCamAngles += Input.AnalogLook * 0.5f;
 		devCamAngles = devCamAngles.WithPitch( devCamAngles.pitch.Clamp( -89.0f, 89.0f ) );
 
