@@ -666,6 +666,12 @@
                                                     "__guid": "5b9ec711-d1cb-4072-9a2f-4370bb43fe4a",
                                                     "Effectiveness": 0.1,
                                                     "SourceKind": "Wood"
+                                                  },
+                                                  {
+                                                    "__type": "HC2.ResourceGatherer",
+                                                    "__guid": "515dacc9-7677-4553-ab12-ee336496d2d5",
+                                                    "Effectiveness": 0.2,
+                                                    "SourceKind": "Stone"
                                                   }
                                                 ]
                                               }
