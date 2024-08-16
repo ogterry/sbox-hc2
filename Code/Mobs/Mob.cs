@@ -45,6 +45,9 @@ public sealed class Mob : Component,
 	SoundEvent? LoopingIdleSound { get; set; }
 
 	[Property, Category( "Audio" )]
+	bool LoopingIdlePitchWithSpeed { get; set; } = false;
+
+	[Property, Category( "Audio" )]
 	SoundEvent? HitSound { get; set; }
 
 	[Property]
@@ -88,6 +91,11 @@ public sealed class Mob : Component,
 		if ( _loopingIdleSound.IsValid() )
 		{
 			_loopingIdleSound.Position = Transform.Position;
+			if ( LoopingIdlePitchWithSpeed )
+			{
+				var rb = Components.Get<Rigidbody>();
+				_loopingIdleSound.Pitch = 1f + (rb.Velocity.Length / 400f);
+			}
 		}
 	}
 

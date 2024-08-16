@@ -21,6 +21,7 @@
             "Chance": 100
           }
         ],
+        "LoopingIdlePitchWithSpeed": true,
         "LoopingIdleSound": "sounds/mobs/drone/drone_idle_loop.sound"
       },
       {
