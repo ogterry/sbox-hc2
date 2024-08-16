@@ -303,7 +303,7 @@
       ]
     },
     {
-      "__guid": "0969b196-c588-4643-9a52-573c950f3d7b",
+      "__guid": "60fafe9a-0a41-4e62-ab1b-a468d9cfc809",
       "Flags": 0,
       "Name": "SoundScape",
       "Position": "0,0,1024",
@@ -311,12 +311,46 @@
       "Components": [
         {
           "__type": "Sandbox.SoundscapeTrigger",
-          "__guid": "2cf967e6-a1a6-423c-abf3-8cb400e1651f",
+          "__guid": "230217fd-ec64-4385-83a9-793031b43f07",
           "BoxSize": "5000,5000,1000",
           "Radius": 500,
           "Soundscape": "soundscapes/field/field_day_01a.sndscape",
           "StayActiveOnExit": true,
           "Type": "Box"
+        }
+      ]
+    },
+    {
+      "__guid": "0969b196-c588-4643-9a52-573c950f3d7b",
+      "Flags": 0,
+      "Name": "Music Player",
+      "Position": "0,0,1024",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SoundPointComponent",
+          "__guid": "606db4e5-dfb9-4352-8c05-c49fa8609c9e",
+          "DistanceAttenuation": false,
+          "DistanceAttenuationOverride": false,
+          "Force2d": true,
+          "MaxRepeatTime": 1,
+          "MinRepeatTime": 1,
+          "Occlusion": false,
+          "OcclusionOverride": false,
+          "OcclusionRadius": 32,
+          "Pitch": 1,
+          "PlayOnStart": true,
+          "ReflectionOverride": false,
+          "Reflections": false,
+          "Repeat": false,
+          "SoundEvent": "sounds/music/track_01.sound",
+          "SoundOverride": true,
+          "StopOnNew": false,
+          "TargetMixer": {
+            "Name": "music",
+            "Id": "4a032c8d-70b8-4d9e-93bd-f19b864d70ce"
+          },
+          "Volume": 0.25
         }
       ]
     }
