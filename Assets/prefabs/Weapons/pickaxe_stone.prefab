@@ -26,7 +26,7 @@
       {
         "__type": "HC2.ResourceGatherer",
         "__guid": "287bdfe0-edeb-44d7-a689-aa8436be0562",
-        "Effectiveness": 0.02,
+        "Effectiveness": 0.1,
         "SourceKind": "Soil"
       },
       {
@@ -52,6 +52,10 @@
         "__guid": "0f096e1a-3ccf-4fc6-89d8-c0004d98ea50",
         "Effectiveness": 1,
         "SourceKind": "Metal"
+      },
+      {
+        "__type": "HighlightSelectedBlock",
+        "__guid": "c55cd8d6-779d-4a0e-94b8-31826040eade"
       }
     ],
     "Children": [
