@@ -117,8 +117,8 @@
                         "Id": 38,
                         "Type": "property",
                         "Properties": {
-                          "_name": "MaxSpeed",
-                          "_type": "HC2.Mobs.GroundMover"
+                          "_type": "HC2.Mobs.GroundMover",
+                          "_name": "MaxSpeed"
                         },
                         "UserData": {
                           "Position": "688,64"
@@ -156,9 +156,9 @@
                         "Id": 46,
                         "Type": "call",
                         "Properties": {
-                          "_name": "SetFace",
+                          "_isStatic": false,
                           "_type": "HC2.Mobs.Mob",
-                          "_isStatic": false
+                          "_name": "SetFace"
                         },
                         "UserData": {
                           "Position": "688,176"
@@ -183,8 +183,8 @@
                         "Id": 56,
                         "Type": "property",
                         "Properties": {
-                          "_name": "Enabled",
-                          "_type": "Sandbox.Component"
+                          "_type": "Sandbox.Component",
+                          "_name": "Enabled"
                         },
                         "UserData": {
                           "Position": "688,320"
@@ -297,8 +297,8 @@
                         "Id": 3,
                         "Type": "property",
                         "Properties": {
-                          "_name": "Enabled",
-                          "_type": "Sandbox.Component"
+                          "_type": "Sandbox.Component",
+                          "_name": "Enabled"
                         },
                         "UserData": {
                           "Position": "256,0"
@@ -372,8 +372,8 @@
                         "Id": 14,
                         "Type": "property",
                         "Properties": {
-                          "_name": "MaxSpeed",
-                          "_type": "HC2.Mobs.GroundMover"
+                          "_type": "HC2.Mobs.GroundMover",
+                          "_name": "MaxSpeed"
                         },
                         "UserData": {
                           "Position": "256,96"
@@ -401,9 +401,9 @@
                         "Id": 18,
                         "Type": "call",
                         "Properties": {
-                          "_name": "SetFace",
+                          "_isStatic": false,
                           "_type": "HC2.Mobs.Mob",
-                          "_isStatic": false
+                          "_name": "SetFace"
                         },
                         "UserData": {
                           "Position": "256,-16"
@@ -413,8 +413,8 @@
                         "Id": 21,
                         "Type": "property",
                         "Properties": {
-                          "_name": "DamageScale",
-                          "_type": "HC2.Mobs.Mob"
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "DamageScale"
                         },
                         "UserData": {
                           "Position": "256,208"
@@ -439,8 +439,8 @@
                         "Id": 23,
                         "Type": "property",
                         "Properties": {
-                          "_name": "Scale",
-                          "_type": "HC2.Mobs.DamageKnockback"
+                          "_type": "HC2.Mobs.DamageKnockback",
+                          "_name": "Scale"
                         },
                         "UserData": {
                           "Position": "256,304"
@@ -571,8 +571,8 @@
                         "Type": "call",
                         "Properties": {
                           "_isStatic": false,
-                          "_name": "SetMoveTarget",
-                          "_type": "HC2.Mobs.Mob"
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "SetMoveTarget"
                         },
                         "UserData": {
                           "Position": "592,64"
@@ -583,8 +583,8 @@
                         "Type": "property",
                         "ParentId": 2,
                         "Properties": {
-                          "_name": "AimTarget",
-                          "_type": "HC2.Mobs.Mob"
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "AimTarget"
                         },
                         "UserData": {
                           "Visible": false
@@ -595,8 +595,8 @@
                         "Type": "property",
                         "ParentId": 4,
                         "Properties": {
-                          "_name": "Transform",
-                          "_type": "Sandbox.Component"
+                          "_type": "Sandbox.Component",
+                          "_name": "Transform"
                         },
                         "UserData": {
                           "Visible": false
@@ -607,8 +607,8 @@
                         "Type": "property",
                         "ParentId": 5,
                         "Properties": {
-                          "_name": "Position",
-                          "_type": "Sandbox.GameTransform"
+                          "_type": "Sandbox.GameTransform",
+                          "_name": "Position"
                         },
                         "UserData": {
                           "Labels": {
@@ -620,8 +620,8 @@
                         "Id": 7,
                         "Type": "property",
                         "Properties": {
-                          "_name": "Transform",
-                          "_type": "Sandbox.GameObject"
+                          "_type": "Sandbox.GameObject",
+                          "_name": "Transform"
                         },
                         "UserData": {
                           "Position": "-48,-144"
@@ -632,8 +632,8 @@
                         "Type": "property",
                         "ParentId": 7,
                         "Properties": {
-                          "_name": "Position",
-                          "_type": "Sandbox.GameTransform"
+                          "_type": "Sandbox.GameTransform",
+                          "_name": "Position"
                         }
                       },
                       {
@@ -647,8 +647,8 @@
                         "Id": 11,
                         "Type": "property",
                         "Properties": {
-                          "_name": "Normal",
-                          "_type": "Vector3"
+                          "_type": "Vector3",
+                          "_name": "Normal"
                         },
                         "UserData": {
                           "Position": "448,-144",
@@ -683,8 +683,8 @@
                         "Type": "property",
                         "ParentId": 2,
                         "Properties": {
-                          "_name": "HasAimTarget",
-                          "_type": "HC2.Mobs.Mob"
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "HasAimTarget"
                         }
                       }
                     ],
@@ -849,8 +849,8 @@
                         "Id": 3,
                         "Type": "property",
                         "Properties": {
-                          "_name": "MaxSpeed",
-                          "_type": "HC2.Mobs.GroundMover"
+                          "_type": "HC2.Mobs.GroundMover",
+                          "_name": "MaxSpeed"
                         },
                         "UserData": {
                           "Position": "304,0"
@@ -875,8 +875,8 @@
                         "Id": 7,
                         "Type": "property",
                         "Properties": {
-                          "_name": "DamageScale",
-                          "_type": "HC2.Mobs.Mob"
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "DamageScale"
                         },
                         "UserData": {
                           "Position": "304,144"
@@ -901,8 +901,8 @@
                         "Id": 12,
                         "Type": "property",
                         "Properties": {
-                          "_name": "Scale",
-                          "_type": "HC2.Mobs.DamageKnockback"
+                          "_type": "HC2.Mobs.DamageKnockback",
+                          "_name": "Scale"
                         },
                         "UserData": {
                           "Position": "304,256"
@@ -1015,8 +1015,8 @@
                         "Id": 3,
                         "Type": "property",
                         "Properties": {
-                          "_name": "MaxSpeed",
-                          "_type": "HC2.Mobs.GroundMover"
+                          "_type": "HC2.Mobs.GroundMover",
+                          "_name": "MaxSpeed"
                         },
                         "UserData": {
                           "Position": "256,112"
@@ -1044,9 +1044,9 @@
                         "Id": 9,
                         "Type": "call",
                         "Properties": {
-                          "_name": "ClearAimTarget",
+                          "_isStatic": false,
                           "_type": "HC2.Mobs.Mob",
-                          "_isStatic": false
+                          "_name": "ClearAimTarget"
                         },
                         "UserData": {
                           "Position": "256,32"
@@ -1056,8 +1056,8 @@
                         "Id": 11,
                         "Type": "property",
                         "Properties": {
-                          "_name": "DamageScale",
-                          "_type": "HC2.Mobs.Mob"
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "DamageScale"
                         },
                         "UserData": {
                           "Position": "256,-64"
@@ -1082,8 +1082,8 @@
                         "Id": 16,
                         "Type": "property",
                         "Properties": {
-                          "_name": "Scale",
-                          "_type": "HC2.Mobs.DamageKnockback"
+                          "_type": "HC2.Mobs.DamageKnockback",
+                          "_name": "Scale"
                         },
                         "UserData": {
                           "Position": "256,240"
@@ -1222,8 +1222,8 @@
                         "Type": "property",
                         "ParentId": 11,
                         "Properties": {
-                          "_name": "LastAttacker",
-                          "_type": "HC2.Mobs.Mob"
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "LastAttacker"
                         },
                         "UserData": {
                           "Labels": {
@@ -1249,9 +1249,9 @@
                         "Id": 15,
                         "Type": "call",
                         "Properties": {
-                          "_name": "SetAimTarget",
+                          "_isStatic": false,
                           "_type": "HC2.Mobs.Mob",
-                          "_isStatic": false
+                          "_name": "SetAimTarget"
                         },
                         "UserData": {
                           "Position": "896,96"
@@ -1262,8 +1262,8 @@
                         "Type": "property",
                         "ParentId": 12,
                         "Properties": {
-                          "_name": "Transform",
-                          "_type": "Sandbox.Component"
+                          "_type": "Sandbox.Component",
+                          "_name": "Transform"
                         },
                         "UserData": {
                           "Visible": false
@@ -1274,8 +1274,8 @@
                         "Type": "property",
                         "ParentId": 17,
                         "Properties": {
-                          "_name": "Position",
-                          "_type": "Sandbox.GameTransform"
+                          "_type": "Sandbox.GameTransform",
+                          "_name": "Position"
                         },
                         "UserData": {
                           "Labels": {
@@ -1287,9 +1287,9 @@
                         "Id": 19,
                         "Type": "call",
                         "Properties": {
-                          "_name": "SetMoveTarget",
+                          "_isStatic": false,
                           "_type": "HC2.Mobs.Mob",
-                          "_isStatic": false
+                          "_name": "SetMoveTarget"
                         },
                         "UserData": {
                           "Position": "1200,96"
@@ -1299,8 +1299,8 @@
                         "Id": 22,
                         "Type": "property",
                         "Properties": {
-                          "_name": "MaxSpeed",
-                          "_type": "HC2.Mobs.GroundMover"
+                          "_type": "HC2.Mobs.GroundMover",
+                          "_name": "MaxSpeed"
                         },
                         "UserData": {
                           "Position": "992,-32"
@@ -1338,9 +1338,9 @@
                         "Id": 28,
                         "Type": "call",
                         "Properties": {
-                          "_name": "SetFace",
+                          "_isStatic": false,
                           "_type": "HC2.Mobs.Mob",
-                          "_isStatic": false
+                          "_name": "SetFace"
                         },
                         "UserData": {
                           "Position": "288,-32"
@@ -1518,9 +1518,9 @@
                         "Id": 8,
                         "Type": "call",
                         "Properties": {
-                          "_name": "ClearAimTarget",
+                          "_isStatic": false,
                           "_type": "HC2.Mobs.Mob",
-                          "_isStatic": false
+                          "_name": "ClearAimTarget"
                         },
                         "UserData": {
                           "Position": "304,-0"
@@ -1530,9 +1530,9 @@
                         "Id": 9,
                         "Type": "call",
                         "Properties": {
-                          "_name": "ClearMoveTarget",
+                          "_isStatic": false,
                           "_type": "HC2.Mobs.Mob",
-                          "_isStatic": false
+                          "_name": "ClearMoveTarget"
                         },
                         "UserData": {
                           "Position": "304,96"
@@ -1542,9 +1542,9 @@
                         "Id": 12,
                         "Type": "call",
                         "Properties": {
-                          "_name": "SetFace",
+                          "_isStatic": false,
                           "_type": "HC2.Mobs.Mob",
-                          "_isStatic": false
+                          "_name": "SetFace"
                         },
                         "UserData": {
                           "Position": "320,-112"
@@ -1635,8 +1635,8 @@
                         "Id": 3,
                         "Type": "property",
                         "Properties": {
-                          "_name": "DamageScale",
-                          "_type": "HC2.Mobs.Mob"
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "DamageScale"
                         },
                         "UserData": {
                           "Position": "208,32"
@@ -1727,8 +1727,8 @@
                         "Type": "property",
                         "ParentId": 3,
                         "Properties": {
-                          "_name": "HasTakenDamage",
-                          "_type": "HC2.Mobs.Mob"
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "HasTakenDamage"
                         }
                       }
                     ],
@@ -1811,8 +1811,8 @@
                         "Type": "property",
                         "ParentId": 3,
                         "Properties": {
-                          "_name": "HasTakenDamage",
-                          "_type": "HC2.Mobs.Mob"
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "HasTakenDamage"
                         }
                       }
                     ],
@@ -1891,8 +1891,8 @@
                         "Type": "property",
                         "ParentId": 3,
                         "Properties": {
-                          "_name": "HasAimTarget",
-                          "_type": "HC2.Mobs.Mob"
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "HasAimTarget"
                         }
                       }
                     ],
@@ -1972,9 +1972,9 @@
                         "Id": 4,
                         "Type": "call",
                         "Properties": {
-                          "_name": "CanSeeAnyTarget",
+                          "_isStatic": false,
                           "_type": "HC2.Mobs.VisionCone",
-                          "_isStatic": false
+                          "_name": "CanSeeAnyTarget"
                         },
                         "UserData": {
                           "Position": "48,160"
@@ -1999,9 +1999,9 @@
                         "Id": 7,
                         "Type": "call",
                         "Properties": {
-                          "_name": "SetAimTarget",
+                          "_isStatic": false,
                           "_type": "HC2.Mobs.Mob",
-                          "_isStatic": false
+                          "_name": "SetAimTarget"
                         },
                         "UserData": {
                           "Position": "336,-16"
@@ -2118,8 +2118,8 @@
                         "Type": "property",
                         "ParentId": 3,
                         "Properties": {
-                          "_name": "HasMoveTarget",
-                          "_type": "HC2.Mobs.Mob"
+                          "_type": "HC2.Mobs.Mob",
+                          "_name": "HasMoveTarget"
                         }
                       },
                       {
@@ -2329,6 +2329,22 @@
             "Knockback": 0
           }
         ]
+      },
+      {
+        "__guid": "e4533e36-934c-45bd-9fb4-6e007bad6382",
+        "Flags": 0,
+        "Name": "Nametag",
+        "Position": "0,0,55.08074",
+        "__Prefab": "prefabs/mobnametag.prefab",
+        "__PrefabVariables": {
+          "Panel Size": "850,160",
+          "Mob": {
+            "_type": "component",
+            "component_id": "aded3d0b-89a1-4728-a60a-0e11f2abea59",
+            "go": "518df3a9-0bf0-46fa-b61f-85f25be483eb",
+            "component_type": "Mob"
+          }
+        }
       }
     ],
     "__variables": []
