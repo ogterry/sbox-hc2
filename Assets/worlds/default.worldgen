@@ -57,7 +57,8 @@
     "worlds/standing_stone_circle.feature",
     "worlds/rock_scatter.feature",
     "worlds/farm_house.feature",
-    "worlds/mountain_spike.feature"
+    "worlds/mountain_spike.feature",
+    "worlds/dead_tree.feature"
   ],
   "__references": [],
   "__version": 0
