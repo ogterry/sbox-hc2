@@ -301,6 +301,24 @@
           "Tint": "0.14902,0.18824,0.23922,1"
         }
       ]
+    },
+    {
+      "__guid": "0969b196-c588-4643-9a52-573c950f3d7b",
+      "Flags": 0,
+      "Name": "SoundScape",
+      "Position": "0,0,1024",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SoundscapeTrigger",
+          "__guid": "2cf967e6-a1a6-423c-abf3-8cb400e1651f",
+          "BoxSize": "5000,5000,1000",
+          "Radius": 500,
+          "Soundscape": "soundscapes/field/field_day_01a.sndscape",
+          "StayActiveOnExit": true,
+          "Type": "Box"
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -327,6 +345,8 @@
   "Title": "mob_testbed",
   "Description": "",
   "ResourceVersion": 1,
-  "__references": [],
+  "__references": [
+    "rust.field_day_01a"
+  ],
   "__version": 1
 }
