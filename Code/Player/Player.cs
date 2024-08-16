@@ -319,7 +319,7 @@ public partial class Player : Component, IDamage,
 
 		DoFlyMode();
 
-		if ( FlyMode ) return;
+		if ( FlyMode || DevCam) return;
 
 		BuildWishVelocity();
 		ApplyAcceleration();
@@ -413,6 +413,13 @@ public partial class Player : Component, IDamage,
 
 		if ( Game.IsEditor )
 		{
+			if ( Input.Pressed( "devcam" ) )
+			{
+				DevCam = !DevCam;
+
+				ConsoleSystem.SetValue( "hc2_drawhud", DevCam ? "0" : "1" );
+			}
+
 			if ( Input.Pressed( "flymode" ) )
 			{
 				FlyMode = !FlyMode;
@@ -525,6 +532,8 @@ public partial class Player : Component, IDamage,
 
 	void DoFlyMode()
 	{
+		if ( DevCam ) return;
+
 		if ( FlyMode )
 		{
 			Character.IsOnGround = false;
@@ -548,4 +557,6 @@ public partial class Player : Component, IDamage,
 
 	[Sync]
 	bool FlyMode { get; set; }
+
+	public bool DevCam { get; set; } = false;
 }

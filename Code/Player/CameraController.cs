@@ -74,6 +74,12 @@ public sealed class CameraController : Component
 	/// </summary>
 	public void UpdateFromPlayer()
 	{
+		if ( Player.DevCam )
+		{
+			DoDevCam();
+			return;
+		}
+
 		// Have an option for this later to scale?
 		Player.EyeAngles += IsAiming ? Input.AnalogLook * 0.45f : Input.AnalogLook;
 		Player.EyeAngles = Player.EyeAngles.WithPitch( Player.EyeAngles.pitch.Clamp( PitchLimits.x, PitchLimits.y ) );
@@ -133,5 +139,33 @@ public sealed class CameraController : Component
 		offset = offset.WithZ( -System.MathF.Abs( offset.z ) );
 
 		return offset;
+	}
+
+	Angles devCamAngles;
+
+	private void DoDevCam()
+	{
+		Vector3 movement = Input.AnalogMove;
+
+		float speed = 350.0f;
+
+		if ( Input.Down( "attack2" ) )
+		{
+			Scene.Camera.FieldOfView += Input.MouseDelta.y * 0.1f;
+			Scene.Camera.FieldOfView = Scene.Camera.FieldOfView.Clamp( 10.0f, 120.0f );
+			return;
+		}
+
+		devCamAngles += Input.AnalogLook * 0.5f;
+		devCamAngles = devCamAngles.WithPitch( devCamAngles.pitch.Clamp( -89.0f, 89.0f ) );
+
+		if ( Input.Down( "run" ) )
+		{
+			speed = 750.0f;
+		}
+
+		Scene.Camera.Transform.Position += devCamAngles.ToRotation() * movement * speed * Time.Delta;
+		Scene.Camera.Transform.Rotation = devCamAngles.ToRotation();
+
 	}
 }

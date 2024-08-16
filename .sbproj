@@ -231,6 +231,12 @@
           "KeyboardCode": "O",
           "GamepadCode": "None",
           "GroupName": "Other"
+        },
+        {
+          "Name": "DevCam",
+          "KeyboardCode": "p",
+          "GamepadCode": "None",
+          "GroupName": "Other"
         }
       ],
       "__guid": "dc5357dc-5c09-47cb-9179-bddc936f99d5"
