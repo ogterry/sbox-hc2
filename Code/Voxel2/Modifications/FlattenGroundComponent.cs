@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 
 namespace Voxel.Modifications;
 
@@ -35,6 +36,10 @@ public sealed class FlattenGroundComponent : Component
 	/// </summary>
 	[Property, Range( 0f, 16f )]
 	public int SmoothingRadius { get; set; } = 8;
+
+	[JsonIgnore]
+	public float Impact => (Area.Width + SmoothingRadius * Constants.VoxelSize)
+		* (Area.Height + SmoothingRadius * Constants.VoxelSize);
 
 	private bool HasModel => GetModel() is not null;
 
@@ -110,7 +115,10 @@ public sealed class FlattenGroundComponent : Component
 	{
 		var components = obj.Components
 			.GetAll<FlattenGroundComponent>()
+			.OrderByDescending( x => x.Impact )
 			.ToArray();
+
+		// TODO: these can affect each other! how do we deal with that?
 
 		foreach ( var component in components )
 		{
