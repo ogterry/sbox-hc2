@@ -26,7 +26,7 @@
         "DurabilityOnUse": 0.035,
         "Hand": "MainHand, OffHand",
         "HitSound": "sounds/weapons/sword_metallic_hit.sound",
-        "HoldType": "HoldItem",
+        "HoldType": "Swing",
         "InputAction": "attack1",
         "SwingDelay": 0.25,
         "Thickness": 5
