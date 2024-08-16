@@ -31,7 +31,7 @@ public partial class WorldItem : Component, Component.ITriggerListener
 	protected override void OnStart()
 	{
 		Tags.Add( "pickup" );
-		Trigger.Scale = new( 16, 16, 16 );
+		Trigger.Scale = new( 24, 24, 28 );
 		Trigger.IsTrigger = true;
 	}
 
@@ -97,13 +97,18 @@ public partial class WorldItem : Component, Component.ITriggerListener
 
 		if ( player.Hotbar.TryGiveItem( item ) )
 		{
-			DestroyOnAuthority();
+			DestroyOnAuthority( true );
 		}
 	}
 
 	[Authority]
-	void DestroyOnAuthority()
+	void DestroyOnAuthority( bool particles = false )
 	{
+		if ( particles )
+		{
+			Sound.Play( "item.pickup", Transform.Position );
+			VoxelParticles.SpawnInBounds( ModelRenderer.Bounds, ModelRenderer.MaterialOverride ?? ModelRenderer.Model.Materials.FirstOrDefault(), 5 );
+		}
 		GameObject.Destroy();
 	}
 
@@ -146,7 +151,14 @@ public partial class WorldItem : Component, Component.ITriggerListener
 		// use a custom model with a material override or something for the block texture.
 
 		go.NetworkSpawn();
+		BroadcastSpawnSound( go.Transform.Position );
 
 		return worldItem;
+	}
+
+	[Broadcast]
+	static void BroadcastSpawnSound( Vector3 position )
+	{
+		Sound.Play( "item.drop", position );
 	}
 }
