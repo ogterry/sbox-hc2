@@ -29,7 +29,8 @@
               "Size": "220,220"
             },
             "FlattenRange": "0.00,4.00,1",
-            "OffsetRange": "-4.00,8.00,1"
+            "OffsetRange": "-4.00,8.00,1",
+            "SmoothingRadius": 8
           }
         ],
         "Children": [
@@ -95,7 +96,8 @@
               "Size": "240,110"
             },
             "FlattenRange": "0.00,2.00,1",
-            "OffsetRange": "-2.00,4.00,1"
+            "OffsetRange": "-2.00,4.00,1",
+            "SmoothingRadius": 8
           }
         ]
       },
@@ -124,7 +126,8 @@
               "Size": "552,168"
             },
             "FlattenRange": "0.00,4.00,1",
-            "OffsetRange": "-4.00,4.00,1"
+            "OffsetRange": "-4.00,4.00,1",
+            "SmoothingRadius": 16
           }
         ],
         "Children": [
@@ -181,7 +184,8 @@
               "Size": "420,800"
             },
             "FlattenRange": "0.00,2.00,1",
-            "OffsetRange": "-2.00,4.00,1"
+            "OffsetRange": "-2.00,4.00,1",
+            "SmoothingRadius": 16
           }
         ],
         "Children": [
@@ -390,7 +394,8 @@
               "Size": "60.47999,850"
             },
             "FlattenRange": "0.00,1.00,1",
-            "OffsetRange": "-2.00,4.00,1"
+            "OffsetRange": "-2.00,4.00,1",
+            "SmoothingRadius": 8
           }
         ],
         "Children": [
@@ -525,7 +530,8 @@
               "Size": "600,50"
             },
             "FlattenRange": "0.00,1.00,1",
-            "OffsetRange": "-2.00,4.00,1"
+            "OffsetRange": "-2.00,4.00,1",
+            "SmoothingRadius": 8
           }
         ],
         "Children": [
@@ -637,7 +643,8 @@
               "Size": "500,50"
             },
             "FlattenRange": "0.00,1.00,1",
-            "OffsetRange": "-2.00,4.00,1"
+            "OffsetRange": "-2.00,4.00,1",
+            "SmoothingRadius": 8
           }
         ],
         "Children": [
