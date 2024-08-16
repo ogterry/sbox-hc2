@@ -1,0 +1,37 @@
+{
+  "Name": "Stone Sword",
+  "Description": "Slack and hash...",
+  "BlockType": null,
+  "Category": "Weapons",
+  "MaxStack": 1,
+  "MaxDurability": 1,
+  "Icon": "item_icons/weapon_sword_stone.png",
+  "Tags": "weapon,melee",
+  "Prefab": "prefabs/weapons/sword_stone.prefab",
+  "WorldModel": "models/weapons/temp/stone/stone_sword.vmdl",
+  "WorldModelOffset": {
+    "UniformScale": 1,
+    "IsValid": true,
+    "ForwardRay": {
+      "Forward": "1,0,0"
+    },
+    "Scale": "1,1,1",
+    "Rotation": "0,0,0,1"
+  },
+  "CraftingRequirements": [
+    {
+      "Resource": "items/tree_branch.item",
+      "Amount": 1,
+      "Durability": 1
+    },
+    {
+      "Resource": "items/rock.item",
+      "Amount": 2,
+      "Durability": 1
+    }
+  ],
+  "CraftingYield": 1,
+  "StatusEffects": [],
+  "__references": [],
+  "__version": 0
+}

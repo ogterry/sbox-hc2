@@ -1,0 +1,37 @@
+{
+  "Name": "Stone Shovel",
+  "Description": "Digs soil with efficiency!",
+  "BlockType": null,
+  "Category": "Tools",
+  "MaxStack": 1,
+  "MaxDurability": 1,
+  "Icon": "item_icons/tool_shovel_stone.png",
+  "Tags": "weapon,melee",
+  "Prefab": "prefabs/weapons/shovel_stone.prefab",
+  "WorldModel": "models/weapons/temp/stone/stone_shovel.vmdl",
+  "WorldModelOffset": {
+    "UniformScale": 1,
+    "IsValid": true,
+    "ForwardRay": {
+      "Forward": "1,0,0"
+    },
+    "Scale": "1,1,1",
+    "Rotation": "0,0,0,1"
+  },
+  "CraftingRequirements": [
+    {
+      "Resource": "items/tree_branch.item",
+      "Amount": 2,
+      "Durability": 1
+    },
+    {
+      "Resource": "items/rock.item",
+      "Amount": 1,
+      "Durability": 1
+    }
+  ],
+  "CraftingYield": 1,
+  "StatusEffects": [],
+  "__references": [],
+  "__version": 0
+}

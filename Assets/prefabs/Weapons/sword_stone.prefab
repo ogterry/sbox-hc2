@@ -1,0 +1,68 @@
+{
+  "RootObject": {
+    "__guid": "b7c98c4e-8217-4956-a6a1-87559ffe2b98",
+    "Flags": 0,
+    "Name": "sword_stone",
+    "Enabled": true,
+    "Components": [
+      {
+        "__type": "MeleeWeapon",
+        "__guid": "a9db2399-a4a5-416e-bc76-442c7c81b836",
+        "AimingEnabled": false,
+        "AimingFOVOffset": 0,
+        "AttackDelay": 1,
+        "AttackRange": 128,
+        "AttackSound": "sounds/weapons/sword_swing.sound",
+        "Damage": 35,
+        "DamageType": "Fire",
+        "DurabilityOnUse": 0.035,
+        "Hand": "MainHand, OffHand",
+        "HitSound": "sounds/weapons/sword_metallic_hit.sound",
+        "HoldType": "Swing",
+        "InputAction": "attack1",
+        "SwingDelay": 0.25,
+        "Thickness": 20
+      },
+      {
+        "__type": "HC2.ResourceGatherer",
+        "__guid": "287bdfe0-edeb-44d7-a689-aa8436be0562",
+        "Effectiveness": 0.04,
+        "SourceKind": "Soil"
+      },
+      {
+        "__type": "HC2.ResourceGatherer",
+        "__guid": "c9250199-8d39-468d-b4df-5eb79db8592c",
+        "Effectiveness": 0.25,
+        "SourceKind": "Wood"
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "9a04dab5-3ec1-4b2f-952c-f6467fc74b77",
+        "Flags": 0,
+        "Name": "sword",
+        "Position": "-0.102237,-1.482692,-5.745295",
+        "Rotation": "-0.00000008940697,0,-0.943473,0.3314489",
+        "Scale": "1.2,1.2,1.2",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "7f1107b5-02e2-4e2d-bfbe-a8adc660c22d",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/weapons/temp/stone/stone_sword.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

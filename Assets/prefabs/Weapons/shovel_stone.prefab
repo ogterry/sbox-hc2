@@ -1,0 +1,72 @@
+{
+  "RootObject": {
+    "__guid": "b7c98c4e-8217-4956-a6a1-87559ffe2b98",
+    "Flags": 0,
+    "Name": "shovel_stone",
+    "Enabled": true,
+    "Components": [
+      {
+        "__type": "MeleeWeapon",
+        "__guid": "a9db2399-a4a5-416e-bc76-442c7c81b836",
+        "AimingEnabled": false,
+        "AimingFOVOffset": 0,
+        "AttackDelay": 1,
+        "AttackRange": 128,
+        "AttackSound": "sounds/weapons/sword_swing.sound",
+        "Damage": 25,
+        "DamageType": "Fire",
+        "DurabilityOnUse": 0.035,
+        "Hand": "MainHand, OffHand",
+        "HitSound": "sounds/weapons/sword_metallic_hit.sound",
+        "HoldType": "Swing",
+        "InputAction": "attack1",
+        "SwingDelay": 0.25,
+        "Thickness": 20
+      },
+      {
+        "__type": "HC2.ResourceGatherer",
+        "__guid": "287bdfe0-edeb-44d7-a689-aa8436be0562",
+        "Effectiveness": 1,
+        "SourceKind": "Soil"
+      },
+      {
+        "__type": "HC2.ResourceGatherer",
+        "__guid": "c9250199-8d39-468d-b4df-5eb79db8592c",
+        "Effectiveness": 0.06,
+        "SourceKind": "Wood"
+      },
+      {
+        "__type": "HighlightSelectedBlock",
+        "__guid": "c55cd8d6-779d-4a0e-94b8-31826040eade"
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "6e69104d-c1f9-4a6e-a0dc-5ba94ac58417",
+        "Flags": 0,
+        "Name": "pickaxe",
+        "Position": "-0.06398075,-1.530478,0.01934409",
+        "Rotation": "-0.0000001266599,-0.00000002980232,-0.9434731,0.3314489",
+        "Scale": "1.2,1.2,1.2",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "bb515ad1-b029-4d57-98e1-53b034482697",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/weapons/temp/stone/stone_shovel.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}
