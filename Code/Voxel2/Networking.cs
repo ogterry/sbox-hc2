@@ -77,8 +77,8 @@ public sealed class VoxelNetworking : Component, Component.ExecuteInEditor
 
 		switch ( modification.Kind )
 		{
-			case ModificationKind.WorldGen:
-				Apply( new WorldGenModification( stream, modification.Min, modification.Max ) );
+			case ModificationKind.Heightmap:
+				Apply( new HeightmapModification( stream, modification.Min, modification.Max ) );
 				break;
 
 			case ModificationKind.Carve:

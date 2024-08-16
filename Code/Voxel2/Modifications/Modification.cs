@@ -6,7 +6,7 @@ public enum ModificationKind : byte
 {
 	// TODO: if we move this to a library, need to make this dynamic
 
-	WorldGen,
+	Heightmap,
 	Carve,
 	Build
 }

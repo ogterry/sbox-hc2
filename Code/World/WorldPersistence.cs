@@ -440,8 +440,8 @@ public sealed class WorldPersistence : Component
 
 		world.MeshChunks();
 
-		// Spawn props afterwards
-		worldGen.SpawnProps();
+		// Spawn props afterwards, this won't modify the voxel world itself
+		worldGen.Generate();
 	}
 
 	private static void WriteVarUshort( ref ByteStream writer, ushort value )

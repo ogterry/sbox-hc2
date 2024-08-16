@@ -8,151 +8,6 @@ namespace Voxel.Modifications;
 
 #nullable enable
 
-public record WorldGenModification( int Seed, WorldGenParameters Parameters, Vector3Int Min, Vector3Int Max ) : IModification
-{
-	public ModificationKind Kind => ModificationKind.WorldGen;
-
-	public WorldGenModification( ByteStream stream, Vector3Int min, Vector3Int max )
-		: this(
-			stream.Read<int>(),
-			ResourceLibrary.Get<WorldGenParameters>( stream.Read<int>() ),
-			min, max )
-	{
-
-	}
-
-	private HeightmapSample[]? _worldHeightmap;
-	private WorldGenSampler? _worldSampler;
-
-	[ThreadStatic]
-	private static HeightmapSample[]? _chunkHeightmap;
-
-	private WorldGenSampler WorldSampler => _worldSampler ??= new WorldGenSampler( Parameters, Seed, Max.x - Min.x );
-
-	public bool ShouldCreateChunk( Vector3Int chunkMin )
-	{
-		var chunkHeightmap = _chunkHeightmap ??= new HeightmapSample[Constants.ChunkSizeSquared];
-
-		// Span<HeightmapSample> chunkHeightmap = stackalloc HeightmapSample[Constants.ChunkSizeSquared];
-
-		GetChunkHeightMap( chunkMin.x, chunkMin.z, chunkHeightmap );
-
-		return IsChunkPopulated( chunkMin, chunkHeightmap );
-	}
-
-	private bool IsChunkPopulated( Vector3Int chunkMin, Span<HeightmapSample> chunkHeightmap )
-	{
-		var maxHeight = 0;
-
-		for ( var i = 0; i < Constants.ChunkSizeSquared; ++i )
-		{
-			maxHeight = Math.Max( maxHeight, chunkHeightmap[i].Height );
-		}
-
-		return maxHeight > chunkMin.y;
-	}
-
-	private void UpdateHeightmap()
-	{
-		if ( _worldHeightmap is not null ) return;
-
-		_worldHeightmap = new HeightmapSample[(Max.x - Min.x) * (Max.z - Min.z)];
-		WorldSampler.Sample( Min.x, Min.z, Max.x, Max.z, _worldHeightmap );
-	}
-
-	private void GetChunkHeightMap( int minX, int minZ, Span<HeightmapSample> output )
-	{
-		UpdateHeightmap();
-
-		Assert.True( output.Length >= Constants.ChunkSizeSquared );
-		Assert.True( minX >= Min.x );
-		Assert.True( minZ >= Min.z );
-		Assert.True( minX + Constants.ChunkSize <= Max.x );
-		Assert.True( minZ + Constants.ChunkSize <= Max.z );
-
-		var stride = Max.x - Min.x;
-		var baseIndex = minX - Min.x + (minZ - Min.z) * stride;
-
-		for ( var z = 0; z < Constants.ChunkSize; ++z )
-		{
-			var index = baseIndex + z * stride;
-
-			_worldHeightmap
-				.AsSpan( index, Constants.ChunkSize )
-				.CopyTo( output.Slice( z << Constants.ChunkShift, Constants.ChunkSize ) );
-		}
-	}
-
-	public void Write( ref ByteStream stream )
-	{
-		stream.Write( Seed );
-		stream.Write( Parameters.ResourceId );
-	}
-
-	public void Apply( VoxelRenderer renderer, Chunk chunk )
-	{
-		var chunkHeightmap = _chunkHeightmap ??= new HeightmapSample[Constants.ChunkSizeSquared];
-		// Span<HeightmapSample> chunkHeightmap = stackalloc HeightmapSample[Constants.ChunkSizeSquared];
-
-		var min = chunk.WorldMin;
-
-		GetChunkHeightMap( min.x, min.z, chunkHeightmap );
-
-		if ( !IsChunkPopulated( min, chunkHeightmap ) )
-		{
-			chunk.Deallocate();
-			return;
-		}
-
-		chunk.Clear();
-
-		var voxels = chunk.Voxels;
-		var biomeSampler = renderer.Components.Get<BiomeSampler>();
-		var palette = renderer.Palette;
-
-		for ( var x = 0; x < Constants.ChunkSize; x++ )
-		{
-			for ( var z = 0; z < Constants.ChunkSize; z++ )
-			{
-				var i = Chunk.WorldToLocal( x );
-				var k = Chunk.WorldToLocal( z );
-
-				var heightmapAccess = Chunk.GetHeightmapAccess( i, k );
-
-				var (height, terrain) = chunkHeightmap[heightmapAccess];
-				var biome = biomeSampler?.GetBiomeAt( min.x + x, min.z + z );
-
-				var minJ = int.MaxValue;
-				var maxJ = int.MinValue;
-
-				var localHeight = height - min.y;
-
-				for ( var y = 0; y < Constants.ChunkSize && y < localHeight; y++ )
-				{
-					byte blockIndex = 1;
-
-					if ( biome?.GetBlock( height, terrain, localHeight - y - 1 ) is { } block )
-					{
-						blockIndex = palette.GetBlockIndex( block, block.MaxHealth );
-					}
-
-					var j = Chunk.WorldToLocal( y );
-
-					voxels[Chunk.GetAccessLocal( i, j, k )] = blockIndex;
-
-					minJ = Math.Min( j, minJ );
-					maxJ = Math.Max( j, maxJ );
-				}
-
-				if ( maxJ < 0 || minJ > 255 ) continue;
-
-				chunk.MinAltitude[heightmapAccess] = (byte)minJ;
-				chunk.MaxAltitude[heightmapAccess] = (byte)maxJ;
-			}
-		}
-	}
-}
-
 [Icon( "casino" )]
 public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 {
@@ -181,14 +36,13 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 
 		using var sceneScope = Scene.Push();
 
+		var heightmap = Generate();
+
 		if ( WorldPersistence.FileToLoad is null )
 		{
-			Log.Info( $"Generating!" );
-			VoxelNetworking.Modify( new WorldGenModification( Seed, Parameters, 0, VoxelNetworking.Renderer.Size ) );
+			Log.Info( $"Applying heightmap! size: {heightmap.Length}" );
+			VoxelNetworking.Modify( new HeightmapModification( 0, VoxelNetworking.Renderer.Size, heightmap ) );
 		}
-
-		Log.Info( $"Spawning props!" );
-		SpawnProps();
 	}
 
 	protected override void OnEnabled()
@@ -214,22 +68,28 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 
 	private readonly record struct Circle( Vector2 Center, float Radius );
 
-	internal void SpawnProps()
+	/// <summary>
+	/// Generates a heightmap, spawns props, returns heightmap.
+	/// Doesn't actually apply the heightmap to the world.
+	/// </summary>
+	internal HeightmapSample[] Generate()
 	{
 		DestroyProps();
 
-		if ( Parameters is null || !Renderer.IsValid() )
-		{
-			return;
-		}
-
 		Random = new Random( Seed );
-		Sampler = new WorldGenSampler( Parameters, Seed, Renderer.Size.x );
+
+		_size = VoxelNetworking.Renderer.Size.x;
+		var heightmap = _heightmap = new HeightmapSample[_size * _size];
+
+		var sampler = new WorldGenSampler( Parameters, Seed, _size );
+		sampler.Sample( 0, 0, _size, _size, _heightmap );
 
 		SpawnFeatures( Vector3.Zero, 4096f, true, Parameters.Features.ToArray() );
 
 		Random = null!;
-		Sampler = null!;
+		_heightmap = null!;
+
+		return heightmap;
 	}
 
 	private WorldGenFeature? GetRandomWeighted( IReadOnlyList<WorldGenFeature> features )
@@ -256,7 +116,17 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 	}
 
 	public Random Random { get; private set; } = null!;
-	public WorldGenSampler Sampler { get; private set; } = null!;
+
+	private HeightmapSample[] _heightmap = null!;
+	private int _size;
+
+	public HeightmapSample SampleHeightmap( int x, int z )
+	{
+		x = Math.Clamp( x, 0, _size - 1 );
+		z = Math.Clamp( z, 0, _size - 1 );
+
+		return _heightmap[x + z * _size];
+	}
 
 	public void SpawnFeatures( Vector3 origin, float radius, bool uniform = false, params WorldGenFeature[] features )
 	{
@@ -304,7 +174,7 @@ public sealed class VoxelWorldGen : Component, Component.ExecuteInEditor
 			if ( AnyBlocking( new Circle( pos2d, minRadius ), out float minDist ) ) continue;
 
 			var localPos = Renderer.WorldToVoxelCoords( pos2d );
-			var sample = Sampler.Sample( localPos.x, localPos.z );
+			var sample = SampleHeightmap( localPos.x, localPos.z );
 
 			localPos.y = sample.Height;
 
