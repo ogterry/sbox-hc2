@@ -3,7 +3,7 @@
   "Description": "",
   "BlockType": "blocks/grass.block",
   "Category": "Resources",
-  "MaxStack": 99,
+  "MaxStack": 256,
   "MaxDurability": 1,
   "Icon": "textures/ground_texture_02.png",
   "Tags": null,

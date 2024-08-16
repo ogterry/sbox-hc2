@@ -1,11 +1,26 @@
 {
   "Name": "Gem",
   "Description": "It\u0027s shiny!",
+  "BlockType": null,
+  "Category": "Resources",
+  "MaxStack": 64,
+  "MaxDurability": 1,
   "Icon": "item_icons/gem.png",
   "Tags": null,
   "Prefab": null,
-  "ItemPrefab": null,
   "WorldModel": "models/mazing/ruby.vmdl",
+  "WorldModelOffset": {
+    "UniformScale": 1,
+    "IsValid": true,
+    "ForwardRay": {
+      "Forward": "1,0,0"
+    },
+    "Scale": "1,1,1",
+    "Rotation": "0,0,0,1"
+  },
+  "CraftingRequirements": [],
+  "CraftingYield": 1,
+  "StatusEffects": [],
   "__references": [],
   "__version": 0
 }

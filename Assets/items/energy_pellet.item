@@ -1,12 +1,23 @@
 {
   "Name": "Energy Pellet",
   "Description": "Ammo for energy-driven weapons",
+  "BlockType": null,
   "Category": "Ammo",
-  "MaxStack": 99,
+  "MaxStack": 256,
+  "MaxDurability": 1,
   "Icon": "item_icons/energy_pellet.png",
   "Tags": "ammo",
   "Prefab": null,
   "WorldModel": "models/dev/sphere.vmdl",
+  "WorldModelOffset": {
+    "UniformScale": 1,
+    "IsValid": true,
+    "ForwardRay": {
+      "Forward": "1,0,0"
+    },
+    "Scale": "1,1,1",
+    "Rotation": "0,0,0,1"
+  },
   "CraftingRequirements": [
     {
       "Resource": "items/metal_piece.item",

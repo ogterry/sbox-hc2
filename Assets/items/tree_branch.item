@@ -1,13 +1,25 @@
 {
   "Name": "Tree Branch",
   "Description": "You can craft stuff with it.. or can you?",
+  "BlockType": null,
   "Category": "Resources",
-  "MaxStack": 99,
+  "MaxStack": 64,
+  "MaxDurability": 1,
   "Icon": "item_icons/tree_branch.png",
   "Tags": null,
   "Prefab": null,
   "WorldModel": "models/props/dead_tree/branch.vmdl",
+  "WorldModelOffset": {
+    "UniformScale": 1,
+    "IsValid": true,
+    "ForwardRay": {
+      "Forward": "1,0,0"
+    },
+    "Scale": "1,1,1",
+    "Rotation": "0,0,0,1"
+  },
   "CraftingRequirements": [],
+  "CraftingYield": 1,
   "StatusEffects": [],
   "__references": [],
   "__version": 0

@@ -3,7 +3,7 @@
   "Description": "You can craft stuff with it.. or can you?",
   "BlockType": null,
   "Category": "Resources",
-  "MaxStack": 99,
+  "MaxStack": 64,
   "MaxDurability": 1,
   "Icon": "item_icons/metal_piece.png",
   "Tags": null,
