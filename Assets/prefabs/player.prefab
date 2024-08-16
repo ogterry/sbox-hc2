@@ -658,13 +658,13 @@
                                                   {
                                                     "__type": "HC2.ResourceGatherer",
                                                     "__guid": "d510825d-c154-4416-963c-fb7f04a5301e",
-                                                    "Effectiveness": 0.5,
+                                                    "Effectiveness": 0.1,
                                                     "SourceKind": "Soil"
                                                   },
                                                   {
                                                     "__type": "HC2.ResourceGatherer",
                                                     "__guid": "5b9ec711-d1cb-4072-9a2f-4370bb43fe4a",
-                                                    "Effectiveness": 0.25,
+                                                    "Effectiveness": 0.1,
                                                     "SourceKind": "Wood"
                                                   }
                                                 ]

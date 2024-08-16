@@ -29,12 +29,12 @@
         "HoldType": "Swing",
         "InputAction": "attack1",
         "SwingDelay": 0.25,
-        "Thickness": 5
+        "Thickness": 20
       },
       {
         "__type": "HC2.ResourceGatherer",
         "__guid": "287bdfe0-edeb-44d7-a689-aa8436be0562",
-        "Effectiveness": 1,
+        "Effectiveness": 0.04,
         "SourceKind": "Soil"
       },
       {
