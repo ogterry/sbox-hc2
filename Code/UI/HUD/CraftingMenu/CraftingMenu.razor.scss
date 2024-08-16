@@ -4,8 +4,8 @@ CraftingMenu
 {
     position: absolute;
     right: 0;
-    top: 0;
-    height: 100%;
+    top: 5%;
+    height: 90%;
     width: 400px;
     max-width: 400px;
     font-family: Glegoo;
@@ -19,6 +19,17 @@ CraftingMenu
         padding: 4px;
         border-image: url( /ui/Transparent center/panel-transparent-center-001.png ) 16 fill;
         border-image-tint: $background;
+
+        &:first-child
+        {
+            overflow-x: hidden;
+            overflow-y: scroll;
+
+            > div
+            {
+                flex-shrink: 0;
+            }
+        }
     }
 
     .selected-item
