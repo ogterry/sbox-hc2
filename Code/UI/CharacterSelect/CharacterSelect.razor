@@ -56,7 +56,7 @@
 
     void SelectCharacter(CharacterSave character)
     {
-        if (IsPause)
+        if (IsPause && CharacterSave.Current is not null)
         {
             Player.Local?.Kill();
             CharacterSave.Current = character;
@@ -64,14 +64,16 @@
         else
         {
             CharacterSave.Current = character;
-            OnSelect?.Invoke();
         }
+        OnSelect?.Invoke();
     }
 
     protected override void OnAfterTreeRender(bool firstTime)
     {
         base.OnAfterTreeRender(firstTime);
 
+        var elementName = FindRootPanel().Children.FirstOrDefault().ElementName;
+        IsModal = elementName == "characterselectmodal";
         IsPause = MenuRoot.Instance.IsPauseMenu;
 
         var chars = CharacterSave.GetAll();
