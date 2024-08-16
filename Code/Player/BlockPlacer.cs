@@ -26,14 +26,41 @@ public sealed class BlockPlacer : Carriable
     {
         base.OnUpdate();
 
-        var tr = Scene.Trace.Ray( Scene.Camera.Transform.Position, Scene.Camera.Transform.Position + Scene.Camera.Transform.Rotation.Forward * 500 )
+        var tr = Scene.Trace.Ray( Scene.Camera.Transform.Position, Scene.Camera.Transform.Position + Scene.Camera.Transform.Rotation.Forward * 325 )
             .WithoutTags( "player", "trigger", "mob", "worlditem" )
             .Run();
+
+        Vector2 checkingDir = Vector2.Zero;
+        if ( !tr.Hit )
+        {
+            for ( var i = 0; i < 4; i++ )
+            {
+                var angle = i * 90;
+                var angles = new Angles( 3 * (angle == 0 ? 1 : -1), 0, 0 );
+                if ( i % 2 == 1 )
+                    angles = new Angles( 0, 3 * (angle == 90 ? 1 : -1), 0 );
+                var newRot = Scene.Camera.Transform.Rotation * angles;
+                tr = Scene.Trace.Ray( Scene.Camera.Transform.Position, Scene.Camera.Transform.Position + newRot.Forward * 250 )
+                    .WithoutTags( "player", "trigger", "mob", "worlditem" )
+                    .Size( 2f )
+                    .Run();
+
+                if ( tr.Hit )
+                {
+                    checkingDir = new Vector2( MathF.Sign( angles.yaw ), MathF.Sign( angles.pitch ) );
+                    break;
+                }
+            }
+        }
 
         if ( tr.Hit )
         {
             var blockSize = 16f;
             var pos = tr.HitPosition + tr.Normal * (blockSize / 2f);
+            if ( checkingDir != 0 )
+            {
+                pos = tr.HitPosition - tr.Normal * (blockSize / 2f) + new Vector3( checkingDir.x, 0, checkingDir.y ) * (blockSize / 2f);
+            }
             pos -= blockSize / 2f;
             pos = pos.SnapToGrid( blockSize );
 
