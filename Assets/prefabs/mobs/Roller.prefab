@@ -27,7 +27,7 @@
             "Chance": 100
           }
         ],
-        "LoopingIdlePitchWithSpeed": false,
+        "LoopingIdlePitchWithSpeed": true,
         "LoopingIdleSound": "sounds/mobs/roller/rolling/roller_ball_rolling.sound",
         "OnlyPlayIdleSoundWhenMoving": true
       },
@@ -575,9 +575,9 @@
                         "Id": 3,
                         "Type": "call",
                         "Properties": {
-                          "_name": "SetMoveTarget",
+                          "_isStatic": false,
                           "_type": "HC2.Mobs.Mob",
-                          "_isStatic": false
+                          "_name": "SetMoveTarget"
                         },
                         "UserData": {
                           "Position": "592,64"
@@ -652,8 +652,8 @@
                         "Id": 11,
                         "Type": "property",
                         "Properties": {
-                          "_name": "Normal",
-                          "_type": "Vector3"
+                          "_type": "Vector3",
+                          "_name": "Normal"
                         },
                         "UserData": {
                           "Position": "448,-144",
