@@ -1,0 +1,96 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc29:version{3cec427c-1b0e-4d48-a90a-0436f33a6041} -->
+{
+	rootNode = 
+	{
+		_class = "RootNode"
+		children = 
+		[
+			{
+				_class = "RenderMeshList"
+				children = 
+				[
+					{
+						_class = "RenderMeshFile"
+						filename = "models/props/building_kit/rural/rural_a_roofing_broken_01.vox"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+				]
+			},
+			{
+				_class = "PhysicsShapeList"
+				children = 
+				[
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ 70.542267, 13.661098, 45.084209 ]
+						angles = [ -34.538418, 0.0, 0.0 ]
+						dimensions = [ 169.370773, 29.188225, 16.856365 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ 204.103546, 13.394035, 45.084217 ]
+						angles = [ 33.845554, 0.0, 0.0 ]
+						dimensions = [ 169.370773, 28.654099, 16.856365 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ 70.542267, 111.914024, 45.084209 ]
+						angles = [ -34.538418, 0.0, 0.0 ]
+						dimensions = [ 169.370773, 32.704849, 16.856365 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ 204.103546, 111.761429, 45.084217 ]
+						angles = [ 33.845554, 0.0, 0.0 ]
+						dimensions = [ 169.370773, 31.696119, 16.856365 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ 58.078587, 62.255817, 36.505859 ]
+						angles = [ -34.538418, 0.0, 0.0 ]
+						dimensions = [ 139.109802, 68.011314, 16.856365 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						origin = [ 248.974091, 61.888969, 14.994319 ]
+						angles = [ 33.845554, 0.0, 0.0 ]
+						dimensions = [ 61.31953, 69.970993, 16.856365 ]
+					},
+				]
+			},
+		]
+		model_archetype = ""
+		primary_associated_entity = ""
+		anim_graph_name = ""
+		base_model_name = ""
+	}
+}
