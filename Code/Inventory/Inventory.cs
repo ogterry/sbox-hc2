@@ -127,7 +127,7 @@ public class Inventory : Component, ISaveData
 				if ( i.Amount + amount <= i.Resource.MaxStack )
 				{
 					i.Amount += amount;
-					return true;
+					break;
 				}
 
 				amount -= i.Resource.MaxStack - i.Amount;
@@ -135,41 +135,53 @@ public class Inventory : Component, ISaveData
 			}
 
 			if ( amount <= 0 )
-				return true;
+				break;
 		}
 
-		if ( OverflowContainer.IsValid() )
+		if ( amount > 0 )
 		{
-			foreach ( var i in OverflowContainer.Items )
-			{
-				if ( i is null ) continue;
-				if ( i.Resource == item.Resource )
-				{
-					if ( i.Amount <= 0 ) continue;
 
-					if ( i.Amount + amount <= i.Resource.MaxStack )
+			if ( OverflowContainer.IsValid() )
+			{
+				foreach ( var i in OverflowContainer.Items )
+				{
+					if ( i is null ) continue;
+					if ( i.Resource == item.Resource )
 					{
-						i.Amount += amount;
-						return true;
+						if ( i.Amount <= 0 ) continue;
+
+						if ( i.Amount + amount <= i.Resource.MaxStack )
+						{
+							i.Amount += amount;
+							break;
+						}
+
+						amount -= i.Resource.MaxStack - i.Amount;
+						i.Amount = i.Resource.MaxStack;
 					}
 
-					amount -= i.Resource.MaxStack - i.Amount;
-					i.Amount = i.Resource.MaxStack;
+					if ( amount <= 0 )
+						break;
 				}
+			}
 
-				if ( amount <= 0 )
-					return true;
+			// No existing entries, sweep for empty slots
+
+			if ( amount > 0 )
+			{
+				if ( !Container.TryGiveItem( item ) )
+				{
+					if ( !OverflowContainer.IsValid() || !OverflowContainer.CanGiveItem( item ) )
+						return false;
+
+					OverflowContainer.TryGiveItem( item );
+				}
 			}
 		}
 
-		// No existing entries, sweep for empty slots
-
-		if ( !Container.TryGiveItem( item ) )
+		if ( !IsProxy )
 		{
-			if ( !OverflowContainer.IsValid() || !OverflowContainer.CanGiveItem( item ) )
-				return false;
-
-			OverflowContainer.TryGiveItem( item );
+			NotificationPanel.Instance.AddItemNotification( item );
 		}
 
 		return true;

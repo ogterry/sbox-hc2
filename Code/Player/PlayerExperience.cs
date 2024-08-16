@@ -31,6 +31,11 @@ public sealed class PlayerExperience : Component, ISaveData
 			levels++;
 		}
 
+		using ( Rpc.FilterInclude( Network.OwnerConnection ) )
+		{
+			BroadcastMessage( $"+{amount} XP" );
+		}
+
 		if ( levels > 0 )
 		{
 			GiveLevel( levels );
@@ -47,6 +52,11 @@ public sealed class PlayerExperience : Component, ISaveData
 		Level += amount;
 		UnspentUpgrades += amount;
 		OnGiveLevels?.Invoke( amount );
+
+		using ( Rpc.FilterInclude( Network.OwnerConnection ) )
+		{
+			BroadcastMessage( $"You gained {amount} levels!" );
+		}
 
 		CharacterSave.Current?.Save( Player.Local );
 	}
@@ -137,5 +147,11 @@ public sealed class PlayerExperience : Component, ISaveData
 			for ( int i = 0; i < upgradeCount; i++ )
 				UpgradeStat( status, true );
 		}
+	}
+
+	[Broadcast( NetPermission.HostOnly )]
+	void BroadcastMessage( string message )
+	{
+		NotificationPanel.Instance?.AddNotification( message );
 	}
 }

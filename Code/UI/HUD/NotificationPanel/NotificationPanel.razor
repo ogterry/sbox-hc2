@@ -1,0 +1,52 @@
+﻿@using Sandbox;
+@using Sandbox.UI;
+@inherits Panel
+@namespace HC2
+@attribute [StyleSheet]
+
+<root>
+</root>
+
+@code
+{
+	public static NotificationPanel Instance { get; private set; }
+
+	protected override void OnAfterTreeRender(bool firstTime)
+	{
+		base.OnAfterTreeRender(firstTime);
+
+		if (firstTime)
+		{
+			Instance = this;
+		}
+	}
+
+	public void AddNotification(string text)
+	{
+		var entry = new NotificationPanelEntry();
+		entry.Text = text;
+		Instance.AddChild(entry);
+	}
+
+	public void AddItemNotification(Item item)
+	{
+		foreach (var child in Children)
+		{
+			if (child is not NotificationPanelEntry childEntry)
+				continue;
+
+			if (childEntry.Item is null)
+				continue;
+
+			if (childEntry.Item.Resource == item.Resource)
+			{
+				childEntry.UpdateItem(item);
+				return;
+			}
+		}
+
+		var entry = new NotificationPanelEntry();
+		entry.UpdateItem(item);
+		Instance.AddChild(entry);
+	}
+}
