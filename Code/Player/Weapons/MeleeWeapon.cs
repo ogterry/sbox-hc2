@@ -96,7 +96,7 @@ public partial class MeleeWeapon : WeaponComponent
 
 					using ( Rpc.FilterInclude( Connection.Host ) )
 					{
-						BroadcastDamageWorld( tr.HitPosition + tr.Normal * 8f, tr.Normal, damage.Damage );
+						BroadcastDamageWorld( tr.HitPosition - tr.Normal * 8f, tr.Normal, damage.Damage );
 					}
 					return;
 				}
