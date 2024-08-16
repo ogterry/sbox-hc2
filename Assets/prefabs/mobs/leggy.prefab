@@ -11,7 +11,8 @@
         "__type": "HC2.Mobs.Mob",
         "__guid": "b2e11a2c-001a-4aef-8168-1fa3ec9ff862",
         "DamageScale": 1,
-        "ExperienceYield": 40
+        "ExperienceYield": 40,
+        "ItemDrops": []
       },
       {
         "__type": "HealthComponent",
@@ -20,7 +21,8 @@
           "_type": "gameobject",
           "prefab": "prefabs/damage/dmgnumber.prefab"
         },
-        "MaxHealth": 1000
+        "MaxHealth": 1000,
+        "RegenRate": 0
       },
       {
         "__type": "HC2.Mobs.GroundMover",
@@ -48,6 +50,7 @@
         "Flags": 0,
         "Name": "State Machine",
         "Enabled": true,
+        "NetworkMode": 0,
         "Components": [
           {
             "__type": "Sandbox.States.StateMachineComponent",

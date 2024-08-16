@@ -68,6 +68,7 @@
         "Flags": 0,
         "Name": "StateMachine",
         "Enabled": true,
+        "NetworkMode": 0,
         "Components": [
           {
             "__type": "Sandbox.States.StateMachineComponent",
