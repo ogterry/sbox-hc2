@@ -1,7 +1,8 @@
 {
   "HeightRange": "4.00,8.00,1",
   "BiomeRange": "0.00,0.15,1",
-  "Radius": 512,
+  "SpawnsInGround": false,
+  "Radius": 70,
   "Weight": 0.05,
   "Spawn": {
     "__version": 7,
@@ -121,7 +122,7 @@
         "DstName": "position"
       },
       {
-        "Value": 5,
+        "Value": 1,
         "DstId": 3,
         "DstName": "scale"
       },
