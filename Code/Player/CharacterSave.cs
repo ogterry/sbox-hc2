@@ -29,6 +29,9 @@ public sealed class CharacterSave
 	/// </summary>
 	public string SaveData { get; set; } = null;
 
+	[JsonIgnore]
+	public Dictionary<string, string> Data => Json.Deserialize<Dictionary<string, string>>( SaveData );
+
 	/// <summary>
 	/// Save this based on an existing player.
 	/// </summary>
@@ -84,12 +87,6 @@ public sealed class CharacterSave
 			{
 				component.Load( data[type] );
 			}
-		}
-
-		if ( data.TryGetValue( $"location:{WorldPersistence.Instance.CurrentSave}", out var positionAsString ) )
-		{
-			var position = Json.Deserialize<Vector3>( positionAsString );
-			player.Transform.Position = position;
 		}
 	}
 

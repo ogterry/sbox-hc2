@@ -105,7 +105,16 @@ public sealed class Networking : Component, Component.INetworkListener
 		}
 
 		// Find a spawn location for this player
-		var startLocation = FindSpawnLocation().WithScale(1);
+		var startLocation = FindSpawnLocation().WithScale( 1 );
+
+		if ( CharacterSave.Current is not null )
+		{
+			if ( CharacterSave.Current.Data.TryGetValue( $"location:{WorldPersistence.Instance.CurrentSave}", out string spawnString ) )
+			{
+				var spawn = Vector3.Parse( spawnString );
+				startLocation = startLocation.WithPosition( spawn );
+			}
+		}
 
 		// Spawn this object and make the client the owner
 		var player = PlayerPrefab.Clone(startLocation, name: $"Player - {channel.DisplayName}");
