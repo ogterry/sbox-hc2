@@ -22,7 +22,8 @@
           }
         ],
         "LoopingIdlePitchWithSpeed": true,
-        "LoopingIdleSound": "sounds/mobs/drone/drone_idle_loop.sound"
+        "LoopingIdleSound": "sounds/mobs/drone/drone_idle_loop.sound",
+        "OnlyPlayIdleSoundWhenMoving": false
       },
       {
         "__type": "HealthComponent",
@@ -39,7 +40,7 @@
         "__guid": "267436dd-ef52-489b-a48f-87ae0590aa54",
         "Center": "0,0,0",
         "IsTrigger": false,
-        "Scale": "44,38,7.066651",
+        "Scale": "88,63.33333,30",
         "Static": false
       },
       {
@@ -1110,6 +1111,8 @@
         "__guid": "2a83c609-90b3-4b05-a098-c77544470890",
         "Flags": 0,
         "Name": "MainBody",
+        "Position": "-9.588203,-10.82335,0.8387139",
+        "Rotation": "0,0,0.7071067,0.7071068",
         "Scale": "0.5,0.5,0.5",
         "Enabled": true,
         "Children": [
@@ -1117,6 +1120,7 @@
             "__guid": "086a6b92-76d8-45ae-965b-6e3da33fd754",
             "Flags": 0,
             "Name": "Cube",
+            "Position": "-1.855854,0,0",
             "Tags": "bodypart",
             "Enabled": true,
             "Components": [
@@ -1127,14 +1131,6 @@
                 "Model": "models/mobs/drone/drone.vmdl",
                 "RenderType": "On",
                 "Tint": "1,1,1,1"
-              },
-              {
-                "__type": "Sandbox.BoxCollider",
-                "__guid": "a2c8fef0-4c4f-4b44-aeaa-bba4bded1b26",
-                "Center": "0,0,5.799997",
-                "IsTrigger": false,
-                "Scale": "51.60004,88.89987,25.2",
-                "Static": false
               }
             ]
           }
