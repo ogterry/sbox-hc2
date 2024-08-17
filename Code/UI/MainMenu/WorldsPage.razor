@@ -4,6 +4,14 @@
 
 @implements INavigatorPage
 @namespace HC2
+<style>
+   WorldsPage
+   {
+       .outdated {
+           background-color: red;
+       }
+   }
+</style>
 
 <root>
     <div class="canvas">
@@ -45,7 +53,7 @@
                     <div class="worlds column gap with-padding-vertical">
                         @foreach ( var save in WorldSave.GetAll() )
                         {
-                            <div class="button" @onclick=@(() => LoadWorld(save)) >@(save.Name) @(save.CreatedAt.ToString("dd/MM/yyyy HH:mm")</div>
+                            <div class="button @(save.IsOutdated ? "outdated" : "")" @onclick=@(() => LoadWorld(save)) >@(save.Name) @(save.CreatedAt.ToString("dd/MM/yyyy HH:mm")</div>
                         }
                     </div>
 
@@ -69,7 +77,7 @@
 
         try
         {
-            var world = FileSystem.Data.ReadJson<WorldSave>( WorldPersistence.FileToLoad );
+            var world = WorldSave.Get( WorldPersistence.FileToLoad );
             return world;
         }
         catch
@@ -115,6 +123,11 @@
 
     void LoadWorld( WorldSave save )
     {
+        if ( save.IsOutdated )
+        {
+            return;
+        }
+
         WorldPersistence.FileToLoad = save.FilePath;
 
         Play();
