@@ -5,8 +5,8 @@
   "SpawnsInGround": false,
   "MinCount": 0,
   "MaxCount": 0,
-  "Radius": 300,
-  "Weight": 0.05,
+  "Radius": 256,
+  "Weight": 0.02,
   "Spawn": {
     "__version": 7,
     "__guid": "550821d4-b9c4-40ef-998f-7276a82c0f3e",

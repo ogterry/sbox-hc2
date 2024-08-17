@@ -1,9 +1,12 @@
 {
   "HeightRange": "6.00,13.00,1",
   "BiomeRange": "0.00,0.15,1",
+  "WantsFlatGround": true,
   "SpawnsInGround": false,
-  "Radius": 512,
-  "Weight": 0.05,
+  "MinCount": 0,
+  "MaxCount": 0,
+  "Radius": 256,
+  "Weight": 0.07,
   "Spawn": {
     "__version": 7,
     "__guid": "ecd9ebea-0048-4250-bb28-0dd1f908d26e",
@@ -22,58 +25,30 @@
         "Id": 0,
         "Type": "input",
         "UserData": {
-          "Position": "-288,-224"
+          "Position": "48,-352"
         }
       },
       {
-        "Id": 2,
+        "Id": 10,
         "Type": "resource.ref",
         "Properties": {
-          "value": "models/props/bothy/bothy.vmdl",
-          "T": "Sandbox.Model"
+          "T": "Sandbox.PrefabFile",
+          "value": "scenes/prefabs/bothy_01.prefab"
         },
         "UserData": {
-          "Position": "-64,288"
+          "Position": "96,-176"
         }
       },
       {
-        "Id": 3,
+        "Id": 11,
         "Type": "call",
         "Properties": {
+          "_name": "SpawnPrefab",
           "_type": "Voxel.Modifications.VoxelWorldGen",
-          "_isStatic": false,
-          "_name": "SpawnProp"
+          "_isStatic": false
         },
         "UserData": {
-          "Position": "336,-0"
-        }
-      },
-      {
-        "Id": 5,
-        "Type": "property",
-        "ParentId": 0,
-        "Properties": {
-          "_type": "Vector3",
-          "_name": "z"
-        }
-      },
-      {
-        "Id": 6,
-        "Type": "op.subtract",
-        "UserData": {
-          "Position": "-224,0"
-        }
-      },
-      {
-        "Id": 7,
-        "Type": "call",
-        "Properties": {
-          "_type": "Vector3",
-          "_isStatic": false,
-          "_name": "WithZ"
-        },
-        "UserData": {
-          "Position": "-32,-32"
+          "Position": "416,-320"
         }
       }
     ],
@@ -81,64 +56,26 @@
       {
         "SrcId": 0,
         "SrcName": "_signal",
-        "DstId": 3,
+        "DstId": 11,
         "DstName": "_signal"
       },
       {
         "SrcId": 0,
         "SrcName": "worldGen",
-        "DstId": 3,
+        "DstId": 11,
         "DstName": "_target"
       },
       {
-        "SrcId": 2,
-        "SrcName": "_result",
-        "DstId": 3,
-        "DstName": "model"
-      },
-      {
-        "SrcId": 7,
-        "SrcName": "_result",
-        "DstId": 3,
+        "SrcId": 0,
+        "SrcName": "origin",
+        "DstId": 11,
         "DstName": "position"
       },
       {
-        "Value": 1,
-        "DstId": 3,
-        "DstName": "scale"
-      },
-      {
-        "SrcId": 0,
-        "SrcName": "origin",
-        "DstId": 5,
-        "DstName": "_target"
-      },
-      {
-        "SrcId": 5,
+        "SrcId": 10,
         "SrcName": "_result",
-        "DstId": 6,
-        "DstName": "a"
-      },
-      {
-        "Value": {
-          "$type": "Simple",
-          "Type": "System.Single",
-          "Value": 34
-        },
-        "DstId": 6,
-        "DstName": "b"
-      },
-      {
-        "SrcId": 0,
-        "SrcName": "origin",
-        "DstId": 7,
-        "DstName": "_target"
-      },
-      {
-        "SrcId": 6,
-        "SrcName": "_result",
-        "DstId": 7,
-        "DstName": "z"
+        "DstId": 11,
+        "DstName": "prefab"
       }
     ]
   },
