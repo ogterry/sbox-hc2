@@ -337,7 +337,7 @@ public partial class Player : Component, IDamage,
 			ApplyHalfGravity();
 		}
 
-		IsDucking = Input.Down( "duck" ) || Character.TraceDirection( Vector3.Up * 72 ).Hit;
+		IsDucking = Input.Down( "duck" ) || Character.TraceDirection( Vector3.Up * 10f ).Hit;
 
 		IsWalking = Input.Down( "walk" );
 
