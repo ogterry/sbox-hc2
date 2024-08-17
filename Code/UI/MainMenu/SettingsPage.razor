@@ -16,23 +16,23 @@
             <div class="column gap" style="width: 256px;">
                 <div class="settings column gap" style="width: 412px;">
                     <div class="row">
-                        <label>Master Volume:</label>
+                        <label class="small">Master Volume:</label>
                         <SliderControl Value:bind="@GameSettingsSystem.Current.MasterVolume" Min=@(0) Max=@(100) Step=@(1) />
                     </div>
                     <div class="row">
-                        <label>Music Volume:</label>
+                        <label class="small">Music Volume:</label>
                         <SliderControl Value:bind="@GameSettingsSystem.Current.MusicVolume" Min=@(0) Max=@(100) Step=@(1) />
                     </div>
                     <div class="row">
-                        <label>SFX Volume:</label>
+                        <label class="small">SFX Volume:</label>
                         <SliderControl Value:bind="@GameSettingsSystem.Current.SFXVolume" Min=@(0) Max=@(100) Step=@(1) />
                     </div>
                     <div class="row">
-                        <label>UI Volume:</label>
+                        <label class="small">UI Volume:</label>
                         <SliderControl Value:bind="@GameSettingsSystem.Current.UIVolume" Min=@(0) Max=@(100) Step=@(1) />
                     </div>
                     <div class="row">
-                        <label>Voice Volume:</label>
+                        <label class="small">Voice Volume:</label>
                         <SliderControl Value:bind="@GameSettingsSystem.Current.VoiceVolume" Min=@(0) Max=@(100) Step=@(1) />
                     </div>
                 </div>

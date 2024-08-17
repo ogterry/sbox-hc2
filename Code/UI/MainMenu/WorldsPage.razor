@@ -34,7 +34,7 @@
                 }
                 else
                 {
-                    <label>This world hasn't been saved yet, save it to ensure you don't lose any progress!</label>
+                    <label class="small">This world hasn't been saved yet, save it to ensure you don't lose any progress!</label>
 
                     <div class="column gap" style="width: 256px;">
                         <TextEntry class="text-entry" placeholder="My World" @ref="WorldNameTextEntry" />
@@ -47,7 +47,6 @@
             {
                 <div class="column gap" style="width: 256px;">
                     <div class="button" @onclick="@(() => CreateNewWorld() )">Create New World</div>
-
 
                     <div class="worlds column gap with-padding-vertical">
                         @foreach (var save in WorldSave.GetAll())
