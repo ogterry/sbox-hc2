@@ -43,7 +43,7 @@
 
 
                     <div class="worlds column gap with-padding-vertical">
-                        @foreach ( var save in WorldPersistence.GetWorlds() )
+                        @foreach ( var save in WorldSave.GetAll() )
                         {
                             <div class="button" @onclick=@(() => LoadWorld(save)) >@(save.Name) @(save.CreatedAt.ToString("dd/MM/yyyy HH:mm")</div>
                         }

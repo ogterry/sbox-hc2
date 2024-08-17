@@ -127,6 +127,12 @@ public class WorldSave
 	public const int CurrentVersion = VoxelWorldState.CurrentVersion;
 
 	/// <summary>
+	/// Is this world outdated? This means we updated something that's not backwards compatible.
+	/// </summary>
+	[JsonIgnore]
+	public bool IsOutdated => Version < CurrentVersion;
+
+	/// <summary>
 	/// What's the version of this save? We'll use it to mark incompatibility.
 	/// </summary>
 	public int Version { get; set; } = CurrentVersion;
@@ -155,6 +161,61 @@ public class WorldSave
 	/// The state of all transient objects in the world. Can save extra data on them.
 	/// </summary>
 	public WorldObjectState ObjectState { get; set; }
+
+	/// <summary>
+	/// Retrieves a WorldSave from path.
+	/// </summary>
+	/// <param name="path"></param>
+	/// <returns></returns>
+	public static WorldSave Get( string path )
+	{
+		var worldSave = FileSystem.Data.ReadJson<WorldSave>( path );
+		if ( worldSave is not null )
+		{
+			if ( worldSave.IsOutdated )
+			{
+				Log.Warning( $"{worldSave} is outdated... we won't allow loading it" );
+			}
+
+			worldSave.FilePath = path;
+
+			// TODO: this is poo
+			worldSave.Id = Guid.Parse( path.Replace( ".json", "" ).Replace( "worlds/", "" ) );
+
+			return worldSave;
+		}
+		else
+		{
+			Log.Warning( $"Couldn't load world from file... {path}" );
+			return null;
+		}
+	}
+
+	/// <summary>
+	/// Gets a list of worlds from the worlds folder
+	/// </summary>
+	/// <returns></returns>
+	public static List<WorldSave> GetAll()
+	{
+		var files = FileSystem.Data.FindFile( "worlds", "*.json" );
+		var saves = new List<WorldSave>();
+
+		foreach ( var file in files )
+		{
+			var save = Get( $"worlds/{file}" );
+			if ( save is not null )
+			{
+				saves.Add( save );
+			}
+		}
+
+		return saves;
+	}
+
+	public override string ToString()
+	{
+		return $"World: {Name}";
+	}
 }
 
 public sealed class WorldPersistence : Component
@@ -239,54 +300,46 @@ public sealed class WorldPersistence : Component
 		Instance = this;
 	}
 
+	/// <summary>
+	/// We might not need this, but yeah..
+	/// </summary>
 	[HostSync]
 	public string WorldName { get; set; } = "My World";
 
+	/// <summary>
+	/// When we load a save, we'll set this, so other players know what the map's guid is, for character location persistence.
+	/// </summary>
 	[HostSync]
 	public Guid CurrentSave { get; set; }
 
-	public static List<WorldSave> GetWorlds()
-	{
-		var files = FileSystem.Data.FindFile( "worlds", "*.json" );
-		var saves = new List<WorldSave>();
-		foreach ( var file in files )
-		{
-			var save = FileSystem.Data.ReadJson<WorldSave>( $"worlds/{file}" );
-			save.FilePath = $"worlds/{file}";
-			save.Id = Guid.Parse( file.Replace( ".json", "" ) );
-			saves.Add( save );
-		}
-
-		return saves;
-	}
-
+	/// <summary>
+	/// Try to load a world from <see cref="FileToLoad"/>, which is dictated through our UI flow.
+	/// </summary>
+	/// <returns></returns>
 	private bool TryLoadFromSelectedFile()
 	{
 		// We'll just generate something 
 		if ( string.IsNullOrEmpty( FileToLoad ) )
-		{
 			return false;
-		}
 
-		LoadFromFile( FileToLoad, true );
-
-		return true;
+		return LoadFromFile( FileToLoad );
 	}
 
-	public void LoadFromFile( string path, bool refreshSnapshot = true )
+	/// <summary>
+	/// Loads a world from any file
+	/// </summary>
+	/// <param name="path"></param>
+	public bool LoadFromFile( string path )
 	{
 		Log.Info( $"Trying to load world from file {path}" );
-		var worldSave = FileSystem.Data.ReadJson<WorldSave>( path );
-		if ( worldSave is not null )
-		{
-			worldSave.Id = Guid.Parse( path.Replace( ".json", "" ).Replace( "worlds/", "" ) );
 
-			Load( worldSave );
-		}
-		else
+		var save = WorldSave.Get( path );
+		if ( save is not null )
 		{
-			Log.Warning( $"Couldn't load world from file... {path}" );
+			return Load( save );
 		}
+
+		return false;
 	}
 
 	/// <summary>
@@ -304,13 +357,19 @@ public sealed class WorldPersistence : Component
 	/// Loads a world from a save file.
 	/// </summary>
 	/// <param name="save"></param>
-	public void Load( WorldSave save )
+	public bool Load( WorldSave save )
 	{
 		// Host only
 		if ( !Sandbox.Networking.IsHost )
 		{
 			Log.Warning( "Tried to load a world save but we're not the host.." );
-			return;
+			return false;
+		}
+
+		// Don't allow loading outdated saves.
+		if ( save.IsOutdated )
+		{
+			return false;
 		}
 
 		// Mark as current save
@@ -330,6 +389,8 @@ public sealed class WorldPersistence : Component
 			var go = obj.CreateGameObject();
 			go.NetworkSpawn( null );
 		}
+
+		return true;
 	}
 
 	[Button( "Save World To File" )]
