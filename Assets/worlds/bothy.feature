@@ -6,7 +6,7 @@
   "MinCount": 0,
   "MaxCount": 0,
   "Radius": 256,
-  "Weight": 0.07,
+  "Weight": 0.02,
   "Spawn": {
     "__version": 7,
     "__guid": "ecd9ebea-0048-4250-bb28-0dd1f908d26e",
