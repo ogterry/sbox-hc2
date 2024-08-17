@@ -35,6 +35,7 @@
     {
         if (MenuRoot.Instance?.IsPauseMenu ?? false)
         {
+            Sandbox.Network.GameNetworkSystem.Disconnect();
             Scene.LoadFromFile("scenes/menu.scene");
         }
         else
