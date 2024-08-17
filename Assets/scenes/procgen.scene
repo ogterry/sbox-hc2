@@ -139,7 +139,7 @@
           "__type": "Voxel.VoxelRenderer",
           "__guid": "f3f4364a-d9c4-4c59-8c63-24b74d8f5684",
           "Palette": "palettes/basic.palette",
-          "Size": "512,128,512"
+          "Size": "1024,128,1024"
         },
         {
           "__type": "Voxel.VoxelNetworking",
@@ -149,7 +149,7 @@
           "__type": "Voxel.Modifications.VoxelWorldGen",
           "__guid": "434925b3-6811-498f-b296-a5526f709d93",
           "Parameters": "worlds/default.worldgen",
-          "Seed": 1086581841
+          "Seed": 1195234307
         },
         {
           "__type": "Voxel.VoxelDamage",

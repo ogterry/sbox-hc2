@@ -87,7 +87,7 @@ public sealed partial class VoxelWorldGen : Component, Component.ExecuteInEditor
 		var sampler = new WorldGenSampler( Parameters!, Seed, size );
 		sampler.Sample( 0, 0, size, size, Heightmap.Samples );
 
-		SpawnFeatures( Vector3.Zero, 4096f, true, Parameters!.Features.ToArray() );
+		SpawnFeatures( Vector3.Zero, VoxelNetworking.Renderer.Size.x * 4 * 4, true, Parameters!.Features.ToArray() );
 
 		Random = null!;
 		Heightmap = null!;
