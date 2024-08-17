@@ -92,7 +92,15 @@ public class Inventory : Component, ISaveData
 	public void CraftItem( Item item )
 	{
 		if ( !CanCraftItem( item ) )
+		{
+			if ( OverflowContainer.IsValid() )
+			{
+				// Try to craft into the overflow container
+				OverflowContainer.Inventory.CraftItem( item );
+			}
+
 			return;
+		}
 
 		foreach ( var requirement in item.Resource.CraftingRequirements )
 		{

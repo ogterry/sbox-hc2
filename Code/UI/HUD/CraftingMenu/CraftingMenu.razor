@@ -15,7 +15,7 @@
                 <div class="column gap">
                     @foreach (var item in group)
                     {
-                        <CraftingMenuEntry class=@(((Player.Local?.Inventory?.CanCraftItem(item) ?? false) ? "" : "disabled") + (item == SelectedItem ? " active" : "")) Item=@item onclick=@(() => SelectItem(item)) />
+                        <CraftingMenuEntry class=@(((Player.Local?.Hotbar?.CanCraftItem(item) ?? false) ? "" : "disabled") + (item == SelectedItem ? " active" : "")) Item=@item onclick=@(() => SelectItem(item)) />
                     }
                 </div>
             </div>
@@ -44,7 +44,7 @@
                 }
             </div>
             <div class="button" onclick=@CraftSelected>
-                <label>@(Player.Local?.Inventory?.CanCraftItem(SelectedItem) ?? false ? "Craft" : "Not enough resources")</label>
+                <label>@(Player.Local?.Hotbar?.CanCraftItem(SelectedItem) ?? false ? "Craft" : "Not enough resources")</label>
                 <div style="flex-grow: 1;" />
                 <label>x@(SelectedItem.CraftingYield)</label>
             </div>
@@ -66,6 +66,6 @@
         if (SelectedItem is null) return;
 
         // This will fail if !CanCraftItem
-        Player.Local.Inventory.CraftItem(Item.Create(SelectedItem));
+        Player.Local.Hotbar.CraftItem(Item.Create(SelectedItem));
     }
 }
