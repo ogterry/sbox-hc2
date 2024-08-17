@@ -23,7 +23,7 @@ public interface IObjectSaveData
 /// </summary>
 public record VoxelWorldState( int Version, int Seed, string ParametersPath, Vector3Int Size, IReadOnlyList<ChunkState> Chunks )
 {
-	public const int CurrentVersion = 3;
+	public const int CurrentVersion = 4;
 }
 
 public struct ChunkState
