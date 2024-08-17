@@ -18,6 +18,12 @@ public partial class BiomeSampler : Component
 		for ( var i = 0; i < Biomes.Length; i++ )
 		{
 			var biome = Biomes[i];
+			if ( biome is null )
+			{
+				Log.Warning( "Biome is null in BiomeSampler.GetBiomeAt" );
+				continue;
+			}
+
 			var deviation = MathF.Abs( biome.Temperature - temperature );
 			
 			if ( deviation >= minDeviation )
