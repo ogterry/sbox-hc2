@@ -109,7 +109,7 @@ public sealed class Networking : Component, Component.INetworkListener
 
 		if ( CharacterSave.Current is not null )
 		{
-			if ( CharacterSave.Current.Data.TryGetValue( $"location:{WorldPersistence.Instance.CurrentSave}", out string spawnString ) )
+			if ( CharacterSave.Current.Data is not null && CharacterSave.Current.Data.TryGetValue( $"location:{WorldPersistence.Instance.CurrentSave}", out string spawnString ) )
 			{
 				var spawn = Vector3.Parse( spawnString );
 				startLocation = startLocation.WithPosition( spawn );

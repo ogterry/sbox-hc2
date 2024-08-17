@@ -30,7 +30,7 @@ public sealed class CharacterSave
 	public string SaveData { get; set; } = null;
 
 	[JsonIgnore]
-	public Dictionary<string, string> Data => Json.Deserialize<Dictionary<string, string>>( SaveData );
+	public Dictionary<string, string> Data => !string.IsNullOrEmpty( SaveData ) ? Json.Deserialize<Dictionary<string, string>>( SaveData ) : new();
 
 	/// <summary>
 	/// Save this based on an existing player.
