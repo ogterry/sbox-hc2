@@ -22,15 +22,8 @@
           "_type": "gameobject",
           "prefab": "prefabs/damage/dmgnumber.prefab"
         },
-        "MaxHealth": 500
-      },
-      {
-        "__type": "Sandbox.ModelCollider",
-        "__guid": "0b966b3b-4cb2-4b2e-8e90-94162da59b34",
-        "IsTrigger": false,
-        "Model": "models/props/metal_pile/metal_pile.vmdl",
-        "Static": false,
-        "Surface": "surfaces/metal.sheet.surface"
+        "MaxHealth": 500,
+        "RegenRate": 0
       }
     ],
     "Children": [
@@ -38,6 +31,7 @@
         "__guid": "8690e87e-2c9e-4a10-8df2-27d935dd57d4",
         "Flags": 0,
         "Name": "100%",
+        "Position": "-78.39779,-56.7368,-0.0001361007",
         "Enabled": true,
         "Components": [
           {
@@ -52,6 +46,33 @@
             "__type": "HC2.ResourceDepletionStage",
             "__guid": "bf878887-8db3-42b4-9315-3cf23253d432",
             "Fraction": 1
+          },
+          {
+            "__type": "Sandbox.ModelCollider",
+            "__guid": "54d1ed8f-f388-4e83-8a32-6e2539a23458",
+            "IsTrigger": false,
+            "Model": "models/props/metal_pile/metal_pile.vmdl",
+            "Static": false
+          }
+        ]
+      },
+      {
+        "__guid": "e52511ef-e900-434f-a59d-2cc71c3fd4da",
+        "Flags": 0,
+        "Name": "Object",
+        "Position": "18.00416,56.14816,-23.15717",
+        "Enabled": true,
+        "Components": [
+          {
+            "__type": "Voxel.Modifications.FlattenGroundComponent",
+            "__guid": "597bbd23-1d94-46e2-b801-a28bc434ef8d",
+            "Area": {
+              "Position": "-128,-128",
+              "Size": "200,200"
+            },
+            "FlattenRange": "1.00,0.00,0",
+            "OffsetRange": "1.00,0.00,0",
+            "SmoothingRadius": 1
           }
         ]
       }

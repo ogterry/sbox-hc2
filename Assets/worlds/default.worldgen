@@ -2,7 +2,7 @@
   "TerrainBias": [
     {},
     {
-      "x": 0.45833334
+      "x": 0.44609523
     },
     {
       "x": 0.71875,
@@ -61,7 +61,8 @@
     "worlds/dead_tree.feature",
     "worlds/rock_scatter.feature",
     "worlds/pine_trees.feature",
-    "worlds/farm_house_2.feature"
+    "worlds/farm_house_2.feature",
+    "worlds/metal_pile.feature"
   ],
   "__references": [],
   "__version": 0

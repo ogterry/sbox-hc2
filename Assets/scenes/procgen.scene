@@ -1,5 +1,5 @@
 {
-  "__guid": "20e5286c-014a-4782-8021-7afc05915a89",
+  "__guid": "47425ff9-d48d-47ec-8a74-442dab14d0f9",
   "GameObjects": [
     {
       "__guid": "6ff7f285-e7c8-4e7d-8e1c-dffe23f2b266",
@@ -159,7 +159,7 @@
           "__type": "Voxel.Modifications.VoxelWorldGen",
           "__guid": "434925b3-6811-498f-b296-a5526f709d93",
           "Parameters": "worlds/default.worldgen",
-          "Seed": 1195234307
+          "Seed": 1253177777
         },
         {
           "__type": "Voxel.VoxelDamage",

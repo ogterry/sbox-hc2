@@ -1,8 +1,12 @@
 {
-  "HeightRange": "12.00,16.00,1",
+  "HeightRange": "3.00,10.00,1",
   "BiomeRange": "0.20,0.50,1",
-  "Radius": 128,
-  "Weight": 0.02,
+  "WantsFlatGround": false,
+  "SpawnsInGround": false,
+  "MinCount": 0,
+  "MaxCount": 0,
+  "Radius": 100,
+  "Weight": 0.05,
   "Spawn": {
     "__version": 7,
     "__guid": "550821d4-b9c4-40ef-998f-7276a82c0f3e",
