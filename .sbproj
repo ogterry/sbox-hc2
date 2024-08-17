@@ -1,5 +1,5 @@
 {
-  "Title": "HC2",
+  "Title": "Cogblocks",
   "Type": "game",
   "Org": "facepunch",
   "Ident": "hc2",
@@ -9,7 +9,7 @@
   "PackageReferences": [],
   "EditorReferences": null,
   "Metadata": {
-    "MaxPlayers": 64,
+    "MaxPlayers": 8,
     "MinPlayers": 1,
     "TickRate": 50,
     "GameNetworkType": "Multiplayer",
