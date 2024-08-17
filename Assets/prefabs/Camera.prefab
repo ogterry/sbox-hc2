@@ -33,7 +33,7 @@
       },
       {
         "__type": "Sandbox.Bloom",
-        "__guid": "3be1d1a7-f500-4278-bdad-ae70b00bb782",
+        "__guid": "1bd7e31e-60ac-4e2c-90c2-859cb657a968",
         "BloomColor": {
           "color": [
             {
@@ -55,10 +55,10 @@
             "y": 1
           }
         ],
-        "Mode": "Screen",
-        "Strength": 0.53,
-        "Threshold": 0.66,
-        "ThresholdWidth": 0.21
+        "Mode": "Additive",
+        "Strength": 1.62,
+        "Threshold": 0.09,
+        "ThresholdWidth": 0.06
       },
       {
         "__type": "Sandbox.Tonemapping",
