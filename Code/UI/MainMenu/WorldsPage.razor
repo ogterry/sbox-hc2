@@ -5,12 +5,11 @@
 @implements INavigatorPage
 @namespace HC2
 <style>
-   WorldsPage
-   {
-       .outdated {
-           background-color: red;
-       }
-   }
+    WorldsPage {
+        .outdated {
+            background-color: red;
+        }
+    }
 </style>
 
 <root>
@@ -20,16 +19,16 @@
                 Play
             </label>
 
-            @if ((MenuRoot.Instance?.IsPauseMenu ?? false) )
+            @if ((MenuRoot.Instance?.IsPauseMenu ?? false))
             {
-                @if ( TryGetWorldSave() is { } world )
+                @if (TryGetWorldSave() is { } world)
                 {
                     <label class="large">World: @world.Name</label>
                     <label class="large">Creation Time: @(world.CreatedAt.ToString("dd/MM/yyyy HH:mm"))</label>
                     <label class="large">Last Saved: @(world.LastSaved.ToString("dd/MM/yyyy HH:mm"))</label>
 
                     <div class="column gap" style="width: 256px;">
-                    <div class="button" onclick=@(() => SaveWorld())>Save World</div>
+                        <div class="button" onclick=@(() => SaveWorld())>Save World</div>
                         <a class="button" href="/">Return</a>
                     </div>
                 }
@@ -39,7 +38,7 @@
 
                     <div class="column gap" style="width: 256px;">
                         <TextEntry class="text-entry" placeholder="My World" @ref="WorldNameTextEntry" />
-                        <div class="button" onclick=@(() => SaveWorld()) >Save World</div>
+                        <div class="button" onclick=@(() => SaveWorld())>Save World</div>
                         <a class="button" href="/">Return</a>
                     </div>
                 }
@@ -51,13 +50,14 @@
 
 
                     <div class="worlds column gap with-padding-vertical">
-                        @foreach ( var save in WorldSave.GetAll() )
+                        @foreach (var save in WorldSave.GetAll())
                         {
-                            <div class="button @(save.IsOutdated ? "outdated" : "")" @onclick=@(() => LoadWorld(save)) >@(save.Name) @(save.CreatedAt.ToString("dd/MM/yyyy HH:mm")</div>
+                            <div class="button @(save.IsOutdated ? "outdated" : "")" @onclick=@(() => LoadWorld(save))>@(save.Name) @(save.CreatedAt.ToString("dd/MM/yyyy HH:mm")</div>
                         }
                     </div>
 
                     <div class="button" @onclick="@(() => JoinSomeoneElse() )">Join a Friend</div>
+                    <a class="button" href="/servers">Server Browser</a>
                     <a class="button" href="/">Return</a>
                 </div>
             }
@@ -72,17 +72,17 @@
 
     WorldSave TryGetWorldSave()
     {
-        if ( string.IsNullOrEmpty( WorldPersistence.FileToLoad ) )
+        if (string.IsNullOrEmpty(WorldPersistence.FileToLoad))
             return null;
 
         try
         {
-            var world = WorldSave.Get( WorldPersistence.FileToLoad );
+            var world = WorldSave.Get(WorldPersistence.FileToLoad);
             return world;
         }
         catch
         {
-            Log.Warning( "Couldn't deserialize world for some reason" );
+            Log.Warning("Couldn't deserialize world for some reason");
             return null;
         }
     }
@@ -92,7 +92,7 @@
         var persistence = Game.ActiveScene.GetAllComponents<WorldPersistence>().FirstOrDefault();
 
         // Name is already set and decided if we're not doing this for the first time
-        if ( WorldNameTextEntry is not null )
+        if (WorldNameTextEntry is not null)
         {
             var name = WorldNameTextEntry.Text;
 
@@ -117,13 +117,13 @@
 
     void Play()
     {
-        var sceneFile = ResourceLibrary.Get<SceneFile>( "scenes/procgen.scene" );
-        Scene.Load( sceneFile );
+        var sceneFile = ResourceLibrary.Get<SceneFile>("scenes/procgen.scene");
+        Scene.Load(sceneFile);
     }
 
-    void LoadWorld( WorldSave save )
+    void LoadWorld(WorldSave save)
     {
-        if ( save.IsOutdated )
+        if (save.IsOutdated)
         {
             return;
         }
@@ -132,7 +132,7 @@
 
         Play();
 
-        Log.Info( $"Loaded {save} in!" );
+        Log.Info($"Loaded {save} in!");
     }
 
     async void JoinSomeoneElse()
@@ -140,9 +140,9 @@
         WorldPersistence.FileToLoad = null;
 
         var joined = await global::Networking.TryJoinLobby();
-        if ( !joined )
+        if (!joined)
         {
-            Log.Warning( "Nobody to play with :(" );
+            Log.Warning("Nobody to play with :(");
         }
     }
 }

@@ -1,0 +1,11 @@
+ServersPage
+{
+    .servers
+    {
+        > .row
+        {
+            gap: 16px;
+            justify-content: space-between;
+        }
+    }
+}
