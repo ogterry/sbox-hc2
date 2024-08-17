@@ -104,6 +104,13 @@ public sealed class Networking : Component, Component.INetworkListener
 			return;
 		}
 
+		var existingPlayer = Scene.GetAllComponents<Player>()
+			.FirstOrDefault( x => x.Network.OwnerConnection == channel );
+
+		// We already have a player, get fucked
+		if ( existingPlayer.IsValid() ) 
+			return;
+
 		// Find a spawn location for this player
 		var startLocation = FindSpawnLocation().WithScale( 1 );
 
