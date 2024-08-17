@@ -9,7 +9,7 @@
         "__guid": "352f9015-c226-431a-a6b2-f43d0dc80071",
         "Flags": 0,
         "Name": "Object",
-        "Position": "-320,312,-8",
+        "Position": "-320,312,-25.69328",
         "Enabled": true,
         "Components": [
           {
@@ -20,7 +20,8 @@
               "Size": "388.8997,322.8003"
             },
             "FlattenRange": "1.00,0.00,0",
-            "OffsetRange": "1.00,0.00,0"
+            "OffsetRange": "1.00,0.00,0",
+            "SmoothingRadius": 6
           }
         ]
       },
@@ -255,7 +256,7 @@
             "BodyGroups": 18446744073709551615,
             "Health": 0,
             "IsStatic": true,
-            "Model": "models/props/foundation_128.vmdl",
+            "Model": "models/props/foundation/foundation_128.vmdl",
             "Tint": "1,1,1,1"
           }
         ]
@@ -273,7 +274,7 @@
             "BodyGroups": 18446744073709551615,
             "Health": 0,
             "IsStatic": true,
-            "Model": "models/props/foundation_128.vmdl",
+            "Model": "models/props/foundation/foundation_128.vmdl",
             "Tint": "1,1,1,1"
           }
         ]
@@ -291,7 +292,7 @@
             "BodyGroups": 18446744073709551615,
             "Health": 0,
             "IsStatic": true,
-            "Model": "models/props/foundation_128.vmdl",
+            "Model": "models/props/foundation/foundation_128.vmdl",
             "Tint": "1,1,1,1"
           }
         ]
@@ -309,7 +310,7 @@
             "BodyGroups": 18446744073709551615,
             "Health": 0,
             "IsStatic": true,
-            "Model": "models/props/foundation_128.vmdl",
+            "Model": "models/props/foundation/foundation_128.vmdl",
             "Tint": "1,1,1,1"
           }
         ]
@@ -327,7 +328,7 @@
             "BodyGroups": 18446744073709551615,
             "Health": 0,
             "IsStatic": true,
-            "Model": "models/props/foundation_128.vmdl",
+            "Model": "models/props/foundation/foundation_128.vmdl",
             "Tint": "1,1,1,1"
           }
         ]
@@ -345,7 +346,7 @@
             "BodyGroups": 18446744073709551615,
             "Health": 0,
             "IsStatic": true,
-            "Model": "models/props/foundation_128.vmdl",
+            "Model": "models/props/foundation/foundation_128.vmdl",
             "Tint": "1,1,1,1"
           }
         ]

@@ -60,7 +60,8 @@
     "worlds/mountain_spike.feature",
     "worlds/dead_tree.feature",
     "worlds/rock_scatter.feature",
-    "worlds/pine_trees.feature"
+    "worlds/pine_trees.feature",
+    "worlds/farm_house_2.feature"
   ],
   "__references": [],
   "__version": 0
