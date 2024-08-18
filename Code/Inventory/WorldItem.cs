@@ -96,7 +96,7 @@ public partial class WorldItem : Component, Component.ITriggerListener
 	{
 		var item = Item.Create( Resource, Amount );
 
-		if ( player.Hotbar.TryGiveItem( item ) )
+		if ( player?.Hotbar?.TryGiveItem( item ) ?? false )
 		{
 			DestroyOnAuthority( true );
 		}
