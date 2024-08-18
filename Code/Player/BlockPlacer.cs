@@ -158,7 +158,6 @@ public sealed class BlockPlacer : Carriable
 
     void PlaceBlock( Vector3 mins, Vector3 maxs )
     {
-        Log.Info( $"Placing block at {mins} to {maxs}" );
         if ( timeSinceLastPlace < 0.05f )
             return;
 
@@ -202,6 +201,7 @@ public sealed class BlockPlacer : Carriable
         {
             UseBlock( slot, totalBlocks );
         }
+        PlaceBlockEffects( mins, maxs );
     }
 
     [Broadcast( NetPermission.HostOnly )]
@@ -224,5 +224,15 @@ public sealed class BlockPlacer : Carriable
                 Player.Hotbar.TakeItemSlot( slot );
             }
         }
+    }
+
+    [Broadcast]
+    void PlaceBlockEffects( Vector3 mins, Vector3 maxs )
+    {
+        var position = (mins + maxs) / 2f;
+        var diff = maxs - mins;
+        var size = Math.Max( diff.x, Math.Max( diff.y, diff.z ) );
+        var sound = Sound.Play( "block.place", position );
+        sound.Pitch = Random.Shared.Float( 0.9f, 1f ) - ((size - 1f) / 16f) * 0.1f;
     }
 }

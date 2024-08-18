@@ -1,0 +1,18 @@
+{
+  "UI": false,
+  "Volume": "1.00,1.00,0",
+  "Pitch": "0.90,1.00,1",
+  "Decibels": 200,
+  "SelectionMode": "Random",
+  "Sounds": [
+    "sounds/items/block-place-1.vsnd",
+    "sounds/items/block-place-2.vsnd"
+  ],
+  "Occlusion": true,
+  "AirAbsorption": true,
+  "Transmission": true,
+  "OcclusionRadius": 64,
+  "DistanceAttenuation": true,
+  "__references": [],
+  "__version": 0
+}
