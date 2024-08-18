@@ -54,7 +54,7 @@ public static class VoxelParticles
 		if ( renderer == null )
 		{
 			var voxelRenderer = Game.ActiveScene.GetAllComponents<VoxelRenderer>().FirstOrDefault( x => x.Tags.Has( "terrain" ) );
-			if ( voxelRenderer != null )
+			if ( voxelRenderer != null && voxelRenderer.IsReady && voxelRenderer.Model is not null )
 			{
 				var voxelPos = voxelRenderer.WorldToVoxelCoords( position );
 				var voxel = voxelRenderer.Model.GetVoxel( voxelPos.x, voxelPos.y, voxelPos.z );
