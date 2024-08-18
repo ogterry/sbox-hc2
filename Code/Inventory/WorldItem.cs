@@ -94,9 +94,11 @@ public partial class WorldItem : Component, Component.ITriggerListener
 	[Broadcast( NetPermission.HostOnly )]
 	void Pickup( Player player )
 	{
-		var item = Item.Create( Resource, Amount );
+		if ( !player.IsValid() )
+			return;
 
-		if ( player?.Hotbar?.TryGiveItem( item ) ?? false )
+		var item = Item.Create( Resource, Amount );
+		if ( player.Hotbar.TryGiveItem( item ) )
 		{
 			DestroyOnAuthority( true );
 		}
