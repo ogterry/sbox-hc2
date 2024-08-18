@@ -29,6 +29,9 @@ public sealed class BlockPlacer : Carriable
     {
         base.OnUpdate();
 
+        if ( !(Player.Local?.IsValid() ?? false) )
+            return;
+
         var tr = Scene.Trace.Ray( Scene.Camera.Transform.Position, Scene.Camera.Transform.Position + Scene.Camera.Transform.Rotation.Forward * 325 )
             .WithoutTags( "player", "trigger", "mob", "worlditem" )
             .Run();
