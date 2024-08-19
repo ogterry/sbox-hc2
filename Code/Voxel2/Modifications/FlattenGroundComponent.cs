@@ -62,16 +62,6 @@ public sealed class FlattenGroundComponent : Component
 			?? Components.Get<ModelRenderer>()?.Model;
 	}
 
-	private static (float Min, float Max) GetRange( RangedFloat rangedFloat )
-	{
-		return rangedFloat.Range switch
-		{
-			RangedFloat.RangeType.Fixed => (rangedFloat.x, rangedFloat.x),
-			RangedFloat.RangeType.Between => (rangedFloat.x, rangedFloat.y),
-			_ => default
-		};
-	}
-
 	protected override void DrawGizmos()
 	{
 		if ( !Gizmo.IsSelected ) return;
@@ -87,9 +77,11 @@ public sealed class FlattenGroundComponent : Component
 
 		Gizmo.Draw.Color = Color.Yellow;
 
-		if ( OffsetRange.x != 0 || OffsetRange.y != 0 )
+		var (offsetMin, offsetMax) = OffsetRange;
+
+		if ( offsetMin != 0 || offsetMax != 0 )
 		{
-			var (min, max) = GetRange( OffsetRange );
+			var (min, max) = OffsetRange;
 
 			var lower = new Vector3( Area.Center, min * Constants.VoxelSize );
 			var upper = new Vector3( Area.Center, max * Constants.VoxelSize );
@@ -104,7 +96,7 @@ public sealed class FlattenGroundComponent : Component
 		}
 
 		{
-			var (min, max) = GetRange( FlattenRange );
+			var (min, max) = FlattenRange;
 
 			Gizmo.Draw.Color = Gizmo.Draw.Color.WithAlpha( 0.25f );
 			Gizmo.Draw.SolidBox( new BBox( new Vector3( Area.Position, min * Constants.VoxelSize ), new Vector3( Area.Position + Area.Size, max * Constants.VoxelSize ) ) );
@@ -157,8 +149,8 @@ public sealed class FlattenGroundComponent : Component
 		var distScale = 1f / (Constants.VoxelSize * maxDist);
 		var targetHeight = localMin.y;
 
-		var flattenMin = (int)MathF.Round( FlattenRange.x );
-		var flattenMax = (int)MathF.Round( (FlattenRange.Range == RangedFloat.RangeType.Between ? FlattenRange.y : flattenMin) );
+		var flattenMin = (int)MathF.Round( FlattenRange.Min );
+		var flattenMax = (int)MathF.Round( FlattenRange.Max );
 
 		// first pass: find average height of affected ground
 
@@ -188,8 +180,7 @@ public sealed class FlattenGroundComponent : Component
 
 		var avgOffset = totalTexels > 0f ? totalOffset / totalTexels : 0f;
 
-		var offsetMin = OffsetRange.x;
-		var offsetMax = OffsetRange.Range == RangedFloat.RangeType.Between ? OffsetRange.y : offsetMin;
+		var (offsetMin, offsetMax) = OffsetRange;
 
 		var offset = (int)MathF.Round( Math.Clamp( avgOffset, offsetMin, offsetMax ) );
 

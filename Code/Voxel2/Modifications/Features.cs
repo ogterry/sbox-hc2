@@ -136,9 +136,12 @@ partial class VoxelWorldGen
 
 			foreach ( var feature in features )
 			{
+				var (heightMin, heightMax) = feature.HeightRange;
+				var (terrainMin, terrainMax) = feature.TerrainRange;
+
 				if ( feature.Radius >= minDist ) continue;
-				if ( feature.HeightRange.x > sample.Height || feature.HeightRange.y < sample.Height ) continue;
-				if ( feature.TerrainRange.x > sample.Terrain || feature.TerrainRange.y < sample.Terrain ) continue;
+				if ( heightMin > sample.Height || heightMax < sample.Height ) continue;
+				if ( terrainMin > sample.Terrain || terrainMax < sample.Terrain ) continue;
 
 				filteredFeatures.Add( feature );
 			}
