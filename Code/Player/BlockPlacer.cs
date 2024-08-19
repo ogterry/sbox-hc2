@@ -27,10 +27,14 @@ public sealed class BlockPlacer : Carriable
 
     protected override void OnUpdate()
     {
-        base.OnUpdate();
-
-        if ( !(Player.Local?.IsValid() ?? false) )
+        if ( !Player.Local.IsValid() )
             return;
+
+		if ( !Player.Local.Inventory.IsValid() )
+			return;
+
+		if ( !Scene.Camera.IsValid() )
+			return;
 
         var tr = Scene.Trace.Ray( Scene.Camera.Transform.Position, Scene.Camera.Transform.Position + Scene.Camera.Transform.Rotation.Forward * 325 )
             .WithoutTags( "player", "trigger", "mob", "worlditem" )
@@ -111,7 +115,7 @@ public sealed class BlockPlacer : Carriable
                 zblocks++;
             }
             var totalBlocks = xblocks * yblocks * zblocks;
-            var canPlace = Player.Local.Inventory.HasItem( Item.Create( BlockType.ItemResource, totalBlocks ) );
+            var canPlace = Player.Local.Inventory.HasItem( BlockType.ItemResource, totalBlocks );
 
             using ( Gizmo.Scope( "block_ghost" ) )
             {
@@ -125,7 +129,6 @@ public sealed class BlockPlacer : Carriable
                 Gizmo.Draw.Color = Gizmo.Draw.Color.WithAlpha( 0.5f );
                 Gizmo.Draw.SolidBox( bbox );
             }
-
 
             if ( canPlace )
             {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using Voxel;
 
 namespace HC2;
@@ -259,6 +260,33 @@ public class Inventory : Component, ISaveData
 		{
 			if ( i is null ) continue;
 			if ( i.Resource == item.Resource )
+			{
+				if ( i.Amount <= 0 ) continue;
+
+				amount -= i.Amount;
+
+				if ( amount <= 0 )
+					return true;
+			}
+		}
+
+		return false;
+	}
+
+	/// <summary>
+	/// Do we have this item resource?
+	/// </summary>
+	/// <param name="resource"></param>
+	/// <param name="amount"></param>
+	/// <returns></returns>
+	public bool HasItem( ItemAsset resource, int amount = 1 )
+	{
+		var items = CombinedItems;
+
+		foreach ( var i in items )
+		{
+			if ( i is null ) continue;
+			if ( i.Resource == resource )
 			{
 				if ( i.Amount <= 0 ) continue;
 
