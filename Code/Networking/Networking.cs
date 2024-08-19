@@ -54,7 +54,7 @@ public sealed class Networking : Component, Component.INetworkListener, Componen
 	/// </summary>
 	public void OnActive( Connection channel )
 	{
-		Log.Info($"Player '{channel.DisplayName}' has joined the game");
+		Log.Info( $"Player '{channel.DisplayName}' has joined the game" );
 
 		using ( Rpc.FilterInclude( channel ) )
 		{
