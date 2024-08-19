@@ -8,8 +8,8 @@
       {
         "__guid": "352f9015-c226-431a-a6b2-f43d0dc80071",
         "Flags": 0,
-        "Name": "Object",
-        "Position": "-246.7422,272.748,-18.18559",
+        "Name": "Flatten",
+        "Position": "-246.7422,272.748,0",
         "Enabled": true,
         "Components": [
           {
@@ -19,8 +19,8 @@
               "Position": "-35.6,-257.5002",
               "Size": "285.5405,334.9599"
             },
-            "FlattenRange": "1.00,0.00,0",
-            "OffsetRange": "1.00,0.00,0",
+            "FlattenRange": "0 4",
+            "OffsetRange": "0",
             "SmoothingRadius": 3
           }
         ]
@@ -28,7 +28,7 @@
       {
         "__guid": "e64850ef-6cc2-46ae-b8a4-8da79d03ca51",
         "Flags": 0,
-        "Name": "Cube",
+        "Name": "Model",
         "Position": "-266.5737,22.97032,-0.00001514514",
         "Enabled": true,
         "Components": [
