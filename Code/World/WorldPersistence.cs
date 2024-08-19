@@ -394,7 +394,7 @@ public sealed class WorldPersistence : Component
 		DestroyAnyTransientObjects();
 
 		// Load the world from the save file
-		LoadWorldState( save.WorldState );
+		_ = LoadWorldState( save.WorldState );
 
 		// Create GameObjects for every saved state GameObject
 		foreach ( var obj in save.ObjectState.Objects )
