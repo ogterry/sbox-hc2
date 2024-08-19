@@ -1,6 +1,7 @@
 using Sandbox.Diagnostics;
 using System;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 using Voxel;
 using Voxel.Modifications;
 
@@ -233,66 +234,78 @@ public sealed class WorldPersistence : Component
 	/// <summary>
 	/// This is shitty but should work
 	/// </summary>
-	public static void TryLoadWorld( Connection channel )
+	public static async Task TryLoadWorld()
 	{
 		var persistence = Game.ActiveScene.GetAllComponents<WorldPersistence>().FirstOrDefault();
 		var world = persistence.GetVoxelWorld();
 		var worldGen = world.Components.Get<VoxelWorldGen>();
 
-		// We're not sending this to the host
-		if ( channel.IsHost )
+		if ( Sandbox.Networking.IsHost )
 		{
 			if ( !persistence.TryLoadFromSelectedFile() )
 			{
 				worldGen.Randomize();
 			}
-
-			LoadingScreen.IsVisible = false;
-
-			return;
 		}
-
-		// We must BE the host
-		if ( !Sandbox.Networking.IsHost )
+		else if ( LoadedWorldState is not null )
 		{
-			Log.Info( $"We are not the host, so we're not sending a voxel world to {channel}" );
-			return;
+			await persistence.LoadWorldState( LoadedWorldState );
 		}
+	}
+	
+	public static VoxelWorldState LoadedWorldState { get; private set; }
 
-		// Send to our target
-		using ( Rpc.FilterInclude( channel ) )
+	public static void WriteWorldState( ref ByteStream bs )
+	{
+		var persistence = Game.ActiveScene.GetAllComponents<WorldPersistence>().FirstOrDefault();
+		var world = persistence.GetVoxelWorld();
+		var worldGen = world.Components.Get<VoxelWorldGen>();
+
+		// We have a world state to write.
+		bs.Write( true );
+		bs.Write( VoxelWorldState.CurrentVersion );
+		
+		var seed = worldGen?.Seed ?? 0;
+		var path = worldGen?.Parameters?.ResourcePath;
+		var size = world.Size;
+
+		var chunkArray = world.Model.Chunks.Where( x => x is { Allocated: true } ).Select( persistence.SerializeChunk )
+			.ToArray();
+
+		bs.Write( seed );
+		bs.Write( path ?? string.Empty );
+		bs.Write( size );
+		bs.Write( chunkArray.Length );
+
+		for ( var i = 0; i < chunkArray.Length; i++ )
 		{
-			var seed = worldGen?.Seed ?? 0;
-			var path = worldGen?.Parameters?.ResourcePath;
-			var size = world.Size;
-
-			var chunkArray = world.Model.Chunks.Where( x => x is { Allocated: true } ).Select( persistence.SerializeChunk )
-				.ToArray();
-
-			Log.Info( $"Sending chunks from host to a client: {chunkArray.Count()}" );
-
-			SendVoxelWorldRpc( seed, path, size, chunkArray );
+			var chunk = chunkArray[i];
+			bs.Write( chunk.Index );
+			bs.Write( chunk.Data );
 		}
 	}
 
-	/// <summary>
-	/// RPC over the voxel world state to a client
-	/// </summary>
-	/// <param name="seed"></param>
-	/// <param name="parametersPath"></param>
-	/// <param name="size"></param>
-	/// <param name="states"></param>
-	[Broadcast]
-	private static void SendVoxelWorldRpc( int seed, string parametersPath, Vector3Int size, ChunkState[] states )
+	public static void ReadWorldState( ref ByteStream bs )
 	{
-		var version = VoxelWorldState.CurrentVersion;
-		var persistence = Game.ActiveScene.GetAllComponents<WorldPersistence>().FirstOrDefault();
+		var hasVoxelWorld = bs.Read<bool>();
+		if ( !hasVoxelWorld ) return;
 
-		Log.Info( $"Received voxel world information from the host:\n\tseed:{seed}\n\tchunks:{states.Count()}\n\tsize:{size}" );
+		var version = bs.Read<int>();
+		var seed = bs.Read<int>();
+		var parametersPath = bs.Read<string>();
+		var size = bs.Read<Vector3Int>();
+		var chunkCount = bs.Read<int>();
+		var chunks = new ChunkState[chunkCount];
+		
+		for ( var i = 0; i < chunkCount; i++ )
+		{
+			var chunk = new ChunkState();
+			chunk.Index = bs.Read<Vector3Int>();
+			chunk.Data = bs.Read<string>();
+			chunks[i] = chunk;
+		}
 
-		persistence.LoadWorldState( new( version, seed, parametersPath, size, states.AsReadOnly() ) );
-
-		LoadingScreen.IsVisible = false;
+		LoadedWorldState = new( version, seed, parametersPath, size, chunks.AsReadOnly() );
 	}
 
 	protected override void OnStart()
@@ -407,7 +420,7 @@ public sealed class WorldPersistence : Component
 		var fileName = $"worlds/{guid}.json";
 		var json = Json.Serialize( save );
 
-		WorldPersistence.FileToLoad = fileName;
+		FileToLoad = fileName;
 
 		FileSystem.Data.WriteAllText( fileName, json );
 
@@ -467,25 +480,23 @@ public sealed class WorldPersistence : Component
 			.ToArray() );
 	}
 
-	public void LoadWorldState( VoxelWorldState state )
+	public async Task LoadWorldState( VoxelWorldState state )
 	{
-		if ( state is null )
-		{
-			return;
-		}
-
-		if ( state.Version < 2 )
-		{
-			throw new NotImplementedException();
-		}
+		if ( state is null ) return;
+		if ( state.Version < 2 ) throw new NotImplementedException();
 
 		var world = GetVoxelWorld();
 		var worldGen = world.Components.Get<VoxelWorldGen>();
 		worldGen.Seed = state.Seed;
 		worldGen.Parameters = ResourceLibrary.Get<WorldGenParameters>( state.ParametersPath );
-
-		// TODO
+		
 		Assert.AreEqual( world.Size, state.Size );
+
+		// Wait until the world is ready
+		while ( !world.IsReady )
+		{
+			await Task.Yield();
+		}
 
 		foreach ( var chunk in world.Model.Chunks )
 		{
@@ -497,7 +508,6 @@ public sealed class WorldPersistence : Component
 			var chunk = world.Model.InitChunkLocal( chunkState.Index.x, chunkState.Index.y, chunkState.Index.z );
 
 			DeserializeChunk( chunk, chunkState );
-
 			chunk.SetDirty();
 		}
 

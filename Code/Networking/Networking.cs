@@ -3,7 +3,7 @@ using System;
 using System.Threading.Tasks;
 using HC2;
 
-public sealed class Networking : Component, Component.INetworkListener
+public sealed class Networking : Component, Component.INetworkListener, Component.INetworkSnapshot
 {
 	public static Networking Instance { get; private set; }
 
@@ -15,10 +15,9 @@ public sealed class Networking : Component, Component.INetworkListener
 
 	protected override void OnAwake()
 	{
-		// So we can make Broadcast/Authority calls in this script
-		if (!Network.Active)
+		if ( !Network.Active )
 		{
-			GameObject.NetworkSpawn(null);
+			GameObject.NetworkSpawn( null );
 		}
 
 		Instance = this;
@@ -26,23 +25,28 @@ public sealed class Networking : Component, Component.INetworkListener
 
 	protected override async Task OnLoad()
 	{
-		if (Scene.IsEditor)
+		if ( Scene.IsEditor )
 			return;
 
-		if (!GameNetworkSystem.IsActive)
+		if ( !GameNetworkSystem.IsActive )
 		{
 			LoadingScreen.Title = "Creating Lobby";
-			await Task.DelayRealtimeSeconds(0.1f);
+			await Task.DelayRealtimeSeconds( 0.1f );
 			GameNetworkSystem.CreateLobby();
 		}
+
+		LoadingScreen.Title = "Loading World...";
+		await WorldPersistence.TryLoadWorld();
 	}
 
-
-	[Broadcast( NetPermission.HostOnly )]
-	void DoLoadingScreen()
+	void INetworkSnapshot.WriteSnapshot( ref ByteStream bs )
 	{
-		LoadingScreen.Title = "Loading procgen..";
-		LoadingScreen.IsVisible = true;
+		WorldPersistence.WriteWorldState( ref bs );
+	}
+	
+	void INetworkSnapshot.ReadSnapshot( ref ByteStream bs )
+	{
+		WorldPersistence.ReadWorldState( ref bs );
 	}
 
 	/// <summary>
@@ -54,13 +58,6 @@ public sealed class Networking : Component, Component.INetworkListener
 
 		using ( Rpc.FilterInclude( channel ) )
 		{
-			DoLoadingScreen();
-		}
-
-		WorldPersistence.TryLoadWorld( channel );
-
-		using ( Rpc.FilterInclude( channel ) )
-		{
 			SpawnLocalPlayer();
 		}
 	}
@@ -69,7 +66,7 @@ public sealed class Networking : Component, Component.INetworkListener
 	public async void SpawnLocalPlayer()
 	{
 		// Open Character Select Modal if we don't have a character selected
-		if (CharacterSave.Current is null)
+		if ( CharacterSave.Current is null )
 		{
 			var modalObject = new GameObject();
 			var screenPanel = modalObject.Components.Create<ScreenPanel>();
@@ -77,9 +74,9 @@ public sealed class Networking : Component, Component.INetworkListener
 			modalObject.Components.Create<CharacterSelectModal>();
 
 
-			while (modalObject.IsValid())
+			while ( modalObject.IsValid() )
 			{
-				await Task.Delay(100);
+				await Task.Delay( 100 );
 			}
 		}
 
@@ -89,18 +86,18 @@ public sealed class Networking : Component, Component.INetworkListener
 	[Authority]
 	public void SpawnPlayer()
 	{
-		if (!Sandbox.Networking.IsHost) return;
+		if ( !Sandbox.Networking.IsHost ) return;
 		var channel = Rpc.Caller;
 
-		if (Rpc.CallerId != channel.Id)
+		if ( Rpc.CallerId != channel.Id )
 		{
-			Log.Error("Player tried to spawn another player");
+			Log.Error( "Player tried to spawn another player" );
 			return;
 		}
 
-		if (!PlayerPrefab.IsValid())
+		if ( !PlayerPrefab.IsValid() )
 		{
-			Log.Error("Player prefab is not valid");
+			Log.Error( "Player prefab is not valid" );
 			return;
 		}
 
@@ -124,8 +121,8 @@ public sealed class Networking : Component, Component.INetworkListener
 		}
 
 		// Spawn this object and make the client the owner
-		var player = PlayerPrefab.Clone(startLocation, name: $"Player - {channel.DisplayName}");
-		player.NetworkSpawn(channel);
+		var player = PlayerPrefab.Clone( startLocation, name: $"Player - {channel.DisplayName}" );
+		player.NetworkSpawn( channel );
 	}
 
 	/// <summary>
@@ -137,9 +134,9 @@ public sealed class Networking : Component, Component.INetworkListener
 		// If we have any SpawnPoint components in the scene, then use those
 		//
 		var spawnPoints = Scene.GetAllComponents<SpawnPoint>().ToArray();
-		if (spawnPoints.Length > 0)
+		if ( spawnPoints.Length > 0 )
 		{
-			return Random.Shared.FromArray(spawnPoints).Transform.World;
+			return Random.Shared.FromArray( spawnPoints ).Transform.World;
 		}
 
 		//
@@ -155,20 +152,20 @@ public sealed class Networking : Component, Component.INetworkListener
 	{
 		var lobbies = await Sandbox.Networking.QueryLobbies();
 
-		var orderedLobbies = lobbies.OrderByDescending(lobby => lobby.Members);
+		var orderedLobbies = lobbies.OrderByDescending( lobby => lobby.Members );
 
-		foreach (var lobby in orderedLobbies)
+		foreach ( var lobby in orderedLobbies )
 		{
-			if (lobby.IsFull) continue;
+			if ( lobby.IsFull ) continue;
 
-			Log.Info($"Joining lobby {lobby.LobbyId}");
+			Log.Info( $"Joining lobby {lobby.LobbyId}" );
 
 			// Try to join this one
-			if (await GameNetworkSystem.TryConnectSteamId(lobby.LobbyId))
+			if ( await GameNetworkSystem.TryConnectSteamId( lobby.LobbyId ) )
 				return true;
 		}
 
-		Log.Info($"Couldn't join a lobby - making a game");
+		Log.Info( $"Couldn't join a lobby - making a game" );
 		return false;
 	}
 }
