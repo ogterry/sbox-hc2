@@ -70,6 +70,8 @@ public partial class Chunk
 
 	public byte GetVoxel( int x, int y, int z )
 	{
+		if ( !Allocated ) return 0;
+
 		var i = WorldToLocal( x );
 		var j = WorldToLocal( y );
 		var k = WorldToLocal( z );
