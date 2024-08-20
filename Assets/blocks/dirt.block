@@ -1,7 +1,7 @@
 {
   "Name": "Dirt",
   "ItemResource": "blocks/dirt.item",
-  "Color": "0.54884,0.40112,0.2323,1",
+  "Color": "0.84651,0.60503,0.39373,1",
   "Texture": "textures/ground_texture_02.vtex",
   "TextureSize": "32768,32768",
   "Tags": "",

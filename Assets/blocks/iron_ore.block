@@ -1,7 +1,7 @@
 {
   "Name": "Iron Ore",
   "ItemResource": "blocks/iron_ore.item",
-  "Color": "0.61395,0.32716,0.23987,1",
+  "Color": "0.74884,0.42376,0.13932,1",
   "Texture": "textures/ground_texture_02.vtex",
   "TextureSize": "32768,32768",
   "Tags": "",

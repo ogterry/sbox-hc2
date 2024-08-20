@@ -90,7 +90,7 @@ VS
 		i.vTangentUOs_flTangentVSign = float4( vTangentOs.xyz, 1.0 );
 
 		PixelInput o = ProcessVertex( i );
-		o.vVertexColor = float4( material.Color.rgb * brightness, 0.2 ); // HSV brightness in the alpha (get this from palette)
+		o.vVertexColor = float4( SrgbGammaToLinear( material.Color.rgb ) * brightness, 1.0 );
 		o.TextureIndex = material.TextureIndex.x + 1;
 
 		float u = dot( o.vTangentUWs.xyz, o.vPositionWs.xyz );

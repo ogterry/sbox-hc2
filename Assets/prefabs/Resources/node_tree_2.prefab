@@ -48,7 +48,7 @@
             "BodyGroups": 18446744073709551615,
             "Model": "models/props/dead_tree/dead_tree_no_foliage_2.vmdl",
             "RenderType": "On",
-            "Tint": "1,0,0,1"
+            "Tint": "1,1,1,1"
           },
           {
             "__type": "HC2.ResourceDepletionStage",

@@ -1,7 +1,7 @@
 {
   "Name": "Grass",
   "ItemResource": "blocks/grass.item",
-  "Color": "0.31163,0.30842,0.11885,1",
+  "Color": "0.54811,0.67442,0.20076,1",
   "Texture": "textures/ground_texture_02.vtex",
   "TextureSize": "32768,32768",
   "Tags": "",
