@@ -253,6 +253,8 @@ public partial class VoxelModel
 
 	static readonly Texture WhiteTexture;
 
+	public Material Material { get; private set; }
+
 	public void SetPalette( Palette palette )
 	{
 		WhiteTexture.MarkUsed( int.MaxValue );
@@ -291,6 +293,30 @@ public partial class VoxelModel
 		PaletteBuffer.SetData( Palette );
 	}
 
+	public void SetPalette( Color32[] palette )
+	{
+		WhiteTexture.MarkUsed( int.MaxValue );
+		Array.Fill( Palette, new PaletteMaterial { Color = Color.White, TextureIndex = WhiteTexture.Index, TextureSize = Vector2.One } );
+
+		if ( palette == null )
+		{
+			PaletteBuffer.SetData( Palette );
+			return;
+		}
+
+		for ( var i = 0; i < palette.Length; ++i )
+		{
+			Palette[i] = new PaletteMaterial
+			{
+				Color = palette[i],
+				TextureIndex = WhiteTexture.Index,
+				TextureSize = Vector2.One,
+			};
+		}
+
+		PaletteBuffer.SetData( Palette );
+	}
+
 	static VoxelModel()
 	{
 		EmptyChunk = new Chunk();
@@ -310,6 +336,9 @@ public partial class VoxelModel
 
 	public VoxelModel( int mx, int my, int mz )
 	{
+		var material = Material.Load( "materials/voxel.vmat" );
+		Material = material.CreateCopy();
+
 		WhiteTexture.MarkUsed( int.MaxValue );
 		Array.Fill( Palette, new PaletteMaterial { Color = Color.White, TextureIndex = WhiteTexture.Index } );
 

@@ -93,8 +93,7 @@ public partial class ChunkMesh
 			if ( !SceneObject.IsValid() )
 			{
 				var modelBuilder = new ModelBuilder();
-				var material = Material.Load( "materials/voxel.vmat" );
-				Mesh = new Mesh( material );
+				Mesh = new Mesh( Model.Material );
 
 				var boundsMin = Vector3.Zero;
 				var boundsMax = boundsMin + (Constants.ChunkSize * Constants.VoxelSize);
