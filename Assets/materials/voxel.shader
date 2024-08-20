@@ -130,6 +130,7 @@ PS
 
 		Material m = Material::From( i );
 		m.Albedo = textureSample.rgb * i.vVertexColor.rgb;
+		m.Normal = i.vNormalWs;
 		m.Roughness = 1;
 		return ShadingModelStandard::Shade( i, m );
 	}
