@@ -24,19 +24,19 @@ public interface IObjectSaveData
 /// </summary>
 public record VoxelWorldState( int Version, int Seed, string ParametersPath, Vector3Int Size, IReadOnlyList<ChunkState> Chunks )
 {
-	public const int CurrentVersion = 4;
+	public const int CurrentVersion = 5;
 }
 
 public struct ChunkState
 {
-	public ChunkState( Vector3Int index, string data )
+	public ChunkState( Vector3Int index, byte[] data )
 	{
 		Index = index;
 		Data = data;
 	}
 
 	public Vector3Int Index { get; set; }
-	public string Data { get; set; }
+	public byte[] Data { get; set; }
 }
 
 /// <summary>
@@ -281,6 +281,7 @@ public sealed class WorldPersistence : Component
 		{
 			var chunk = chunkArray[i];
 			bs.Write( chunk.Index );
+			bs.Write( chunk.Data.Length );
 			bs.Write( chunk.Data );
 		}
 	}
@@ -301,7 +302,8 @@ public sealed class WorldPersistence : Component
 		{
 			var chunk = new ChunkState();
 			chunk.Index = bs.Read<Vector3Int>();
-			chunk.Data = bs.Read<string>();
+			var dataCount = bs.Read<int>();
+			chunk.Data = bs.ReadArray<byte>( dataCount ).ToArray();
 			chunks[i] = chunk;
 		}
 
@@ -579,9 +581,9 @@ public sealed class WorldPersistence : Component
 						}
 					}
 
-			return new ChunkState(
-				new Vector3Int( chunk.ChunkPosX, chunk.ChunkPosY, chunk.ChunkPosZ ),
-				Convert.ToBase64String( writer.ToArray() ) );
+			return new(
+				new( chunk.ChunkPosX, chunk.ChunkPosY, chunk.ChunkPosZ ),
+				writer.ToArray() );
 		}
 		finally
 		{
@@ -607,7 +609,7 @@ public sealed class WorldPersistence : Component
 	{
 		Assert.True( chunk.Allocated );
 
-		var reader = ByteStream.CreateReader( Convert.FromBase64String( state.Data ) );
+		var reader = ByteStream.CreateReader( state.Data );
 
 		try
 		{
