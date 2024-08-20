@@ -177,6 +177,9 @@ public partial class VoxelRenderer : Component, Component.ExecuteInEditor
 			}
 
 			MeshChunk( mesh, transform );
+
+			if ( mesh.PhysicsBody.IsValid() )
+				mesh.PhysicsBody.SetComponentSource( this );
 		}
 	}
 
@@ -196,6 +199,14 @@ public partial class VoxelRenderer : Component, Component.ExecuteInEditor
 
 	protected override void DrawGizmos()
 	{
+		var tr = Scene.Trace.Ray( Gizmo.CurrentRay, Gizmo.RayDepth )
+			.Run();
+
+		if ( tr.Hit && tr.Component == this )
+		{
+			Gizmo.Hitbox.TrySetHovered( tr.HitPosition );
+		}
+
 		if ( !Gizmo.IsSelected ) return;
 
 		Gizmo.Draw.LineBBox( new BBox( 0f, new Vector3( Size.z, Size.x, Size.y ) * 16f ) );
